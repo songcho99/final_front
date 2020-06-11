@@ -1,0 +1,119 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+@media all and (min-width: 770px) {
+  #header {
+    position: fixed;
+    width: 90%;
+    height: 72px;
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5%;
+    color: white;
+  }
+
+  #hd-log {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  #hd-menu {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  #hd-me-1,
+  #hd-me-2,
+  #hd-me-3 {
+    margin-left: 15px;
+  }
+
+  #hd-me-3 {
+    font-size: 25px;
+  }
+
+  #hd-btn {
+    position: fixed;
+    bottom: 50px;
+    right: 64px;
+    background-color: teal;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    color: white;
+    font-size: 30px;
+  }
+
+  #hd-btnx {
+    position: fixed;
+    bottom: 60px;
+    right: 74px;
+    background-color: teal;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    color: white;
+    font-size: 20px;
+  }
+
+  .hd-off {
+    display: none;
+  }
+
+  .hid-on {
+    position: fixed;
+    background-color: teal;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    color: white;
+    font-size: 25px;
+  }
+
+  #hd-btn-note {
+    bottom: 10px;
+    right: 110px;
+  }
+
+  #hd-btn-book {
+    bottom: 60px;
+    right: 130px;
+  }
+
+  #hd-btn-sch {
+    bottom: 105px;
+    right: 100px;
+  }
+
+  #hd-btn-cha {
+    bottom: 115px;
+    right: 45px;
+  }
+
+  #hd-btn-my {
+    bottom: 70px;
+    right: 10px;
+  }
+}
+
+@media all and (max-width: 770px) {
+}

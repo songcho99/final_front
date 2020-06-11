@@ -1,0 +1,172 @@
+:root {
+  --white: #fff;
+  --dblue: #092140;
+  --green: #00eab4;
+  --black: #000;
+  --sans: "Source Sans Pro", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+@media all and (min-width: 775px) {
+  /* 박스 스타일 */
+  #menu {
+    padding-top: 55px;
+    width: 100%;
+    display: block;
+  }
+
+  .menu-con {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .menu-container,
+  .menu-container2 {
+    border: 1px solid;
+    height: 414px;
+    background-color: var(--dblue);
+    color: var(--white);
+    display: table-cell;
+  }
+
+  .menu-nav {
+    display: block;
+    height: 100%;
+    padding: 20px;
+  }
+
+  #menu-big {
+    width: 75%;
+  }
+
+  /* 사진 스타일링 */
+  #menu-big {
+    background-image: url(../image/lake.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  #menu-con {
+    background-image: url(../image/sunset.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  #menu-con2 {
+    background-image: url(../image/sea.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  #menu-con3 {
+    background-image: url(../image/bite.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  #menu-con4 {
+    background-image: url(../image/wood.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  /* 호버 스타일링 */
+  #menu-con:hover {
+    background-color: black;
+    opacity: 0.7;
+    z-index: 9;
+  }
+}
+
+@media all and (max-width: 775px) {
+  /* 박스 스타일 */
+  #menu {
+    padding-top: 55px;
+    width: 100%;
+    display: block;
+  }
+
+  .menu-con {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .menu-container,
+  .menu-container2 {
+    background-color: var(--dblue);
+    color: var(--white);
+  }
+
+  .menu-nav {
+    display: block;
+
+    padding: 20px;
+    font-size: 16px;
+  }
+
+  #menu-big {
+    height: 448px;
+  }
+
+  #menu-sm {
+    height: 141px;
+  }
+
+  .menu-container2 {
+    height: 406px;
+  }
+
+  /* 사진 스타일링 */
+  #menu-big {
+    background-image: url(../image/lake.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  #menu-sm {
+  }
+
+  #menu-con {
+    background-image: url(../image/sunset.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  #menu-con2 {
+    background-image: url(../image/sea.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  #menu-con3 {
+    background-image: url(../image/bite.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  #menu-con4 {
+    background-image: url(../image/wood.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+}

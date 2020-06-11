@@ -1,0 +1,206 @@
+:root {
+  --white: #fff;
+  --dblue: #092140;
+  --green: #00eab4;
+  --black: #000;
+  --sans: "Source Sans Pro", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+@media all and (min-width: 775px) {
+  #menu {
+    width: 100%;
+    padding-top: 55px;
+  }
+
+  .menu-con {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .menu-con li {
+    border: 1px solid;
+    height: 414px;
+    background-color: var(--dblue);
+    color: var(--white);
+    display: table-cell;
+  }
+
+  #menu-con1-1 {
+    background-image: url(../image/lake.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 75%;
+  }
+
+  #menu-con2 {
+  }
+  #menu-con2:hover {
+    cursor: pointer;
+  }
+
+  #menu-con2-1 {
+    background-image: url(../image/sunset.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  #menu-con2-2 {
+    background-image: url(../image/sea.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  #menu-con2-3 {
+    background-image: url(../image/bite.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  #menu-con2-4 {
+    background-image: url(../image/wood.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .menu-con2-off {
+    background-color: var(--black);
+    height: 100%;
+    opacity: 0.7;
+  }
+
+  #menu-con2-off4 {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #menu-con2-off4 div {
+    height: 49%;
+    background-color: var(--black);
+  }
+
+  /* 공지사항 스타일 */
+  #main-notic {
+    position: fixed;
+    bottom: 0px;
+    right: 50px;
+    width: 320px;
+    height: 30px;
+    background-color: var(--dblue);
+    color: var(--white);
+    text-align: center;
+  }
+
+  .main-noticon {
+    display: none;
+  }
+
+  .main-noticoff {
+    display: flex;
+  }
+}
+@media all and (max-width: 775px) {
+  #menu {
+    padding-top: 55px;
+    width: 100%;
+  }
+
+  .menu-con {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .menu-con li {
+    color: var(--white);
+    height: 406px;
+  }
+  #menu-con1-1 {
+    background-image: url(../image/lake.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 448px;
+  }
+
+  #menu-con1-2 {
+    height: 150px;
+    background-color: var(--dblue);
+  }
+  #menu-con2:hover {
+    cursor: pointer;
+  }
+
+  #menu-con2-1 {
+    background-image: url(../image/sunset.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  #menu-con2-2 {
+    background-image: url(../image/sea.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  #menu-con2-3 {
+    background-image: url(../image/bite.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  #menu-con2-4 {
+    background-image: url(../image/wood.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .menu-con2-off {
+    background-color: var(--black);
+    height: 100%;
+    opacity: 0.7;
+  }
+
+  #menu-con2-off4 {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #menu-con2-off4 div {
+    height: 49%;
+    background-color: var(--black);
+  }
+
+  #main-notic {
+    position: fixed;
+    bottom: 0px;
+    right: 50px;
+    width: 320px;
+    height: 30px;
+    background-color: var(--dblue);
+    color: var(--white);
+    text-align: center;
+    display: none;
+  }
+}

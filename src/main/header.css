@@ -1,0 +1,118 @@
+:root {
+  --white: #fff;
+  --dblue: #092140;
+  --green: #00eab4;
+  --black: #000;
+  --sans: "Source Sans Pro", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+@media all and (min-width: 770px) {
+  #header {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--black);
+    font-family: var(--sans);
+    position: fixed;
+    transition: 0.3s ease-in-out;
+  }
+
+  .header-on {
+    height: 55px;
+
+    background-color: var(--white);
+  }
+  .header-off {
+    background-color: var(--white);
+    opacity: 0.8;
+  }
+  #header a {
+    cursor: pointer;
+  }
+
+  #header a:active {
+    color: var(--black);
+  }
+
+  #header a:hover {
+    color: var(--green);
+  }
+
+  #header-name {
+    font-size: 12px;
+    position: absolute;
+    display: flex;
+    right: 20px;
+  }
+
+  #header-name li {
+    margin-left: 15px;
+  }
+
+  /* 에니메이션 */
+}
+
+@media all and (max-width: 770px) {
+  #header {
+    background-color: var(--white);
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--black);
+    font-family: var(--sans);
+    position: fixed;
+  }
+
+  .header-on {
+    height: 55px;
+
+    background-color: var(--white);
+  }
+  .header-off {
+    background-color: var(--white);
+    opacity: 0.8;
+  }
+  #header a {
+    cursor: pointer;
+  }
+
+  #header a:hover {
+    color: var(--green);
+  }
+
+  #header-name {
+    font-size: 12px;
+    position: absolute;
+    display: flex;
+    right: 20px;
+  }
+
+  #header-name li {
+    margin-left: 15px;
+  }
+
+  #header-name1 {
+    display: none;
+  }
+}
