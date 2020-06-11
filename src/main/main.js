@@ -21,6 +21,36 @@ import MyClass from '../MyClass/myclass';
 
 import Menu from './menu';
 import MainInfo from './maininfo';
+import Introduce from './introduce';
+import Curriculum from './curriculum';
+import MyPageUpdate from '../MyPage/mypageupdate';
+import SignUpManage from '../Manager/signupmanage';
+import SignUp from '../NonMember/signup';
+import MemberList from '../Admin/memberlist';
+
+
+
+
+
+
+import ClassData from '../ClassData/classdata';
+import WriteData from '../ClassData/writedata';
+import DataDetail from '../ClassData/datadetail';
+import UpdateData from '../ClassData/updatedata';
+
+import StudyList from '../Study/studylist';
+import AddStudy from '../Study/addstudy';
+import StudyDetail from '../Study/studydetail';
+import MyStudy from '../MyPage/mystudymain';
+import MyStudyTeam from '../MyPage/mystudyteam';
+
+
+import Schedule from'../Schedule/schedule';
+
+import MyClass from '../MyClass/myclass';
+
+import Menu from './menu';
+import MainInfo from './maininfo';
 import MyPageUpdate from '../MyPage/mypageupdate';
 
 
@@ -34,6 +64,9 @@ class menu extends Component{
                         <Menu/>
                         {/* 홈으로 */}
                         <Route exact path="/" component={MainInfo}/>
+                        {/* 메인 관련 메뉴 */}
+                        <Route path="/introduce" component={Introduce}/>
+                        <Route path="/curriculum" component={Curriculum}/>
                         {/* 강의노트 */}
                         <Route path="/classnote" component={ClassNote}/>
                         {/* 수업자료 */}
@@ -57,6 +90,9 @@ class menu extends Component{
 
                         {/* 마이 페이지 관련 기능 */} 
                         <Route path="/mypageupdate" component={MyPageUpdate}/>
+                        <Route path="/signupmanage" component={SignUpManage}/>
+                        <Route path="/signup" component={SignUp}/>
+                        <Route path="/memberlist" component={MemberList}/>
                 </BrowserRouter>
 
                
@@ -64,7 +100,7 @@ class menu extends Component{
         )
     }
 }
-export default menu;
+export default main;
 
 
 

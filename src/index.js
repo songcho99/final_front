@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Menu from './main/menu';
 import Main from './main/main';
 import * as serviceWorker from './serviceWorker';
 
