@@ -32,7 +32,7 @@ class MyPageMenu extends Component{
                 <button type="button">내 학습공간</button>
                 </Link> &nbsp;&nbsp;
                  {/*강사만 */}
-                 <Link to="">
+                 <Link to="/classmanage">
                      <button>수업 관리</button>
                  </Link>
             </div>
