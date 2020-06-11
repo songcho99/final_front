@@ -29,34 +29,7 @@ import SignUp from '../NonMember/signup';
 import MemberList from '../Admin/memberlist';
 
 
-
-
-
-
-import ClassData from '../ClassData/classdata';
-import WriteData from '../ClassData/writedata';
-import DataDetail from '../ClassData/datadetail';
-import UpdateData from '../ClassData/updatedata';
-
-import StudyList from '../Study/studylist';
-import AddStudy from '../Study/addstudy';
-import StudyDetail from '../Study/studydetail';
-import MyStudy from '../MyPage/mystudymain';
-import MyStudyTeam from '../MyPage/mystudyteam';
-
-
-import Schedule from'../Schedule/schedule';
-
-import MyClass from '../MyClass/myclass';
-
-import Menu from './menu';
-import MainInfo from './maininfo';
-import MyPageUpdate from '../MyPage/mypageupdate';
-
-
-
-
-class menu extends Component{
+class main extends Component{
     render(){
         return(
             <div>

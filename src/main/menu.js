@@ -39,4 +39,4 @@ class menu extends Component{
         )
     }
 }
-export default main;
+export default menu;
