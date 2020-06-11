@@ -17,7 +17,7 @@ class menu extends Component {
     console.log(this.state.modalOpen);
     this.setState({
       modalno: ++this.state.modalno,
-      modalOpen: this.state.modalno % 2 == 0 ? true : false,
+      modalOpen: this.state.modalno % 2 == 0 ? false : true,
     });
   };
 
@@ -63,9 +63,9 @@ class menu extends Component {
         </div>
 
         <Model isOpen={this.state.modalOpen} id="login-modal">
-          <a onClick={this.LoginClick.bind(this)}>
-            <i class="fas fa-times"></i>
-          </a>
+          <div id="login-up">
+            <i class="fas fa-pencil-alt"></i>
+          </div>
           <div id="login-tit">로그인</div>
           <div id="login-box">
             <div className="login-lable">아이디</div>
@@ -89,7 +89,14 @@ class menu extends Component {
             아이디 / 비밀번호 분실
           </a>
           <div>
-            <button id="login-btn">로그인</button>
+            <button id="login-btn" onClick={this.LoginClick.bind(this)}>
+              로그인
+            </button>
+          </div>
+          <div>
+            <button id="login-btn2" onClick={this.LoginClick.bind(this)}>
+              취소
+            </button>
           </div>
         </Model>
 
