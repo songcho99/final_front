@@ -1,13 +1,15 @@
 import React,{Component} from'react';
 import MyPageMenu from '../MyPage/mypagemenu';
 import {Link} from 'react-router-dom';
-class MemberList extends Component{
+
+
+class Graph extends Component{
     render(){
         return(
             <div>
                 <br></br>
                 <MyPageMenu/>
-                <h2>회원관리 페이지입니다!</h2>
+                <h2>통계 페이지입니다</h2>
 
                 <Link to="/">
                     <button>홈으로</button>
@@ -16,4 +18,4 @@ class MemberList extends Component{
         )
     }
 }
-export default MemberList;
+export default Graph;
