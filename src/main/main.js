@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route, BrowserRouter } from "react-router-dom";
 import ClassNote from "../ClassNote/classnote";
+import Model from "react-modal";
 
 import ClassData from "../ClassData/classdata";
 import WriteData from "../ClassData/writedata";
