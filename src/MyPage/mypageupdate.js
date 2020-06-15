@@ -1,66 +1,134 @@
-import React,{Component} from'react';
-import MyPageMenu from '../MyPage/mypagemenu';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import MyPageMenu from "../MyPage/mypagemenu";
+import { Link } from "react-router-dom";
+import "./mypageupdate.css";
 
-class MyPageUpdate extends Component{
-    render(){
-        return(
-            <div>
-                <br></br>
-                <MyPageMenu/>
-               <h2>마이 페이지_정보 수정</h2>
-               <form action="" method="post">
-                    <table style={{border:'1px solid gray', width:'600px'}}>
-                        <tr>
-                            <th>이름</th>
-                            <td><input type='text' name="member_name" readOnly='readOnly'/></td>
-                        </tr>
-                        <tr>
-                            <th>아이디</th>
-                            <td><input type='text' name="member_id" readOnly='readOnly'/></td>
-                        </tr>
-                        <tr>
-                            <th>과정</th>
-                            <td><input type='text' name="member_process" readOnly='readOnly'/></td>
-                        </tr>
-                        <tr>
-                            <th>생년월일</th>
-                            <td>
-                                <input type='text' name="member_birthyear"/>-
-                                <input type='text' name="member_birthmonth"/>-
-                                <input type='text' name="member_birthdate"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>핸드폰</th>
-                            <td>
-                                <input type='text' name="member_hp1"/>-
-                                <input type='text' name="member_hp2"/>-
-                                <input type='text' name="member_hp3"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>주소</th>
-                            <td>
-                                <input type="text" name="member_addr1"/><button type="button">검색</button>
-                                <br/>
-                                <input type="text" name="member_addr2"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colSpan='2' align='center'>
-                                <button type="submit">전송</button>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-                <br></br>
-                <hr/>
-               <Link to="/mypageupdate">
-                   <button>수정</button>
-               </Link>
-            </div>
-        )
-    }
+import { styled } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
+class MyPageUpdate extends Component {
+  render() {
+    const MypageupButton = styled(Button)({
+      color: "#2a9d8f",
+      borderColor: "#2a9d8f",
+      fontWeight: "bold",
+    });
+
+    return (
+      <div id="mypageupdate">
+        <MyPageMenu />
+        {/* 프로필 타이틀 */}
+        <div id="mypagup-tit">
+          <div id="mypageup-span">프로필 수정</div>
+          <div id="mypageup-label">
+            IT Campus 대표 프로필과 정보를 수정 하실 수 있습니다.
+          </div>
+        </div>
+
+        {/* 프로필 테이블 창*/}
+        <form action="" method="post" id="mypageup-taback">
+          <table id="mypageup-ta">
+            <tr>
+              <td className="mypageupta-cel1">이름</td>
+              <td className="mypageupta-cel2">임제묵</td>
+            </tr>
+            <tr>
+              <td className="mypageupta-cel1">과정</td>
+              <td className="mypageupta-cel2">Spring Web 개발자 양성 과정</td>
+            </tr>
+            <tr>
+              <td className="mypageupta-cel1">생년월일</td>
+              <td className="mypageupta-cel2">
+                <div>
+                  <input type="date" className="mypageup-input"></input>
+                  <div className="mypageup-i"></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td className="mypageupta-cel1">핸드폰</td>
+              <td className="mypageupta-cel2">
+                <div id="mypageup-tel">
+                  <div id="mypageup-telbox">
+                    <input
+                      type="text"
+                      id="mypageup-tel1"
+                      className="mypageup-input"
+                    ></input>
+                    <div className="mypageup-i"></div>
+                  </div>
+                  <div id="mypageup-telbox2">
+                    <input
+                      type="text"
+                      id="mypageup-tel2"
+                      className="mypageup-input"
+                    ></input>
+                    <div className="mypageup-i"></div>
+                  </div>
+                  <div id="mypageup-telbox3">
+                    <input
+                      type="text"
+                      id="mypageup-tel3"
+                      className="mypageup-input"
+                    ></input>
+                    <div className="mypageup-i"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td className="mypageupta-cel1">이메일</td>
+              <td className="mypageupta-cel2">
+                <div>
+                  <input type="text" className="mypageup-input"></input>
+                  <div className="mypageup-i"></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td id="mypageupta-last1">주소</td>
+              <td id="mypageupta-last2">
+                <div id="mypageup-addr">
+                  <div id="mypageup-addrtop">
+                    <input
+                      type="text"
+                      className="mypageup-input"
+                      id="mypageup-addrinp"
+                    ></input>
+                    <div className="mypageup-i"></div>
+                  </div>
+                  <div>
+                    <MypageupButton variant="outlined" id="mypage-addrbtn">
+                      주소 검색
+                    </MypageupButton>
+                  </div>
+                </div>
+                <div id="mypageup-addrbot">
+                  <input
+                    type="text"
+                    className="mypageup-input"
+                    id="mypageup-addrinp2"
+                  ></input>
+                  <div className="mypageup-i"></div>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <div id="mypage-btn">
+            <MypageupButton
+              variant="outlined"
+              className="mypage-sub"
+              id="mypage-sub"
+            >
+              적용
+            </MypageupButton>
+            <MypageupButton variant="outlined" className="mypage-sub">
+              취소
+            </MypageupButton>
+          </div>
+        </form>
+      </div>
+    );
+  }
 }
 export default MyPageUpdate;
