@@ -3,8 +3,17 @@ import MyPageMenu from "../MyPage/mypagemenu";
 import { Link } from "react-router-dom";
 import "./signup.css";
 
+// 마테리얼
+import { styled } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
 class SignUp extends Component {
   render() {
+    const MypageupButton = styled(Button)({
+      color: "#2a9d8f",
+      borderColor: "#2a9d8f",
+      fontWeight: "bold",
+    });
     return (
       <div id="signupback">
         <MyPageMenu />
@@ -48,13 +57,9 @@ class SignUp extends Component {
                 </td>
                 <td className="signup-con6">
                   <div className="signup-tabox">
-                    <div>주소</div>
-                  </div>
-                </td>
-
-                <td className="signup-con7">
-                  <div className="signup-tabox">
-                    <div></div>
+                    <div>
+                      {/* <MypageupButton variant="outlined">승인</MypageupButton> */}
+                    </div>
                   </div>
                 </td>
               </tr>
