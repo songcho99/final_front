@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Modal from "react-modal";
 // import "./main.css";
 import "./menu.css";
@@ -41,7 +40,7 @@ class menu extends Component {
       modalOpen: false,
       loginform: "login-hide",
       find: "",
-      modalno: ++this.state.modalno,
+      modalno: this.state.modalno + 1,
     });
   };
   //아이디 찾기 폼 전환 메서드
@@ -98,8 +97,8 @@ class menu extends Component {
   LoginClick = () => {
     console.log(this.state.modalOpen);
     this.setState({
-      modalno: ++this.state.modalno,
-      modalOpen: this.state.modalno % 2 == 0 ? false : true,
+      modalno: this.state.modalno + 1,
+      modalOpen: this.state.modalno % 2 === 0 ? false : true,
       login: "login-hide",
     });
   };
@@ -119,9 +118,9 @@ class menu extends Component {
   hdbtnClick = () => {
     // console.log("hdbtnClick 출력" + this.state.num);
     this.setState({
-      num: ++this.state.num,
-      hid: this.state.num % 2 == 0 ? "hd-off" : "hid-on",
-      on: this.state.num % 2 == 0 ? true : false,
+      num: this.state.num + 1,
+      hid: this.state.num % 2 === 0 ? "hd-off" : "hid-on",
+      on: this.state.num % 2 === 0 ? true : false,
     });
   };
   render() {
@@ -144,13 +143,13 @@ class menu extends Component {
         <div id="hd-login">
           {this.state.loginform && <div id="hd-login-box">로그인</div>}
           <a
-            href="#"
+            href="/#"
             id="hd-login-back"
             onMouseEnter={this.logininter.bind(this)}
             onMouseLeave={this.loginleave.bind(this)}
             onClick={this.LoginClick.bind(this)}
           >
-            <i class="fas fa-user-circle" id="he-login-i"></i>
+            <i className="fas fa-user-circle" id="he-login-i"></i>
           </a>
         </div>
 
@@ -160,7 +159,7 @@ class menu extends Component {
             <div id="login-back">
               <div id="login" className={this.state.find}>
                 <div id="login-up" onClick={this.SingUp.bind(this)}>
-                  <i class="fas fa-pencil-alt"></i>
+                  <i className="fas fa-pencil-alt"></i>
                 </div>
                 <div id="login-tit">로그인</div>
                 <div className="login-box">
@@ -190,7 +189,7 @@ class menu extends Component {
                   />
                   아이디 저장
                 </div>
-                <a id="login-find" href="#" onClick={this.Find.bind(this)}>
+                <a id="login-find" href="/#" onClick={this.Find.bind(this)}>
                   아이디 / 비밀번호 분실
                 </a>
                 <div>
@@ -209,7 +208,7 @@ class menu extends Component {
               <div className={this.state.loginform}>
                 <div id="find-tit">
                   <a
-                    href="#"
+                    href="/#"
                     className="find-idpw"
                     id={this.state.findid}
                     onClick={this.FindId.bind(this)}
@@ -217,7 +216,7 @@ class menu extends Component {
                     아이디 찾기
                   </a>
                   <a
-                    href="#"
+                    href="/#"
                     className="find-idpw"
                     id={this.state.findpw}
                     onClick={this.FindPw.bind(this)}
@@ -506,21 +505,21 @@ class menu extends Component {
         </Modal>
         {this.state.on && (
           // 메뉴 목록 버튼 기본 형태
-          <a href="#" id="hd-btn" onClick={this.hdbtnClick.bind(this)}>
-            <i class="fas fa-bars"></i>
+          <a href="/#" id="hd-btn" onClick={this.hdbtnClick.bind(this)}>
+            <i className="fas fa-bars"></i>
           </a>
         )}
 
         {!this.state.on && (
           //메뉴 목록 클릭시 나오는 형태
-          <a href="#" id="hd-btnx" onClick={this.hdbtnClick.bind(this)}>
-            <i class="fas fa-times"></i>
+          <a href="/#" id="hd-btnx" onClick={this.hdbtnClick.bind(this)}>
+            <i className="fas fa-times"></i>
           </a>
         )}
 
         {/* 강의자료 */}
-        <a href="#" className={this.state.hid} id="hd-btn-note">
-          <i class="fas fa-sticky-note"></i>
+        <a href="/#" className={this.state.hid} id="hd-btn-note">
+          <i className="fas fa-sticky-note"></i>
         </a>
 
         {/* 스터디 */}
@@ -530,7 +529,7 @@ class menu extends Component {
           id="hd-btn-book"
           to="/studylist"
         >
-          <i class="fas fa-book"></i>
+          <i className="fas fa-book"></i>
         </a>
 
         {/* 스케줄 */}
@@ -540,12 +539,12 @@ class menu extends Component {
           id="hd-btn-sch"
           to="/schedule"
         >
-          <i class="far fa-calendar-alt"></i>
+          <i className="far fa-calendar-alt"></i>
         </a>
 
         {/* 차트 */}
-        <a href="#" className={this.state.hid} id="hd-btn-cha">
-          <i class="fas fa-chart-bar"></i>
+        <a href="/#" className={this.state.hid} id="hd-btn-cha">
+          <i className="fas fa-chart-bar"></i>
         </a>
 
         {/* 마이페이지 */}
@@ -555,7 +554,7 @@ class menu extends Component {
           id="hd-btn-my"
           to="/mypageupdate"
         >
-          <i class="far fa-address-book"></i>
+          <i className="far fa-address-book"></i>
         </a>
 
         {/* <div>

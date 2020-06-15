@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import MyPageMenu from "./mypagemenu";
-import { Link } from "react-router-dom";
 import "./mystudymain.css";
 
 // 스터디 신청 현황 리스트 import
@@ -20,7 +19,7 @@ class MyStudy extends Component {
   MystudyList = () => {
     // console.log("mystudylist 열기:" + this.state.mystudylist);
     this.setState({
-      mystudylist: this.state.mystudylist == true ? false : true,
+      mystudylist: this.state.mystudylist === true ? false : true,
     });
   };
 

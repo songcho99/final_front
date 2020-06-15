@@ -4,12 +4,12 @@ import "./maininfo.css";
 class maininfo extends Component {
   constructor() {
     super();
-    this.slide();
+
+    this.state = {
+      slideno: 0,
+      scrolled: true,
+    };
   }
-  state = {
-    slideno: 0,
-    scrolled: true,
-  };
 
   componentDidMount() {
     window.addEventListener("scroll", () => {
@@ -24,13 +24,13 @@ class maininfo extends Component {
   }
   slide = () => {
     setInterval(() => {
-      if (this.state.slideno == 2) {
+      if (this.state.slideno === 2) {
         this.setState({
           slideno: 0,
         });
       } else {
         this.setState({
-          slideno: ++this.state.slideno,
+          slideno: this.state.slideno + 1,
         });
       }
     }, 5000);
@@ -42,7 +42,7 @@ class maininfo extends Component {
         <div id="main-con">
           <div
             className="main-slide"
-            id={this.state.slideno == 0 ? "slidon" : ""}
+            id={this.state.slideno === 0 ? "slidon" : ""}
           >
             <div>IT / SW Training Experts Course</div>
             <div>
@@ -52,7 +52,7 @@ class maininfo extends Component {
           </div>
           <div
             className="main-slide"
-            id={this.state.slideno == 1 ? "slidon" : ""}
+            id={this.state.slideno === 1 ? "slidon" : ""}
           >
             <div>IT / SW Training Experts Course</div>
             <div>
@@ -62,7 +62,7 @@ class maininfo extends Component {
           </div>
           <div
             className="main-slide"
-            id={this.state.slideno == 2 ? "slidon" : ""}
+            id={this.state.slideno === 2 ? "slidon" : ""}
           >
             <div>IT / SW Training Experts Course</div>
             <div>

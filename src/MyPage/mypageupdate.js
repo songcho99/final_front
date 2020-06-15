@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import MyPageMenu from "../MyPage/mypagemenu";
-import { Link } from "react-router-dom";
 import "./mypageupdate.css";
 
 import { styled } from "@material-ui/core/styles";

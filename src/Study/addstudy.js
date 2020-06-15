@@ -19,8 +19,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { PhotoCamera } from "@material-ui/icons";
-import DaumPostcode from "react-daum-postcode";
-import Modal from "react-modal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,44 +68,6 @@ function valuetext() {
 }
 
 export default function AddStudy(props) {
-  const handleAddress = (data) => {
-    let fullAddress = data.address;
-    let extraAddress = "";
-
-    if (data.addressType === "R") {
-      if (data.bname !== "") {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== "") {
-        extraAddress +=
-          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-      }
-      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-    }
-
-    console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
-    setStudyAddress(fullAddress);
-    setModalOpen(false);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
-  const onSearchAddress = (e) => {
-    e.preventDefault();
-    setModalOpen(true);
-    const script = document.createElement("script");
-    script.async = true;
-    script.src =
-      "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
-    document.head.appendChild(script);
-
-    script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=39f4584eccca7de06e40936fd4433af5&libraries=services";
-    document.head.appendChild(script);
-  };
-
   const [study_type, setStudyType] = React.useState("");
   const [study_subject, setStudySubject] = React.useState("");
   const [study_startdate, setStudyStartdate] = React.useState(new Date());
@@ -150,10 +110,11 @@ export default function AddStudy(props) {
     19,
     20,
   ];
-  const [modalOpen, setModalOpen] = React.useState(false);
 
   const countList = count.map((count, idx) => (
-    <MenuItem value={count}>{count}</MenuItem>
+    <MenuItem value={count} key={idx}>
+      {count}
+    </MenuItem>
   ));
 
   const handleTypeChange = (event) => {
@@ -177,7 +138,7 @@ export default function AddStudy(props) {
   };
   const handleEndDateChange = (date) => {
     setStudyEnddate(date);
-    console.log(`enddate:${study_enddate.toLocaleDateString()}`);
+    console.log(`enddate:${study_enddate.toLocaleString()}`);
   };
   const handlePeoplesChange = (event) => {
     setStudyPeoples(event.target.value);
@@ -224,7 +185,6 @@ export default function AddStudy(props) {
             id="standard-required"
             label="제목"
             value={study_subject}
-            defaultValue=""
             style={{ width: "800px" }}
             onChange={handleSubjectChange}
           />
@@ -437,7 +397,6 @@ export default function AddStudy(props) {
             InputProps={{
               readOnly: true,
             }}
-            value={study_address}
             onChange={handleAddressChange}
             required
           />
@@ -446,7 +405,6 @@ export default function AddStudy(props) {
             color="primary"
             href="#contained-buttons"
             style={{ marginTop: "20px" }}
-            onClick={onSearchAddress}
           >
             검색
           </Button>
@@ -455,6 +413,9 @@ export default function AddStudy(props) {
             id="outlined-read-only-input"
             label="상세 주소"
             variant="outlined"
+            InputProps={{
+              readOnly: true,
+            }}
             onChange={handleDetailAddrChange}
             required
           />
@@ -496,15 +457,6 @@ export default function AddStudy(props) {
           </Button>
         </div>
       </form>
-      <Modal style={{ width: "500px", height: "600px" }} isOpen={modalOpen}>
-        <div>
-          <DaumPostcode onComplete={handleAddress} />
-
-          <button type="button" onClick={closeModal}>
-            CLOSE
-          </button>
-        </div>
-      </Modal>
     </div>
   );
 }
