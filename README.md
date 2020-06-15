@@ -75,4 +75,5 @@ yarn add @material-ui/icons
 yarn add @material-ui/pickers
 yarn add @date-io/date-fns@1.3.13
 yarn add date-fns@2.8.1
-yarn add @material-ui/pickers
+yarn add react-daum-postcode
+yarn add react-modal
