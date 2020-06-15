@@ -176,10 +176,20 @@ export default function AddStudy(props) {
 
   return (
     <div>
-      <h2>스터디 작성 페이지입니다!</h2>
+      <br />
+      <br />
+      <br />
+      <br />
       <br />
       <form className={classes.root} noValidate autoComplete="off">
-        <div style={{ marginLeft: "500px" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
           <TextField
             required
             id="standard-required"
@@ -364,7 +374,7 @@ export default function AddStudy(props) {
             multiline
             rows={4}
             variant="outlined"
-            style={{ width: "800px" }}
+            style={{ width: "800px", zIndex: "0" }}
             onChange={handleIntrChange}
           />
           <br />
@@ -374,7 +384,7 @@ export default function AddStudy(props) {
             id="standard-required"
             label="목표"
             onChange={handleGoalChange}
-            style={{ width: "800px" }}
+            style={{ width: "800px", zIndex: "0" }}
           />
           <br />
           <br />
@@ -385,7 +395,7 @@ export default function AddStudy(props) {
             multiline
             rows={4}
             variant="outlined"
-            style={{ width: "800px" }}
+            style={{ width: "800px", zIndex: "0" }}
             onChange={handleProgressChange}
           />
           <br />
@@ -394,6 +404,7 @@ export default function AddStudy(props) {
             id="outlined-read-only-input"
             label="기본 주소"
             variant="outlined"
+            style={{ zIndex: "0" }}
             InputProps={{
               readOnly: true,
             }}
@@ -413,6 +424,7 @@ export default function AddStudy(props) {
             id="outlined-read-only-input"
             label="상세 주소"
             variant="outlined"
+            style={{ zIndex: "0" }}
             InputProps={{
               readOnly: true,
             }}
