@@ -30,7 +30,251 @@ class menu extends Component {
     failmsg: "",
     member_name: "로그인",
     loginchange: false,
+
+    join_member_name: "",
+    join_member_id: "",
+    join_member_password: "",
+    join_member_passwordcheck: "",
+    join_member_phone: "",
+    join_member_email: "",
+    join_member_address: "",
+    join_member_detailaddr: "",
+
+    idcheck: "",
+
+    join_modalOpen: false,
   };
+
+  //회원가입 보이는 화면 html body에 js import
+  componentDidMount() {
+    const script = document.createElement("script");
+
+    script.src =
+      "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+    script.async = true;
+
+    document.body.appendChild(script);
+  }
+
+  //입력할때마다 태그name과 state변수명이 같은거면 입력한 값 넣기
+  onKeyChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  //폰번호 실시간 입력 검증
+  onPhoneChange = (e) => {
+    this.setState({
+      join_member_phone: autoHypenPhone(e.target.value.replace(/[^0-9]/g, "")),
+    });
+  };
+
+  //아이디체크 (길이 8자부터 검증시작)
+  OnIdCheck = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+
+    if (this.state.join_member_id.length >= 8) {
+      let url =
+        "http://localhost:8000/project/member/idcheck?id=" +
+        this.state.join_member_id;
+      axios
+        .get(url)
+        .then((res) => {
+          this.setState({
+            idcheck: res.data,
+          });
+          console.log(this.state.idcheck);
+
+          if (this.state.idcheck === 0) {
+            this.setState({
+              idcheck: "",
+            });
+            this.setState({
+              idcheck: "사용가능한 아이디입니다",
+            });
+          } else {
+            this.setState({
+              idcheck: "이미 사용중인 아이디입니다",
+            });
+          }
+        })
+        .catch((err) => {
+          console.log("아이디체크 에러 :" + err);
+        });
+    }
+  };
+
+  //주소검색 버튼 클릭 -> 다음 주소api 창이 뜨도록 환경설정
+  onSearchAddress = (e) => {
+    e.preventDefault();
+    this.setState({
+      join_modalOpen: true,
+    });
+    const script = document.createElement("script");
+    script.async = true;
+    script.src =
+      "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+    document.head.appendChild(script);
+
+    script.src =
+      "//dapi.kakao.com/v2/maps/sdk.js?appkey=39f4584eccca7de06e40936fd4433af5&libraries=services";
+    document.head.appendChild(script);
+  };
+
+  //주소검색 modal 창 끄기
+  closeModal = (e) => {
+    this.setState({
+      join_modalOpen: false,
+    });
+  };
+
+  //주소검색 api 이 modal창에 뜨도록 설정, 주소검색 목록 출력, 클릭시 modal창 꺼짐
+  handleAddress = (data) => {
+    let fullAddress = data.address;
+    let extraAddress = "";
+
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== "") {
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    }
+
+    console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+
+    this.setState({
+      join_member_address: fullAddress,
+    });
+
+    this.setState({
+      join_modalOpen: false,
+    });
+  };
+
+  //상세주소에 커서가 위치하면 실행되는 이벤트. value값을 state변수에 넣기
+  onAddressChange = (e) => {
+    this.setState({
+      join_member_address: this.refs.join_member_address.value,
+    });
+  };
+
+  //회원가입 submit 이벤트, 회원가입이 이뤄지는 이벤트
+  onInsertSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(this.state);
+
+    if (this.state.join_member_name === "") {
+      console.log("이름을 입력해주세요");
+      this.refs.join_member_name.focus();
+
+      return false;
+    }
+    if (this.state.join_member_id === "") {
+      console.log("아이디를 입력해주세요");
+      this.refs.join_member_id.focus();
+      return false;
+    }
+    if (
+      this.state.join_member_password === "" ||
+      this.state.join_member_passwordcheck === ""
+    ) {
+      console.log("비밀번호를 입력해주세요");
+      this.refs.join_member_password.value = "";
+      this.refs.join_member_passwordcheck.value = "";
+
+      this.refs.join_member_password.focus();
+
+      return false;
+    }
+
+    if (this.refs.join_member_phone.value === "") {
+      this.refs.join_member_phone.focus();
+      console.log("폰번호를 입력해주세요");
+      return false;
+    }
+    if (this.state.join_member_email === "") {
+      console.log("이메일을 입력해주세요");
+      this.refs.join_member_email.focus();
+      return false;
+    }
+    if (this.state.join_member_address === "") {
+      console.log("주소를 입력해주세요");
+      return false;
+    }
+    if (this.state.join_member_detailaddr === "") {
+      console.log("상세주소 입력해주세요");
+      this.refs.join_member_detailaddr.focus();
+      return false;
+    }
+
+    var regex = /^[A-Za-z0-9]{8,15}$/;
+    if (!regex.test(this.state.join_member_id)) {
+      this.setState({
+        idcheck:
+          "아이디는 영어(소문자)와 숫자 조합으로 최소8자 최대 15자로 생성이 가능합니다",
+      });
+      return false;
+    }
+
+    if (
+      this.state.join_member_password !== this.state.join_member_passwordcheck
+    ) {
+      this.setState({
+        idcheck: "입력하신 비밀번호가 일치하지 않습니다",
+      });
+      this.refs.join_member_password.focus();
+
+      return false;
+    } else {
+      var regex2 = /^.*(?=^.{10,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+      if (!regex2.test(this.state.join_member_password)) {
+        this.setState({
+          idcheck:
+            "비밀번호는 영문,숫자,특수문자(!@#$%^&+=) 조합으로 최소10자 최대 20자로 생성이 가능합니다",
+        });
+        return false;
+      }
+    }
+
+    var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+    if (!emailRule.test(this.state.join_member_email)) {
+      this.setState({
+        idcheck: "이메일 형식이 올바르지 않습니다",
+      });
+      return false;
+    }
+
+    let url = "http://localhost:8000/project/member/insert";
+
+    const formData = new FormData();
+
+    formData.append("member_name", this.state.join_member_name);
+    formData.append("member_id", this.state.join_member_id);
+    formData.append("member_password", this.state.join_member_password);
+    formData.append("member_phone", this.state.join_member_phone);
+    formData.append("member_email", this.state.join_member_email);
+    formData.append("member_address", this.state.join_member_address);
+    formData.append("member_detailaddr", this.state.join_member_detailaddr);
+
+    axios
+      .post(url, formData)
+      .then((res) => {
+        this.SingIn.bind(this);
+      })
+      .catch((err) => {
+        console.log("회원가입 에러 : " + err);
+      });
+  };
+
   //로그인 시 로그아웃버튼 생기게하고 로그아웃 시, 로그인 폼 나오게 하기
   LoginChange = () => {
     this.setState({
@@ -228,6 +472,17 @@ class menu extends Component {
     }
   };
   render() {
+    const post = () => {
+      new window.daum.Postcode({
+        oncomplete: function (data) {
+          const zonecode = data.zonecode;
+          const roadAddr = data.address;
+          const str = "(" + zonecode + ")" + roadAddr;
+          document.getElementById("join_member_address").value = str;
+        },
+      }).open();
+    };
+
     const IdCheck = styled(Checkbox)({
       color: "#2a9d8f",
     });
@@ -489,110 +744,144 @@ class menu extends Component {
               <div id="singup-text">
                 <div id="login-tit">회원가입</div>
 
-                <div className="singup-box">
-                  <div className="singup-lable">이름</div>
-                  <input
-                    type="text"
-                    className="singup-input"
-                    placeholder="이름"
-                  ></input>
-                  <div className="singup-i"></div>
-                </div>
+                {/* 에러,안내 메세지 라벨 */}
+                <span>{this.state.idcheck}</span>
 
-                <div className="singup-box">
-                  <div className="singup-lable">아이디</div>
-                  <input
-                    type="text"
-                    className="singup-input"
-                    placeholder="아이디"
-                  ></input>
-                  <div className="singup-i"></div>
-                </div>
-
-                <div className="singup-box">
-                  <div className="singup-lable">비밀번호</div>
-                  <input
-                    type="password"
-                    className="singup-input"
-                    placeholder="비밀번호"
-                  ></input>
-                  <div className="singup-i"></div>
-                </div>
-
-                <div className="singup-box">
-                  <div className="singup-lable">비밀번호 확인</div>
-                  <input
-                    type="text"
-                    className="singup-input"
-                    placeholder="비밀번호 확인"
-                  ></input>
-                  <div className="singup-i"></div>
-                </div>
-
-                <div className="singup-box" id="singup-tel">
-                  <div>
-                    <div className="singup-lable">핸드폰 번호</div>
+                <form onSubmit={this.onInsertSubmit.bind(this)}>
+                  <div className="singup-box">
+                    <div className="singup-lable">이름</div>
                     <input
                       type="text"
                       className="singup-input"
-                      placeholder="핸드폰 번호"
+                      placeholder="이름"
+                      name="join_member_name"
+                      onChange={this.onKeyChange.bind(this)}
+                      ref="join_member_name"
                     ></input>
                     <div className="singup-i"></div>
                   </div>
-                  <div>
-                    <button className="singup-btntel">인증번호 받기</button>
-                  </div>
-                </div>
 
-                <div className="singup-box">
-                  <div className="singup-lable">이메일</div>
-                  <input
-                    type="text"
-                    className="singup-input"
-                    placeholder="이메일"
-                  ></input>
-                  <div className="singup-i"></div>
-                </div>
-
-                <div className="singup-box" id="singup-add">
-                  <div>
-                    <div className="singup-lable">주소</div>
+                  <div className="singup-box">
+                    <div className="singup-lable">아이디</div>
                     <input
                       type="text"
                       className="singup-input"
-                      placeholder="주소"
+                      placeholder="아이디"
+                      name="join_member_id"
+                      onKeyUp={this.OnIdCheck.bind(this)}
+                      onChange={this.onKeyChange.bind(this)}
+                      ref="join_member_id"
                     ></input>
                     <div className="singup-i"></div>
                   </div>
-                  <div>
-                    <button className="singup-btntel">주소 검색</button>
+
+                  <div className="singup-box">
+                    <div className="singup-lable">비밀번호</div>
+                    <input
+                      type="password"
+                      className="singup-input"
+                      placeholder="비밀번호"
+                      name="join_member_password"
+                      onChange={this.onKeyChange.bind(this)}
+                      ref="join_member_password"
+                    ></input>
+                    <div className="singup-i"></div>
                   </div>
-                </div>
 
-                <div className="singup-box">
-                  <div className="singup-lable">상세주소</div>
-                  <input
-                    type="text"
-                    className="singup-input"
-                    placeholder="상세주소"
-                  ></input>
-                  <div className="singup-i"></div>
-                </div>
+                  <div className="singup-box">
+                    <div className="singup-lable">비밀번호 확인</div>
+                    <input
+                      type="password"
+                      className="singup-input"
+                      placeholder="비밀번호 확인"
+                      name="join_member_passwordcheck"
+                      onChange={this.onKeyChange.bind(this)}
+                      ref="join_member_passwordcheck"
+                    ></input>
+                    <div className="singup-i"></div>
+                  </div>
 
-                <div id="singup-btn">
-                  <button
-                    className="singup-btn"
-                    onClick={this.SingIn.bind(this)}
-                  >
-                    회원가입
-                  </button>
-                  <button
-                    className="singup-btn"
-                    onClick={this.SingIn.bind(this)}
-                  >
-                    취소
-                  </button>
-                </div>
+                  <div className="singup-box" id="singup-tel">
+                    <div>
+                      <div className="singup-lable">핸드폰 번호</div>
+                      <input
+                        type="text"
+                        className="singup-input"
+                        placeholder="핸드폰 번호"
+                        name="join_member_phone"
+                        ref="join_member_phone"
+                        value={this.state.join_member_phone}
+                        onChange={this.onPhoneChange.bind(this)}
+                        maxLength="13"
+                      ></input>
+                      <div className="singup-i"></div>
+                    </div>
+                    <div>
+                      <button className="singup-btntel">인증번호 받기</button>
+                    </div>
+                  </div>
+
+                  <div className="singup-box">
+                    <div className="singup-lable">이메일</div>
+                    <input
+                      type="text"
+                      className="singup-input"
+                      placeholder="이메일"
+                      name="join_member_email"
+                      onChange={this.onKeyChange.bind(this)}
+                      ref="join_member_email"
+                    ></input>
+                    <div className="singup-i"></div>
+                  </div>
+
+                  <div className="singup-box" id="singup-add">
+                    <div>
+                      <div className="singup-lable">주소</div>
+                      <input
+                        type="text"
+                        className="singup-input"
+                        placeholder="주소"
+                        readOnly="readonly"
+                        id="join_member_address"
+                        name="join_member_address"
+                        onChange={this.onKeyChange.bind(this)}
+                        ref="join_member_address"
+                      ></input>
+                      <div className="singup-i"></div>
+                    </div>
+                    <div>
+                      <button className="singup-btntel" onClick={post}>
+                        주소 검색
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="singup-box">
+                    <div className="singup-lable">상세주소</div>
+                    <input
+                      type="text"
+                      className="singup-input"
+                      placeholder="상세주소"
+                      name="join_member_detailaddr"
+                      onFocus={this.onAddressChange.bind(this)}
+                      onChange={this.onKeyChange.bind(this)}
+                      ref="join_member_detailaddr"
+                    ></input>
+                    <div className="singup-i"></div>
+                  </div>
+
+                  <div id="singup-btn">
+                    <button type="submit" className="singup-btn">
+                      회원가입
+                    </button>
+                    <button
+                      className="singup-btn"
+                      onClick={this.SingIn.bind(this)}
+                    >
+                      취소
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           )}
@@ -706,4 +995,33 @@ class menu extends Component {
     );
   }
 }
+
+function autoHypenPhone(str) {
+  var tmp = "";
+  if (str.length < 4) {
+    return str;
+  } else if (str.length < 7) {
+    tmp += str.substr(0, 3);
+    tmp += "-";
+    tmp += str.substr(3);
+    return tmp;
+  } else if (str.length < 11) {
+    tmp += str.substr(0, 3);
+    tmp += "-";
+    tmp += str.substr(3, 3);
+    tmp += "-";
+    tmp += str.substr(6);
+    return tmp;
+  } else {
+    tmp += str.substr(0, 3);
+    tmp += "-";
+    tmp += str.substr(3, 4);
+    tmp += "-";
+    tmp += str.substr(7);
+    return tmp;
+  }
+
+  return str;
+}
+
 export default menu;
