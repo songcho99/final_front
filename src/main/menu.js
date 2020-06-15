@@ -416,16 +416,15 @@ class menu extends Component {
   };
   //로그인 검증
   isLogin = (e) => {
+    const formData=new FormData();
+    formData.append('member_id',this.state.member_id);
+    formData.append('member_password',this.state.member_password);
     e.preventDefault();
     let url =
-      "http://localhost:8000/project/login/loginck?member_id=" +
-      this.state.member_id +
-      "&member_password=" +
-      this.state.member_password;
+      "http://localhost:8000/project/login/loginck"
     axios
-      .get(url)
+      .post(url,formData)
       .then((res) => {
-        console.log(res.data);
         if (res.data.success === "success") {
           localStorage.loginok = "success";
           if (localStorage.check !== "unchecked")
@@ -513,15 +512,15 @@ class menu extends Component {
 
           {!this.state.loginchange && (
             <div>
-              <a
-                href="#"
+              <span
+                style={{cursor:'pointer'}}
                 id="hd-login-back"
                 onMouseEnter={this.logininter.bind(this)}
                 onMouseLeave={this.loginleave.bind(this)}
                 onClick={this.LoginClick.bind(this)}
               >
                 <i className="fas fa-user-circle" id="he-login-i"></i>
-              </a>
+              </span>
             </div>
           )}
         </div>
@@ -570,9 +569,9 @@ class menu extends Component {
                   />
                   아이디 저장
                 </div>
-                <a id="login-find" href="#" onClick={this.Find.bind(this)}>
+                <span id="login-find"  onClick={this.Find.bind(this)} style={{cursor:'pointer'}}>
                   아이디 / 비밀번호 분실
-                </a>
+                </span>
                 <div>
                   <button id="login-btn" onClick={this.isLogin.bind(this)}>
                     로그인
@@ -588,22 +587,20 @@ class menu extends Component {
               {/* 아이디 / 비밀번호 찾기 */}
               <div className={this.state.loginform}>
                 <div id="find-tit">
-                  <a
-                    href="#"
+                  <span
                     className="find-idpw"
-                    id={this.state.findid}
+                    id={this.state.findid} style={{cursor:'pointer'}}
                     onClick={this.FindId.bind(this)}
                   >
                     아이디 찾기
-                  </a>
-                  <a
-                    href="#"
+                  </span>
+                  <span
                     className="find-idpw"
-                    id={this.state.findpw}
+                    id={this.state.findpw} style={{cursor:'pointer'}}
                     onClick={this.FindPw.bind(this)}
                   >
                     비밀번호 찾기
-                  </a>
+                  </span>
                 </div>
 
                 {/* 아이디 찾기 폼 */}
