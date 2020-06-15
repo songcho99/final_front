@@ -25,17 +25,13 @@
 }
 
 .mypagemenu-link:hover {
-  color: var(--teal);
-}
-
-#mypagemenu-active {
   color: var(--yellow);
 }
 
-.mypagemenu-link:active {
+.mypagemenu-active {
+  text-decoration: none;
   color: var(--yellow);
-}
-
-.mypagemenu-link:focus {
-  color: var(--yellow);
+  margin-right: 20px;
+  font-weight: bold;
+  font-size: 12px;
 }

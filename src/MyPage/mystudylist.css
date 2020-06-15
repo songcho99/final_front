@@ -48,6 +48,11 @@
   border-top: 1px solid;
 }
 
+#mystudylist-hr {
+  height: 1px;
+  width: 100%;
+  background-color: black;
+}
 #mystudylistbtn {
   margin-top: 40px;
   width: 100%;

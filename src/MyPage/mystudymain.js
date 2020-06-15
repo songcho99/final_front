@@ -29,6 +29,7 @@ class MyStudy extends Component {
       mystudylist: mystudylist,
     });
   };
+
   render() {
     // 버튼 마테리얼 속성
     const Mystudy = styled(Button)({
@@ -70,32 +71,38 @@ class MyStudy extends Component {
                     </div>
                   </td>
                 </tr>
-                <tr>
-                  <td className="mystudy1-cel1 mystudylast">
-                    <div className="mystudy1-con">
-                      <div>1</div>
-                    </div>
-                  </td>
-                  <td className="mystudy1-cel2 mystudylast">
-                    <div className="mystudy1-con2">
-                      <div>셩현이와 함께하는 연예심리학</div>
-                    </div>
-                  </td>
-                  <td className="mystudy1-cel3 mystudylast">
-                    <div className="mystudy1-con">
-                      <div>
-                        <Mystudy
-                          variant="outlined"
-                          className="mystudybtn"
-                          onClick={this.MystudyList.bind(this)}
-                        >
-                          모집 현황
-                        </Mystudy>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
               </table>
+              <form>
+                <table id="mystudy-2">
+                  <tr>
+                    <td className="mystudy1-cel1 ">
+                      <div className="mystudy1-con">
+                        <div>1</div>
+                      </div>
+                    </td>
+                    <td className="mystudy1-cel2 ">
+                      <div className="mystudy1-con2">
+                        <div>셩현이와 함께하는 연예심리학</div>
+                      </div>
+                    </td>
+                    <td className="mystudy1-cel3 ">
+                      <div className="mystudy1-con">
+                        <div>
+                          <Mystudy
+                            variant="outlined"
+                            className="mystudybtn"
+                            onClick={this.MystudyList.bind(this)}
+                          >
+                            모집 현황
+                          </Mystudy>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+              {/* 추가 되는 항목 여기에 추가  */}
+              <div id="mystudylist-hr"></div>
             </div>
           </div>
 
@@ -127,28 +134,35 @@ class MyStudy extends Component {
                     </div>
                   </td>
                 </tr>
-                <tr>
-                  <td className="mystudy1-cel1 mystudylast">
-                    <div className="mystudy1-con">
-                      <div>1</div>
-                    </div>
-                  </td>
-                  <td className="mystudy1-cel2 mystudylast">
-                    <div className="mystudy1-con2">
-                      <div>셩현이와 함께하는 바람의 정석</div>
-                    </div>
-                  </td>
-                  <td className="mystudy1-cel3 mystudylast">
-                    <div className="mystudy1-con">
-                      <div>
-                        <Mystudy variant="outlined" className="mystudybtn">
-                          탈퇴하기
-                        </Mystudy>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
               </table>
+              <form>
+                <table id="mystudy-2">
+                  <tr>
+                    <td className="mystudy1-cel1 ">
+                      <div className="mystudy1-con">
+                        <div>1</div>
+                      </div>
+                    </td>
+                    <td className="mystudy1-cel2 ">
+                      <div className="mystudy1-con2">
+                        <div>셩현이와 함께하는 바람의 정석</div>
+                      </div>
+                    </td>
+                    <td className="mystudy1-cel3 ">
+                      <div className="mystudy1-con">
+                        <div>
+                          <Mystudy variant="outlined" className="mystudybtn">
+                            탈퇴하기
+                          </Mystudy>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+
+              {/* 추가 되는 항목 여기에 추가  */}
+              <div id="mystudylist-hr"></div>
             </div>
           </div>
           {/* 내가 승인 대기중인 스터디 */}
@@ -173,28 +187,34 @@ class MyStudy extends Component {
                     </div>
                   </td>
                 </tr>
-                <tr>
-                  <td className="mystudy1-cel1 mystudylast">
-                    <div className="mystudy1-con">
-                      <div>1</div>
-                    </div>
-                  </td>
-                  <td className="mystudy1-cel2 mystudylast">
-                    <div className="mystudy1-con2">
-                      <div>셩현이와 함께하는 이별과 술의 상관관계학</div>
-                    </div>
-                  </td>
-                  <td className="mystudy1-cel3 mystudylast">
-                    <div className="mystudy1-con">
-                      <div>
-                        <Mystudy variant="outlined" className="mystudybtn">
-                          신청 취소
-                        </Mystudy>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
               </table>
+              <form>
+                <table id="mystudy-2">
+                  <tr>
+                    <td className="mystudy1-cel1 ">
+                      <div className="mystudy1-con">
+                        <div>1</div>
+                      </div>
+                    </td>
+                    <td className="mystudy1-cel2 ">
+                      <div className="mystudy1-con2">
+                        <div>셩현이와 함께하는 이별과 술의 상관관계학</div>
+                      </div>
+                    </td>
+                    <td className="mystudy1-cel3 ">
+                      <div className="mystudy1-con">
+                        <div>
+                          <Mystudy variant="outlined" className="mystudybtn">
+                            신청 취소
+                          </Mystudy>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+              {/* 추가 되는 항목 여기에 추가  */}
+              <div id="mystudylist-hr"></div>
             </div>
           </div>
         </div>
