@@ -53,34 +53,41 @@ class mystudylist extends Component {
                 </div>
               </td>
             </tr>
-            <tr>
-              <td className="mystudylist-cel1 mystudylast">
-                <div className="mystudylist-con">
-                  <div>임제묵</div>
-                </div>
-              </td>
-              <td className="mystudylist-cel2 mystudylast">
-                <div className="mystudylist-con">
-                  <div>010-7307-1716</div>
-                </div>
-              </td>
-              <td className="mystudylist-cel1 mystudylast">
-                <div className="mystudylist-con">
-                  <div>하</div>
-                </div>
-              </td>
-              <td className="mystudylist-cel3 mystudylast">
-                <div className="mystudylist-con">
-                  <div>성현님 너무 멋있어요</div>
-                </div>
-              </td>
-              <td className="mystudylist-cel4 mystudylast">
-                <div className="mystudylist-con">
-                  <div>승인 / 거절</div>
-                </div>
-              </td>
-            </tr>
           </table>
+          <form action="" method="post">
+            <table id="mystudylist">
+              <tr>
+                <td className="mystudylist-cel1 ">
+                  <div className="mystudylist-con">
+                    <div>임제묵</div>
+                  </div>
+                </td>
+                <td className="mystudylist-cel2 ">
+                  <div className="mystudylist-con">
+                    <div>010-7307-1716</div>
+                  </div>
+                </td>
+                <td className="mystudylist-cel1 ">
+                  <div className="mystudylist-con">
+                    <div>하</div>
+                  </div>
+                </td>
+                <td className="mystudylist-cel3">
+                  <div className="mystudylist-con">
+                    <div>성현님 너무 멋있어요</div>
+                  </div>
+                </td>
+                <td className="mystudylist-cel4">
+                  <div className="mystudylist-con">
+                    <div>승인 / 거절</div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </form>
+          {/* 여기에 추가 되는 내용 for 문으로 들어오면 될 듯  */}
+
+          <div id="mystudylist-hr"></div>
         </div>
         <div id="mystudylistbtn">
           <Mystudy
