@@ -20,7 +20,7 @@ a {
     position: fixed;
     width: 90%;
     height: 72px;
-    background-color: transparent;
+    background-color: var(--teal);
     display: flex;
     justify-content: space-between;
     padding: 0 5%;
