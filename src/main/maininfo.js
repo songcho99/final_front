@@ -30,7 +30,7 @@ class maininfo extends Component {
         });
       } else {
         this.setState({
-          slideno: this.state.slideno + 1,
+          slideno: ++this.state.slideno,
         });
       }
     }, 5000);

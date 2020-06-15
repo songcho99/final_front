@@ -12,7 +12,7 @@ class classdata extends Component {
         <br></br>
         <br></br>
         <Link to="/datadetail">
-          <a href="/#">스프링 프레임 워크 개념</a>
+          <a href="#">스프링 프레임 워크 개념</a>
         </Link>
         <br></br>
         <br></br>

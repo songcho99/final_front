@@ -26,6 +26,7 @@ a {
     padding: 0 5%;
     color: var(--white);
     align-items: center;
+    z-index: 100;
   }
 
   #hd-log {

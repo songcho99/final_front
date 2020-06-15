@@ -5,7 +5,7 @@ import "./menu.css";
 import Checkbox from "@material-ui/core/Checkbox";
 import { styled } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import axios from 'axios';
+import axios from "axios";
 
 class menu extends Component {
   state = {
@@ -24,19 +24,19 @@ class menu extends Component {
     findidform: "", //아이디 찾기 폼으로 전환
     findpwform: "findidform", //비밀번호 찾기 폼으로 전환
     findpwmodal: false, //비밀번호 찾기 모달 오픈
-    member_id:'',
-    member_password:'',
-    check:'',
-    failmsg:'',
-    member_name:'로그인',
+    member_id: "",
+    member_password: "",
+    check: "",
+    failmsg: "",
+    member_name: "로그인",
     loginchange: false,
   };
   //로그인 시 로그아웃버튼 생기게하고 로그아웃 시, 로그인 폼 나오게 하기
-  LoginChange=()=>{
+  LoginChange = () => {
     this.setState({
-      loginchange: this.state.loginchange === true? false: true
-    })
-  }
+      loginchange: this.state.loginchange === true ? false : true,
+    });
+  };
 
   // 비밀번호 찾기 모달 오픈
   FindpwModal = () => {
@@ -53,7 +53,7 @@ class menu extends Component {
       modalOpen: false,
       loginform: "login-hide",
       find: "",
-      modalno: this.state.modalno + 1,
+      modalno: ++this.state.modalno,
     });
   };
   //아이디 찾기 폼 전환 메서드
@@ -110,7 +110,7 @@ class menu extends Component {
   LoginClick = () => {
     console.log(this.state.modalOpen);
     this.setState({
-      modalno: this.state.modalno + 1,
+      modalno: ++this.state.modalno,
       modalOpen: this.state.modalno % 2 === 0 ? false : true,
       login: "login-hide",
     });
@@ -131,101 +131,102 @@ class menu extends Component {
   hdbtnClick = () => {
     // console.log("hdbtnClick 출력" + this.state.num);
     this.setState({
-      num: this.state.num + 1,
+      num: ++this.state.num,
       hid: this.state.num % 2 === 0 ? "hd-off" : "hid-on",
       on: this.state.num % 2 === 0 ? true : false,
     });
   };
 
   //아이디 입력값 넣기
-  onKeyIdChange=(e)=>{
+  onKeyIdChange = (e) => {
     e.preventDefault();
     this.setState({
-        member_id:e.target.value
+      member_id: e.target.value,
     });
-    console.log("id:"+this.state.member_id);
-}
-//비밀번호 입력값 넣기
-onKeyPwChange=(e)=>{
-  e.preventDefault();
-  this.setState({
-      member_password:e.target.value
-  });
-  console.log("password:"+this.state.member_password);
-}
-//아이디 저장 값 넣기
-idSave=(e)=>{
-  console.log(e.target.checked);
-  
-  if(e.target.checked){
+    console.log("id:" + this.state.member_id);
+  };
+  //비밀번호 입력값 넣기
+  onKeyPwChange = (e) => {
+    e.preventDefault();
+    this.setState({
+      member_password: e.target.value,
+    });
+    console.log("password:" + this.state.member_password);
+  };
+  //아이디 저장 값 넣기
+  idSave = (e) => {
+    console.log(e.target.checked);
+
+    if (e.target.checked) {
       this.setState({
-          check:e.target.checked
+        check: e.target.checked,
       });
-      localStorage.check='checked';
-      
-  }else{
-      localStorage.check='unchecked';
-      localStorage.saveid='';
+      localStorage.check = "checked";
+    } else {
+      localStorage.check = "unchecked";
+      localStorage.saveid = "";
       this.setState({
-          check:e.target.unchecked
+        check: e.target.unchecked,
       });
-  }
-}
-//로그인 검증
-isLogin=(e)=>{
-  e.preventDefault();
-  let url ="http://localhost:8000/project/login/loginck?member_id="+this.state.member_id+"&member_password="+this.state.member_password;
-  axios.get(url).then((res)=>{
-      console.log(res.data);
-      if(res.data.success==="success"){
-          localStorage.loginok='success';
-          if(localStorage.check!=='unchecked')
-          localStorage.saveid=this.state.member_id;
+    }
+  };
+  //로그인 검증
+  isLogin = (e) => {
+    e.preventDefault();
+    let url =
+      "http://localhost:8000/project/login/loginck?member_id=" +
+      this.state.member_id +
+      "&member_password=" +
+      this.state.member_password;
+    axios
+      .get(url)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.success === "success") {
+          localStorage.loginok = "success";
+          if (localStorage.check !== "unchecked")
+            localStorage.saveid = this.state.member_id;
           this.setState({
-            modalno: this.state.modalno + 1,
+            modalno: ++this.state.modalno,
             modalOpen: this.state.modalno % 2 === 0 ? false : true,
             login: "login-hide",
-            failmsg:'',
-            member_name:res.data.member_name,
-            loginchange : true
+            failmsg: "",
+            member_name: res.data.member_name,
+            loginchange: true,
           });
-      }
-      else{
-        this.setState({
-          failmsg:'아이디 또는 비밀번호를 확인하세요'
-        })
-        localStorage.loginok='fail';
-      }
-          
-      
-
-  }).catch((err)=>{
-      console.log("로그인 에러:"+err);
-  });
-};
-//로그아웃
-isLogOut=(e)=>{
-  e.preventDefault();
-  localStorage.removeItem('loginok');
-  if(localStorage.check==="checked"){
-
-      this.setState({
-          member_id: localStorage.saveid,
-          check : localStorage.check,
-          member_name:"로그인",
-          loginchange:false
-      });
-  }else{
-      localStorage.check="unchecked";
-      this.setState({
-          member_id:localStorage.saveid,
-          check:e.target.unchecked,
-          member_name:"로그인",
-          loginchange:false
+        } else {
+          this.setState({
+            failmsg: "아이디 또는 비밀번호를 확인하세요",
+          });
+          localStorage.loginok = "fail";
+        }
       })
-      localStorage.removeItem('saveid');
-  }
-}
+      .catch((err) => {
+        console.log("로그인 에러:" + err);
+      });
+  };
+  //로그아웃
+  isLogOut = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("loginok");
+    if (localStorage.check === "checked") {
+      this.setState({
+        member_id: localStorage.saveid,
+        check: localStorage.check,
+        member_name: "로그인",
+        loginchange: false,
+      });
+    } else {
+      localStorage.check = "unchecked";
+      this.setState({
+        member_id: localStorage.saveid,
+        check: e.target.unchecked,
+        member_name: "로그인",
+        loginchange: false,
+      });
+      localStorage.removeItem("saveid");
+    }
+  };
   render() {
     const IdCheck = styled(Checkbox)({
       color: "#2a9d8f",
@@ -244,26 +245,30 @@ isLogOut=(e)=>{
           </a>
         </div>
         <div id="hd-login">
-        {this.state.loginform && <div id="hd-login-box">{this.state.member_name}</div>}
-        {this.state.loginchange && <div>
-            <button type="button" onClick={this.isLogOut.bind(this)}>로그아웃</button>
-            
-            </div>}
-            
+          {this.state.loginform && (
+            <div id="hd-login-box">{this.state.member_name}</div>
+          )}
+          {this.state.loginchange && (
+            <div>
+              <button type="button" onClick={this.isLogOut.bind(this)}>
+                로그아웃
+              </button>
+            </div>
+          )}
 
-            {!this.state.loginchange && <div>
+          {!this.state.loginchange && (
+            <div>
               <a
-            href="/#"
-            id="hd-login-back"
-            onMouseEnter={this.logininter.bind(this)}
-            onMouseLeave={this.loginleave.bind(this)}
-            onClick={this.LoginClick.bind(this)}
-          >
-            <i className="fas fa-user-circle" id="he-login-i"></i>
-          </a>
-              </div>}
-          
-          
+                href="#"
+                id="hd-login-back"
+                onMouseEnter={this.logininter.bind(this)}
+                onMouseLeave={this.loginleave.bind(this)}
+                onClick={this.LoginClick.bind(this)}
+              >
+                <i className="fas fa-user-circle" id="he-login-i"></i>
+              </a>
+            </div>
+          )}
         </div>
 
         <Modal isOpen={this.state.modalOpen} id={this.state.modalid}>
@@ -281,7 +286,9 @@ isLogOut=(e)=>{
                     type="text"
                     className="login-input"
                     placeholder="아이디"
-                    name="member_id" value={this.state.member_id} onChange={this.onKeyIdChange.bind(this)}
+                    name="member_id"
+                    value={this.state.member_id}
+                    onChange={this.onKeyIdChange.bind(this)}
                   ></input>
                   <div className="login-i"></div>
                 </div>
@@ -291,12 +298,13 @@ isLogOut=(e)=>{
                     type="password"
                     className="login-input"
                     placeholder="비밀번호"
-                    name="member_password"  onKeyUp={this.onKeyPwChange.bind(this)}
+                    name="member_password"
+                    onKeyUp={this.onKeyPwChange.bind(this)}
                   ></input>
                   <div className="login-i"></div>
                 </div>
                 <br></br>
-                <b style={{color:'red'}}>{this.state.failmsg}</b>
+                <b style={{ color: "red" }}>{this.state.failmsg}</b>
                 <div id="login-chec">
                   <IdCheck
                     checked={this.state.check}
@@ -307,7 +315,7 @@ isLogOut=(e)=>{
                   />
                   아이디 저장
                 </div>
-                <a id="login-find" href="/#" onClick={this.Find.bind(this)}>
+                <a id="login-find" href="#" onClick={this.Find.bind(this)}>
                   아이디 / 비밀번호 분실
                 </a>
                 <div>
@@ -322,12 +330,11 @@ isLogOut=(e)=>{
                 </div>
               </div>
 
-
               {/* 아이디 / 비밀번호 찾기 */}
               <div className={this.state.loginform}>
                 <div id="find-tit">
                   <a
-                    href="/#"
+                    href="#"
                     className="find-idpw"
                     id={this.state.findid}
                     onClick={this.FindId.bind(this)}
@@ -335,7 +342,7 @@ isLogOut=(e)=>{
                     아이디 찾기
                   </a>
                   <a
-                    href="/#"
+                    href="#"
                     className="find-idpw"
                     id={this.state.findpw}
                     onClick={this.FindPw.bind(this)}
@@ -624,20 +631,20 @@ isLogOut=(e)=>{
         </Modal>
         {this.state.on && (
           // 메뉴 목록 버튼 기본 형태
-          <a href="/#" id="hd-btn" onClick={this.hdbtnClick.bind(this)}>
+          <a href="#" id="hd-btn" onClick={this.hdbtnClick.bind(this)}>
             <i className="fas fa-bars"></i>
           </a>
         )}
 
         {!this.state.on && (
           //메뉴 목록 클릭시 나오는 형태
-          <a href="/#" id="hd-btnx" onClick={this.hdbtnClick.bind(this)}>
+          <a href="#" id="hd-btnx" onClick={this.hdbtnClick.bind(this)}>
             <i className="fas fa-times"></i>
           </a>
         )}
 
         {/* 강의자료 */}
-        <a href="/#" className={this.state.hid} id="hd-btn-note">
+        <a href="#" className={this.state.hid} id="hd-btn-note">
           <i className="fas fa-sticky-note"></i>
         </a>
 
@@ -662,7 +669,7 @@ isLogOut=(e)=>{
         </a>
 
         {/* 차트 */}
-        <a href="/#" className={this.state.hid} id="hd-btn-cha">
+        <a href="#" className={this.state.hid} id="hd-btn-cha">
           <i className="fas fa-chart-bar"></i>
         </a>
 

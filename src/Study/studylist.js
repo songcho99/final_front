@@ -12,7 +12,7 @@ class StudyList extends Component {
         <br></br>
         <br></br>
         <Link to="/studydetail">
-          <a href="/#">같이 인트라넷6 하실분~~~?</a>
+          <a href="#">같이 인트라넷6 하실분~~~?</a>
         </Link>
         <hr />
         <Link to="/addstudy">
