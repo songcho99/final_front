@@ -38,91 +38,95 @@ class MyPageUpdate extends Component {
           {/* 프로필 테이블 창*/}
           <div id="mypageup-taback">
             <table id="mypageup-ta">
-              <tr>
-                <td className="mypageupta-cel1">이름</td>
-                <td className="mypageupta-cel2">임제묵</td>
-              </tr>
-              <tr>
-                <td className="mypageupta-cel1">과정</td>
-                <td className="mypageupta-cel2">Spring Web 개발자 양성 과정</td>
-              </tr>
-              <tr>
-                <td className="mypageupta-cel1">생년월일</td>
-                <td className="mypageupta-cel2">
-                  <div>
-                    <input type="date" className="mypageup-input"></input>
-                    <div className="mypageup-i"></div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td className="mypageupta-cel1">핸드폰</td>
-                <td className="mypageupta-cel2">
-                  <div id="mypageup-tel">
-                    <div id="mypageup-telbox">
-                      <input
-                        type="text"
-                        id="mypageup-tel1"
-                        className="mypageup-input"
-                      ></input>
-                      <div className="mypageup-i"></div>
-                    </div>
-                    <div id="mypageup-telbox2">
-                      <input
-                        type="text"
-                        id="mypageup-tel2"
-                        className="mypageup-input"
-                      ></input>
-                      <div className="mypageup-i"></div>
-                    </div>
-                    <div id="mypageup-telbox3">
-                      <input
-                        type="text"
-                        id="mypageup-tel3"
-                        className="mypageup-input"
-                      ></input>
-                      <div className="mypageup-i"></div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td className="mypageupta-cel1">이메일</td>
-                <td className="mypageupta-cel2">
-                  <div>
-                    <input type="text" className="mypageup-input"></input>
-                    <div className="mypageup-i"></div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td id="mypageupta-last1">주소</td>
-                <td id="mypageupta-last2">
-                  <div id="mypageup-addr">
-                    <div id="mypageup-addrtop">
-                      <input
-                        type="text"
-                        className="mypageup-input"
-                        id="mypageup-addrinp"
-                      ></input>
-                      <div className="mypageup-i"></div>
-                    </div>
+              <tbody>
+                <tr>
+                  <td className="mypageupta-cel1">이름</td>
+                  <td className="mypageupta-cel2">임제묵</td>
+                </tr>
+                <tr>
+                  <td className="mypageupta-cel1">과정</td>
+                  <td className="mypageupta-cel2">
+                    Spring Web 개발자 양성 과정
+                  </td>
+                </tr>
+                <tr>
+                  <td className="mypageupta-cel1">생년월일</td>
+                  <td className="mypageupta-cel2">
                     <div>
-                      <MypageupButton variant="outlined" id="mypage-addrbtn">
-                        주소 검색
-                      </MypageupButton>
+                      <input type="date" className="mypageup-input"></input>
+                      <div className="mypageup-i"></div>
                     </div>
-                  </div>
-                  <div id="mypageup-addrbot">
-                    <input
-                      type="text"
-                      className="mypageup-input"
-                      id="mypageup-addrinp2"
-                    ></input>
-                    <div className="mypageup-i"></div>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="mypageupta-cel1">핸드폰</td>
+                  <td className="mypageupta-cel2">
+                    <div id="mypageup-tel">
+                      <div id="mypageup-telbox">
+                        <input
+                          type="text"
+                          id="mypageup-tel1"
+                          className="mypageup-input"
+                        ></input>
+                        <div className="mypageup-i"></div>
+                      </div>
+                      <div id="mypageup-telbox2">
+                        <input
+                          type="text"
+                          id="mypageup-tel2"
+                          className="mypageup-input"
+                        ></input>
+                        <div className="mypageup-i"></div>
+                      </div>
+                      <div id="mypageup-telbox3">
+                        <input
+                          type="text"
+                          id="mypageup-tel3"
+                          className="mypageup-input"
+                        ></input>
+                        <div className="mypageup-i"></div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="mypageupta-cel1">이메일</td>
+                  <td className="mypageupta-cel2">
+                    <div>
+                      <input type="text" className="mypageup-input"></input>
+                      <div className="mypageup-i"></div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mypageupta-last1">주소</td>
+                  <td id="mypageupta-last2">
+                    <div id="mypageup-addr">
+                      <div id="mypageup-addrtop">
+                        <input
+                          type="text"
+                          className="mypageup-input"
+                          id="mypageup-addrinp"
+                        ></input>
+                        <div className="mypageup-i"></div>
+                      </div>
+                      <div>
+                        <MypageupButton variant="outlined" id="mypage-addrbtn">
+                          주소 검색
+                        </MypageupButton>
+                      </div>
+                    </div>
+                    <div id="mypageup-addrbot">
+                      <input
+                        type="text"
+                        className="mypageup-input"
+                        id="mypageup-addrinp2"
+                      ></input>
+                      <div className="mypageup-i"></div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
             </table>
             <div id="mypage-btn">
               <MypageupButton

@@ -54,51 +54,55 @@ class MyStudy extends Component {
             <div className="mystudy-subtit">내가 개설할 스터디</div>
             <div>
               <table id="mystudy-1">
-                <tr>
-                  <td className="mystudy1-cel1">
-                    <div className="mystudy1-con">
-                      <div>번호</div>
-                    </div>
-                  </td>
-                  <td className="mystudy1-cel2">
-                    <div className="mystudy1-con2">
-                      <div>스터디명</div>
-                    </div>
-                  </td>
-                  <td className="mystudy1-cel3">
-                    <div className="mystudy1-con">
-                      <div></div>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-              <form>
-                <table id="mystudy-2">
+                <tbody>
                   <tr>
-                    <td className="mystudy1-cel1 ">
+                    <td className="mystudy1-cel1">
                       <div className="mystudy1-con">
-                        <div>1</div>
+                        <div>번호</div>
                       </div>
                     </td>
-                    <td className="mystudy1-cel2 ">
+                    <td className="mystudy1-cel2">
                       <div className="mystudy1-con2">
-                        <div>셩현이와 함께하는 연예심리학</div>
+                        <div>스터디명</div>
                       </div>
                     </td>
-                    <td className="mystudy1-cel3 ">
+                    <td className="mystudy1-cel3">
                       <div className="mystudy1-con">
-                        <div>
-                          <Mystudy
-                            variant="outlined"
-                            className="mystudybtn"
-                            onClick={this.MystudyList.bind(this)}
-                          >
-                            모집 현황
-                          </Mystudy>
-                        </div>
+                        <div></div>
                       </div>
                     </td>
                   </tr>
+                </tbody>
+              </table>
+              <form>
+                <table id="mystudy-2">
+                  <tbody>
+                    <tr>
+                      <td className="mystudy1-cel1 ">
+                        <div className="mystudy1-con">
+                          <div>1</div>
+                        </div>
+                      </td>
+                      <td className="mystudy1-cel2 ">
+                        <div className="mystudy1-con2">
+                          <div>셩현이와 함께하는 연예심리학</div>
+                        </div>
+                      </td>
+                      <td className="mystudy1-cel3 ">
+                        <div className="mystudy1-con">
+                          <div>
+                            <Mystudy
+                              variant="outlined"
+                              className="mystudybtn"
+                              onClick={this.MystudyList.bind(this)}
+                            >
+                              모집 현황
+                            </Mystudy>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </form>
               {/* 추가 되는 항목 여기에 추가  */}
@@ -107,7 +111,11 @@ class MyStudy extends Component {
           </div>
 
           {/* 모집현환 클릭시 스터디 신청 현황 리스트 모달 오픈  */}
-          <Modal isOpen={this.state.mystudylist} id="mystudylistmodal">
+          <Modal
+            isOpen={this.state.mystudylist}
+            id="mystudylistmodal"
+            ariaHideApp={false}
+          >
             <MystudyList
               MystudyData={this.MystudyData.bind(this)}
             ></MystudyList>
@@ -117,47 +125,51 @@ class MyStudy extends Component {
             <div className="mystudy-subtit">내가 참여중인 스터디</div>
             <div>
               <table id="mystudy-1">
-                <tr>
-                  <td className="mystudy1-cel1">
-                    <div className="mystudy1-con">
-                      <div>번호</div>
-                    </div>
-                  </td>
-                  <td className="mystudy1-cel2">
-                    <div className="mystudy1-con2">
-                      <div>스터디명</div>
-                    </div>
-                  </td>
-                  <td className="mystudy1-cel3">
-                    <div className="mystudy1-con">
-                      <div></div>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-              <form>
-                <table id="mystudy-2">
+                <tbody>
                   <tr>
-                    <td className="mystudy1-cel1 ">
+                    <td className="mystudy1-cel1">
                       <div className="mystudy1-con">
-                        <div>1</div>
+                        <div>번호</div>
                       </div>
                     </td>
-                    <td className="mystudy1-cel2 ">
+                    <td className="mystudy1-cel2">
                       <div className="mystudy1-con2">
-                        <div>셩현이와 함께하는 바람의 정석</div>
+                        <div>스터디명</div>
                       </div>
                     </td>
-                    <td className="mystudy1-cel3 ">
+                    <td className="mystudy1-cel3">
                       <div className="mystudy1-con">
-                        <div>
-                          <Mystudy variant="outlined" className="mystudybtn">
-                            탈퇴하기
-                          </Mystudy>
-                        </div>
+                        <div></div>
                       </div>
                     </td>
                   </tr>
+                </tbody>
+              </table>
+              <form>
+                <table id="mystudy-2">
+                  <tbody>
+                    <tr>
+                      <td className="mystudy1-cel1 ">
+                        <div className="mystudy1-con">
+                          <div>1</div>
+                        </div>
+                      </td>
+                      <td className="mystudy1-cel2 ">
+                        <div className="mystudy1-con2">
+                          <div>셩현이와 함께하는 바람의 정석</div>
+                        </div>
+                      </td>
+                      <td className="mystudy1-cel3 ">
+                        <div className="mystudy1-con">
+                          <div>
+                            <Mystudy variant="outlined" className="mystudybtn">
+                              탈퇴하기
+                            </Mystudy>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </form>
 
@@ -170,47 +182,51 @@ class MyStudy extends Component {
             <div className="mystudy-subtit">내가 승인 대기중인 스터디</div>
             <div>
               <table id="mystudy-1">
-                <tr>
-                  <td className="mystudy1-cel1">
-                    <div className="mystudy1-con">
-                      <div>번호</div>
-                    </div>
-                  </td>
-                  <td className="mystudy1-cel2">
-                    <div className="mystudy1-con2">
-                      <div>스터디명</div>
-                    </div>
-                  </td>
-                  <td className="mystudy1-cel3">
-                    <div className="mystudy1-con">
-                      <div></div>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-              <form>
-                <table id="mystudy-2">
+                <tbody>
                   <tr>
-                    <td className="mystudy1-cel1 ">
+                    <td className="mystudy1-cel1">
                       <div className="mystudy1-con">
-                        <div>1</div>
+                        <div>번호</div>
                       </div>
                     </td>
-                    <td className="mystudy1-cel2 ">
+                    <td className="mystudy1-cel2">
                       <div className="mystudy1-con2">
-                        <div>셩현이와 함께하는 이별과 술의 상관관계학</div>
+                        <div>스터디명</div>
                       </div>
                     </td>
-                    <td className="mystudy1-cel3 ">
+                    <td className="mystudy1-cel3">
                       <div className="mystudy1-con">
-                        <div>
-                          <Mystudy variant="outlined" className="mystudybtn">
-                            신청 취소
-                          </Mystudy>
-                        </div>
+                        <div></div>
                       </div>
                     </td>
                   </tr>
+                </tbody>
+              </table>
+              <form>
+                <table id="mystudy-2">
+                  <tbody>
+                    <tr>
+                      <td className="mystudy1-cel1 ">
+                        <div className="mystudy1-con">
+                          <div>1</div>
+                        </div>
+                      </td>
+                      <td className="mystudy1-cel2 ">
+                        <div className="mystudy1-con2">
+                          <div>셩현이와 함께하는 이별과 술의 상관관계학</div>
+                        </div>
+                      </td>
+                      <td className="mystudy1-cel3 ">
+                        <div className="mystudy1-con">
+                          <div>
+                            <Mystudy variant="outlined" className="mystudybtn">
+                              신청 취소
+                            </Mystudy>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </form>
               {/* 추가 되는 항목 여기에 추가  */}

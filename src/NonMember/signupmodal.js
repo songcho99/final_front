@@ -61,7 +61,7 @@ class signupmodal extends Component {
           </div>
           <div>
             <i
-              class="fas fa-times-circle"
+              className="fas fa-times-circle"
               onClick={this.modaldata.bind(this)}
               id="signupclose"
             ></i>

@@ -26,63 +26,67 @@ class mystudylist extends Component {
         </div>
         <div id="mystudylist-nav">
           <table id="mystudylist">
-            <tr>
-              <td className="mystudylist-cel1">
-                <div className="mystudylist-con">
-                  <div>이름</div>
-                </div>
-              </td>
-              <td className="mystudylist-cel2">
-                <div className="mystudylist-con">
-                  <div>핸드폰</div>
-                </div>
-              </td>
-              <td className="mystudylist-cel1">
-                <div className="mystudylist-con">
-                  <div>수준</div>
-                </div>
-              </td>
-              <td className="mystudylist-cel3">
-                <div className="mystudylist-con">
-                  <div>코멘트</div>
-                </div>
-              </td>
-              <td className="mystudylist-cel4">
-                <div className="mystudylist-con">
-                  <div></div>
-                </div>
-              </td>
-            </tr>
-          </table>
-          <form action="" method="post">
-            <table id="mystudylist">
+            <tbody>
               <tr>
-                <td className="mystudylist-cel1 ">
+                <td className="mystudylist-cel1">
                   <div className="mystudylist-con">
-                    <div>임제묵</div>
+                    <div>이름</div>
                   </div>
                 </td>
-                <td className="mystudylist-cel2 ">
+                <td className="mystudylist-cel2">
                   <div className="mystudylist-con">
-                    <div>010-7307-1716</div>
+                    <div>핸드폰</div>
                   </div>
                 </td>
-                <td className="mystudylist-cel1 ">
+                <td className="mystudylist-cel1">
                   <div className="mystudylist-con">
-                    <div>하</div>
+                    <div>수준</div>
                   </div>
                 </td>
                 <td className="mystudylist-cel3">
                   <div className="mystudylist-con">
-                    <div>성현님 너무 멋있어요</div>
+                    <div>코멘트</div>
                   </div>
                 </td>
                 <td className="mystudylist-cel4">
                   <div className="mystudylist-con">
-                    <div>승인 / 거절</div>
+                    <div></div>
                   </div>
                 </td>
               </tr>
+            </tbody>
+          </table>
+          <form action="" method="post">
+            <table id="mystudylist">
+              <tbody>
+                <tr>
+                  <td className="mystudylist-cel1 ">
+                    <div className="mystudylist-con">
+                      <div>임제묵</div>
+                    </div>
+                  </td>
+                  <td className="mystudylist-cel2 ">
+                    <div className="mystudylist-con">
+                      <div>010-7307-1716</div>
+                    </div>
+                  </td>
+                  <td className="mystudylist-cel1 ">
+                    <div className="mystudylist-con">
+                      <div>하</div>
+                    </div>
+                  </td>
+                  <td className="mystudylist-cel3">
+                    <div className="mystudylist-con">
+                      <div>성현님 너무 멋있어요</div>
+                    </div>
+                  </td>
+                  <td className="mystudylist-cel4">
+                    <div className="mystudylist-con">
+                      <div>승인 / 거절</div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </form>
           {/* 여기에 추가 되는 내용 for 문으로 들어오면 될 듯  */}

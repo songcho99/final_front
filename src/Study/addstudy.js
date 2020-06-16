@@ -19,6 +19,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { PhotoCamera } from "@material-ui/icons";
+import "./addstudy.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -185,23 +186,21 @@ export default function AddStudy(props) {
   const sliderclasses = sliderStyles();
 
   return (
-    <div>
+    <div id="addstudyback2">
       <br />
       <br />
       <br />
       <br />
       <br />
       <br />
-      <form className={classes.root} noValidate autoComplete="off">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-            width: "80%",
-          }}
-        >
+      <form
+        className={classes.root}
+        noValidate
+        autoComplete="off"
+        id="addstudyback"
+      >
+        {/* 제목 부분에 자체 적으로 margin 8px 가 걸려 있어서 차이가 있음  */}
+        <div id="addstudynomargin">
           <div>
             <TextField
               required
@@ -214,11 +213,8 @@ export default function AddStudy(props) {
           </div>
           <br />
           <br />
-          <div
-            style={{
-              width: "50%",
-            }}
-          >
+          {/* 분류 항목 */}
+          <div>
             <FormControl
               className={(classes.root, classes.formControl)}
               required
@@ -246,7 +242,10 @@ export default function AddStudy(props) {
           </div>
           <br />
           <br />
-          <div>
+
+          {/* 시작날짜 종료 날짜  
+          여기도 동일하게 자체 margind 갑이 있음 조절 안됨*/}
+          <div id="addstudybox">
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 disableToolbar

@@ -135,7 +135,11 @@ class SignUp extends Component {
             </form>
             {/* 추가 할꺼면 이 위에 쪽에서 해야해 */}
             <div id="mystudylist-hr"></div>
-            <Modal isOpen={this.state.modalOpen} id="signupmodal">
+            <Modal
+              isOpen={this.state.modalOpen}
+              id="signupmodal"
+              ariaHideApp={false}
+            >
               <SignupModal modaldata={this.modaldata.bind(this)}></SignupModal>
             </Modal>
           </div>
