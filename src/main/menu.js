@@ -43,6 +43,16 @@ class menu extends Component {
     idcheck: "",
 
     join_modalOpen: false,
+
+    IdCheck_member_name: "",
+    IdCheck_member_email: "",
+    IdCheck_member_id: "",
+    IdCheck_member_phone: "",
+    IdCheck_member_password: "",
+    IdCheck_member_repassword: "",
+    IdCheck_msg: "",
+    IdCheck_msg2: "",
+    fcolor: "black",
   };
 
   //회원가입 보이는 화면 html body에 js import
@@ -67,6 +77,7 @@ class menu extends Component {
   onPhoneChange = (e) => {
     this.setState({
       join_member_phone: autoHypenPhone(e.target.value.replace(/[^0-9]/g, "")),
+      IdCheck_member_phone: autoHypenPhone(e.target.value.replace(/[^0-9]/g, ""))
     });
   };
 
@@ -307,6 +318,14 @@ class menu extends Component {
       findpw: "",
       findidform: "",
       findpwform: "findidform",
+      IdCheck_member_name: "",
+      IdCheck_member_email: "",
+      IdCheck_member_id: "",
+      IdCheck_member_phone: "",
+      IdCheck_member_password: "",
+      IdCheck_member_repassword: "",
+      IdCheck_msg: "",
+      IdCheck_msg2: "",
     });
   };
   //비밀번호 찾기 폼 전환 메서드
@@ -316,6 +335,14 @@ class menu extends Component {
       findpw: "active",
       findidform: "findidform",
       findpwform: "",
+      IdCheck_member_name: "",
+      IdCheck_member_email: "",
+      IdCheck_member_id: "",
+      IdCheck_member_phone: "",
+      IdCheck_member_password: "",
+      IdCheck_member_repassword: "",
+      IdCheck_msg: "",
+      IdCheck_msg2: "",
     });
   };
 
@@ -334,6 +361,14 @@ class menu extends Component {
     this.setState({
       loginform: "login-hide",
       find: "",
+      IdCheck_member_name: "",
+      IdCheck_member_email: "",
+      IdCheck_member_phone: "",
+      IdCheck_member_password: "",
+      IdCheck_member_repassword: "",
+      IdCheck_msg: "",
+      IdCheck_msg2: "",
+      checknumId: "",
     });
   };
   SingUp = () => {
@@ -417,8 +452,8 @@ class menu extends Component {
   //로그인 검증
   isLogin = (e) => {
     const formData = new FormData();
-    formData.append("member_id", this.state.member_id);
-    formData.append("member_password", this.state.member_password);
+    formData.append('member_id', this.state.member_id);
+    formData.append('member_password', this.state.member_password);
     e.preventDefault();
     let url = "http://localhost:8000/project/login/loginck";
     axios
@@ -469,6 +504,152 @@ class menu extends Component {
       localStorage.removeItem("saveid");
     }
   };
+  //문자 발송
+  onSms = () => {
+    const dataForm = new FormData();
+    dataForm.append("member_phone", this.state.IdCheck_member_phone);
+    var url = "http://localhost:8000/project/check/checknum";
+    axios.post(url, dataForm)
+      .then((res) => {
+        this.setState({
+          randomsu: res.data,
+          IdCheck_msg: "인증번호 발송이 완료되었습니다."
+        });
+      }).catch((err) => {
+        console.log("발송 버튼 error=" + err);
+      })
+  }
+  //아이디 찾기
+  onCheck = (e) => {
+    e.preventDefault();
+    console.log("아이디 찾기 위한 정보 확인");
+    console.log(e.target.IdCheck_member_name.value);
+    const dataForm = new FormData();
+    dataForm.append("member_name", e.target.IdCheck_member_name.value);
+    dataForm.append("member_email", e.target.IdCheck_member_email.value);
+    dataForm.append("member_phone", e.target.IdCheck_member_phone.value);
+    var url = "http://localhost:8000/project/check/checkId";
+    axios.post(url,
+      dataForm
+    ).then((responseData) => {
+      console.log("responseData=" + responseData.data);
+      this.setState({
+        cnt: responseData.data
+      });
+      if (this.state.cnt === 1) {
+        this.onSms();
+      }
+      else {
+        this.setState({
+          IdCheck_msg: "등록된 회원 정보가 없습니다."
+        });
+      }
+    }).catch((error) => {
+      console.log("아이디 찾기 error=" + error);
+    });
+  }
+  checkNumberId = (e) => {
+    e.preventDefault();
+    console.log("인증번호=" + this.state.randomsu);
+    console.log("입력한 인증번호=" + e.target.checknumId.value);
+    if (e.target.checknumId.value == this.state.randomsu) {
+      const dataForm = new FormData();
+      dataForm.append("member_email", this.state.IdCheck_member_email);
+      var url = "http://localhost:8000/project/check/emailId";
+      axios.post(url, dataForm)
+        .then((res) => {
+          this.setState({
+            IdCheck_msg2: '인증번호 확인이 완료 되었습니다.'
+          })
+          window.confirm("해당 이메일로 아이디를 확인해주세요.");
+          this.Login();
+        }).catch((err) => {
+          console.log("아이디 이메일 전송 error=" + err);
+        })
+    } else {
+      this.setState({
+        IdCheck_msg2: '인증번호가 맞지 않습니다.',
+        [e.target.checknumId.name]: ''
+      })
+      return;
+    }
+  }
+  //비밀번호 재설정
+  onCheckId = (e) => {
+    e.preventDefault();
+    console.log("비밀번호 재설정 위한 정보 확인");
+    console.log(e.target.IdCheck_member_name.value);
+    const dataForm = new FormData();
+    dataForm.append("member_name", e.target.IdCheck_member_name.value);
+    dataForm.append("member_id", e.target.IdCheck_member_id.value);
+    dataForm.append("member_phone", e.target.IdCheck_member_phone.value);
+    var url = "http://localhost:8000/project/check/checklogin";
+    axios.post(url,
+      dataForm
+    ).then((responseData) => {
+      console.log("responseData=" + responseData.data);
+      this.setState({
+        cnt: responseData.data
+      });
+      if (this.state.cnt === 1)
+        this.onSms();
+      else {
+        this.setState({
+          IdCheck_msg3: "등록된 회원 정보가 없습니다."
+        });
+      }
+    }).catch((error) => {
+      console.log("비밀번호 재설정하기 error=" + error);
+    });
+  }
+  checkNumber = (e) => {
+    e.preventDefault();
+    console.log("인증번호=" + this.state.randomsu);
+    console.log("입력한 인증번호=" + e.target.checknum.value);
+    if (e.target.checknum.value == this.state.randomsu) {
+      this.setState({
+
+      });
+      this.FindpwModal();
+
+    } else {
+      this.setState({
+        IdCheck_msg2: '인증번호가 맞지 않습니다.',
+        [e.target.checknum.name]: ''
+      })
+    }
+  }
+  updatePassword = (e) => {
+    e.preventDefault();
+    var regex = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+    if (!regex.test(e.target.IdCheck_member_password.value)) {
+      this.setState({
+        fcolor: "red",
+      });
+      return;
+    } else {
+      if (e.target.IdCheck_member_password.value === e.target.IdCheck_member_repassword.value) {
+        const dataForm = new FormData();
+        dataForm.append("member_id", e.target.IdCheck_member_id.value);
+        dataForm.append("member_password", e.target.IdCheck_member_password.value);
+        var url = "http://localhost:8000/project/check/updatepassword";
+        axios.post(url, dataForm)
+          .then((res) => {
+            console.log("비밀번호 업데이트 완료");
+            window.confirm("비밀번호 재설정 완료");
+            this.FindpwClose();
+          }).catch((err) => {
+            console.log("비밀번호 업데이트 에러=" + err);
+          })
+      } else {
+        this.setState({
+          IdCheck_msg3: "비밀번호가 일치하지 않습니다."
+        })
+        return;
+      }
+    }
+
+  }
   render() {
     const post = () => {
       new window.daum.Postcode({
@@ -512,7 +693,7 @@ class menu extends Component {
           {!this.state.loginchange && (
             <div>
               <span
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
                 id="hd-login-back"
                 onMouseEnter={this.logininter.bind(this)}
                 onMouseLeave={this.loginleave.bind(this)}
@@ -523,99 +704,97 @@ class menu extends Component {
             </div>
           )}
         </div>
-
-        <Modal isOpen={this.state.modalOpen} id={this.state.modalid}>
-          {this.state.sing && (
-            // 로그인 화면
-            <div id="login-back">
-              <div id="login" className={this.state.find}>
-                <div id="login-up" onClick={this.SingUp.bind(this)}>
-                  <i className="fas fa-pencil-alt"></i>
-                </div>
-                <div id="login-tit">로그인</div>
-                <div className="login-box">
-                  <div className="login-lable">아이디</div>
-                  <input
-                    type="text"
-                    className="login-input"
-                    placeholder="아이디"
-                    name="member_id"
-                    value={this.state.member_id}
-                    onChange={this.onKeyIdChange.bind(this)}
-                  ></input>
-                  <div className="login-i"></div>
-                </div>
-                <div className="login-box">
-                  <div className="login-lable">비밀번호</div>
-                  <input
-                    type="password"
-                    className="login-input"
-                    placeholder="비밀번호"
-                    name="member_password"
-                    onKeyUp={this.onKeyPwChange.bind(this)}
-                  ></input>
-                  <div className="login-i"></div>
-                </div>
-                <br></br>
-                <b style={{ color: "red" }}>{this.state.failmsg}</b>
-                <div id="login-chec">
-                  <IdCheck
-                    checked={this.state.check}
-                    color="#2a9d8f"
-                    size="small"
-                    inputProps={{ "aria-label": "secondary checkbox" }}
-                    onChange={this.idSave.bind(this)}
-                  />
+      </div>
+      <Modal isOpen={this.state.modalOpen} id={this.state.modalid}>
+        {this.state.sing && (
+          // 로그인 화면
+          <div id="login-back">
+            <div id="login" className={this.state.find}>
+              <div id="login-up" onClick={this.SingUp.bind(this)}>
+                <i className="fas fa-pencil-alt"></i>
+              </div>
+              <div id="login-tit">로그인</div>
+              <div className="login-box">
+                <div className="login-lable">아이디</div>
+                <input
+                  type="text"
+                  className="login-input"
+                  placeholder="아이디"
+                  name="member_id"
+                  value={this.state.member_id}
+                  onChange={this.onKeyIdChange.bind(this)}
+                ></input>
+                <div className="login-i"></div>
+              </div>
+              <div className="login-box">
+                <div className="login-lable">비밀번호</div>
+                <input
+                  type="password"
+                  className="login-input"
+                  placeholder="비밀번호"
+                  name="member_password"
+                  onKeyUp={this.onKeyPwChange.bind(this)}
+                ></input>
+                <div className="login-i"></div>
+              </div>
+              <br></br>
+              <b style={{ color: "red" }}>{this.state.failmsg}</b>
+              <div id="login-chec">
+                <IdCheck
+                  checked={this.state.check}
+                  color="#2a9d8f"
+                  size="small"
+                  inputProps={{ "aria-label": "secondary checkbox" }}
+                  onChange={this.idSave.bind(this)}
+                />
                   아이디 저장
                 </div>
-                <span
-                  id="login-find"
-                  onClick={this.Find.bind(this)}
-                  style={{ cursor: "pointer" }}
-                >
-                  아이디 / 비밀번호 분실
+              <span id="login-find" onClick={this.Find.bind(this)} style={{ cursor: 'pointer' }}>
+                아이디 / 비밀번호 분실
                 </span>
-                <div>
-                  <button id="login-btn" onClick={this.isLogin.bind(this)}>
-                    로그인
+              <div>
+                <button id="login-btn" onClick={this.isLogin.bind(this)}>
+                  로그인
                   </button>
-                </div>
-                <div>
-                  <button id="login-btn2" onClick={this.LoginClick.bind(this)}>
-                    취소
+              </div>
+              <div>
+                <button id="login-btn2" onClick={this.LoginClick.bind(this)}>
+                  취소
                   </button>
-                </div>
+              </div>
+            </div>
+
+            {/* 아이디 / 비밀번호 찾기 */}
+            <div className={this.state.loginform}>
+              <div id="find-tit">
+                <span
+                  className="find-idpw"
+                  id={this.state.findid} style={{ cursor: 'pointer' }}
+                  onClick={this.FindId.bind(this)}
+                >
+                  아이디 찾기
+                  </span>
+                <span
+                  className="find-idpw"
+                  id={this.state.findpw} style={{ cursor: 'pointer' }}
+                  onClick={this.FindPw.bind(this)}
+                >
+                  비밀번호 찾기
+                  </span>
               </div>
 
-              {/* 아이디 / 비밀번호 찾기 */}
-              <div className={this.state.loginform}>
-                <div id="find-tit">
-                  <span
-                    className="find-idpw"
-                    id={this.state.findid}
-                    style={{ cursor: "pointer" }}
-                    onClick={this.FindId.bind(this)}
-                  >
-                    아이디 찾기
-                  </span>
-                  <span
-                    className="find-idpw"
-                    id={this.state.findpw}
-                    style={{ cursor: "pointer" }}
-                    onClick={this.FindPw.bind(this)}
-                  >
-                    비밀번호 찾기
-                  </span>
-                </div>
-
-                {/* 아이디 찾기 폼 */}
-                <div id={this.state.findidform}>
+              {/* 아이디 찾기 폼 */}
+              <div id={this.state.findidform}>
+                <form onSubmit={this.onCheck.bind(this)}>
                   <div className="find-box">
                     <div className="login-lable">이름</div>
                     <input
                       type="text"
                       className="login-input"
                       placeholder="이름"
+                      name="IdCheck_member_name"
+                      onChange={this.onKeyChange.bind(this)}
+                      value={this.state.IdCheck_member_name}
                     ></input>
                     <div className="login-i"></div>
                   </div>
@@ -626,6 +805,9 @@ class menu extends Component {
                       type="text"
                       className="login-input"
                       placeholder="이메일"
+                      name="IdCheck_member_email"
+                      onChange={this.onKeyChange.bind(this)}
+                      value={this.state.IdCheck_member_email}
                     ></input>
                     <div className="login-i"></div>
                   </div>
@@ -637,29 +819,40 @@ class menu extends Component {
                         type="text"
                         className="login-input"
                         placeholder="핸드폰 번호"
+                        name="IdCheck_member_phone"
+                        value={this.state.IdCheck_member_phone}
+                        onChange={this.onPhoneChange.bind(this)}
+                        maxLength="13"
                       ></input>
                       <div className="login-i"></div>
                     </div>
                     <div>
-                      <button className="singup-btntel">인증번호 발송</button>
+                      <button className="singup-btntel" type="submit">인증번호 발송</button>
                     </div>
                   </div>
-
+                </form>
+                <b style={{ color: "red" }}>{this.state.IdCheck_msg}</b>
+                <form onSubmit={this.checkNumberId.bind(this)}>
                   <div id="sns-box">
                     <div id="sns-lable">인증번호</div>
                     <input
                       type="text"
                       id="sns-input"
                       placeholder="인증번호"
+                      name="checknumId"
+                      onChange={this.onKeyChange.bind(this)}
+                      value={this.state.checknumId}
                     ></input>
-                    <div className="sns-i"></div>
+                    <div className="sns-i">
+                      <b style={{ color: "red" }}>{this.state.IdCheck_msg2}</b>
+                    </div>
                   </div>
 
                   <div id="find-btn">
                     <LoginBtn
                       variant="outlined"
                       className="singup-btn"
-                      onClick={this.Login.bind(this)}
+                      type="submit"
                     >
                       확인
                     </LoginBtn>
@@ -671,16 +864,21 @@ class menu extends Component {
                       취소
                     </LoginBtn>
                   </div>
-                </div>
+                </form>
+              </div>
 
-                {/* 비밀번호 찾기 폼 */}
-                <div id={this.state.findpwform}>
+              {/* 비밀번호 찾기 폼 */}
+              <div id={this.state.findpwform}>
+                <form onSubmit={this.onCheckId.bind(this)}>
                   <div className="find-box">
                     <div className="login-lable">이름</div>
                     <input
                       type="text"
                       className="login-input"
                       placeholder="이름"
+                      name="IdCheck_member_name"
+                      onChange={this.onKeyChange.bind(this)}
+                      value={this.state.IdCheck_member_name}
                     ></input>
                     <div className="login-i"></div>
                   </div>
@@ -691,6 +889,9 @@ class menu extends Component {
                       type="text"
                       className="login-input"
                       placeholder="아이디"
+                      name="IdCheck_member_id"
+                      onChange={this.onKeyChange.bind(this)}
+                      value={this.state.IdCheck_member_id}
                     ></input>
                     <div className="login-i"></div>
                   </div>
@@ -702,29 +903,38 @@ class menu extends Component {
                         type="text"
                         className="login-input"
                         placeholder="핸드폰 번호"
+                        name="IdCheck_member_phone"
+                        value={this.state.IdCheck_member_phone}
+                        onChange={this.onPhoneChange.bind(this)}
+                        maxLength="13"
                       ></input>
                       <div className="login-i"></div>
                     </div>
                     <div>
-                      <button className="singup-btntel">인증번호 발송</button>
+                      <button className="singup-btntel" type="submit">인증번호 발송</button>
                     </div>
                   </div>
-
+                </form>
+                <b style={{ color: "red" }}>{this.state.IdCheck_msg}</b>
+                <form onSubmit={this.checkNumber.bind(this)}>
                   <div id="sns-box">
                     <div id="sns-lable">인증번호</div>
                     <input
                       type="text"
                       id="sns-input"
                       placeholder="인증번호"
+                      name="checknum"
                     ></input>
-                    <div className="sns-i"></div>
+                    <div className="sns-i">
+                      <b style={{ color: "red" }}>{this.state.IdCheck_msg2}</b>
+                    </div>
                   </div>
 
                   <div id="find-btn">
                     <LoginBtn
                       variant="outlined"
                       className="singup-btn"
-                      onClick={this.FindpwModal.bind(this)}
+                      type="submit"
                     >
                       확인
                     </LoginBtn>
@@ -736,252 +946,277 @@ class menu extends Component {
                       취소
                     </LoginBtn>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
-          )}
-          {!this.state.sing && (
-            <form id="singup-form" onSubmit={this.onInsertSubmit.bind(this)}>
+        )}
+        {!this.state.sing && (
               <div id="singup-sid"></div>
               <div id="singup-text">
                 <div id="login-tit">회원가입</div>
 
                 {/* 에러,안내 메세지 라벨 */}
                 <span>{this.state.idcheck}</span>
-
-                {/* <form > */}
-                <div className="singup-box">
-                  <div className="singup-lable">이름</div>
-                  <input
-                    type="text"
-                    className="singup-input"
-                    placeholder="이름"
-                    name="join_member_name"
-                    onChange={this.onKeyChange.bind(this)}
-                    ref="join_member_name"
-                  ></input>
-                  <div className="singup-i"></div>
-                </div>
-
-                <div className="singup-box">
-                  <div className="singup-lable">아이디</div>
-                  <input
-                    type="text"
-                    className="singup-input"
-                    placeholder="아이디"
-                    name="join_member_id"
-                    onKeyUp={this.OnIdCheck.bind(this)}
-                    onChange={this.onKeyChange.bind(this)}
-                    ref="join_member_id"
-                  ></input>
-                  <div className="singup-i"></div>
-                </div>
-
-                <div className="singup-box">
-                  <div className="singup-lable">비밀번호</div>
-                  <input
-                    type="password"
-                    className="singup-input"
-                    placeholder="비밀번호"
-                    name="join_member_password"
-                    onChange={this.onKeyChange.bind(this)}
-                    ref="join_member_password"
-                  ></input>
-                  <div className="singup-i"></div>
-                </div>
-
-                <div className="singup-box">
-                  <div className="singup-lable">비밀번호 확인</div>
-                  <input
-                    type="password"
-                    className="singup-input"
-                    placeholder="비밀번호 확인"
-                    name="join_member_passwordcheck"
-                    onChange={this.onKeyChange.bind(this)}
-                    ref="join_member_passwordcheck"
-                  ></input>
-                  <div className="singup-i"></div>
-                </div>
-
-                <div className="singup-box" id="singup-tel">
-                  <div>
-                    <div className="singup-lable">핸드폰 번호</div>
+                {/* 회원가입 */}
+                <form onSubmit={this.onInsertSubmit.bind(this)}>
+                  <div className="singup-box">
+                    <div className="singup-lable">이름</div>
                     <input
                       type="text"
                       className="singup-input"
-                      placeholder="핸드폰 번호"
-                      name="join_member_phone"
-                      ref="join_member_phone"
-                      value={this.state.join_member_phone}
-                      onChange={this.onPhoneChange.bind(this)}
-                      maxLength="13"
-                    ></input>
-                    <div className="singup-i"></div>
-                  </div>
-                  <div>
-                    <button className="singup-btntel">인증번호 받기</button>
-                  </div>
-                </div>
-
-                <div className="singup-box">
-                  <div className="singup-lable">이메일</div>
-                  <input
-                    type="text"
-                    className="singup-input"
-                    placeholder="이메일"
-                    name="join_member_email"
-                    onChange={this.onKeyChange.bind(this)}
-                    ref="join_member_email"
-                  ></input>
-                  <div className="singup-i"></div>
-                </div>
-
-                <div className="singup-box" id="singup-add">
-                  <div>
-                    <div className="singup-lable">주소</div>
-                    <input
-                      type="text"
-                      className="singup-input"
-                      placeholder="주소"
-                      readOnly="readonly"
-                      id="join_member_address"
-                      name="join_member_address"
+                      placeholder="이름"
+                      name="join_member_name"
                       onChange={this.onKeyChange.bind(this)}
-                      ref="join_member_address"
+                      ref="join_member_name"
                     ></input>
                     <div className="singup-i"></div>
                   </div>
-                  <div>
-                    <button className="singup-btntel" onClick={post}>
-                      주소 검색
+
+                  <div className="singup-box">
+                    <div className="singup-lable">아이디</div>
+                    <input
+                      type="text"
+                      className="singup-input"
+                      placeholder="아이디"
+                      name="join_member_id"
+                      onKeyUp={this.OnIdCheck.bind(this)}
+                      onChange={this.onKeyChange.bind(this)}
+                      ref="join_member_id"
+                    ></input>
+                    <div className="singup-i"></div>
+                  </div>
+
+                  <div className="singup-box">
+                    <div className="singup-lable">아이디</div>
+                    <input
+                      type="text"
+                      className="singup-input"
+                      placeholder="아이디"
+                      name="join_member_id"
+                      onKeyUp={this.OnIdCheck.bind(this)}
+                      onChange={this.onKeyChange.bind(this)}
+                      ref="join_member_id"
+                    ></input>
+                    <div className="singup-i"></div>
+                  </div>
+
+                  <div className="singup-box">
+                    <div className="singup-lable">비밀번호</div>
+                    <input
+                      type="password"
+                      className="singup-input"
+                      placeholder="비밀번호"
+                      name="join_member_password"
+                      onChange={this.onKeyChange.bind(this)}
+                      ref="join_member_password"
+                    ></input>
+                    <div className="singup-i"></div>
+                  </div>
+
+                  <div className="singup-box">
+                    <div className="singup-lable">비밀번호 확인</div>
+                    <input
+                      type="password"
+                      className="singup-input"
+                      placeholder="비밀번호 확인"
+                      name="join_member_passwordcheck"
+                      onChange={this.onKeyChange.bind(this)}
+                      ref="join_member_passwordcheck"
+                    ></input>
+                    <div className="singup-i"></div>
+                  </div>
+
+                  <div className="singup-box" id="singup-tel">
+                    <div>
+                      <div className="singup-lable">핸드폰 번호</div>
+                      <input
+                        type="text"
+                        className="singup-input"
+                        placeholder="핸드폰 번호"
+                        name="join_member_phone"
+                        ref="join_member_phone"
+                        value={this.state.join_member_phone}
+                        onChange={this.onPhoneChange.bind(this)}
+                        maxLength="13"
+                      ></input>
+                      <div className="singup-i"></div>
+                    </div>
+                    <div>
+                      <button className="singup-btntel">인증번호 받기</button>
+                    </div>
+                  </div>
+
+                  <div className="singup-box">
+                    <div className="singup-lable">이메일</div>
+                    <input
+                      type="text"
+                      className="singup-input"
+                      placeholder="이메일"
+                      name="join_member_email"
+                      onChange={this.onKeyChange.bind(this)}
+                      ref="join_member_email"
+                    ></input>
+                    <div className="singup-i"></div>
+                  </div>
+
+                  <div className="singup-box" id="singup-add">
+                    <div>
+                      <div className="singup-lable">주소</div>
+                      <input
+                        type="text"
+                        className="singup-input"
+                        placeholder="주소"
+                        readOnly="readonly"
+                        id="join_member_address"
+                        name="join_member_address"
+                        onChange={this.onKeyChange.bind(this)}
+                        ref="join_member_address"
+                      ></input>
+                      <div className="singup-i"></div>
+                    </div>
+                    <div>
+                      <button className="singup-btntel" onClick={post}>
+                        주소 검색
                     </button>
+                    </div>
+                  </div>
+
+                  <div className="singup-box">
+                    <div className="singup-lable">상세주소</div>
+                    <input
+                      type="text"
+                      className="singup-input"
+                      placeholder="상세주소"
+                      name="join_member_detailaddr"
+                      onFocus={this.onAddressChange.bind(this)}
+                      onChange={this.onKeyChange.bind(this)}
+                      ref="join_member_detailaddr"
+                    ></input>
+                    <div className="singup-i"></div>
+                  </div>
+
+                  <div id="singup-btn">
+                    <button type="submit" className="singup-btn">
+                      회원가입
+                  </button>
+                    <button
+                      className="singup-btn"
+                      onClick={this.SingIn.bind(this)}
+                    >
+                      취소
+                  </button>
+                  </div>
+                  {/* </form> */}
+                </form>
+              </div>
+          )}
+      </Modal>
+          <Modal isOpen={this.state.findpwmodal} id="findpwmodal">
+            <div id="findpw-back">
+              <form onSubmit={this.updatePassword.bind(this)}>
+                <input type="hidden" name="IdCheck_member_id" value={this.state.IdCheck_member_id} />
+                <div id="findpw-tit">비밀번호 재설정</div>
+                <b style={{ color: this.state.fcolor }}>문자+숫자+특수문자(!@#$%^&+=) 포함 형태의 8~15자리로 설정하세요.</b>
+                <div className="login-box">
+                  <div className="login-lable">비밀번호</div>
+                  <input
+                    type="password"
+                    className="login-input"
+                    placeholder="비밀번호"
+                    name='IdCheck_member_password'
+                  ></input>
+                  <div className="login-i"></div>
+                </div>
+
+                <div className="login-box">
+                  <div className="login-lable">비밀번호 확인</div>
+                  <input
+                    type="password"
+                    className="login-input"
+                    placeholder="비밀번호 확인"
+                    name='IdCheck_member_repassword'
+                  ></input>
+                  <div className="login-i">
+                    <b style={{ color: "red" }}>{this.state.IdCheck_msg3}</b>
                   </div>
                 </div>
-
-                <div className="singup-box">
-                  <div className="singup-lable">상세주소</div>
-                  <input
-                    type="text"
-                    className="singup-input"
-                    placeholder="상세주소"
-                    name="join_member_detailaddr"
-                    onFocus={this.onAddressChange.bind(this)}
-                    onChange={this.onKeyChange.bind(this)}
-                    ref="join_member_detailaddr"
-                  ></input>
-                  <div className="singup-i"></div>
-                </div>
-
-                <div id="singup-btn">
-                  <button type="submit" className="singup-btn">
-                    회원가입
-                  </button>
-                  <button
-                    className="singup-btn"
-                    onClick={this.SingIn.bind(this)}
-                  >
-                    취소
-                  </button>
-                </div>
-                {/* </form> */}
-              </div>
-            </form>
-          )}
-        </Modal>
-        <Modal isOpen={this.state.findpwmodal} id="findpwmodal">
-          <div id="findpw-back">
-            <div id="findpw-tit">비밀번호 재설정</div>
-
-            <div className="login-box">
-              <div className="login-lable">비밀번호</div>
-              <input
-                type="password"
-                className="login-input"
-                placeholder="비밀번호"
-              ></input>
-              <div className="login-i"></div>
-            </div>
-
-            <div className="login-box">
-              <div className="login-lable">비밀번호 확인</div>
-              <input
-                type="password"
-                className="login-input"
-                placeholder="비밀번호 확인"
-              ></input>
-              <div className="login-i"></div>
-            </div>
-            <LoginBtn
-              variant="outlined"
-              id="findpwbtn"
-              onClick={this.FindpwClose.bind(this)}
-            >
-              재설정
+                <LoginBtn
+                  variant="outlined"
+                  id="findpwbtn"
+                  type="submit"
+                >
+                  재설정
             </LoginBtn>
-          </div>
-        </Modal>
-        {this.state.on && (
-          // 메뉴 목록 버튼 기본 형태
-          <a href="#" id="hd-btn" onClick={this.hdbtnClick.bind(this)}>
-            <i className="fas fa-bars"></i>
-          </a>
-        )}
+              </form>
+            </div>
+          </Modal>
+          <div>
+            {
+              this.state.on && (
+                // 메뉴 목록 버튼 기본 형태
+                <a href="#" id="hd-btn" onClick={this.hdbtnClick.bind(this)}>
+                  <i className="fas fa-bars"></i>
+                </a>
+              )
+            }
 
-        {!this.state.on && (
-          //메뉴 목록 클릭시 나오는 형태
-          <a href="#" id="hd-btnx" onClick={this.hdbtnClick.bind(this)}>
-            <i className="fas fa-times"></i>
-          </a>
-        )}
+            {
+              !this.state.on && (
+                //메뉴 목록 클릭시 나오는 형태
+                <a href="#" id="hd-btnx" onClick={this.hdbtnClick.bind(this)}>
+                  <i className="fas fa-times"></i>
+                </a>
+              )
+            }
 
-        {/* 강의자료 */}
-        <a href="#" className={this.state.hid} id="hd-btn-note">
-          <i className="fas fa-sticky-note"></i>
-        </a>
+            {/* 강의자료 */}
+            <a href="#" className={this.state.hid} id="hd-btn-note">
+              <i className="fas fa-sticky-note"></i>
+            </a>
 
-        {/* 스터디 */}
-        <a
-          href="/studylist"
-          className={this.state.hid}
-          id="hd-btn-book"
-          to="/studylist"
-        >
-          <i className="fas fa-book"></i>
-        </a>
+            {/* 스터디 */}
+            <a
+              href="/studylist"
+              className={this.state.hid}
+              id="hd-btn-book"
+              to="/studylist"
+            >
+              <i className="fas fa-book"></i>
+            </a>
 
-        {/* 스케줄 */}
-        <a
-          href="/schedule"
-          className={this.state.hid}
-          id="hd-btn-sch"
-          to="/schedule"
-        >
-          <i className="far fa-calendar-alt"></i>
-        </a>
+            {/* 스케줄 */}
+            <a
+              href="/schedule"
+              className={this.state.hid}
+              id="hd-btn-sch"
+              to="/schedule"
+            >
+              <i className="far fa-calendar-alt"></i>
+            </a>
 
-        {/* 차트 */}
-        <a href="#" className={this.state.hid} id="hd-btn-cha">
-          <i className="fas fa-chart-bar"></i>
-        </a>
+            {/* 차트 */}
+            <a href="#" className={this.state.hid} id="hd-btn-cha">
+              <i className="fas fa-chart-bar"></i>
+            </a>
 
-        {/* 마이페이지 */}
-        <a
-          href="/mypageupdate"
-          className={this.state.hid}
-          id="hd-btn-my"
-          to="/mypageupdate"
-        >
-          <i className="far fa-address-book"></i>
-        </a>
+            {/* 마이페이지 */}
+            <a
+              href="/mypageupdate"
+              className={this.state.hid}
+              id="hd-btn-my"
+              to="/mypageupdate"
+            >
+              <i className="far fa-address-book"></i>
+            </a>
 
-        {/* <div>
+            {/* <div>
           <Link to="/classnote">
                 <button type="button">강의노트</button>
                 </Link> &nbsp;&nbsp;
                 <Link to="/classdata">
                 <button type="button">수업자료</button>
                 </Link> &nbsp;&nbsp; */}
-        {/* <Link to="/introduce">
+            {/* <Link to="/introduce">
             <button type="button">소개</button>
           </Link>{" "}
           &nbsp;&nbsp;
@@ -993,7 +1228,7 @@ class menu extends Component {
             <button type="button">스터디</button>
           </Link>
         </div> */}
-      </div>
+          </div >
     );
   }
 }
@@ -1003,19 +1238,19 @@ function autoHypenPhone(str) {
   if (str.length < 4) {
     return str;
   } else if (str.length < 7) {
-    tmp += str.substr(0, 3);
+          tmp += str.substr(0, 3);
     tmp += "-";
     tmp += str.substr(3);
     return tmp;
   } else if (str.length < 11) {
-    tmp += str.substr(0, 3);
+          tmp += str.substr(0, 3);
     tmp += "-";
     tmp += str.substr(3, 3);
     tmp += "-";
     tmp += str.substr(6);
     return tmp;
   } else {
-    tmp += str.substr(0, 3);
+          tmp += str.substr(0, 3);
     tmp += "-";
     tmp += str.substr(3, 4);
     tmp += "-";
