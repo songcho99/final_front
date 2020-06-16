@@ -19,6 +19,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { PhotoCamera } from "@material-ui/icons";
+import "./addstudy.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -141,11 +142,19 @@ export default function AddStudy(props) {
       alert("현재 날짜보다 이전 날짜는 선택 불가능합니다");
       return false;
     }
+    if (study_enddate < date) {
+      alert("시작 날짜는 끝 날짜 이후를 선택 불가능합니다");
+      return false;
+    }
     setStudyStartdate(date);
   };
   const handleEndDateChange = (date) => {
     if (new Date() > date) {
       alert("현재 날짜보다 이전 날짜는 선택 불가능합니다");
+      return false;
+    }
+    if (study_startdate > date) {
+      alert("시작 날짜보다 이전 날짜는 선택 불가능합니다");
       return false;
     }
     setStudyEnddate(date);
@@ -185,23 +194,20 @@ export default function AddStudy(props) {
   const sliderclasses = sliderStyles();
 
   return (
-    <div>
+    <div id="addstudyback2">
       <br />
       <br />
       <br />
       <br />
       <br />
       <br />
-      <form className={classes.root} noValidate autoComplete="off">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-            width: "80%",
-          }}
-        >
+      <form
+        className={classes.root}
+        noValidate
+        autoComplete="off"
+        id="addstudyback"
+      >
+        <div id="addstudynomargin">
           <div>
             <TextField
               required
@@ -214,11 +220,7 @@ export default function AddStudy(props) {
           </div>
           <br />
           <br />
-          <div
-            style={{
-              width: "50%",
-            }}
-          >
+          <div>
             <FormControl
               className={(classes.root, classes.formControl)}
               required
@@ -246,7 +248,7 @@ export default function AddStudy(props) {
           </div>
           <br />
           <br />
-          <div>
+          <div id="addstudybox">
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 disableToolbar
@@ -504,6 +506,9 @@ export default function AddStudy(props) {
             <Button variant="outlined" color="primary" href="./studylist">
               목록
             </Button>
+            <br />
+            <br />
+            <br />
           </div>
         </div>
       </form>
