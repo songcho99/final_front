@@ -70,8 +70,12 @@ function valuetext() {
 export default function AddStudy(props) {
   const [study_type, setStudyType] = React.useState("");
   const [study_subject, setStudySubject] = React.useState("");
-  const [study_startdate, setStudyStartdate] = React.useState(new Date());
-  const [study_enddate, setStudyEnddate] = React.useState(new Date());
+  const [study_startdate, setStudyStartdate] = React.useState(
+    new Date().setDate(new Date().getDate() + 1)
+  );
+  const [study_enddate, setStudyEnddate] = React.useState(
+    new Date().setDate(new Date().getDate() + 1)
+  );
   const [study_gatherday, setStudyGatherday] = React.useState({
     Monday: false,
     Tuesday: false,
@@ -133,12 +137,18 @@ export default function AddStudy(props) {
     console.log(study_gatherday);
   };
   const handleStartDateChange = (date) => {
+    if (new Date() > date) {
+      alert("현재 날짜보다 이전 날짜는 선택 불가능합니다");
+      return false;
+    }
     setStudyStartdate(date);
-    console.log(`startdate:${study_startdate.toLocaleDateString()}`);
   };
   const handleEndDateChange = (date) => {
+    if (new Date() > date) {
+      alert("현재 날짜보다 이전 날짜는 선택 불가능합니다");
+      return false;
+    }
     setStudyEnddate(date);
-    console.log(`enddate:${study_enddate.toLocaleString()}`);
   };
   const handlePeoplesChange = (event) => {
     setStudyPeoples(event.target.value);
@@ -181,6 +191,7 @@ export default function AddStudy(props) {
       <br />
       <br />
       <br />
+      <br />
       <form className={classes.root} noValidate autoComplete="off">
         <div
           style={{
@@ -188,168 +199,191 @@ export default function AddStudy(props) {
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
+            width: "80%",
           }}
         >
-          <TextField
-            required
-            id="standard-required"
-            label="제목"
-            value={study_subject}
-            style={{ width: "800px" }}
-            onChange={handleSubjectChange}
-          />
+          <div>
+            <TextField
+              required
+              id="standard-required"
+              label="제목"
+              value={study_subject}
+              style={{ width: "800px" }}
+              onChange={handleSubjectChange}
+            />
+          </div>
           <br />
           <br />
-          <FormControl className={(classes.root, classes.formControl)} required>
-            <InputLabel id="type-select-required-label">분류</InputLabel>
-            <Select
-              labelId="type-select-required-label"
-              id="select-required"
-              value={study_type}
-              onChange={handleTypeChange}
-              className={classes.selectEmpty}
-              style={{ width: "200px" }}
+          <div
+            style={{
+              width: "50%",
+            }}
+          >
+            <FormControl
+              className={(classes.root, classes.formControl)}
+              required
             >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={"Java"}>Java</MenuItem>
-              <MenuItem value={"Spring"}>Spring</MenuItem>
-              <MenuItem value={"React"}>React</MenuItem>
-              <MenuItem value={"기타"}>기타</MenuItem>
-            </Select>
-          </FormControl>
+              <InputLabel id="type-select-required-label">분류</InputLabel>
+              <Select
+                labelId="type-select-required-label"
+                id="select-required"
+                value={study_type}
+                onChange={handleTypeChange}
+                className={classes.selectEmpty}
+                style={{
+                  width: "200px",
+                }}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={"Java"}>Java</MenuItem>
+                <MenuItem value={"Spring"}>Spring</MenuItem>
+                <MenuItem value={"React"}>React</MenuItem>
+                <MenuItem value={"기타"}>기타</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
           <br />
           <br />
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              disableToolbar
-              variant="inline"
-              format="yyyy/MM/dd"
-              margin="normal"
-              id="date-picker-inline"
-              label="시작날짜"
-              value={study_startdate}
-              onChange={handleStartDateChange}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-            />
-          </MuiPickersUtilsProvider>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              disableToolbar
-              variant="inline"
-              format="yyyy/MM/dd"
-              margin="normal"
-              id="date-picker-inline"
-              label="끝날짜"
-              value={study_enddate}
-              onChange={handleEndDateChange}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-            />
-          </MuiPickersUtilsProvider>
+          <div>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                format="yyyy/MM/dd"
+                margin="normal"
+                id="date-picker-inline"
+                label="시작날짜"
+                value={study_startdate}
+                onChange={handleStartDateChange}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+              />
+            </MuiPickersUtilsProvider>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                format="yyyy/MM/dd"
+                margin="normal"
+                id="date-picker-inline"
+                label="끝날짜"
+                value={study_enddate}
+                onChange={handleEndDateChange}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+              />
+            </MuiPickersUtilsProvider>
+          </div>
           <br />
           <br />
-          <FormGroup row>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={study_gatherday.Monday}
-                  onChange={handleGatherdayChange}
-                  name="Monday"
-                  color="primary"
-                />
-              }
-              label="월요일"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={study_gatherday.Tuesday}
-                  onChange={handleGatherdayChange}
-                  name="Tuesday"
-                  color="primary"
-                />
-              }
-              label="화요일"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={study_gatherday.Wednesday}
-                  onChange={handleGatherdayChange}
-                  name="Wednesday"
-                  color="primary"
-                />
-              }
-              label="수요일"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={study_gatherday.Thursday}
-                  onChange={handleGatherdayChange}
-                  name="Thursday"
-                  color="primary"
-                />
-              }
-              label="목요일"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={study_gatherday.Friday}
-                  onChange={handleGatherdayChange}
-                  name="Friday"
-                  color="primary"
-                />
-              }
-              label="금요일"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={study_gatherday.Saturday}
-                  onChange={handleGatherdayChange}
-                  name="Saturday"
-                  color="primary"
-                />
-              }
-              label="토요일"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={study_gatherday.Sunday}
-                  onChange={handleGatherdayChange}
-                  name="Sunday"
-                  color="primary"
-                />
-              }
-              label="일요일"
-            />
-          </FormGroup>
+          <div>
+            <FormGroup row>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={study_gatherday.Monday}
+                    onChange={handleGatherdayChange}
+                    name="Monday"
+                    color="primary"
+                  />
+                }
+                label="월요일"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={study_gatherday.Tuesday}
+                    onChange={handleGatherdayChange}
+                    name="Tuesday"
+                    color="primary"
+                  />
+                }
+                label="화요일"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={study_gatherday.Wednesday}
+                    onChange={handleGatherdayChange}
+                    name="Wednesday"
+                    color="primary"
+                  />
+                }
+                label="수요일"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={study_gatherday.Thursday}
+                    onChange={handleGatherdayChange}
+                    name="Thursday"
+                    color="primary"
+                  />
+                }
+                label="목요일"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={study_gatherday.Friday}
+                    onChange={handleGatherdayChange}
+                    name="Friday"
+                    color="primary"
+                  />
+                }
+                label="금요일"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={study_gatherday.Saturday}
+                    onChange={handleGatherdayChange}
+                    name="Saturday"
+                    color="primary"
+                  />
+                }
+                label="토요일"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={study_gatherday.Sunday}
+                    onChange={handleGatherdayChange}
+                    name="Sunday"
+                    color="primary"
+                  />
+                }
+                label="일요일"
+              />
+            </FormGroup>
+          </div>
           <br />
-          <FormControl className={(classes.root, classes.formControl)} required>
-            <InputLabel id="peoples-select-required-label">인원</InputLabel>
-            <Select
-              labelId="peoples-select-required-label"
-              id="select-required"
-              value={study_peoples}
-              onChange={handlePeoplesChange}
-              className={classes.selectEmpty}
-              style={{ width: "200px" }}
+          <div>
+            <FormControl
+              className={(classes.root, classes.formControl)}
+              required
             >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {countList}
-            </Select>
-          </FormControl>
+              <InputLabel id="peoples-select-required-label">인원</InputLabel>
+              <Select
+                labelId="peoples-select-required-label"
+                id="select-required"
+                value={study_peoples}
+                onChange={handlePeoplesChange}
+                className={classes.selectEmpty}
+                style={{ width: "200px" }}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {countList}
+              </Select>
+            </FormControl>
+          </div>
           <br />
           <br />
           <div className={sliderclasses.root}>
@@ -400,25 +434,27 @@ export default function AddStudy(props) {
           />
           <br />
           <br />
-          <TextField
-            id="outlined-read-only-input"
-            label="기본 주소"
-            variant="outlined"
-            style={{ zIndex: "0" }}
-            InputProps={{
-              readOnly: true,
-            }}
-            onChange={handleAddressChange}
-            required
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            href="#contained-buttons"
-            style={{ marginTop: "20px" }}
-          >
-            검색
-          </Button>
+          <div>
+            <TextField
+              id="outlined-read-only-input"
+              label="기본 주소"
+              variant="outlined"
+              style={{ zIndex: "0" }}
+              InputProps={{
+                readOnly: true,
+              }}
+              onChange={handleAddressChange}
+              required
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              href="#contained-buttons"
+              style={{ marginTop: "20px" }}
+            >
+              검색
+            </Button>
+          </div>
           <br />
           <TextField
             id="outlined-read-only-input"
@@ -454,19 +490,21 @@ export default function AddStudy(props) {
           </label>
           <br />
           <br />
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            style={{ marginLeft: "640px" }}
-            onClick={handleClick}
-          >
-            개설하기
-          </Button>
-          &nbsp;
-          <Button variant="outlined" color="primary" href="./studylist">
-            목록
-          </Button>
+          <div>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              style={{ marginLeft: "640px" }}
+              onClick={handleClick}
+            >
+              개설하기
+            </Button>
+            &nbsp;
+            <Button variant="outlined" color="primary" href="./studylist">
+              목록
+            </Button>
+          </div>
         </div>
       </form>
     </div>
