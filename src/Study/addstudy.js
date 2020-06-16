@@ -142,11 +142,19 @@ export default function AddStudy(props) {
       alert("현재 날짜보다 이전 날짜는 선택 불가능합니다");
       return false;
     }
+    if (study_enddate < date) {
+      alert("시작 날짜는 끝 날짜 이후를 선택 불가능합니다");
+      return false;
+    }
     setStudyStartdate(date);
   };
   const handleEndDateChange = (date) => {
     if (new Date() > date) {
       alert("현재 날짜보다 이전 날짜는 선택 불가능합니다");
+      return false;
+    }
+    if (study_startdate > date) {
+      alert("시작 날짜보다 이전 날짜는 선택 불가능합니다");
       return false;
     }
     setStudyEnddate(date);
@@ -199,7 +207,6 @@ export default function AddStudy(props) {
         autoComplete="off"
         id="addstudyback"
       >
-        {/* 제목 부분에 자체 적으로 margin 8px 가 걸려 있어서 차이가 있음  */}
         <div id="addstudynomargin">
           <div>
             <TextField
@@ -213,7 +220,6 @@ export default function AddStudy(props) {
           </div>
           <br />
           <br />
-          {/* 분류 항목 */}
           <div>
             <FormControl
               className={(classes.root, classes.formControl)}
@@ -242,9 +248,6 @@ export default function AddStudy(props) {
           </div>
           <br />
           <br />
-
-          {/* 시작날짜 종료 날짜  
-          여기도 동일하게 자체 margind 갑이 있음 조절 안됨*/}
           <div id="addstudybox">
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
@@ -503,6 +506,9 @@ export default function AddStudy(props) {
             <Button variant="outlined" color="primary" href="./studylist">
               목록
             </Button>
+            <br />
+            <br />
+            <br />
           </div>
         </div>
       </form>
