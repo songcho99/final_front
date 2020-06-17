@@ -24,7 +24,7 @@ import Curriculum from "./curriculum";
 import MyPageUpdate from "../MyPage/mypageupdate";
 import SignUpManage from "../Manager/signupmanage";
 import SignUp from "../NonMember/signup";
-import MemberList from "../Admin/memberlist";
+import MemberList_Form from "../Admin/memberlist_form";
 import Graph from "../Admin/graph";
 import ClassManage from "../Teacher/classmanage";
 
@@ -64,7 +64,7 @@ class main extends Component {
           <Route path="/mypageupdate" component={MyPageUpdate} />
           <Route path="/signupmanage" component={SignUpManage} />
           <Route path="/signup" component={SignUp} />
-          <Route path="/memberlist" component={MemberList} />
+          <Route path="/memberlist" component={MemberList_Form} />
           <Route path="/graph" component={Graph} />
           <Route path="/classmanage" component={ClassManage} />
         </BrowserRouter>
