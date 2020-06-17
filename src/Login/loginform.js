@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./loginmain.css";
+import "./loginform.css";
 
 //마테리얼
 import Checkbox from "@material-ui/core/Checkbox";
@@ -7,10 +7,7 @@ import { styled } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 
-class loginmain extends Component {
-  state = {};
-
-  LoginModal = () => {};
+class loginform extends Component {
   render() {
     const IdCheck = styled(Checkbox)({
       color: "#2a9d8f",
@@ -21,10 +18,10 @@ class loginmain extends Component {
       borderColor: "#2a9d8f",
     });
     return (
-      <div id="loginmain">
-        <div id="loginmainback">
+      <div className="loginform">
+        <form className="loginmainback">
           {/* 상단 회원가입 버튼 */}
-          <div id="loginbtn">
+          <div id="loginbtn" onClick={this.props.SingUpOpen}>
             <i className="fas fa-pencil-alt"></i>
           </div>
 
@@ -46,7 +43,7 @@ class loginmain extends Component {
           <div className="loginbox">
             <div className="loginlabel">여기에 필요한 검증 문구 삽입</div>
             <input
-              type="text"
+              type="password"
               className="logininput"
               placeholder="비밀번호"
             ></input>
@@ -55,13 +52,17 @@ class loginmain extends Component {
 
           {/* 아이디 저장 체크 박스 */}
           <div id="logincheckbox">
-            <IdCheck color="#2a9d8f" size="small" />
+            {/* 마테리얼 칼라를 변경하기 위해서 color 인라인으로 삽입 필요 
+            하지만 오류 발생 */}
+            <IdCheck size="small" color="default" />
             아이디 저장
           </div>
 
           <div id="loginhidbox">여기다가 검증 문구 삽입도 가능해</div>
           {/* 아이디 / 비밀번호 분실 박스  */}
-          <span id="loginspanbox">아이디 / 비밀번호 분실</span>
+          <span id="loginspanbox" onClick={this.props.FindIdModalOpen}>
+            아이디 / 비밀번호 분실
+          </span>
 
           {/* 버튼 박스 */}
           <div id="loginbtnbox">
@@ -81,10 +82,10 @@ class loginmain extends Component {
               취소
             </LoginBtn>
           </div>
-        </div>
+        </form>
       </div>
     );
   }
 }
 
-export default loginmain;
+export default loginform;

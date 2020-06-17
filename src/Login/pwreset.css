@@ -1,0 +1,36 @@
+:root {
+  --gray: #9e9e9e;
+  --white: #ffffff;
+  --teal: #2a9d8f;
+  --red: #e63946;
+}
+
+/* 박스 위치  */
+
+#pwresetback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* 타이틀 박스 */
+#pwresettit {
+  font-size: 20px;
+  color: var(--teal);
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* 경고 문구창 */
+#pwresetlabel {
+  /* width: 100%; */
+  margin-top: 20px;
+  margin-bottom: 20px;
+  /* visibility: hidden; */
+}
+
+/* 버튼 박스 */
+#pwresetbtnbox {
+  display: flex;
+}

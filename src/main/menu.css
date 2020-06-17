@@ -2,6 +2,7 @@
   --gray: #9e9e9e;
   --white: #ffffff;
   --teal: #2a9d8f;
+  --red: #e63946;
 }
 
 /* 위치 설정 */
@@ -52,8 +53,51 @@
 /* 로그인 모달창  */
 
 #loginModal {
-  width: 400px;
-  height: 500px;
+  width: 500px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 50% !important;
+  top: 50% !important;
+  padding: 0 !important;
+  transform: translate(-50%, -50%);
+}
+
+/* 아이디 비밀번호 찾기 모달창  */
+#findidModal {
+  width: 500px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 50% !important;
+  top: 50% !important;
+  padding: 0 !important;
+  transform: translate(-50%, -50%);
+}
+
+/* 비밀번호 재설정 모달 */
+
+#PwResetModal {
+  width: 500px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 50% !important;
+  top: 50% !important;
+  padding: 0 !important;
+  transform: translate(-50%, -50%);
+}
+
+/* 회원가입 모달 */
+#SingUpModal {
+  width: 900px;
+  height: 800px;
   display: flex;
   flex-direction: column;
   justify-content: center;
