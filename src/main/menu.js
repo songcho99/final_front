@@ -6,9 +6,12 @@ import FindId from "../Login/findid"; //아이디 찾기
 import FindPw from "../Login/findpw"; //비밀번호 찾기
 import PwReset from "../Login/pwreset"; //비밀번호 재설정
 import SingUp from "../Login/singup"; //회원가입
+import Swal from "sweetalert2";
+import {Link} from "react-router-dom"
 
 // 모달
 import Modal from "react-modal";
+
 
 class menu extends Component {
   state = {
@@ -17,6 +20,14 @@ class menu extends Component {
     FindPwModal: false, //비밀번호 찾기 열고 닫는 변수
     PwReset: false, //비밀번호 재설정 창 열고 닫는 변수
     SingUp: false, //회원가입 열고 닫는 변수
+    loggedInfo : localStorage.getItem('loginok')==="success"?true:false,
+    member_id: localStorage.saveid,
+    member_password: "",
+    member_name:"",
+    member_num: 0,
+    check: localStorage.check,
+    failmsg: "",
+    loginchange: false
   };
 
   //회원가입창 닫기
@@ -104,6 +115,47 @@ class menu extends Component {
     // console.log("로그인 닫기창: " + this.state.LoginModal);
   };
 
+  
+
+  //로그아웃
+  isLogOut = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: '로그아웃 하시겠습니까?',
+      icon: 'error',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'ok'
+    }).then((result) => {
+      if (result.value) {
+        localStorage.removeItem("loginok");
+        if (localStorage.check === "true") {
+          this.setState({
+            member_id: localStorage.saveid,
+            check: localStorage.check,
+            loginchange: false,
+          });
+          window.location.href="/";
+        } else {
+          localStorage.check = "false";
+          this.setState({
+            member_id: localStorage.saveid,
+            check: localStorage.unchecked,
+            loginchange: false,
+          });
+          localStorage.removeItem("saveid");
+          localStorage.removeItem("name");
+          localStorage.removeItem("num");
+          window.location.href="/";
+        }
+      }
+    })
+   
+  };
+
+  
+
   // LoginData = (LoginModal) => {
   //   console.log("로그인 변수값 전송 :" + LoginModal);
   //   this.setState({
@@ -120,12 +172,25 @@ class menu extends Component {
               IT Campus
             </a>
           </div>
+          {/* 로그인이 안되있을때 상단 메뉴에 로그인 버튼 활성화 */}
+          {!this.state.loggedInfo &&(
           <div id="hdbox2" onClick={this.LoginModalOpen.bind(this)}>
             <div id="hdspan">로그인</div>
-            <div id="hdlabel">
-              <i className="fas fa-user-circle"></i>
-            </div>
-          </div>
+            <i className="fas fa-user-circle"></i>
+            
+          </div>)}
+          {/* 로그인 되어있을때 상단 메뉴에 과정명,마이페이지 버튼,이름 활성화 */}
+          {this.state.loggedInfo &&(
+           <div>
+             <b id="hdspan">과정명</b> &nbsp;&nbsp;&nbsp;
+             <i id="hdlabel" className="fas fa-user-circle" onClick={this.isLogOut.bind(this)}></i> &nbsp;
+            <b id="hdspan">{localStorage.name}님</b> &nbsp;&nbsp;&nbsp;
+            <Link to="/noticelist">공지사항</Link>
+            
+            
+              
+            
+          </div>)}
         </div>
 
         {/* 로그인 창 모달 */}
@@ -138,6 +203,9 @@ class menu extends Component {
             LoginModalClose={this.LoginModalClose.bind(this)}
             FindIdModalOpen={this.FindIdModalOpen.bind(this)}
             SingUpOpen={this.SingUpOpen.bind(this)}
+            isLogOut={this.isLogOut.bind(this)}
+            member_id={this.state.member_id}
+            check={this.state.check}
           />
         </Modal>
 
