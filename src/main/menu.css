@@ -8,6 +8,7 @@
 /* 위치 설정 */
 
 #header {
+  position: fixed;
   width: 100%;
   display: flex;
   justify-content: center;

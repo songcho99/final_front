@@ -47,7 +47,7 @@ class maininfo extends Component {
             <div>IT / SW Training Experts Course</div>
             <div>
               클라우드 시스템
-              <span>성현아 배가 고프다리</span>
+              <span>제묵스성현아 배가 고프다리</span>
             </div>
           </div>
           <div
