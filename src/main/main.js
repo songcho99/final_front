@@ -28,6 +28,11 @@ import MemberList_Form from "../Admin/memberlist_form";
 import Graph from "../Admin/graph";
 import ClassManage from "../Teacher/classmanage";
 
+import Notice_List from "../Notice/notice_list";
+import Notice_Add from "../Notice/notice_add";
+import Notice_Detail from "../Notice/notice_detail";
+import Notice_Update from "../Notice/notice_update";
+
 class main extends Component {
   render() {
     return (
@@ -67,6 +72,12 @@ class main extends Component {
           <Route path="/memberlist" component={MemberList_Form} />
           <Route path="/graph" component={Graph} />
           <Route path="/classmanage" component={ClassManage} />
+
+          {/* 공지사항 관련 기능 */}
+          <Route path="/noticelist" component={Notice_List}/>
+          <Route path="/noticeadd" component={Notice_Add}/>
+          <Route path="/noticedetail" component={Notice_Detail}/>
+          <Route path="/noticeupdate" component={Notice_Update}/>
         </BrowserRouter>
       </div>
     );
