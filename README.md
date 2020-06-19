@@ -78,3 +78,12 @@ yarn add date-fns@2.8.1
 yarn add react-daum-postcode
 yarn add react-modal
 yarn add @material-ui/lab
+yarn add sweetalert --save
+
+<!-- scss 설치  -->
+
+yarn add node-sass sass-loader
+
+<!-- 참고 사이트 -->
+
+https://www.starctmall.com:446/index

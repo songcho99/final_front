@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./menu.css";
+import "./menu.scss";
 import LoginForm from "../Login/loginform"; //로그인 첫 페이지
 import SideMenu from "./sidmenu"; //사이드 버튼 메뉴
 import FindId from "../Login/findid"; //아이디 찾기
