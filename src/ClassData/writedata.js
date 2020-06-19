@@ -41,6 +41,7 @@ class WriteData extends Component{
         const { classes } = this.props;
         return(
             <div style={{width:900}}>
+                <form className="writeinsert" onSubmit={}>
                 <br></br><br></br><br></br><br></br>
                 <h1>수업 자료</h1>
                 <br></br>
@@ -90,7 +91,9 @@ class WriteData extends Component{
            목록
           </Button> &nbsp;&nbsp;
           </div>
+          </form>
             </div>
+            
         )
     }
 }
