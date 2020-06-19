@@ -1,0 +1,81 @@
+root {
+  --gray: #9e9e9e;
+  --dgray: #777;
+  --white: #ffffff;
+  --teal: #2a9d8f;
+  --red: #e63946;
+  --blue: rgb(34, 83, 184);
+  --black: rgb(52, 52, 52);
+  --yellow: #ffbe0b;
+  --orange: #ff6b35;
+}
+
+#part1back {
+  width: 100%;
+}
+
+#part1videobox {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+// 메인 비디오
+#mainvideo {
+  // width: 100%;
+  height: 200vh;
+  position: relative;
+}
+
+// 텍스트 박스
+#part1con {
+  position: relative;
+  z-index: 90;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+// 타이틀
+#part1tit {
+  font-size: 100px;
+  font-weight: bold;
+  color: var(--white);
+  letter-spacing: 8px;
+  margin-bottom: 20px;
+}
+
+#part1sub {
+  font-size: 18px;
+  color: var(--white);
+  letter-spacing: 8px;
+}
+
+#part1sublabel {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff6b35;
+}
+
+//2번 박스
+#part2con {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.part2tagbox {
+  display: flex;
+  flex-direction: column;
+}
+
+.part2tagimg {
+  color: var(--white);
+}

@@ -19,6 +19,7 @@
     "react-daum-postcode": "^1.9.0",
     "react-dom": "^16.13.1",
     "react-modal": "^3.11.2",
+    "react-player": "^2.3.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
     "sass-loader": "^8.0.2",

@@ -32,7 +32,7 @@ class MyPageUpdate extends Component {
             <div className="filebox">
               {/* for 사용하면 빨간색 경고창이 뜸 하지만 for 사용을 해야지 input[file] 과 연동하여 사용가능함  */}
               <label for="ex_file">사진 변경</label>
-              <input type="file" id="ex_file"></input>
+              <input type="file" id="ex_file" accept="image/*"></input>
             </div>
           </div>
           {/* 프로필 테이블 창*/}
