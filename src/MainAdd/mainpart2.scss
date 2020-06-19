@@ -1,0 +1,71 @@
+root {
+  --gray: #9e9e9e;
+  --dgray: #777;
+  --white: #ffffff;
+  --teal: #2a9d8f;
+  --red: #e63946;
+  --blue: rgb(34, 83, 184);
+  --black: rgb(52, 52, 52);
+  --yellow: #ffbe0b;
+  --orange: #ff6b35;
+}
+
+//위치 배정
+#part2back {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#part2back2 {
+  width: 80%;
+}
+
+//타이틀 박스
+
+#part2titbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#part2tit {
+  font-size: 60px;
+  color: var(--blue);
+  font-weight: bold;
+  letter-spacing: 8px;
+  margin-bottom: 20px;
+}
+
+.part2sub {
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--dgray);
+}
+
+//슬라이드 박스
+#part2Slidbox {
+  width: 100%;
+  height: 400px;
+  background-color: var(--dgray);
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+//슬라이드 박스
+.part2slidcon {
+  width: 250px;
+  font-size: 16px;
+  text-align: center;
+  background-color: var(--white);
+}
+
+.part2slidimage {
+  width: 250px;
+  height: 200px;
+}

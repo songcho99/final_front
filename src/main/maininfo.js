@@ -1,12 +1,15 @@
 import React, { Component } from "react";
-import "./maininfo.css";
+import "./maininfo.scss";
+import MainPart1 from "../MainAdd/mainpart1";
+import MianPart2 from "../MainAdd/mainpart2";
+
+import image from "../image/worker.jpg";
 
 class maininfo extends Component {
   constructor() {
     super();
 
     this.state = {
-      slideno: 0,
       show: 1,
       num: "",
       num2: "none",
@@ -89,61 +92,16 @@ class maininfo extends Component {
     }
   };
 
-  slide = () => {
-    setInterval(() => {
-      if (this.state.slideno === 2) {
-        this.setState({
-          slideno: 0,
-        });
-      } else {
-        this.setState({
-          slideno: +this.state.slideno,
-        });
-      }
-    }, 5000);
-  };
-
   render() {
     return (
       <div>
+        {/* 첫번째 화면  */}
         <div id="main-con" className={this.state.num}>
-          {/* 첫번째 화면  */}
-          <div
-            className="main-slide"
-            id={this.state.slideno === 0 ? "slidon" : ""}
-          >
-            <div>IT / SW Training Experts Course</div>
-            <div>
-              클라우드 시스템
-              <span>성현아 배가 고프다리</span>
-            </div>
-          </div>
-
-          <div
-            className="main-slide"
-            id={this.state.slideno === 1 ? "slidon" : ""}
-          >
-            <div>IT / SW Training Experts Course</div>
-            <div>
-              자바 SW 개발
-              <span>성현아 지도가 보고 싶구나</span>
-            </div>
-          </div>
-
-          <div
-            className="main-slide"
-            id={this.state.slideno === 2 ? "slidon" : ""}
-          >
-            <div>IT / SW Training Experts Course</div>
-            <div>
-              빅데이터 전문가
-              <span>성현아 집에는 언제가지?</span>
-            </div>
-          </div>
+          <MainPart1></MainPart1>
         </div>
         {/* 두번째 화면  */}
         <div id="main-con2" className={this.state.num2}>
-          학원 설명
+          <MianPart2></MianPart2>
         </div>
         {/* 세번째 화면  */}
         <div id="main-con3" className={this.state.num3}>
@@ -166,18 +124,6 @@ class maininfo extends Component {
           {/* 내려가는 화살표 */}
           <div className="mainiffoarrow" onClick={this.DownHandle.bind(this)}>
             <i className="fas fa-chevron-down"></i>
-          </div>
-        </div>
-
-        {/* 오른쪽 화면 전환 버튼  */}
-        <div id="rightbox">
-          {/* 1번 */}
-          <div>
-            <i className="far fa-circle"></i>
-          </div>
-          {/* 2번 */}
-          <div>
-            <i className="far fa-circle"></i>
           </div>
         </div>
       </div>
