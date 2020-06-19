@@ -21,7 +21,6 @@ import {
 import { PhotoCamera } from "@material-ui/icons";
 import "./addstudy.css";
 import Axios from "axios";
-import defaultimage from "../image/studytestimage.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {

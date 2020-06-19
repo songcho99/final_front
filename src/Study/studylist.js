@@ -21,6 +21,7 @@ import {
   FormControlLabel,
   Checkbox,
   FormGroup,
+  ExpansionPanelActions,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import image from "../image/studytestimage.jpg";
@@ -167,6 +168,8 @@ export default function StudyList(props) {
 
   return (
     <div>
+      <br />
+      <br />
       <br />
       <br />
       <br />
@@ -439,6 +442,11 @@ export default function StudyList(props) {
               </Select>
             </FormControl>
           </ExpansionPanelDetails>
+          <ExpansionPanelActions>
+            <Button href="#" style={{ marginLeft: "90%" }} color="primary">
+              검색
+            </Button>
+          </ExpansionPanelActions>
         </ExpansionPanel>
       </div>
       <br />
