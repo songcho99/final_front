@@ -41,14 +41,17 @@ import Swal from 'sweetalert2'
 
       //테이블 TH부분
       const header=(()=>
-        (<TableRow>
+        (<TableHead>
+        <TableRow>
         <TableCell style={{textAlign:"center"},{width:60}}>회원유형</TableCell>
         <TableCell style={{textAlign:"center",width:100}}>이름</TableCell>
         <TableCell style={{textAlign:"center",width:100}}>전화번호</TableCell>
         <TableCell style={{textAlign:"center",width:120}}>이메일</TableCell>
         <TableCell style={{textAlign:"center",width:200}}>주소</TableCell>
         <TableCell style={{textAlign:"center",width:60}}>회원 삭제</TableCell>
-       </TableRow>));
+       </TableRow>
+       </TableHead>
+       ));
 
 //멤버 목록 담는 변수
 let memberList = [];
@@ -129,26 +132,27 @@ useEffect(()=>{
     <br></br><br></br>
 
         {/* 테이블 반복 출력 부분 */}
-        {asd.map((item,idx)=>(
+        
         <div style={{width:1000,marginLeft:300}}>
-            <h3>{item.member_type}</h3>
+             <h3>전체 회원 목록</h3>
+             <br></br>
         <Paper>
         <Table style={{width:900}}>
-                <TableHead>
-                    {header()}
-                </TableHead>
+                {header()}
+                {asd.map((item,idx)=>(
                 <TableBody>
                     <MemberList_Data key={idx} member_num={item.member_num} member_type={item.member_type}
                     member_name={item.member_name} member_phone={item.member_phone}
                     member_email={item.member_email} member_address={item.member_address}
                     member_detailaddr={item.member_detailaddr} onBoardDelete={onBoardDelete}/>
                 </TableBody>
+                ))}
         </Table>
         </Paper>
         <br></br><br></br>
         </div>
         
-        ))}
+        
     <br></br><br></br>
     <Button variant="contained" color="default" href="/"
     style={{width:100,marginLeft:1150}}>홈으로
