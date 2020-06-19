@@ -128,6 +128,7 @@ export default function AddStudy(props) {
       Sunday: false,
     }
   );
+  const [study_gatherdayname, setStudyGatherdayName] = React.useState([]);
   const [study_peoples, setStudyPeoples] = React.useState(2);
   const [study_level, setStudyLevel] = React.useState(0);
   const [study_intr, setStudyIntr] = React.useState("");
@@ -181,7 +182,15 @@ export default function AddStudy(props) {
       [event.target.name]: event.target.checked,
     });
 
-    console.log(study_gatherday);
+    if (event.target.checked) {
+      setStudyGatherdayName(study_gatherdayname.concat(event.target.value));
+    } else {
+      setStudyGatherdayName(
+        study_gatherdayname.filter((gather) => gather !== event.target.value)
+      );
+    }
+
+    console.log(study_gatherdayname);
   };
   const handleStartDateChange = (date) => {
     if (new Date() > date) {
@@ -258,28 +267,11 @@ export default function AddStudy(props) {
       : setStudyLevel("");
     console.log(study_level);
 
-    // if (study_gatherday.Monday)
-    //   setStudyGatherdayName(study_gatherdayname.concat("Monday"));
-    // if (study_gatherday.Tuesday)
-    //   setStudyGatherdayName(study_gatherdayname.concat("Tuesday"));
-    // if (study_gatherday.Wednesday)
-    //   setStudyGatherdayName(study_gatherdayname.concat("Wednesday"));
-    // if (study_gatherday.Thursday)
-    //   setStudyGatherdayName(study_gatherdayname.concat("Thursday"));
-    // if (study_gatherday.Friday)
-    //   setStudyGatherdayName(study_gatherdayname.concat("Friday"));
-    // if (study_gatherday.Saturday)
-    //   setStudyGatherdayName(study_gatherdayname.concat("Saturday"));
-    // if (study_gatherday.Sunday)
-    //   setStudyGatherdayName(study_gatherdayname.concat("Sunday"));
-    // console.log(study_gatherday);
-
-    console.log(study_gatherday);
     formData.append("study_type", study_type);
     formData.append("study_subject", study_subject);
     formData.append("study_startdate", study_startdate);
     formData.append("study_enddate", study_enddate);
-    formData.append("study_gatherday", study_gatherday);
+    formData.append("study_gatherdayname", study_gatherdayname);
     formData.append("study_peoples", study_peoples);
     formData.append("study_level", study_level);
     formData.append("study_intr", study_intr);
@@ -424,6 +416,7 @@ export default function AddStudy(props) {
                     onChange={handleGatherdayChange}
                     name="Monday"
                     color="primary"
+                    value="월"
                   />
                 }
                 label="월요일"
@@ -435,6 +428,7 @@ export default function AddStudy(props) {
                     onChange={handleGatherdayChange}
                     name="Tuesday"
                     color="primary"
+                    value="화"
                   />
                 }
                 label="화요일"
@@ -446,6 +440,7 @@ export default function AddStudy(props) {
                     onChange={handleGatherdayChange}
                     name="Wednesday"
                     color="primary"
+                    value="수"
                   />
                 }
                 label="수요일"
@@ -457,6 +452,7 @@ export default function AddStudy(props) {
                     onChange={handleGatherdayChange}
                     name="Thursday"
                     color="primary"
+                    value="목"
                   />
                 }
                 label="목요일"
@@ -468,6 +464,7 @@ export default function AddStudy(props) {
                     onChange={handleGatherdayChange}
                     name="Friday"
                     color="primary"
+                    value="금"
                   />
                 }
                 label="금요일"
@@ -479,6 +476,7 @@ export default function AddStudy(props) {
                     onChange={handleGatherdayChange}
                     name="Saturday"
                     color="primary"
+                    value="토"
                   />
                 }
                 label="토요일"
@@ -490,6 +488,7 @@ export default function AddStudy(props) {
                     onChange={handleGatherdayChange}
                     name="Sunday"
                     color="primary"
+                    value="일"
                   />
                 }
                 label="일요일"
