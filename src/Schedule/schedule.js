@@ -3,6 +3,23 @@ import { Link } from "react-router-dom";
 import "./schedule.scss";
 
 class schedule extends Component {
+  state = {
+    open: "open",
+    close: "bottom",
+  };
+
+  Open = () => {
+    this.setState({
+      open: "top",
+    });
+  };
+
+  Close = () => {
+    this.setState({
+      open: "open",
+    });
+  };
+
   render() {
     return (
       <div>
@@ -10,14 +27,12 @@ class schedule extends Component {
         <Link to="/">
           <button>홈으로</button>
         </Link>
-        <div>
+        <div id={this.state.open}>
           <div>김성현 생일 06.20</div>
-          <button>Open</button>
+          <button onClick={this.Open.bind(this)}>Open</button>
         </div>
-
         <div>
-          <div>성현이 생일을 축하 합니다.</div>
-          <button>Close</button>
+          <button onClick={this.Close.bind(this)}>Close</button>
         </div>
       </div>
     );

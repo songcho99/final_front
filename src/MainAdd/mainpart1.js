@@ -19,15 +19,15 @@ class mainpart1 extends Component {
             <source type="video/mp4"></source>
           </video>
         </div>
-        {!this.props.part1 && (
-          <div id="part1con">
-            <div id="part1tit">IT Campus</div>
-            <div id="part1sub">
-              <span id="part1sublabel">사람</span>과{" "}
-              <span id="part1sublabel">사람</span> 사이 느낌을 주는 교육
-            </div>
+
+        <div id={this.props.part1}>
+          <div id="part1tit">IT Campus</div>
+          <div id="part1sub">
+            <span id="part1sublabel">사람</span>과{" "}
+            <span id="part1sublabel">사람</span> 사이 느낌을 주는 교육
           </div>
-        )}
+        </div>
+
         <div id="part1con2">
           <div className="part1tagbox" onClick={this.props.AllClick}>
             <div className={this.props.part1Alltag}>

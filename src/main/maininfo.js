@@ -17,8 +17,8 @@ class maininfo extends Component {
       num4: "none",
 
       // part1 에 사용하는  슬라이드 변수
-      part1: false, //타이틀 사라지는 변수
-      part1back: "hid", //백그라운드 변수
+      part1: "part1con", //타이틀 사라지는 변수
+      part1back: "part1con4After", //백그라운드 변수
       part1slide: "hid", //전체 슬라이드 변수
       part1PHP: "hid", //PHP 슬라이드 변수
       part1React: "hid", //React 슬라이드 변수
@@ -36,8 +36,8 @@ class maininfo extends Component {
   Con4X = () => {
     this.setState({
       //박스들
-      part1: false,
-      part1back: "hid",
+      part1: "part1con",
+      part1back: "part1con4After",
       part1slide: "hid",
       part1PHP: "hid",
       part1React: "hid",
@@ -54,7 +54,7 @@ class maininfo extends Component {
   //All 클릭시 힘스
   AllClick = () => {
     this.setState({
-      part1: true,
+      part1: "part1conAfter",
       part1back: "part1con4",
       part1slide: "part1con3",
       part1PHP: "hid",
@@ -72,7 +72,7 @@ class maininfo extends Component {
   //React 클릭시 함수
   ReactClick = () => {
     this.setState({
-      part1: true,
+      part1: "part1conAfter",
       part1back: "part1con4",
       part1slide: "hid",
       part1PHP: "hid",
@@ -91,7 +91,7 @@ class maininfo extends Component {
   PHPClick = () => {
     this.setState({
       // 박스들
-      part1: true,
+      part1: "part1conAfter",
       part1back: "part1con4",
       part1slide: "hid",
       part1PHP: "part1con3",
@@ -110,7 +110,7 @@ class maininfo extends Component {
   JavaClick = () => {
     this.setState({
       //박스들
-      part1: true,
+      part1: "part1conAfter",
       part1back: "part1con4",
       part1slide: "hid",
       part1PHP: "hid",
@@ -130,34 +130,48 @@ class maininfo extends Component {
     if (this.state.show === 1) {
       this.setState({
         show: 2,
-        num: "none",
-        num2: "",
+        num: "",
+        num2: "nonedown",
         num3: "none",
         num4: "none",
+
+        // part1 에 사용하는  슬라이드 변수
+        part1: "part1con", //타이틀 사라지는 변수
+        part1back: "part1con4After", //백그라운드 변수
+        part1slide: "hid", //전체 슬라이드 변수
+        part1PHP: "hid", //PHP 슬라이드 변수
+        part1React: "hid", //React 슬라이드 변수
+        Part1Java: "hid", //Java 슬라이드 변수
+
+        //part1 에 버튼 색상 변경 변수
+        part1Alltag: "part1tagimg ",
+        part1PHPtag: "part1tagimg ",
+        part1Reacttag: "part1tagimg ",
+        part1Javatag: "part1tagimg ",
       });
     } else if (this.state.show === 2) {
       this.setState({
         show: 3,
-        num: "none",
-        num2: "none",
-        num3: "",
+        num: "",
+        num2: "",
+        num3: "nonedown",
         num4: "none",
       });
     } else if (this.state.show === 3) {
       this.setState({
         show: 4,
-        num: "none",
-        num2: "none",
-        num3: "none",
-        num4: "",
+        num: "",
+        num2: "",
+        num3: "",
+        num4: "nonedown",
       });
     } else if (this.state.show === 4) {
       this.setState({
         show: 1,
-        num: "",
-        num2: "none",
-        num3: "none",
-        num4: "none",
+        num: "maininfoshowlast",
+        num2: "nonedownlast4",
+        num3: "nonedownlast3",
+        num4: "nonedownlast2",
       });
     }
   };
@@ -167,34 +181,48 @@ class maininfo extends Component {
     if (this.state.show === 1) {
       this.setState({
         show: 4,
-        num: "none",
-        num2: "none",
-        num3: "none",
-        num4: "",
+        num: "noneup",
+        num2: "noneup",
+        num3: "noneup",
+        num4: "maininfoUp",
+
+        // part1 에 사용하는  슬라이드 변수
+        part1: "part1con", //타이틀 사라지는 변수
+        part1back: "part1con4After", //백그라운드 변수
+        part1slide: "hid", //전체 슬라이드 변수
+        part1PHP: "hid", //PHP 슬라이드 변수
+        part1React: "hid", //React 슬라이드 변수
+        Part1Java: "hid", //Java 슬라이드 변수
+
+        //part1 에 버튼 색상 변경 변수
+        part1Alltag: "part1tagimg ",
+        part1PHPtag: "part1tagimg ",
+        part1Reacttag: "part1tagimg ",
+        part1Javatag: "part1tagimg ",
       });
     } else if (this.state.show === 2) {
       this.setState({
         show: 1,
-        num: "",
-        num2: "none",
-        num3: "none",
-        num4: "none",
+        num: "maininfoUp",
+        num2: "noneup",
+        num3: "noneup",
+        num4: "noneup",
       });
     } else if (this.state.show === 3) {
       this.setState({
         show: 2,
-        num: "none",
-        num2: "",
-        num3: "none",
-        num4: "none",
+        num: "noneup",
+        num2: "maininfoUp",
+        num3: "noneup",
+        num4: "noneup",
       });
     } else if (this.state.show === 4) {
       this.setState({
         show: 3,
-        num: "none",
-        num2: "none",
-        num3: "",
-        num4: "none",
+        num: "noneup",
+        num2: "noneup",
+        num3: "maininfoUp",
+        num4: "noneup",
       });
     }
   };
