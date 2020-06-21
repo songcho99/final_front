@@ -15,8 +15,115 @@ class maininfo extends Component {
       num2: "none",
       num3: "none",
       num4: "none",
+
+      // part1 에 사용하는  슬라이드 변수
+      part1: false, //타이틀 사라지는 변수
+      part1back: "hid", //백그라운드 변수
+      part1slide: "hid", //전체 슬라이드 변수
+      part1PHP: "hid", //PHP 슬라이드 변수
+      part1React: "hid", //React 슬라이드 변수
+      Part1Java: "hid", //Java 슬라이드 변수
+
+      //part1 에 버튼 색상 변경 변수
+      part1Alltag: "part1tagimg ",
+      part1PHPtag: "part1tagimg ",
+      part1Reacttag: "part1tagimg ",
+      part1Javatag: "part1tagimg ",
     };
   }
+
+  //con4 x 버튼
+  Con4X = () => {
+    this.setState({
+      //박스들
+      part1: false,
+      part1back: "hid",
+      part1slide: "hid",
+      part1PHP: "hid",
+      part1React: "hid",
+      Part1Java: "hid",
+
+      // 버튼
+      part1Alltag: "part1tagimg",
+      part1PHPtag: "part1tagimg",
+      part1Reacttag: "part1tagimg",
+      part1Javatag: "part1tagimg",
+    });
+  };
+
+  //All 클릭시 힘스
+  AllClick = () => {
+    this.setState({
+      part1: true,
+      part1back: "part1con4",
+      part1slide: "part1con3",
+      part1PHP: "hid",
+      part1React: "hid",
+      Part1Java: "hid",
+
+      // 버튼
+      part1Alltag: "part1tagimgafter",
+      part1PHPtag: "part1tagimg",
+      part1Reacttag: "part1tagimg",
+      part1Javatag: "part1tagimg",
+    });
+  };
+
+  //React 클릭시 함수
+  ReactClick = () => {
+    this.setState({
+      part1: true,
+      part1back: "part1con4",
+      part1slide: "hid",
+      part1PHP: "hid",
+      part1React: "part1con3",
+      Part1Java: "hid",
+
+      // 버튼
+      part1Alltag: "part1tagimg",
+      part1PHPtag: "part1tagimg",
+      part1Reacttag: " part1tagimgafter",
+      part1Javatag: "part1tagimg",
+    });
+  };
+
+  //PHP 클릭시 함수
+  PHPClick = () => {
+    this.setState({
+      // 박스들
+      part1: true,
+      part1back: "part1con4",
+      part1slide: "hid",
+      part1PHP: "part1con3",
+      part1React: "hid",
+      Part1Java: "hid",
+
+      // 버튼
+      part1Alltag: "part1tagimg",
+      part1PHPtag: " part1tagimgafter",
+      part1Reacttag: "part1tagimg",
+      part1Javatag: "part1tagimg",
+    });
+  };
+
+  //Java 클릭시 함수
+  JavaClick = () => {
+    this.setState({
+      //박스들
+      part1: true,
+      part1back: "part1con4",
+      part1slide: "hid",
+      part1PHP: "hid",
+      part1React: "hid",
+      Part1Java: "part1con3",
+
+      // 버튼
+      part1Alltag: "part1tagimg",
+      part1PHPtag: "part1tagimg",
+      part1Reacttag: "part1tagimg",
+      part1Javatag: " part1tagimgafter",
+    });
+  };
 
   //화면 내려가는 함수
   DownHandle = () => {
@@ -97,7 +204,26 @@ class maininfo extends Component {
       <div>
         {/* 첫번째 화면  */}
         <div id="main-con" className={this.state.num}>
-          <MainPart1></MainPart1>
+          <MainPart1
+            // 박스 변수
+            part1={this.state.part1}
+            part1back={this.state.part1back}
+            part1slide={this.state.part1slide}
+            part1PHP={this.state.part1PHP}
+            part1React={this.state.part1React}
+            Part1Java={this.state.Part1Java}
+            // 버튼 변수
+            part1Alltag={this.state.part1Alltag}
+            part1PHPtag={this.state.part1PHPtag}
+            part1Reacttag={this.state.part1Reacttag}
+            part1Javatag={this.state.part1Javatag}
+            //이벤트 함수
+            AllClick={this.AllClick.bind(this)}
+            PHPClick={this.PHPClick.bind(this)}
+            ReactClick={this.ReactClick.bind(this)}
+            JavaClick={this.JavaClick.bind(this)}
+            Con4X={this.Con4X.bind(this)}
+          ></MainPart1>
         </div>
         {/* 두번째 화면  */}
         <div id="main-con2" className={this.state.num2}>
