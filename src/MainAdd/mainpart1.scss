@@ -12,6 +12,10 @@ root {
 
 #part1back {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 #part1videobox {
@@ -39,6 +43,7 @@ root {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 40px;
 }
 
 // 타이틀
@@ -63,19 +68,149 @@ root {
 }
 
 //2번 박스
-#part2con {
+#part1con2 {
   position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99;
 }
 
-.part2tagbox {
+.part1tagbox {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  margin: 0 40px;
+  cursor: pointer;
 }
 
-.part2tagimg {
+.part1tagimgafter {
+  border: 1px solid var(--white);
+  width: 70px;
+  height: 70px;
+  border-radius: 70px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  background-color: var(--white);
+  color: var(--blue);
+  font-weight: bold;
+}
+.part1tagimg {
+  border: 1px solid var(--white);
+  width: 70px;
+  height: 70px;
+  border-radius: 70px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
   color: var(--white);
+}
+
+.part1tagtext {
+  font-size: 12px;
+}
+
+// 클릭시 con4 출력
+#part1con4 {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: var(--black);
+  opacity: 0.7;
+  display: block;
+}
+
+//con4 엑스 표시
+#part1con4x {
+  z-index: 10;
+  position: absolute;
+  color: var(--white);
+  font-size: 40px;
+  top: 95px;
+  left: 20px;
+  cursor: pointer;
+}
+
+//클릭시 con3 출력
+#part1con3 {
+  position: relative;
+  z-index: 8;
+  width: 80%;
+  height: 200px;
+  // background-color: transparent;
+  margin-top: 40px;
+  overflow-x: hidden;
+  white-space: nowrap;
+  display: block;
+}
+
+// 가로 슬라이더 박스
+#part1slidul {
+  list-style: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+#part1slidul li {
+  display: inline-block;
+  // background-color: var(--teal);
+  width: 200px;
+  height: 200px;
+  margin-right: 20px;
+  margin: 0 20px;
+}
+
+// 하살표
+#part1slidarrow1 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 70px;
+  cursor: pointer;
+  z-index: 90;
+}
+
+#part1slidarrow2 {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 70px;
+  cursor: pointer;
+}
+
+//삽입 이미지
+.part1imgbox {
+  display: block;
+  width: 200px;
+  height: 200px;
+  background-size: 200px 200px;
+  // background-image: url("../image/lake.jpg");
+}
+.part1img {
+  position: absolute;
+  z-index: 90;
+  top: 0;
+
+  width: 200px;
+  height: 200px;
+  border: 0;
 }

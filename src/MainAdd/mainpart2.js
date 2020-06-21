@@ -21,9 +21,10 @@ class mainpart2 extends Component {
             <div>화살표</div>
             <div className="part2slidcon">
               <div>java 백핸드 개발자 양성 과정</div>
-              <div className="part2slidimage">
-                <image src={image1}></image>
-              </div>
+              <div
+                className="part2slidimage"
+                style={{ backgroundImage: 'url(require("../image/sea.jpg"))' }}
+              ></div>
               <div>기간 : 2020.06.20 ~ 2020.12.25</div>
             </div>
             <div>화살표</div>
