@@ -31,6 +31,10 @@ class singup extends Component {
     addresscheck: "",
     detailaddrcheck: "",
     modalOpen: false,
+
+    checknum: "",
+    randomsu: "123456",
+    phCheck_msg: ""
   };
   componentDidMount() {
     const script = document.createElement("script");
@@ -286,19 +290,46 @@ class singup extends Component {
     axios
       .post(url, memberData)
       .then((res) => {
-        Swal.fire({
-          position: "middle-middle",
-          icon: "success",
-          title: "회원가입 완료!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        window.location.href = "/";
+        if (this.state.randomsu == this.state.checknum) {
+          Swal.fire({
+            position: "middle-middle",
+            icon: "success",
+            title: "회원가입 완료!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          window.location.href = "/";
+        } else if (this.state.randomsu === "123456") {
+          this.setState({
+            phCheck_msg: "핸드폰 인증이 필요합니다."
+          })
+          return;
+        } else {
+          this.setState({
+            phCheck_msg: "인증번호가 맞지 않습니다."
+          })
+          return;
+        }
       })
       .catch((err) => {
         console.log("회원가입 에러 : " + err);
       });
   };
+  //send SMS
+  onSms = () => {
+    const dataForm = new FormData();
+    dataForm.append("member_phone", this.state.member_phone);
+    var url = "http://localhost:8000/project/check/checknum";
+    axios.post(url, dataForm)
+      .then((res) => {
+        this.setState({
+          randomsu: res.data,
+          phCheck_msg: "인증번호 발송이 완료되었습니다."
+        });
+      }).catch((err) => {
+        console.log("발송 버튼 error=" + err);
+      })
+  }
 
   render() {
     const post = () => {
@@ -485,17 +516,13 @@ class singup extends Component {
                   <LoginBtn
                     variant="outlined"
                     className="findidbtns"
-                    onClick={this.MessageFocus.bind(this)}
+                    onClick={this.onSms.bind(this)}
                   >
                     인증번호 받기
                   </LoginBtn>
                 </div>
               </div>
 
-              {/* 경고 문구 출력 창  */}
-              <div className="loginlabel" id="signupwarning">
-                여기다가 필요한 검증 문구 삽임
-              </div>
 
               {/* 인증번호 입력 박스  */}
               <div id="findidbox">
@@ -503,7 +530,14 @@ class singup extends Component {
                   type="text"
                   placeholder="인증번호"
                   id="findidinp"
+                  name="checknum"
+                  onChange={this.onKeyChange.bind(this)}
+                  value={this.state.checknum}
                 ></input>
+              </div>
+              {/* 경고 문구 출력 창  */}
+              <div className="loginlabel" id="signupwarning">
+                {this.state.phCheck_msg}
               </div>
 
               {/* 버튼박스 */}

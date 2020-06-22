@@ -7,31 +7,31 @@ import FindPw from "../Login/findpw"; //비밀번호 찾기
 import PwReset from "../Login/pwreset"; //비밀번호 재설정
 import SingUp from "../Login/singup"; //회원가입
 import Swal from "sweetalert2";
-import { Link,Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 // 모달
 import Modal from "react-modal";
 
 class Menu extends Component {
-  
 
-    state = {
-      LoginModal: false, //로그인 모달창 열고 닫는 변수
-      FindIdModal: false, //findid창이 뜨는 창
-      FindPwModal: false, //비밀번호 찾기 열고 닫는 변수
-      PwReset: false, //비밀번호 재설정 창 열고 닫는 변수
-      SingUp: false, //회원가입 열고 닫는 변수
-      loggedInfo: localStorage.getItem("loginok") === "success" ? true : false,
-      member_id: localStorage.saveid,
-      member_password: "",
-      member_name: "",
-      member_num: 0,
-      check: localStorage.check,
-      failmsg: "",
-      loginchange: false,
-      
-    };
-  
+
+  state = {
+    LoginModal: false, //로그인 모달창 열고 닫는 변수
+    FindIdModal: false, //findid창이 뜨는 창
+    FindPwModal: false, //비밀번호 찾기 열고 닫는 변수
+    PwReset: false, //비밀번호 재설정 창 열고 닫는 변수
+    SingUp: false, //회원가입 열고 닫는 변수
+    loggedInfo: localStorage.getItem("loginok") === "success" ? true : false,
+    member_id: localStorage.saveid,
+    member_password: "",
+    member_name: "",
+    member_num: 0,
+    check: localStorage.check,
+    failmsg: "",
+    loginchange: false,
+
+  };
+
 
   //회원가입창 닫기
   SingUpClose = () => {
@@ -186,40 +186,40 @@ class Menu extends Component {
           {/* 로그인 되어있을때 상단 메뉴에 과정명,마이페이지 버튼,이름 활성화 */}
           {this.state.loggedInfo && (
             <div>
-              {localStorage.type==="수강생" &&(
+              {localStorage.type === "수강생" && (
                 <Link to="/classpage">
-              <b id="hdspan">과정명</b>
+                  <b id="hdspan">과정명</b>
                 </Link>
               )}
-              {localStorage.type==="강사" &&(
+              {localStorage.type === "강사" && (
                 <Link to="/classpage">
-                <b id="hdspan">과정명</b>
-                  </Link>
+                  <b id="hdspan">과정명</b>
+                </Link>
               )}
-              {localStorage.type==="매니저" &&(
+              {localStorage.type === "매니저" && (
                 <b id="hdspan">과정명</b>
               )}
-              {localStorage.type==="일반" &&(
+              {localStorage.type === "일반" && (
                 <b id="hdspan">과정명</b>
-              )} 
+              )}
               &nbsp;&nbsp;&nbsp;<Link to="/mypageupdate">
-              <i
-                id="hdlabel"
-                className="fas fa-user-circle"
-              ></i>
+                <i
+                  id="hdlabel"
+                  className="fas fa-user-circle"
+                ></i>
               </Link>{" "}
               &nbsp;
-              {localStorage.type==="강사" &&(
-              <b id="hdspan">{localStorage.name} 강사님</b>
+              {localStorage.type === "강사" && (
+                <b id="hdspan">{localStorage.name} 강사님</b>
               )}
-              {localStorage.type==="매니저" &&(
-                <b id="hdspan">{localStorage.name} 매니저님</b> 
+              {localStorage.type === "매니저" && (
+                <b id="hdspan">{localStorage.name} 매니저님</b>
               )}
-              {localStorage.type==="수강생" &&(
-                <b id="hdspan">{localStorage.name} 수강생님</b> 
+              {localStorage.type === "수강생" && (
+                <b id="hdspan">{localStorage.name} 수강생님</b>
               )}
-              {localStorage.type==="일반" &&(
-                <b id="hdspan">{localStorage.name} 님</b> 
+              {localStorage.type === "일반" && (
+                <b id="hdspan">{localStorage.name} 님</b>
               )}
               &nbsp;&nbsp;&nbsp;<button onClick={this.isLogOut.bind(this)}>로그아웃</button> &nbsp;&nbsp;&nbsp;
             </div>
