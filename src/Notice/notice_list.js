@@ -1,22 +1,55 @@
-import React,{Component} from'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Axios from 'axios';
 
-class Notice_List extends Component{
-    render(){
-        return(
+class Notice_List extends Component {
+    constructor() {
+        super();
+        this.state = {
+            listData: [],
+            num: 0,
+        }
+    }
+    componentWillMount() {
+        this.list();
+    }
+    list = () => {
+        let url = "http://localhost:8000/project/notice/noticelist";
+        Axios.get(url)
+            .then(res => {
+                this.setState({
+                    listData: res.data
+                })
+            }).catch(err => {
+                console.log("noticelist error=" + err);
+            })
+    }
+    render() {
+        return (
             <div>
-                <h2>공지사항 리스트입니다</h2>
-
-                <hr/>
-                <Link to="noticeadd">
-                    공지사항 작성
-                </Link>
-                <br></br><br></br>
-                <a href="/noticedetail">혜지가 무리한걸 요구한다</a>
-                <br></br><br></br>
-                <Link to="/">
-                    홈으로
-                </Link>
+                <div style={{ paddingTop: '100px' }}></div>
+                <h2>Notice List</h2>
+                <Link to="/noticeadd">NoticeAdd</Link>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>작성일</th>
+                            <th>조회수</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.listData.map((item, idx) => (
+                            < tr key={idx} >
+                                <td>{idx + 1}</td>
+                                <td><Link to={{ pathname: "/noticedetail", state: { num: item.notice_num } }} style={{ color: 'black', textDecoration: 'none' }}>{item.notice_subject}</Link></td>
+                                <td>{item.notice_writeday}</td>
+                                <td>{item.notice_readcount}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         )
     }
