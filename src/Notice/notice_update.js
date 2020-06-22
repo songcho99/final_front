@@ -13,7 +13,8 @@ class Notice_Update extends Component {
             fileName: [],
             uploadFile: [],
             filelist: [],
-            delfile: []
+            delfile: [],
+            notice: 0,
         }
     }
 
@@ -57,6 +58,11 @@ class Notice_Update extends Component {
         document.getElementById(idx).setAttribute("name", "deleteFile");
         console.log(this.state.delfile);
     }
+    onCheckboxhandler = (e) => {
+        this.setState({
+            notice: 1,
+        })
+    }
     updateNotice = (e) => {
         e.preventDefault();
         const dataForm = new FormData();
@@ -72,6 +78,7 @@ class Notice_Update extends Component {
         dataForm.append("notice_subject", e.target.notice_subject.value);
         dataForm.append("notice_content", e.target.notice_content.value);
         dataForm.append("notice_filename", this.state.fileName);
+        dataForm.append("notice_type", this.state.notice);
 
         let url = "http://localhost:8000/project/notice/noticeupdate"
         Axios
@@ -91,6 +98,11 @@ class Notice_Update extends Component {
                     <input type="hidden" name="notice_member_num" value={this.state.noticedata.notice_member_num} />
                     <table style={{ width: "400px" }}>
                         <tbody>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" value="1" onChange={this.onCheckboxhandler.bind(this)} />맨 위로
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     <TextField id="standard-basic" label="subject" style={{ width: "400px" }} name="notice_subject" value={this.state.noticedata.notice_subject} />
