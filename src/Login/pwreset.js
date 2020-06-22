@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./pwreset.css";
+import Swal from 'sweetalert2';
 
 //마테리얼
 import { styled } from "@material-ui/core/styles";
@@ -28,9 +29,13 @@ class pwreset extends Component {
         Axios.post(url, dataForm)
           .then((res) => {
             console.log("비밀번호 업데이트 완료");
-            window.confirm("비밀번호 재설정 완료");
             localStorage.removeItem("saveid");
             this.props.PwResetClose();
+            this.props.LoginModalClose();
+            Swal.fire('비밀번호 재설정 완료')
+            .then((result)=>{
+              this.props.LoginModalOpen();
+            })
           }).catch((err) => {
             console.log("비밀번호 업데이트 에러=" + err);
           })
