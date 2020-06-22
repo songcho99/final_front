@@ -163,6 +163,7 @@ export default function MyPageUpdate(props) {
       formData.append("profile_image", member_profile);
     if (typeof member_profile === "string")
       formData.append("member_profile", member_profile);
+    localStorage.profile = member_profile;
     Axios.post(url, formData)
       .then((res) => {
         Swal.fire({

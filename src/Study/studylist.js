@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   makeStyles,
   ExpansionPanel,
@@ -33,6 +33,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
+import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,14 +60,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const tileData = [
-  {
-    img: image,
-    title: "Image",
-    author: "author",
-  },
-];
-
 const marks = [
   {
     value: 0,
@@ -82,6 +75,15 @@ const marks = [
   },
 ];
 
+// function getFormatDate(date) {
+//   var year = date.getFullYear(); //yyyy
+//   var month = 1 + date.getMonth(); //M
+//   month = month >= 10 ? month : "0" + month; //month 두자리로 저장
+//   var day = date.getDate(); //d
+//   day = day >= 10 ? day : "0" + day; //day 두자리로 저장
+//   return year + "" + month + "" + day; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+// }
+
 function valuetext() {
   return marks.label;
 }
@@ -90,6 +92,8 @@ export default function StudyList(props) {
   const { loading = false } = props;
   const classes = useStyles();
 
+  const [listdata, setListData] = React.useState([]);
+  const [profilelist, setProfileList] = React.useState([]);
   const [searchFilter, setSearchFilter] = React.useState("");
   const [searchSubject, setSearchSubject] = React.useState("");
   const [searchLevel, setSearchLevel] = React.useState("");
@@ -109,8 +113,10 @@ export default function StudyList(props) {
     Saturday: false,
     Sunday: false,
   });
+  const [searchGatherdayName, setSearchGetherdayName] = React.useState([]);
   const [searchAddress, setSearchAddress] = React.useState("");
   const [searchDetailAddr, setSearchDetailAddr] = React.useState("");
+  const [expanded, setExpanded] = React.useState("panel");
 
   const handleSearchFilterChange = (event) => {
     setSearchFilter(event.target.value);
@@ -155,7 +161,16 @@ export default function StudyList(props) {
       ...searchGatherday,
       [event.target.name]: event.target.checked,
     });
-    console.log(searchGatherday);
+
+    if (event.target.checked) {
+      setSearchGetherdayName(searchGatherdayName.concat(event.target.value));
+    } else {
+      setSearchGetherdayName(
+        searchGatherdayName.filter((gather) => gather !== event.target.value)
+      );
+    }
+
+    console.log(searchGatherdayName);
   };
   const handleSearchAddressChange = (event) => {
     setSearchAddress(event.target.value);
@@ -165,6 +180,27 @@ export default function StudyList(props) {
     setSearchDetailAddr(event.target.value);
     console.log(`searchdetailaddr:${searchDetailAddr}`);
   };
+  const handlePanelChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
+  const handleSearchClick = (event) => {
+    console.log(listdata);
+  };
+  const list = () => {
+    const url = "http://localhost:8000/project/study/list";
+    Axios.get(url)
+      .then((res) => {
+        setListData(res.data.listdata);
+        setProfileList(res.data.profilelist);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    list();
+  }, []);
 
   return (
     <div>
@@ -173,20 +209,23 @@ export default function StudyList(props) {
       <br />
       <br />
       <br />
-      <Button
-        variant="outlined"
-        color="primary"
-        href="/mystudyteam"
-        style={{
-          marginLeft: "84.5%",
-        }}
-      >
-        마이 스터디
-      </Button>
+      <div style={{ float: "right", marginRight: "10%" }}>
+        <Button variant="contained" color="primary" href="./addstudy">
+          스터디 만들기
+        </Button>
+        &nbsp;
+        <Button variant="outlined" color="primary" href="/mystudyteam">
+          마이 스터디
+        </Button>
+      </div>
+
       <br />
       <br />
       <div className={classes.root}>
-        <ExpansionPanel>
+        <ExpansionPanel
+          expanded={expanded === "panel"}
+          onChange={handlePanelChange("panel")}
+        >
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -443,7 +482,11 @@ export default function StudyList(props) {
             </FormControl>
           </ExpansionPanelDetails>
           <ExpansionPanelActions>
-            <Button href="#" style={{ marginLeft: "90%" }} color="primary">
+            <Button
+              onClick={handleSearchClick}
+              style={{ marginLeft: "90%" }}
+              color="primary"
+            >
               검색
             </Button>
           </ExpansionPanelActions>
@@ -453,124 +496,100 @@ export default function StudyList(props) {
       <br />
       <br></br>
       <br></br>
-      {/* <div className={gridClasses.root}>
-        <GridList cellHeight={180} className={gridClasses.gridList}>
-          {tileData.map((tile) => (
-            <GridListTile key={tile.img}>
-              <Link to="/studydetail">
-                <img
-                  src={tile.img}
-                  alt={tile.title}
-                  style={{ width: "300px", height: "200px" }}
-                />
-                <GridListTileBar
-                  title={tile.title}
-                  subtitle={<span>모집자: {tile.author}</span>}
-                  style={{ width: "300px" }}
-                  actionIcon={
-                    <IconButton
-                      aria-label={`info about ${tile.title}`}
-                      className={gridClasses.icon}
-                    ></IconButton>
-                  }
-                />
-              </Link>
-            </GridListTile>
-          ))}
-        </GridList>
-      </div> */}
-      {tileData.map((tile, idx) => (
-        <div style={{ marginLeft: "100px" }} key={idx}>
-          <Card className={classes.card}>
-            <CardHeader
-              avatar={
-                loading ? (
-                  <Skeleton
-                    animation="wave"
-                    variant="circle"
-                    width={40}
-                    height={40}
-                  />
-                ) : (
-                  <Avatar
-                    alt="Ted talk"
-                    src="https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg"
-                  />
-                )
-              }
-              action={
-                loading ? null : (
-                  <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                  </IconButton>
-                )
-              }
-              title={
-                loading ? (
-                  <Skeleton
-                    animation="wave"
-                    height={10}
-                    width="80%"
-                    style={{ marginBottom: 6 }}
-                  />
-                ) : (
-                  "Ted"
-                )
-              }
-              subheader={
-                loading ? (
-                  <Skeleton animation="wave" height={10} width="40%" />
-                ) : (
-                  "5 hours ago"
-                )
-              }
-            />
-            {loading ? (
-              <Skeleton
-                animation="wave"
-                variant="rect"
-                className={classes.media}
+      {listdata.map((ele, idx) => (
+        <div style={{ marginLeft: "10%", marginRight: "10%" }}>
+          <div style={{ float: "left", width: "25%" }}>
+            <Card className={classes.card}>
+              <CardHeader
+                avatar={
+                  loading ? (
+                    <Skeleton
+                      animation="wave"
+                      variant="circle"
+                      width={40}
+                      height={40}
+                    />
+                  ) : (
+                    <Avatar
+                      alt=""
+                      src={
+                        "http://localhost:8000/project/uploadfile/" +
+                        profilelist[idx]
+                      }
+                    />
+                  )
+                }
+                action={
+                  loading ? null : (
+                    <IconButton aria-label="settings">
+                      <MoreVertIcon />
+                    </IconButton>
+                  )
+                }
+                title={
+                  loading ? (
+                    <Skeleton
+                      animation="wave"
+                      height={10}
+                      width="80%"
+                      style={{ marginBottom: 6 }}
+                    />
+                  ) : (
+                    ele.study_writer
+                  )
+                }
+                subheader={
+                  loading ? (
+                    <Skeleton animation="wave" height={10} width="40%" />
+                  ) : (
+                    new Date(ele.study_writeday).toLocaleDateString()
+                  )
+                }
               />
-            ) : (
-              <Link to="/studydetail">
-                <CardMedia
-                  className={classes.media}
-                  image={tile.img}
-                  title="Ted talk"
-                />
-              </Link>
-            )}
-
-            <CardContent>
               {loading ? (
-                <React.Fragment>
-                  <Skeleton
-                    animation="wave"
-                    height={10}
-                    style={{ marginBottom: 6 }}
-                  />
-                  <Skeleton animation="wave" height={10} width="80%" />
-                </React.Fragment>
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  className={classes.media}
+                />
               ) : (
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {
-                    "Why First Minister of Scotland Nicola Sturgeon thinks GDP is the wrong measure of a country's success:"
-                  }
-                </Typography>
+                <Link to="/studydetail">
+                  <CardMedia
+                    className={classes.media}
+                    image={
+                      "http://localhost:8000/project/uploadfile/" +
+                      ele.study_mainimage
+                    }
+                    title="Ted talk"
+                  />
+                </Link>
               )}
-            </CardContent>
-          </Card>
+
+              <CardContent>
+                {loading ? (
+                  <React.Fragment>
+                    <Skeleton
+                      animation="wave"
+                      height={10}
+                      style={{ marginBottom: 6 }}
+                    />
+                    <Skeleton animation="wave" height={10} width="80%" />
+                  </React.Fragment>
+                ) : (
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    {ele.study_intr}
+                  </Typography>
+                )}
+              </CardContent>
+            </Card>
+          </div>
         </div>
       ))}
       <br />
-      <Button
-        variant="contained"
-        color="primary"
-        href="./addstudy"
-        style={{ marginLeft: "83.8%" }}
-      >
-        스터디 만들기
-      </Button>
       <br />
       <br />
       <br />

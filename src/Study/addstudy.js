@@ -130,7 +130,7 @@ export default function AddStudy(props) {
   );
   const [study_gatherdayname, setStudyGatherdayName] = React.useState([]);
   const [study_peoples, setStudyPeoples] = React.useState(2);
-  const [study_level, setStudyLevel] = React.useState(0);
+  const [study_level, setStudyLevel] = React.useState("하");
   const [study_intr, setStudyIntr] = React.useState("");
   const [study_goal, setStudyGoal] = React.useState("");
   const [study_progress, setStudyProgress] = React.useState("");
@@ -220,7 +220,6 @@ export default function AddStudy(props) {
   };
   const handleLevelChange = (event, newValue) => {
     setStudyLevel(newValue);
-    console.log(`level:${study_level}`);
   };
   const handleIntrChange = (event) => {
     setStudyIntr(event.target.value);
@@ -253,18 +252,22 @@ export default function AddStudy(props) {
     if (event.target.files[0]) reader.readAsDataURL(file);
     setStudyMainImage(file);
   };
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    const url = "http://localhost:8000/project/study/add";
-    const formData = new FormData();
+  useEffect(() => {
     study_level === 0 || study_level === "하"
       ? setStudyLevel("하")
       : study_level === 50 || study_level === "중"
       ? setStudyLevel("중")
       : study_level === 100 || study_level === "상"
       ? setStudyLevel("상")
-      : setStudyLevel("");
+      : setStudyLevel("하");
+    console.log(`level:${study_level}`);
+  }, [study_level]);
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const url = "http://localhost:8000/project/study/add";
+    const formData = new FormData();
+
     console.log(study_level);
 
     formData.append("study_type", study_type);
@@ -305,6 +308,7 @@ export default function AddStudy(props) {
     })
       .then((res) => {
         console.log(`데이터 추가:${res}`);
+        window.location.href = "/studylist";
       })
       .catch((err) => {
         console.log(`데이터 추가 오류:${err}`);
