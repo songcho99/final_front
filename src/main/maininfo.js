@@ -11,10 +11,10 @@ class maininfo extends Component {
 
     this.state = {
       show: 1,
-      num: "",
-      num2: "none",
-      num3: "none",
-      num4: "none",
+      num: "nonedown",
+      num2: "nonedown",
+      num3: "nonedown",
+      num4: "nonedown",
 
       // part1 에 사용하는  슬라이드 변수
       part1: "part1con", //타이틀 사라지는 변수
@@ -130,7 +130,7 @@ class maininfo extends Component {
     if (this.state.show === 1) {
       this.setState({
         show: 2,
-        num: "",
+        num: "none",
         num2: "nonedown",
         num3: "none",
         num4: "none",
@@ -152,26 +152,26 @@ class maininfo extends Component {
     } else if (this.state.show === 2) {
       this.setState({
         show: 3,
-        num: "",
-        num2: "",
+        num: "none",
+        num2: "none",
         num3: "nonedown",
         num4: "none",
       });
     } else if (this.state.show === 3) {
       this.setState({
         show: 4,
-        num: "",
-        num2: "",
-        num3: "",
+        num: "none",
+        num2: "none",
+        num3: "none",
         num4: "nonedown",
       });
     } else if (this.state.show === 4) {
       this.setState({
         show: 1,
-        num: "maininfoshowlast",
-        num2: "nonedownlast4",
-        num3: "nonedownlast3",
-        num4: "nonedownlast2",
+        num: "nonefinal4",
+        num2: "nonefinal3",
+        num3: "nonefinal2",
+        num4: "nonefinal",
       });
     }
   };
@@ -181,10 +181,10 @@ class maininfo extends Component {
     if (this.state.show === 1) {
       this.setState({
         show: 4,
-        num: "noneup",
-        num2: "noneup",
-        num3: "noneup",
-        num4: "maininfoUp",
+        num: "nonefirst2",
+        num2: "nonefirst3",
+        num3: "nonefirst4",
+        num4: "nonefirst",
 
         // part1 에 사용하는  슬라이드 변수
         part1: "part1con", //타이틀 사라지는 변수
@@ -203,26 +203,26 @@ class maininfo extends Component {
     } else if (this.state.show === 2) {
       this.setState({
         show: 1,
-        num: "maininfoUp",
-        num2: "noneup",
-        num3: "noneup",
-        num4: "noneup",
+        num: "noneUp",
+        num2: "nonefirst",
+        num3: "nonefirst",
+        num4: "nonefirst",
       });
     } else if (this.state.show === 3) {
       this.setState({
         show: 2,
-        num: "noneup",
-        num2: "maininfoUp",
-        num3: "noneup",
-        num4: "noneup",
+        num: "none",
+        num2: "noneUp",
+        num3: "nonefirst",
+        num4: "nonefirst",
       });
     } else if (this.state.show === 4) {
       this.setState({
         show: 3,
-        num: "noneup",
-        num2: "noneup",
-        num3: "maininfoUp",
-        num4: "noneup",
+        num: "none",
+        num2: "none",
+        num3: "noneUp",
+        num4: "nonefirst",
       });
     }
   };
@@ -259,13 +259,11 @@ class maininfo extends Component {
         </div>
         {/* 세번째 화면  */}
         <div id="main-con3" className={this.state.num3}>
-          GooDee Course 기업이 "신입" 에게 바라는 것은 SW 개발의 기본을 출실히
-          알고 있는가? 입니다. 6개월이 지난 후 기업 실무현장에서의 당신은
-          "당당합니다." 진행하고 있는 과정
+          3번창 입니다.
         </div>
         {/* 네번째 화면  */}
         <div id="main-con4" className={this.state.num4}>
-          스터디 + 채용공고
+          4번창 입니다.
         </div>
 
         {/* 화면 이동 화살표 박스  */}

@@ -20,6 +20,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  position: relative;
+  z-index: 200;
 }
 
 /* 회원가입 버튼 */
@@ -37,6 +39,7 @@
   border-radius: 30px;
   color: var(--white);
   cursor: pointer;
+  z-index: 200;
 }
 
 /* 로그인 타이틀 박스 */
@@ -115,6 +118,8 @@
   justify-content: center;
   flex-direction: column;
   margin-top: 30px;
+  position: relative;
+  z-index: 200;
 }
 
 .loginbtn2 {
