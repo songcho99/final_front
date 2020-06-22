@@ -165,7 +165,7 @@ export default function MyPageUpdate(props) {
     Axios.post(url, formData)
       .then((res) => {
         Swal.fire({
-          position: "top-end",
+          position: "middle-middle",
           icon: "success",
           title: "프로필이 성공적으로 수정되었습니다!",
           showConfirmButton: false,
