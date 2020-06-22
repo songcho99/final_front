@@ -12,6 +12,7 @@ import { Link, Redirect } from "react-router-dom";
 // 모달
 import Modal from "react-modal";
 import { Avatar, makeStyles } from "@material-ui/core";
+import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +46,8 @@ class Menu extends Component {
     check: localStorage.check,
     failmsg: "",
     loginchange: false,
+    path: "http://localhost:8000/project/uploadfile/",
+    profile: "",
   };
 
   //회원가입창 닫기
@@ -171,6 +174,21 @@ class Menu extends Component {
     });
   };
 
+  componentDidMount = () => {
+    let url =
+      "http://localhost:8000/project/mypage/memberselect?member_num=" +
+      localStorage.num;
+    Axios.get(url)
+      .then((res) => {
+        this.setState({
+          profile: this.state.path + res.data.member_profile,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   // LoginData = (LoginModal) => {
   //   console.log("로그인 변수값 전송 :" + LoginModal);
   //   this.setState({
@@ -233,12 +251,8 @@ class Menu extends Component {
               <Link to="/mypageupdate">
                 <Avatar
                   alt=""
-                  src={
-                    "http://localhost:8000/project/uploadfile/" +
-                    localStorage.profile
-                  }
+                  src={this.state.profile}
                   className={useStyles.small}
-                  style={{}}
                 />
               </Link>{" "}
               <button onClick={this.isLogOut.bind(this)}>로그아웃</button>{" "}
