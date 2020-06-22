@@ -11,10 +11,26 @@ import { Link, Redirect } from "react-router-dom";
 
 // 모달
 import Modal from "react-modal";
+import { Avatar, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  small: {
+    width: theme.spacing(1),
+    height: theme.spacing(1),
+  },
+  large: {
+    width: theme.spacing(20),
+    height: theme.spacing(20),
+  },
+}));
 
 class Menu extends Component {
-
-
   state = {
     LoginModal: false, //로그인 모달창 열고 닫는 변수
     FindIdModal: false, //findid창이 뜨는 창
@@ -29,9 +45,7 @@ class Menu extends Component {
     check: localStorage.check,
     failmsg: "",
     loginchange: false,
-
   };
-
 
   //회원가입창 닫기
   SingUpClose = () => {
@@ -118,8 +132,6 @@ class Menu extends Component {
     // console.log("로그인 닫기창: " + this.state.LoginModal);
   };
 
-
-
   //로그아웃
   isLogOut = (e) => {
     e.preventDefault();
@@ -152,6 +164,7 @@ class Menu extends Component {
           localStorage.removeItem("name2");
           localStorage.removeItem("num");
           localStorage.removeItem("type");
+          localStorage.removeItem("profile");
           window.location.href = "/";
         }
       }
@@ -179,7 +192,7 @@ class Menu extends Component {
             <div id="hdbox2" onClick={this.LoginModalOpen.bind(this)}>
               <div id="hdspan">로그인</div>
               <div id="hdlabel">
-                <i className="fas fa-user-circle"></i>
+                <Avatar alt="" src="" className={useStyles.small} />
               </div>
             </div>
           )}
@@ -188,27 +201,22 @@ class Menu extends Component {
             <div>
               {localStorage.type === "수강생" && (
                 <Link to="/classpage">
-                  <b id="hdspan">과정명</b>
+                  <b id="hdspan">{localStorage.type}</b>
                 </Link>
               )}
               {localStorage.type === "강사" && (
                 <Link to="/classpage">
-                  <b id="hdspan">과정명</b>
+                  <b id="hdspan">{localStorage.type}</b>
                 </Link>
               )}
               {localStorage.type === "매니저" && (
-                <b id="hdspan">과정명</b>
+                <b id="hdspan">{localStorage.type}</b>
               )}
               {localStorage.type === "일반" && (
-                <b id="hdspan">과정명</b>
+                <b id="hdspan">{localStorage.type}</b>
               )}
-              &nbsp;&nbsp;&nbsp;<Link to="/mypageupdate">
-                <i
-                  id="hdlabel"
-                  className="fas fa-user-circle"
-                ></i>
-              </Link>{" "}
-              &nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               {localStorage.type === "강사" && (
                 <b id="hdspan">{localStorage.name} 강사님</b>
               )}
@@ -221,7 +229,20 @@ class Menu extends Component {
               {localStorage.type === "일반" && (
                 <b id="hdspan">{localStorage.name} 님</b>
               )}
-              &nbsp;&nbsp;&nbsp;<button onClick={this.isLogOut.bind(this)}>로그아웃</button> &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;
+              <Link to="/mypageupdate">
+                <Avatar
+                  alt=""
+                  src={
+                    "http://localhost:8000/project/uploadfile/" +
+                    localStorage.profile
+                  }
+                  className={useStyles.small}
+                  style={{}}
+                />
+              </Link>{" "}
+              <button onClick={this.isLogOut.bind(this)}>로그아웃</button>{" "}
+              &nbsp;&nbsp;&nbsp;
             </div>
           )}
         </div>
