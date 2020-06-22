@@ -27,6 +27,7 @@ class menu extends Component {
     check: localStorage.check,
     failmsg: "",
     loginchange: false,
+    mem_id: "",
   };
 
   //회원가입창 닫기
