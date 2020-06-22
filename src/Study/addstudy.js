@@ -250,7 +250,7 @@ export default function AddStudy(props) {
       setFile(file);
       setPreviewURL(reader.result);
     };
-    reader.readAsDataURL(file);
+    if (event.target.files[0]) reader.readAsDataURL(file);
     setStudyMainImage(file);
   };
 
