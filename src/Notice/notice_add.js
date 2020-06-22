@@ -8,7 +8,9 @@ class Notice_Add extends Component {
         super();
         this.state = {
             fileName: [],
-            uploadFile: []
+            uploadFile: [],
+            mnum: localStorage.num,
+            notice: 0,
         }
     }
     onImageChange = (e) => {
@@ -20,6 +22,11 @@ class Notice_Add extends Component {
             this.state.fileName.push(e.target.files[i].name);
         }
         console.log(this.state.fileName);
+    }
+    onCheckboxhandler = (e) => {
+        this.setState({
+            notice: 1,
+        })
     }
 
 
@@ -33,6 +40,7 @@ class Notice_Add extends Component {
         dataForm.append("notice_subject", e.target.notice_subject.value);
         dataForm.append("notice_content", e.target.notice_content.value);
         dataForm.append("notice_filename", this.state.fileName);
+        dataForm.append("notice_type", this.state.notice);
         console.log(e.target.notice_subject.value);
         console.log(e.target.notice_content.value);
 
@@ -54,9 +62,14 @@ class Notice_Add extends Component {
 
                 <Link to="/noticelist">Noticelist</Link><br />
                 <form onSubmit={this.onSave.bind(this)}>
-                    <input type="hidden" name="notice_member_num" value="1" />
+                    <input type="hidden" name="notice_member_num" value={this.state.mnum} />
                     <table style={{ width: "400px" }}>
                         <tbody>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" value="1" onChange={this.onCheckboxhandler.bind(this)} />맨 위로
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     <TextField id="standard-basic" label="subject" style={{ width: "400px" }} name="notice_subject" />
