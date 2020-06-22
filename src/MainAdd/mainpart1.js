@@ -23,8 +23,8 @@ class mainpart1 extends Component {
         <div id={this.props.part1}>
           <div id="part1tit">IT Campus</div>
           <div id="part1sub">
-            <span id="part1sublabel">사람</span>과{" "}
-            <span id="part1sublabel">사람</span> 사이 느낌을 주는 교육
+            <label id="part1sublabel">사람</label>과
+            <label id="part1sublabel">사람</label> 사이 느낌을 주는 교육
           </div>
         </div>
 
