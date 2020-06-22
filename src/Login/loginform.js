@@ -17,6 +17,7 @@ class Loginform extends Component {
       member_password: "",
       member_name:"",
       member_num: 0,
+      member_type:"",
       check: "",
       failmsg: "",
       loginchange: false
@@ -82,12 +83,16 @@ class Loginform extends Component {
             localStorage.saveid = this.state.member_id;
             localStorage.num=res.data.member_num;
             localStorage.name=res.data.member_name;
+            localStorage.name2=res.data.member_name;
+            localStorage.type=res.data.member_type;
           }
           //아이디 저장 안할때 로컬스토리지에 넘버,이름 저장
           else if(localStorage.check==="false")
           {
             localStorage.num=res.data.member_num;
             localStorage.name=res.data.member_name;
+            localStorage.name2=res.data.member_name;
+            localStorage.type=res.data.member_type;
           }
           this.setState({
             

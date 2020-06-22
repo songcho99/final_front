@@ -7,27 +7,31 @@ import FindPw from "../Login/findpw"; //비밀번호 찾기
 import PwReset from "../Login/pwreset"; //비밀번호 재설정
 import SingUp from "../Login/singup"; //회원가입
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link,Redirect } from "react-router-dom";
 
 // 모달
 import Modal from "react-modal";
 
-class menu extends Component {
-  state = {
-    LoginModal: false, //로그인 모달창 열고 닫는 변수
-    FindIdModal: false, //findid창이 뜨는 창
-    FindPwModal: false, //비밀번호 찾기 열고 닫는 변수
-    PwReset: false, //비밀번호 재설정 창 열고 닫는 변수
-    SingUp: false, //회원가입 열고 닫는 변수
-    loggedInfo: localStorage.getItem("loginok") === "success" ? true : false,
-    member_id: localStorage.saveid,
-    member_password: "",
-    member_name: "",
-    member_num: 0,
-    check: localStorage.check,
-    failmsg: "",
-    loginchange: false,
-  };
+class Menu extends Component {
+  
+
+    state = {
+      LoginModal: false, //로그인 모달창 열고 닫는 변수
+      FindIdModal: false, //findid창이 뜨는 창
+      FindPwModal: false, //비밀번호 찾기 열고 닫는 변수
+      PwReset: false, //비밀번호 재설정 창 열고 닫는 변수
+      SingUp: false, //회원가입 열고 닫는 변수
+      loggedInfo: localStorage.getItem("loginok") === "success" ? true : false,
+      member_id: localStorage.saveid,
+      member_password: "",
+      member_name: "",
+      member_num: 0,
+      check: localStorage.check,
+      failmsg: "",
+      loginchange: false,
+      
+    };
+  
 
   //회원가입창 닫기
   SingUpClose = () => {
@@ -114,6 +118,8 @@ class menu extends Component {
     // console.log("로그인 닫기창: " + this.state.LoginModal);
   };
 
+
+
   //로그아웃
   isLogOut = (e) => {
     e.preventDefault();
@@ -143,7 +149,9 @@ class menu extends Component {
           });
           localStorage.removeItem("saveid");
           localStorage.removeItem("name");
+          localStorage.removeItem("name2");
           localStorage.removeItem("num");
+          localStorage.removeItem("type");
           window.location.href = "/";
         }
       }
@@ -178,15 +186,42 @@ class menu extends Component {
           {/* 로그인 되어있을때 상단 메뉴에 과정명,마이페이지 버튼,이름 활성화 */}
           {this.state.loggedInfo && (
             <div>
-              <b id="hdspan">과정명</b> &nbsp;&nbsp;&nbsp;
+              {localStorage.type==="수강생" &&(
+                <Link to="/classpage">
+              <b id="hdspan">과정명</b>
+                </Link>
+              )}
+              {localStorage.type==="강사" &&(
+                <Link to="/classpage">
+                <b id="hdspan">과정명</b>
+                  </Link>
+              )}
+              {localStorage.type==="매니저" &&(
+                <b id="hdspan">과정명</b>
+              )}
+              {localStorage.type==="일반" &&(
+                <b id="hdspan">과정명</b>
+              )} 
+              &nbsp;&nbsp;&nbsp;<Link to="/mypageupdate">
               <i
                 id="hdlabel"
                 className="fas fa-user-circle"
-                onClick={this.isLogOut.bind(this)}
-              ></i>{" "}
+              ></i>
+              </Link>{" "}
               &nbsp;
-              <b id="hdspan">{localStorage.name}님</b> &nbsp;&nbsp;&nbsp;
-              <Link to="/noticelist">공지사항</Link>
+              {localStorage.type==="강사" &&(
+              <b id="hdspan">{localStorage.name} 강사님</b>
+              )}
+              {localStorage.type==="매니저" &&(
+                <b id="hdspan">{localStorage.name} 매니저님</b> 
+              )}
+              {localStorage.type==="수강생" &&(
+                <b id="hdspan">{localStorage.name} 수강생님</b> 
+              )}
+              {localStorage.type==="일반" &&(
+                <b id="hdspan">{localStorage.name} 님</b> 
+              )}
+              &nbsp;&nbsp;&nbsp;<button onClick={this.isLogOut.bind(this)}>로그아웃</button> &nbsp;&nbsp;&nbsp;
             </div>
           )}
         </div>
@@ -259,4 +294,4 @@ class menu extends Component {
   }
 }
 
-export default menu;
+export default Menu;

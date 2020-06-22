@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, BrowserRouter } from "react-router-dom";
+import {history} from "react-dom"
 import ClassNote from "../ClassNote/classnote";
 
 import ClassData from "../ClassData/classdata";
@@ -33,12 +34,31 @@ import Notice_Add from "../Notice/notice_add";
 import Notice_Detail from "../Notice/notice_detail";
 import Notice_Update from "../Notice/notice_update";
 
+import AcademyIntro from "../Introduce/AcademyIntro";
+import AcademyFacility from "../Introduce/AcademyFacility";
+import AcademyMap from "../Introduce/AcademyMap";
+import AcademyLink from "../Introduce/AcademyLink"
+
+import CurriculumList from "../Curriculum/CurriculumList";
+import CurriculumSchedule from "../Curriculum/CurriculumSchedule";
+
+import ClassPage from "../MyClass/ClassPage";
+import MyNote from "../MyClass/MyNote";
+
+
+
 class main extends Component {
+  constructor({history},props){
+    super(props);
+    this.history=history;
+  }
   render() {
     return (
       <div>
         <BrowserRouter>
-          <Menu />
+           
+          <Route path="/menu" component={Menu}/>
+          <Menu history={this.history}/>
           {/* 홈으로 */}
           <Route exact path="/" component={MainInfo} />
           {/* 메인 관련 메뉴 */}
@@ -78,6 +98,20 @@ class main extends Component {
           <Route path="/noticeadd" component={Notice_Add}/>
           <Route path="/noticedetail" component={Notice_Detail}/>
           <Route path="/noticeupdate" component={Notice_Update}/>
+
+          {/* 학원소개 관련 기능 */}
+          <Route path="/academyintro" component={AcademyIntro}/>
+          <Route path="/academyfacility" component={AcademyFacility}/>
+          <Route path="/academymap" component={AcademyMap}/>
+          <Route path="/academylink" component={AcademyLink}/>
+
+          {/* 수강과정 관련 기능 */}
+          <Route path="/curriculumlist" component={CurriculumList}/>
+          <Route path="/curriculumschedule" component={CurriculumSchedule}/>
+
+          {/* 강사,수강생 전용 학습 페이지 */}
+          <Route path="/classpage" component={ClassPage}/>
+          <Route path="/mynote" component={MyNote}/>
         </BrowserRouter>
       </div>
     );

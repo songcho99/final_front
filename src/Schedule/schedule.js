@@ -23,6 +23,7 @@ class schedule extends Component {
   render() {
     return (
       <div>
+        <br></br><br></br><br></br><br></br><br></br>
         <h2>스케쥴입니다</h2>
         <Link to="/">
           <button>홈으로</button>

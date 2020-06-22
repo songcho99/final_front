@@ -83,49 +83,49 @@ class sidmenu extends Component {
     return (
       <div>
         <div id="sidmenu">
-          {/* 강의 자료 */}
+          {/* 학원 소개 */}
           <div id="lecturebox">
-            <div id="lecturesub">강의자료</div>
-            <a id="lecturemain">
-              <i className="fas fa-sticky-note"></i>
+            <div id="lecturesub">학원소개</div>
+            <a id="lecturemain" href="/academyintro">
+              <i className="far fa-building"></i>
             </a>
           </div>
 
-          {/* 스터디 */}
+          {/* 공지사항 */}
           <div id="studybox">
-            <div id="studysub">스터디</div>
-            <a href="/studylist" id="studymain">
-              <i className="fas fa-book"></i>
+            <div id="studysub">공지사항</div>
+            <a href="/noticelist" id="studymain">
+              <i className="fas fa-bullhorn"></i>
             </a>
           </div>
 
-          {/* 스케줄 */}
+          {/* 수강과정 */}
           <div id="sidschedulebox">
-            <div id="sidschedulesub">스케줄</div>
-            <a href="/schedule" id="sidschedulemain">
+            <div id="sidschedulesub">수강과정</div>
+            <a href="/curriculumlist" id="sidschedulemain">
               <i className="far fa-calendar-alt"></i>
             </a>
           </div>
 
-          {/* 차트 */}
+          {/* 스터디 */}
           <div
             id="sidchartbox"
             onMouseEnter={this.sidchartOn.bind(this)}
             onMouseLeave={this.sidchartOff.bind(this)}
           >
             <div className="sidsub" id="sidchartsub">
-              차트
+              스터디
             </div>
-            <a id="sidchartmain">
-              <i className="fas fa-chart-bar"></i>
+            <a id="sidchartmain" href="/studylist">
+              <i className="fas fa-user-friends"></i>
             </a>
           </div>
 
-          {/* 마이페이지 */}
+          {/* 채용공고 or 리뷰 */}
           <div id="mypagebox">
-            <div id="mypagesub">마이페이지</div>
+            <div id="mypagesub">채용공고</div>
             <a href="/mypageupdate" id="mypagemain">
-              <i className="far fa-address-book"></i>
+              <i className="far fa-address-card"></i>
             </a>
           </div>
         </div>
