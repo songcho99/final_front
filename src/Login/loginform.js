@@ -6,25 +6,20 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { styled } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import Swal from 'sweetalert2';
-
+import Swal from "sweetalert2";
 
 class Loginform extends Component {
+  state = {
+    member_id: "",
+    member_password: "",
+    member_name: "",
+    member_num: 0,
+    member_type: "",
+    check: "",
+    failmsg: "",
+    loginchange: false,
+  };
 
-  
-    state={
-      member_id: "",
-      member_password: "",
-      member_name:"",
-      member_num: 0,
-      member_type:"",
-      check: "",
-      failmsg: "",
-      loginchange: false
-    }
-  
-
-  
   //아이디 입력값 넣기
   onKeyIdChange = (e) => {
     e.preventDefault();
@@ -55,8 +50,8 @@ class Loginform extends Component {
     } else {
       localStorage.check = "false";
       localStorage.saveid = "";
-      localStorage.name="";
-      localStorage.num=0;
+      localStorage.name = "";
+      localStorage.num = 0;
       this.setState({
         check: e.target.unchecked,
       });
@@ -65,55 +60,49 @@ class Loginform extends Component {
   //로그인 검증
   isLogin = (e) => {
     e.preventDefault();
-    const formData=new FormData();
-    formData.append('member_id',this.state.member_id);
-    formData.append('member_password',this.state.member_password);
+    const formData = new FormData();
+    formData.append("member_id", this.state.member_id);
+    formData.append("member_password", this.state.member_password);
     e.preventDefault();
-    let url =
-      "http://localhost:8000/project/login/loginck"
+    let url = "http://localhost:8000/project/login/loginck";
     axios
-      .post(url,formData)
+      .post(url, formData)
       .then((res) => {
         if (res.data.success === "success") {
           localStorage.loginok = "success";
           //아이디 저장할때 로컬스토리지에 아이디,넘버,이름 저장
-          if (localStorage.check !== "false")
-          {
-
+          if (localStorage.check !== "false") {
             localStorage.saveid = this.state.member_id;
-            localStorage.num=res.data.member_num;
-            localStorage.name=res.data.member_name;
-            localStorage.name2=res.data.member_name;
-            localStorage.type=res.data.member_type;
+            localStorage.num = res.data.member_num;
+            localStorage.name = res.data.member_name;
+            localStorage.name2 = res.data.member_name;
+            localStorage.type = res.data.member_type;
+            localStorage.profile = res.data.member_profile;
           }
           //아이디 저장 안할때 로컬스토리지에 넘버,이름 저장
-          else if(localStorage.check==="false")
-          {
-            localStorage.num=res.data.member_num;
-            localStorage.name=res.data.member_name;
-            localStorage.name2=res.data.member_name;
-            localStorage.type=res.data.member_type;
+          else if (localStorage.check === "false") {
+            localStorage.num = res.data.member_num;
+            localStorage.name = res.data.member_name;
+            localStorage.name2 = res.data.member_name;
+            localStorage.type = res.data.member_type;
+            localStorage.profile = res.data.member_profile;
           }
           this.setState({
-            
             login: "login-hide",
             failmsg: "",
             member_name: res.data.member_name,
             loginchange: true,
           });
 
-          
           this.props.LoginModalClose();
           Swal.fire({
-            position: 'middle-middle',
-            icon: 'success',
-            title: '로그인 성공',
+            position: "middle-middle",
+            icon: "success",
+            title: "로그인 성공",
             showConfirmButton: false,
-            timer: 1500
-          })
-          window.location.href="/";
-            
-          
+            timer: 1500,
+          });
+          window.location.href = "/";
         } else {
           this.setState({
             failmsg: "아이디 또는 비밀번호를 확인하세요",
@@ -127,21 +116,18 @@ class Loginform extends Component {
   };
 
   //menu.js에서 로그아웃 시 변수값 가져오기
-  componentDidMount(){
-    if(this.props.member_id!=="")
-    {
+  componentDidMount() {
+    if (this.props.member_id !== "") {
       this.setState({
-        member_id: this.props.member_id
-      })
+        member_id: this.props.member_id,
+      });
     }
-    if(this.props.check!=="false")
-    {
+    if (this.props.check !== "false") {
       this.setState({
-        check:this.props.check
-      })
+        check: this.props.check,
+      });
     }
   }
-  
 
   //로그인 시 로그아웃버튼 생기게하고 로그아웃 시, 로그인 폼 나오게 하기
   render() {
@@ -195,9 +181,12 @@ class Loginform extends Component {
           <div id="logincheckbox">
             {/* 마테리얼 칼라를 변경하기 위해서 color 인라인으로 삽입 필요 
             하지만 오류 발생 */}
-            <IdCheck size="small" color="default"
-            checked={this.state.check}
-            onChange={this.idSave.bind(this)} />
+            <IdCheck
+              size="small"
+              color="default"
+              checked={this.state.check}
+              onChange={this.idSave.bind(this)}
+            />
             아이디 저장
           </div>
 
