@@ -154,6 +154,7 @@ export default function MyPageUpdate(props) {
     const url = "http://localhost:8000/project/mypage/memberupdate";
     const formData = new FormData();
     formData.append("member_num", localStorage.num);
+    formData.append("member_name", localStorage.name);
     formData.append("member_phone", member_phone);
     formData.append("member_email", member_email);
     formData.append("member_address", member_address);
@@ -171,6 +172,7 @@ export default function MyPageUpdate(props) {
           showConfirmButton: false,
           timer: 1500,
         });
+        window.location.href = window.location.href;
       })
       .catch((err) => {
         console.log(err);

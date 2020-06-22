@@ -269,6 +269,7 @@ export default function AddStudy(props) {
 
     formData.append("study_type", study_type);
     formData.append("study_subject", study_subject);
+    formData.append("study_member_num", localStorage.num);
     formData.append("study_startdate", study_startdate);
     formData.append("study_enddate", study_enddate);
     formData.append("study_gatherdayname", study_gatherdayname);
@@ -280,6 +281,7 @@ export default function AddStudy(props) {
     formData.append("study_address", study_address);
     formData.append("study_detailaddr", study_detailaddr);
     formData.append("uploadfile", study_mainimage);
+    formData.append("study_writer", localStorage.name);
     Axios({
       method: "post",
       url: url,
@@ -344,7 +346,7 @@ export default function AddStudy(props) {
           </div>
           <br />
           <br />
-          <div>
+          <div style={{ marginLeft: "8px" }}>
             <FormControl
               className={(classes.root, classes.formControl)}
               required
@@ -407,7 +409,7 @@ export default function AddStudy(props) {
           </div>
           <br />
           <br />
-          <div>
+          <div style={{ marginLeft: "8px" }}>
             <FormGroup row>
               <FormControlLabel
                 control={
@@ -496,7 +498,7 @@ export default function AddStudy(props) {
             </FormGroup>
           </div>
           <br />
-          <div>
+          <div style={{ marginLeft: "8px" }}>
             <FormControl
               className={(classes.root, classes.formControl)}
               required
@@ -519,7 +521,7 @@ export default function AddStudy(props) {
           </div>
           <br />
           <br />
-          <div className={sliderclasses.root}>
+          <div className={sliderclasses.root} style={{ marginLeft: "8px" }}>
             <Typography id="discrete-slider-restrict" gutterBottom>
               난이도
             </Typography>
@@ -599,7 +601,7 @@ export default function AddStudy(props) {
             required
           />
           <br />
-          <div>지도영역</div>
+          <div style={{ marginLeft: "8px" }}>지도영역</div>
           <br />
           <br />
           <input
@@ -616,13 +618,14 @@ export default function AddStudy(props) {
               color="primary"
               component="span"
               startIcon={<PhotoCamera />}
+              style={{ marginLeft: "8px" }}
             >
               대표 이미지 선택
             </Button>
           </label>
           <br />
           <br />
-          <div>{previewimg}</div>
+          <div style={{ marginLeft: "8px" }}>{previewimg}</div>
           <br />
           <br />
           <div>
