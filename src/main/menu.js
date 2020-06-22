@@ -14,6 +14,10 @@ import Modal from "react-modal";
 import { Avatar, makeStyles } from "@material-ui/core";
 import Axios from "axios";
 
+//마테리얼
+import { styled } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -196,6 +200,10 @@ class Menu extends Component {
   //   });
   // };
   render() {
+    const LoginBtn = styled(Button)({
+      color: "rgb(34, 83, 184)",
+      borderColor: "#2a9d8f",
+    });
     return (
       <div id="header">
         <div id="hdback">
@@ -216,7 +224,7 @@ class Menu extends Component {
           )}
           {/* 로그인 되어있을때 상단 메뉴에 과정명,마이페이지 버튼,이름 활성화 */}
           {this.state.loggedInfo && (
-            <div>
+            <div id="hdbox2after">
               {localStorage.type === "수강생" && (
                 <Link to="/classpage">
                   <b id="hdspan">{localStorage.type}</b>
@@ -233,8 +241,6 @@ class Menu extends Component {
               {localStorage.type === "일반" && (
                 <b id="hdspan">{localStorage.type}</b>
               )}
-              &nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               {localStorage.type === "강사" && (
                 <b id="hdspan">{localStorage.name} 강사님</b>
               )}
@@ -247,16 +253,22 @@ class Menu extends Component {
               {localStorage.type === "일반" && (
                 <b id="hdspan">{localStorage.name} 님</b>
               )}
-              &nbsp;&nbsp;&nbsp;
-              <Link to="/mypageupdate">
+              <Link to="/mypageupdate" id="hdafterprofile">
                 <Avatar
                   alt=""
                   src={this.state.profile}
                   className={useStyles.small}
                 />
-              </Link>{" "}
-              <button onClick={this.isLogOut.bind(this)}>로그아웃</button>{" "}
-              &nbsp;&nbsp;&nbsp;
+              </Link>
+              <div id="hdbtnbox">
+                <Button
+                  onClick={this.isLogOut.bind(this)}
+                  variant="outlined"
+                  color="primary"
+                >
+                  로그아웃
+                </Button>{" "}
+              </div>
             </div>
           )}
         </div>

@@ -6,6 +6,8 @@
   --red: #e63946;
   --blue: rgb(34, 83, 184);
   --black: rgb(52, 52, 52);
+  --yellow: #ffbe0b;
+  --orange: #ff6b35;
 }
 
 /* 위치 설정 */
@@ -44,6 +46,12 @@
   cursor: pointer;
 }
 
+// 로그인 이후
+#hdbox2after {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 #hdspan {
   font-size: 16px;
   color: var(--black);
@@ -54,6 +62,21 @@
   font-size: 25px;
   color: var(--black);
   margin-left: 10px;
+}
+
+// 로그인 후 텍스트
+#hdspan {
+  font-size: 12px;
+  margin-left: 20px;
+}
+// 로그인 이후 로그아웃 버튼
+#hdbtnbox {
+  margin-left: 20px;
+}
+
+//로그인 후 사진 아이콘
+#hdafterprofile {
+  margin-left: 20px;
 }
 
 /* 로그인 모달창  */
