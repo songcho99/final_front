@@ -17,7 +17,9 @@ class MyPageMenu extends Component {
         >
           정보 수정
         </NavLink>
+        
         {/* 일반 회원만 */}
+        {localStorage.type==="일반" &&(
         <NavLink
           to="/signup"
           className="mypagemenu-link"
@@ -25,7 +27,9 @@ class MyPageMenu extends Component {
         >
           수강신청 현황
         </NavLink>
+        )}
         {/* 매니저만 */}
+        {localStorage.type==="매니저" &&(
         <NavLink
           to="/signupmanage"
           className="mypagemenu-link"
@@ -33,7 +37,8 @@ class MyPageMenu extends Component {
         >
           수강신청 관리
         </NavLink>
-        {/* 관리자만 */}
+        )}
+        {localStorage.type==="매니저" &&(
         <NavLink
           to="/memberlist"
           className="mypagemenu-link"
@@ -41,6 +46,8 @@ class MyPageMenu extends Component {
         >
           회원관리
         </NavLink>
+        )}
+        {localStorage.type==="강사" &&(
         <NavLink
           to="/graph"
           className="mypagemenu-link"
@@ -48,7 +55,8 @@ class MyPageMenu extends Component {
         >
           통계
         </NavLink>
-        {/* 수강생만 */}
+        )}
+        {localStorage.type==="수강생" &&(
         <NavLink
           to="/mystudymain"
           className="mypagemenu-link"
@@ -56,6 +64,8 @@ class MyPageMenu extends Component {
         >
           마이 스터디
         </NavLink>
+        )}
+        {localStorage.type==="수강생" &&(
         <NavLink
           to="/myclass"
           className="mypagemenu-link"
@@ -63,7 +73,8 @@ class MyPageMenu extends Component {
         >
           내 학습공간
         </NavLink>
-        {/*강사만 */}
+        )}
+        {localStorage.type==="강사" &&(
         <NavLink
           to="/classmanage"
           className="mypagemenu-link"
@@ -71,6 +82,7 @@ class MyPageMenu extends Component {
         >
           수업 관리
         </NavLink>
+        )}
       </div>
     );
   }

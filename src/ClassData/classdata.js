@@ -5,6 +5,7 @@ class classdata extends Component {
   render() {
     return (
       <div>
+        <br></br><br></br><br></br><br></br><br></br>
         <h2>수업자료입니다!</h2>
         <Link to="/writedata">
           <button>자료 작성</button>
