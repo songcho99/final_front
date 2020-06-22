@@ -273,6 +273,8 @@ class Menu extends Component {
             FindIdModalClose={this.FindIdModalClose.bind(this)}
             FindPwModalOpen={this.FindPwModalOpen.bind(this)}
             FindPwModalClose={this.FindPwModalClose.bind(this)}
+            LoginModalClose={this.LoginModalClose.bind(this)}
+            LoginModalOpen={this.LoginModalOpen.bind(this)}
           ></FindId>
         </Modal>
 
@@ -287,6 +289,7 @@ class Menu extends Component {
             FindPwModalOpen={this.FindPwModalOpen.bind(this)}
             FindPwModalClose={this.FindPwModalClose.bind(this)}
             PwResetOpen={this.PwResetOpen.bind(this)}
+            
           ></FindPw>
           {/* <FindPw
             FindIdModalClose={this.FindIdModalClose.bind(this)}
@@ -300,7 +303,10 @@ class Menu extends Component {
           ariaHideApp={false}
           id="PwResetModal"
         >
-          <PwReset PwResetClose={this.PwResetClose.bind(this)}></PwReset>
+          <PwReset PwResetClose={this.PwResetClose.bind(this)}
+            LoginModalClose={this.LoginModalClose.bind(this)}
+            LoginModalOpen={this.LoginModalOpen.bind(this)}
+          ></PwReset>
         </Modal>
 
         {/* 회원가입 모달  */}
