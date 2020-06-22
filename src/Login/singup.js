@@ -274,23 +274,28 @@ class singup extends Component {
       return false;
     }
 
-    let memberData = new FormData();
-    memberData.append("member_name", this.state.member_name);
-    memberData.append("member_id", this.state.member_id);
-    memberData.append("member_password", this.state.member_password);
-    memberData.append("member_phone", this.state.member_phone);
-    memberData.append(
-      "member_email",
-      this.state.member_email + "@" + this.state.email
-    );
-    memberData.append("member_address", this.state.member_address);
-    memberData.append("member_detailaddr", this.state.member_detailaddr);
-    let url = "http://localhost:8000/project/member/insert";
+    if (this.state.randomsu === "123456") {
+      this.setState({
+        phCheck_msg: "핸드폰 인증이 필요합니다."
+      })
+      return;
+    } else if (this.state.randomsu == this.state.checknum) {
+      let memberData = new FormData();
+      memberData.append("member_name", this.state.member_name);
+      memberData.append("member_id", this.state.member_id);
+      memberData.append("member_password", this.state.member_password);
+      memberData.append("member_phone", this.state.member_phone);
+      memberData.append(
+        "member_email",
+        this.state.member_email + "@" + this.state.email
+      );
+      memberData.append("member_address", this.state.member_address);
+      memberData.append("member_detailaddr", this.state.member_detailaddr);
+      let url = "http://localhost:8000/project/member/insert";
 
-    axios
-      .post(url, memberData)
-      .then((res) => {
-        if (this.state.randomsu == this.state.checknum) {
+      axios
+        .post(url, memberData)
+        .then((res) => {
           Swal.fire({
             position: "middle-middle",
             icon: "success",
@@ -299,22 +304,19 @@ class singup extends Component {
             timer: 1500,
           });
           window.location.href = "/";
-        } else if (this.state.randomsu === "123456") {
-          this.setState({
-            phCheck_msg: "핸드폰 인증이 필요합니다."
-          })
-          return;
-        } else {
-          this.setState({
-            phCheck_msg: "인증번호가 맞지 않습니다."
-          })
-          return;
-        }
+        })
+        .catch((err) => {
+          console.log("회원가입 에러 : " + err);
+        });
+    } else {
+      this.setState({
+        phCheck_msg: "인증번호가 맞지 않습니다."
       })
-      .catch((err) => {
-        console.log("회원가입 에러 : " + err);
-      });
-  };
+      return;
+    }
+
+
+  }
   //send SMS
   onSms = () => {
     const dataForm = new FormData();
