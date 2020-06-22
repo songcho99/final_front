@@ -8,11 +8,21 @@ class Notice_Detail extends Component {
         this.state = {
             noticedata: [],
             noticefile: [],
-            num: this.props.location.state.num
+            num: this.props.location.state.num,
+            member_name: localStorage.name
+
         }
     }
     componentWillMount() {
         this.detailList(this.state.num);
+        // if (this.state.member_name === '관리자' || this.state.member_name === '매니저') {
+        //     this.setState({
+        //         admin: <span>
+        //             <Link to={{ pathname: "/noticeupdate", state: { noticedata: this.state.noticedata, noticefile: this.state.noticefile } }} style={{ color: 'black', textDecoration: 'none' }}>수정</Link>
+        //             <Link to='/noticelist' onClick={this.onDelete.bind(this, this.state.num)}>삭제</Link>
+        //         </span>
+        //     })
+        // }
     }
     detailList = (num) => {
         let url = "http://localhost:8000/project/notice/noticedetail?num=" + num;
@@ -92,8 +102,9 @@ class Notice_Detail extends Component {
                         </tr>
                         <tr>
                             <td colSpan="2">
+                                {this.state.admin}
                                 <Link to={{ pathname: "/noticeupdate", state: { noticedata: this.state.noticedata, noticefile: this.state.noticefile } }} style={{ color: 'black', textDecoration: 'none' }}>수정</Link>
-                                <Link to='/noticelist' onClick={this.onDelete.bind(this, this.state.noticedata.notice_num)}>삭제</Link>
+                                <Link to='/noticelist' onClick={this.onDelete.bind(this, this.state.num)}>삭제</Link>
                                 <Link to="/noticelist">목록</Link><br />
                             </td>
                         </tr>
