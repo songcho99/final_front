@@ -14,28 +14,29 @@ import {
 import defaultImage from "../image/studytestimage.jpg";
 import Axios from "axios";
 import queryStirng from "query-string";
+import Swal from "sweetalert2";
 
-const CssTextField = withStyles({
-  root: {
-    "& label.Mui-focused": {
-      color: "green",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "green",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "green",
-      },
-      "&:hover fieldset": {
-        borderColor: "green",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "green",
-      },
-    },
-  },
-})(TextField);
+// const CssTextField = withStyles({
+//   root: {
+//     "& label.Mui-focused": {
+//       color: "green",
+//     },
+//     "& .MuiInput-underline:after": {
+//       borderBottomColor: "green",
+//     },
+//     "& .MuiOutlinedInput-root": {
+//       "& fieldset": {
+//         borderColor: "green",
+//       },
+//       "&:hover fieldset": {
+//         borderColor: "green",
+//       },
+//       "&.Mui-focused fieldset": {
+//         borderColor: "green",
+//       },
+//     },
+//   },
+// })(TextField);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -129,7 +130,6 @@ export default function StudyDetail(props) {
   };
   const handleLevelChange = (event, newValue) => {
     setStudyApplyMyLevel(newValue);
-    console.log(`level:${studyapply_mylevel}`);
   };
   const handleCommentChange = (event) => {
     setStudyApplyComment(event.target.value);
@@ -140,17 +140,55 @@ export default function StudyDetail(props) {
       "http://localhost:8000/project/study/detail?study_num=" + study_num;
     Axios.get(url)
       .then((res) => {
-        setStudyData(res.data);
-        setStudyAddress(res.data.study_address.substring(7));
+        setStudyData(res.data.studydata);
+        setStudyAddress(res.data.studydata.study_address.substring(7));
         setStudyLevel(
-          res.data.study_level === "하" || res.data.study_level === 0
+          res.data.studydata.study_level === "하" ||
+            res.data.studydata.study_level === 0
             ? 0
-            : res.data.study_level === "중" || res.data.study_level === 50
+            : res.data.studydata.study_level === "중" ||
+              res.data.studydata.study_level === 50
             ? 50
-            : res.data.study_level === "상" || res.data.study_level === 100
+            : res.data.studydata.study_level === "상" ||
+              res.data.studydata.study_level === 100
             ? 100
             : 0
         );
+        if (res.data.study_writer_num == localStorage.num)
+          document.getElementById("updatebutton").style.visibility = "block";
+        else
+          document.getElementById("updatebutton").style.visibility = "hidden";
+        if (res.data.study_writer_num == localStorage.num)
+          document.getElementById("deletebutton").style.visibility = "block";
+        else
+          document.getElementById("deletebutton").style.visibility = "hidden";
+        if (res.data.study_writer_num == localStorage.num)
+          document.getElementById("aplicationbutton").style.visibility =
+            "hidden";
+        else
+          document.getElementById("aplicationbutton").style.visibility =
+            "block";
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const url = "http://localhost:8000/project/studygroup/add";
+    const formData = new FormData();
+    formData.append("studygroup_study_num", study_num);
+    formData.append("studygroup_member_num", localStorage.num);
+    Axios.post(url, formData)
+      .then((res) => {
+        Swal.fire({
+          position: "middle-middle",
+          icon: "success",
+          title: "스터디 신청 성공!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        handleClose();
       })
       .catch((err) => {
         console.log(err);
@@ -161,42 +199,55 @@ export default function StudyDetail(props) {
     getStudyData();
   }, []);
 
+  useEffect(() => {
+    studyapply_mylevel === 0 || studyapply_mylevel === "하"
+      ? setStudyApplyMyLevel("하")
+      : studyapply_mylevel === 50 || studyapply_mylevel === "중"
+      ? setStudyApplyMyLevel("중")
+      : studyapply_mylevel === 100 || studyapply_mylevel === "상"
+      ? setStudyApplyMyLevel("상")
+      : setStudyApplyMyLevel("하");
+    console.log(`level:${studyapply_mylevel}`);
+  }, [studyapply_mylevel]);
+
   const modal = (
     <div style={modalStyle} className={modalClasses.paper}>
       <div style={{ width: "80%", marginLeft: "10%" }}>
         <h2 id="simple-modal-title">내가 생각하는 숙련도</h2>
-        <Slider
-          value={studyapply_mylevel}
-          onChange={handleLevelChange}
-          aria-labelledby="discrete-slider-restrict"
-          getAriaValueText={valuetext}
-          valueLabelDisplay="off"
-          step={null}
-          marks={marks}
-          style={{ width: "100%", color: "green" }}
-        />
-        <br />
-        <br />
-        <CssTextField
-          id="outlined-multiline-static"
-          label="진행방식"
-          required
-          multiline
-          rows={5}
-          variant="outlined"
-          style={{ width: "100%" }}
-          onChange={handleCommentChange}
-        />
-        <br />
-        <br />
-        <Button
-          variant="contained"
-          color="primary"
-          href="#"
-          style={{ marginLeft: "65%", backgroundColor: "green" }}
-        >
-          스터디 신청
-        </Button>
+        <form onSubmit={onSubmit}>
+          <Slider
+            value={studyapply_mylevel}
+            onChange={handleLevelChange}
+            aria-labelledby="discrete-slider-restrict"
+            getAriaValueText={valuetext}
+            valueLabelDisplay="off"
+            step={null}
+            marks={marks}
+            style={{ width: "100%" }}
+          />
+          <br />
+          <br />
+          <TextField
+            id="outlined-multiline-static"
+            label="comment"
+            required
+            multiline
+            rows={5}
+            variant="outlined"
+            style={{ width: "100%" }}
+            onChange={handleCommentChange}
+          />
+          <br />
+          <br />
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ marginLeft: "65%" }}
+            type="submit"
+          >
+            스터디 신청
+          </Button>
+        </form>
       </div>
     </div>
   );
@@ -275,6 +326,7 @@ export default function StudyDetail(props) {
                 size="small"
                 style={{ marginLeft: "80%", color: "green" }}
                 onClick={handleOpen}
+                id="aplicationbutton"
               >
                 신청하기
               </Button>
@@ -338,6 +390,7 @@ export default function StudyDetail(props) {
               color="primary"
               href="/updatestudy"
               style={{ margin: "8px", backgroundColor: "green" }}
+              id="updatebutton"
             >
               수정
             </Button>
@@ -346,6 +399,7 @@ export default function StudyDetail(props) {
               color="secondary"
               href="/deletestudy"
               style={{ margin: "8px" }}
+              id="deletebutton"
             >
               삭제
             </Button>

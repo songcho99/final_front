@@ -132,7 +132,7 @@ export default function StudyList(props) {
   const [searchGatherdayName, setSearchGetherdayName] = React.useState([]);
   const [searchAddress, setSearchAddress] = React.useState("");
   const [searchDetailAddr, setSearchDetailAddr] = React.useState("");
-  const [expanded, setExpanded] = React.useState("panel");
+  // const [expanded, setExpanded] = React.useState("panel");
 
   const handleSearchFilterChange = (event) => {
     setSearchFilter(event.target.value);
@@ -196,9 +196,9 @@ export default function StudyList(props) {
     setSearchDetailAddr(event.target.value);
     console.log(`searchdetailaddr:${searchDetailAddr}`);
   };
-  const handlePanelChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
-  };
+  // const handlePanelChange = (panel) => (event, newExpanded) => {
+  //   setExpanded(newExpanded ? panel : false);
+  // };
   const handleSearchClick = (event) => {
     console.log(listdata);
   };
@@ -240,8 +240,8 @@ export default function StudyList(props) {
       <br />
       <div className={classes.root}>
         <ExpansionPanel
-          expanded={expanded === "panel"}
-          onChange={handlePanelChange("panel")}
+        // expanded={expanded === "panel"}
+        // onChange={handlePanelChange("panel")}
         >
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
