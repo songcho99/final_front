@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   card: {
-    maxWidth: 345,
+    maxWidth: "100%",
     margin: theme.spacing(2),
   },
   media: {
@@ -74,7 +74,6 @@ const avatarStyles = makeStyles((theme) => ({
   large: {
     width: theme.spacing(10),
     height: theme.spacing(10),
-    marginLeft: theme.spacing(16.5),
     marginTop: theme.spacing(8),
   },
 }));
@@ -571,13 +570,22 @@ export default function StudyList(props) {
               >
                 {ele.study_intr}
               </Typography>
-              <Avatar
-                alt=""
-                src={
-                  "http://localhost:8000/project/uploadfile/" + profilelist[idx]
-                }
-                className={avatarclasses.large}
-              />
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Avatar
+                  alt=""
+                  src={
+                    "http://localhost:8000/project/uploadfile/" +
+                    profilelist[idx]
+                  }
+                  className={avatarclasses.large}
+                />
+              </div>
               <br />
               <Link to="/studydetail">
                 <CardMedia
