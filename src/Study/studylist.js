@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import "./studylist.scss";
 import {
   makeStyles,
   ExpansionPanel,
@@ -514,11 +515,13 @@ export default function StudyList(props) {
       <br />
       <br></br>
       <br></br>
-      {listdata.map((ele, idx) => (
-        <div style={{ marginLeft: "10%", marginRight: "10%" }}>
-          <div style={{ float: "left", width: "25%" }}>
-            <Card className={classes.card}>
+      {/* 240 * 400 사이즈로 제작 */}
+      <div id="studylistcardbox">
+        <div id="studylistcardback">
+          {listdata.map((ele, idx) => (
+            <Card className={classes.card} id="studylistcard">
               <CardHeader
+                id="studylistcardhd"
                 // avatar={
                 //   loading ? (
                 //     <Skeleton
@@ -539,10 +542,8 @@ export default function StudyList(props) {
                 //   )
                 // }
                 title={
-                  <Typography variant="h6" align="center">
+                  <Typography align="center" id="studylistcardtit">
                     모집중
-                    <hr />
-                    <br />
                   </Typography>
                 }
                 subheader={
@@ -550,6 +551,7 @@ export default function StudyList(props) {
                     variant="body1"
                     color="textSecondary"
                     align="center"
+                    id="studylistcardsub"
                   >
                     {(
                       ele.study_address[7] +
@@ -563,32 +565,30 @@ export default function StudyList(props) {
                   </Typography>
                 }
               />
-              <Typography
-                variant="body2"
-                align="center"
-                style={{ fontSize: "16pt" }}
-              >
-                {ele.study_intr}
-              </Typography>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Avatar
-                  alt=""
-                  src={
-                    "http://localhost:8000/project/uploadfile/" +
-                    profilelist[idx]
-                  }
-                  className={avatarclasses.large}
-                />
-              </div>
-              <br />
-              <Link to="/studydetail">
+              {/* 카드 몸통 */}
+              <div id="studylistcardmain">
+                <div id="studylistcardtextbox">
+                  <Typography variant="body2" id="studylistcardtext">
+                    {ele.study_intr}
+                  </Typography>
+                </div>
+
+                <Link id="studylistcardAvatarbox" to="/studydetail">
+                  <Avatar
+                    id="studylistcardAvatar"
+                    alt=""
+                    src={
+                      "http://localhost:8000/project/uploadfile/" +
+                      profilelist[idx]
+                    }
+                    className={avatarclasses.large}
+                  />
+                </Link>
+
+                <div id="studylistimgback"></div>
+
                 <CardMedia
+                  id="studylistimg"
                   className={classes.media}
                   image={
                     "http://localhost:8000/project/uploadfile/" +
@@ -596,9 +596,10 @@ export default function StudyList(props) {
                   }
                   title="Ted talk"
                 />
-              </Link>
+              </div>
 
-              <CardContent>
+              {/* 카드 footer */}
+              <CardContent id="studylistfooter">
                 <Typography
                   variant="body1"
                   color="textSecondary"
@@ -619,9 +620,9 @@ export default function StudyList(props) {
                 </Typography>
               </CardContent>
             </Card>
-          </div>
+          ))}
         </div>
-      ))}
+      </div>
       <br />
       <br />
       <br />
