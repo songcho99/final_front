@@ -2,17 +2,16 @@ import React, { Component } from "react";
 import "./maininfo.scss";
 import MainPart1 from "../MainAdd/mainpart1";
 import MianPart2 from "../MainAdd/mainpart2";
-
-import image from "../image/worker.jpg";
+import MainPart3 from "../MainAdd/mainpart3";
 
 class maininfo extends Component {
   constructor() {
     super();
 
     this.state = {
-      show: 1,
-      num: "nonedown",
-      num2: "nonedown",
+      show: 3,
+      num: "none",
+      num2: "none",
       num3: "nonedown",
       num4: "nonedown",
 
@@ -259,7 +258,7 @@ class maininfo extends Component {
         </div>
         {/* 세번째 화면  */}
         <div id="main-con3" className={this.state.num3}>
-          3번창 입니다.
+          <MainPart3></MainPart3>
         </div>
         {/* 네번째 화면  */}
         <div id="main-con4" className={this.state.num4}>
