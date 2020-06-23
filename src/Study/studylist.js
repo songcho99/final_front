@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import "./studylist.scss";
 import {
   makeStyles,
   ExpansionPanel,
@@ -518,6 +519,7 @@ export default function StudyList(props) {
           {listdata.map((ele, idx) => (
             <Card className={classes.card} id="studylistcard">
               <CardHeader
+                id="studylistcardhd"
                 // avatar={
                 //   loading ? (
                 //     <Skeleton
@@ -549,6 +551,7 @@ export default function StudyList(props) {
                     variant="body1"
                     color="textSecondary"
                     align="center"
+                    id="studylistcardsub"
                   >
                     {(
                       ele.study_address[7] +
@@ -588,6 +591,7 @@ export default function StudyList(props) {
               <br />
               <Link to={"/studydetail?study_num=" + ele.study_num}>
                 <CardMedia
+                  id="studylistimg"
                   className={classes.media}
                   image={
                     "http://localhost:8000/project/uploadfile/" +
@@ -597,7 +601,8 @@ export default function StudyList(props) {
                 />
               </Link>
 
-              <CardContent>
+              {/* 카드 footer */}
+              <CardContent id="studylistfooter">
                 <Typography
                   variant="body1"
                   color="textSecondary"
