@@ -22,11 +22,9 @@ import { PhotoCamera } from "@material-ui/icons";
 import "./addstudy.css";
 import Axios from "axios";
 
-const {kakao} = window;
+const { kakao } = window;
 
-var {map} = window;
-
-
+var { map } = window;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -85,7 +83,6 @@ function getFormatDate(date) {
 }
 
 export default function AddStudy(props) {
-
   const post = () => {
     new window.daum.Postcode({
       oncomplete: function (data) {
@@ -93,34 +90,32 @@ export default function AddStudy(props) {
         const roadAddr = data.address;
         const str = "(" + zonecode + ")" + roadAddr;
         setStudyAddress(str);
-          console.log(str)
-        
-        var geocoder = new kakao.maps.services.Geocoder();
-        console.log(geocoder==null);
-        // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(roadAddr, function(result, status) {
-          console.log(kakao.maps.services.Status);
-          // 정상적으로 검색이 완료됐으면 
-          if (status === kakao.maps.services.Status.OK) {
-            
-                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                var marker = new kakao.maps.Marker({
-                  map: map,
-                  position: coords
-                });
-                
-                // 인포윈도우로 장소에 대한 설명을 표시합니다
-                var infowindow = new kakao.maps.InfoWindow({
-                  content: '<div style="width:150px;text-align:center;padding:6px 0;">모임장소</div>'
-                });
-                infowindow.open(map, marker);
-                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                map.setCenter(coords);
-                document.getElementById("map").style.visibility="visible";
-            } 
-        }); 
+        console.log(str);
 
-        
+        var geocoder = new kakao.maps.services.Geocoder();
+        console.log(geocoder == null);
+        // 주소로 좌표를 검색합니다
+        geocoder.addressSearch(roadAddr, function (result, status) {
+          console.log(kakao.maps.services.Status);
+          // 정상적으로 검색이 완료됐으면
+          if (status === kakao.maps.services.Status.OK) {
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            var marker = new kakao.maps.Marker({
+              map: map,
+              position: coords,
+            });
+
+            // 인포윈도우로 장소에 대한 설명을 표시합니다
+            var infowindow = new kakao.maps.InfoWindow({
+              content:
+                '<div style="width:150px;text-align:center;padding:6px 0;">모임장소</div>',
+            });
+            infowindow.open(map, marker);
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            map.setCenter(coords);
+            document.getElementById("map").style.visibility = "visible";
+          }
+        });
       },
     }).open();
   };
@@ -128,16 +123,19 @@ export default function AddStudy(props) {
   useEffect(() => {
     const script = document.createElement("script");
 
-    const container = document.getElementById('map');
-    const options = { center: new kakao.maps.LatLng(33.450701, 126.570667), level: 3 };
-     map = new kakao.maps.Map(container, options);
-     
+    const container = document.getElementById("map");
+    const options = {
+      center: new kakao.maps.LatLng(33.450701, 126.570667),
+      level: 3,
+    };
+    map = new kakao.maps.Map(container, options);
+
     script.src =
       "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
     script.async = true;
 
     document.body.appendChild(script);
-    document.getElementById("map").style.visibility="hidden";
+    document.getElementById("map").style.visibility = "hidden";
   });
 
   const [study_type, setStudyType] = React.useState("");
@@ -276,10 +274,6 @@ export default function AddStudy(props) {
   const handleAddressChange = (event) => {
     setStudyAddress(event.target.value);
     console.log(`addr:${study_address}`);
-    
-  
-
-
   };
   const handleDetailAddrChange = (event) => {
     setStudyDetailaddr(event.target.value);
@@ -329,6 +323,7 @@ export default function AddStudy(props) {
     formData.append("study_detailaddr", study_detailaddr);
     formData.append("uploadfile", study_mainimage);
     formData.append("study_writer", localStorage.name);
+    formData.append("study_writer_num", localStorage.num);
     Axios({
       method: "post",
       url: url,
@@ -650,7 +645,7 @@ export default function AddStudy(props) {
             required
           />
           <br />
-          <div id="map" style={{width:"500px",height:"400px"}}></div>
+          <div id="map" style={{ width: "500px", height: "400px" }}></div>
           <br />
           <br />
           <input

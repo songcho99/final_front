@@ -60,6 +60,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const avatarStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
+  large: {
+    width: theme.spacing(10),
+    height: theme.spacing(10),
+    marginLeft: theme.spacing(16.5),
+    marginTop: theme.spacing(8),
+  },
+}));
+
 const marks = [
   {
     value: 0,
@@ -89,8 +108,8 @@ function valuetext() {
 }
 
 export default function StudyList(props) {
-  const { loading = false } = props;
   const classes = useStyles();
+  const avatarclasses = avatarStyles();
 
   const [listdata, setListData] = React.useState([]);
   const [profilelist, setProfileList] = React.useState([]);
@@ -501,89 +520,95 @@ export default function StudyList(props) {
           <div style={{ float: "left", width: "25%" }}>
             <Card className={classes.card}>
               <CardHeader
-                avatar={
-                  loading ? (
-                    <Skeleton
-                      animation="wave"
-                      variant="circle"
-                      width={40}
-                      height={40}
-                    />
-                  ) : (
-                    <Avatar
-                      alt=""
-                      src={
-                        "http://localhost:8000/project/uploadfile/" +
-                        profilelist[idx]
-                      }
-                    />
-                  )
-                }
-                action={
-                  loading ? null : (
-                    <IconButton aria-label="settings">
-                      <MoreVertIcon />
-                    </IconButton>
-                  )
-                }
+                // avatar={
+                //   loading ? (
+                //     <Skeleton
+                //       animation="wave"
+                //       variant="circle"
+                //       width={40}
+                //       height={40}
+                //     />
+                //   ) : (
+                //     <Avatar
+                //       alt=""
+                //       src={
+                //         "http://localhost:8000/project/uploadfile/" +
+                //         profilelist[idx]
+                //       }
+                //       className={avatarclasses.large}
+                //     />
+                //   )
+                // }
                 title={
-                  loading ? (
-                    <Skeleton
-                      animation="wave"
-                      height={10}
-                      width="80%"
-                      style={{ marginBottom: 6 }}
-                    />
-                  ) : (
-                    ele.study_writer
-                  )
+                  <Typography variant="h6" align="center">
+                    모집중
+                    <hr />
+                    <br />
+                  </Typography>
                 }
                 subheader={
-                  loading ? (
-                    <Skeleton animation="wave" height={10} width="40%" />
-                  ) : (
-                    new Date(ele.study_writeday).toLocaleDateString()
-                  )
+                  <Typography
+                    variant="body1"
+                    color="textSecondary"
+                    align="center"
+                  >
+                    {(
+                      ele.study_address[7] +
+                      ele.study_address[8] +
+                      ele.study_address[9] +
+                      ele.study_address[10] +
+                      ele.study_address[11]
+                    ).split(" ")[0] +
+                      " | " +
+                      ele.study_type}
+                  </Typography>
                 }
               />
-              {loading ? (
-                <Skeleton
-                  animation="wave"
-                  variant="rect"
+              <Typography
+                variant="body2"
+                align="center"
+                style={{ fontSize: "16pt" }}
+              >
+                {ele.study_intr}
+              </Typography>
+              <Avatar
+                alt=""
+                src={
+                  "http://localhost:8000/project/uploadfile/" + profilelist[idx]
+                }
+                className={avatarclasses.large}
+              />
+              <br />
+              <Link to="/studydetail">
+                <CardMedia
                   className={classes.media}
+                  image={
+                    "http://localhost:8000/project/uploadfile/" +
+                    ele.study_mainimage
+                  }
+                  title="Ted talk"
                 />
-              ) : (
-                <Link to="/studydetail">
-                  <CardMedia
-                    className={classes.media}
-                    image={
-                      "http://localhost:8000/project/uploadfile/" +
-                      ele.study_mainimage
-                    }
-                    title="Ted talk"
-                  />
-                </Link>
-              )}
+              </Link>
 
               <CardContent>
-                {loading ? (
-                  <React.Fragment>
-                    <Skeleton
-                      animation="wave"
-                      height={10}
-                      style={{ marginBottom: 6 }}
-                    />
-                    <Skeleton animation="wave" height={10} width="80%" />
-                  </React.Fragment>
-                ) : (
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    {ele.study_intr}
-                  </Typography>
-                )}
+                <Typography
+                  variant="body1"
+                  color="textSecondary"
+                  component="p"
+                  align="center"
+                >
+                  {ele.study_startdate.split("-")[1] +
+                    "월 " +
+                    ele.study_startdate.split("-")[2] +
+                    "일" +
+                    " ~ " +
+                    ele.study_enddate.split("-")[1] +
+                    "월 " +
+                    ele.study_enddate.split("-")[2] +
+                    "일" +
+                    "  매주 " +
+                    ele.study_gatherday}
+                </Typography>
               </CardContent>
             </Card>
           </div>
