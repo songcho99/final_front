@@ -4,49 +4,20 @@ import IntroduceMenu from "../Introduce/IntroduceMenu";
 import "./AcademyIntro.scss";
 
 class AcademyIntro extends Component {
-  state = {
-    date: new Date(),
-  };
-
-  componentWillMount() {
-    // setInterval(() => {
-    //   console.log("돌아라 돌아라 아주돌아");
-    //   this.setState({
-    //     date: new Date(),
-    //   });
-    // }, 1000);
+  componentDidMount() {
+    window.addEventListener("scroll", () => {
+      console.log(window.scrollY);
+    });
   }
   render() {
-    let deg = {
-      transform:
-        "rotate(" +
-        ((this.state.date.getSeconds() / 60) * 360 - 90).toString() +
-        "deg)",
-      transformOrigin: "center",
-    };
-
     return (
-      <div>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
+      <div id="academyintro">
         <IntroduceMenu />
-        <h2>학원소개 페이지입니다</h2>
 
-        <hr />
-
-        <div>
-          <img src={require("../image/core.jpg")} id="Acback"></img>
-        </div>
-
-        <div>
-          <img
-            src={require("../image/core.jpg")}
-            id="Acback2"
-            style={deg}
-          ></img>
+        <div id="academyintroback">
+          <div id="academyintrobox">가만두지 않을거에요 학원 소개</div>
+          <div id="academyintrobox">학원 시설</div>
+          <div id="academyintrobox">오시는길</div>
         </div>
       </div>
     );

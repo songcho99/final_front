@@ -1,24 +1,18 @@
-import React,{Component} from'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import "./IntroduceMenu.scss";
 
-class IntroduceMenu extends Component{
-    render(){
-        return(
-            <div>
-                <Link to="academyintro">
-                <button>학원소개</button>
-            </Link> &nbsp;&nbsp;
-            <Link to="academyfacility">
-                <button>학원시설</button>
-            </Link> &nbsp;&nbsp;
-            <Link to="academymap">
-                <button>오시는길</button>
-            </Link> &nbsp;&nbsp;
-            <Link to="academylink">
-                <button>더 보기</button>
-            </Link> &nbsp;&nbsp;
-            </div>
-        )
-    }
+class IntroduceMenu extends Component {
+  render() {
+    return (
+      <div>
+        <div id="introduceMenu">
+          <div id="introMenu">학원 소개</div>
+          <div id="introMenu2">학원 시설</div>
+          <div id="introMenu3">오시는 길</div>
+        </div>
+      </div>
+    );
+  }
 }
 export default IntroduceMenu;
