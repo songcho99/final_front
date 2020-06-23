@@ -11,7 +11,6 @@ import {
   Card,
   CardHeader,
   Avatar,
-  IconButton,
   CardMedia,
   CardContent,
   Select,
@@ -24,9 +23,6 @@ import {
   ExpansionPanelActions,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import image from "../image/studytestimage.jpg";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Skeleton from "@material-ui/lab/Skeleton";
 import { Link } from "react-router-dom";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -516,10 +512,11 @@ export default function StudyList(props) {
       <br />
       <br></br>
       <br></br>
-      {listdata.map((ele, idx) => (
-        <div style={{ marginLeft: "10%", marginRight: "10%" }}>
-          <div style={{ float: "left", width: "25%" }}>
-            <Card className={classes.card}>
+      {/* 240 * 400 사이즈로 제작 */}
+      <div id="studylistcardbox">
+        <div id="studylistcardback" style={{ marginLeft: "10%" }}>
+          {listdata.map((ele, idx) => (
+            <Card className={classes.card} id="studylistcard">
               <CardHeader
                 // avatar={
                 //   loading ? (
@@ -621,9 +618,9 @@ export default function StudyList(props) {
                 </Typography>
               </CardContent>
             </Card>
-          </div>
+          ))}
         </div>
-      ))}
+      </div>
       <br />
       <br />
       <br />
