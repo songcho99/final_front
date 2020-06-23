@@ -238,6 +238,9 @@ class Menu extends Component {
               {localStorage.type === "매니저" && (
                 <b id="hdspan">{localStorage.type}</b>
               )}
+              {localStorage.type === "관리자" && (
+                <b id="hdspan">{localStorage.type}</b>
+              )}
               {localStorage.type === "일반" && (
                 <b id="hdspan">{localStorage.type}</b>
               )}
@@ -246,6 +249,9 @@ class Menu extends Component {
               )}
               {localStorage.type === "매니저" && (
                 <b id="hdspan">{localStorage.name} 매니저님</b>
+              )}
+              {localStorage.type === "관리자" && (
+                <b id="hdspan">{localStorage.name} 관리자님</b>
               )}
               {localStorage.type === "수강생" && (
                 <b id="hdspan">{localStorage.name} 수강생님</b>
