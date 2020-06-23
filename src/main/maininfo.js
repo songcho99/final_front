@@ -126,6 +126,7 @@ class maininfo extends Component {
 
   //화면 내려가는 함수
   DownHandle = () => {
+    // console.log(this.state.show);
     if (this.state.show === 1) {
       this.setState({
         show: 2,
@@ -177,6 +178,7 @@ class maininfo extends Component {
 
   // 화면 올라가는 함수
   UpHandle = () => {
+    // console.log(this.state.show);
     if (this.state.show === 1) {
       this.setState({
         show: 4,
@@ -254,7 +256,7 @@ class maininfo extends Component {
         </div>
         {/* 두번째 화면  */}
         <div id="main-con2" className={this.state.num2}>
-          <MianPart2></MianPart2>
+          <MianPart2 show={this.state.show}></MianPart2>
         </div>
         {/* 세번째 화면  */}
         <div id="main-con3" className={this.state.num3}>

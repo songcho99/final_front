@@ -3,23 +3,58 @@ import "./mainpart2.scss";
 import image1 from "../image/worker.jpg";
 
 class mainpart2 extends Component {
-  constructor() {
-    super();
+  state = {
+    deg: 0,
+    addcount: 0,
+    count: 1,
+  };
+
+  componentWillMount() {
+    this.Deg();
+    setInterval(() => {
+      // console.log("돌아라 돌아라 아주돌아");
+      this.Count();
+      this.Deg();
+    }, 1000);
   }
 
-  render() {
-    let date = new Date();
+  Deg = () => {
+    // console.log(this.state.deg);
+    this.setState({
+      deg: this.state.addcount * 360,
+    });
+  };
 
+  Count = () => {
+    // console.log(this.state.count);
+    if (this.state.deg === 0) {
+      // console.log(this.state.addcount);
+      this.setState({
+        addcount: this.state.addcount + 1,
+      });
+    }
+    if (this.state.count === 15) {
+      this.setState({
+        count: 1,
+        addcount: this.state.addcount + 1,
+      });
+    } else {
+      this.setState({
+        count: this.state.count + 1,
+      });
+    }
+  };
+  render() {
     let deg = {
-      transform:
-        "rotate(" + ((date.getSeconds() / 60) * 360 - 90).toString() + "deg)",
+      transform: "rotate(" + this.state.deg + "deg)",
       transformOrigin: "center",
+      transition: "transform 15s ease-in",
     };
     return (
       <div id="part2back">
         {/* //이미지 박스 */}
         <div id="part2imgbox">
-          <img src={require("../image/core.jpg")} style={{ deg }}></img>
+          <img src={require("../image/core.jpg")} style={deg}></img>
           <div id="part2imgback"></div>
         </div>
         <div id="part2textbox">

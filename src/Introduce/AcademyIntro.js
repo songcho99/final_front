@@ -4,12 +4,24 @@ import IntroduceMenu from "../Introduce/IntroduceMenu";
 import "./AcademyIntro.scss";
 
 class AcademyIntro extends Component {
-  render() {
-    let date = new Date();
+  state = {
+    date: new Date(),
+  };
 
+  componentWillMount() {
+    // setInterval(() => {
+    //   console.log("돌아라 돌아라 아주돌아");
+    //   this.setState({
+    //     date: new Date(),
+    //   });
+    // }, 1000);
+  }
+  render() {
     let deg = {
       transform:
-        "rotate(" + ((date.getSeconds() / 60) * 360 - 90).toString() + "deg)",
+        "rotate(" +
+        ((this.state.date.getSeconds() / 60) * 360 - 90).toString() +
+        "deg)",
       transformOrigin: "center",
     };
 
@@ -33,7 +45,7 @@ class AcademyIntro extends Component {
           <img
             src={require("../image/core.jpg")}
             id="Acback2"
-            style={{ deg }}
+            style={deg}
           ></img>
         </div>
       </div>

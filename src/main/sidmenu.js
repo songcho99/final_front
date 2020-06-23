@@ -117,7 +117,7 @@ class sidmenu extends Component {
               스터디
             </div>
             <a id="sidchartmain" href="/studylist">
-              <i className="fas fa-user-friends"></i>
+              <i className="fas fa-pencil-alt"></i>
             </a>
           </div>
 
