@@ -112,6 +112,7 @@ export default function StudyList(props) {
 
   const [listdata, setListData] = React.useState([]);
   const [profilelist, setProfileList] = React.useState([]);
+  const [countlist, setCountList] = React.useState([]);
   const [searchFilter, setSearchFilter] = React.useState("");
   const [searchSubject, setSearchSubject] = React.useState("");
   const [searchLevel, setSearchLevel] = React.useState("");
@@ -210,6 +211,7 @@ export default function StudyList(props) {
       .then((res) => {
         setListData(res.data.listdata);
         setProfileList(res.data.profilelist);
+        setCountList(res.data.countlist);
       })
       .catch((err) => {
         console.log(err);
@@ -540,7 +542,7 @@ export default function StudyList(props) {
                 // }
                 title={
                   <Typography variant="h6" align="center">
-                    모집중
+                    모집중({countlist[idx] + "/" + ele.study_peoples})
                     <hr />
                     <br />
                   </Typography>
@@ -587,7 +589,7 @@ export default function StudyList(props) {
                 />
               </div>
               <br />
-              <Link to="/studydetail">
+              <Link to={"/studydetail?study_num=" + ele.study_num}>
                 <CardMedia
                   className={classes.media}
                   image={

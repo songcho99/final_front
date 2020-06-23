@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
   Paper,
@@ -12,6 +12,8 @@ import {
   TextField,
 } from "@material-ui/core";
 import defaultImage from "../image/studytestimage.jpg";
+import Axios from "axios";
+import queryStirng from "query-string";
 
 const CssTextField = withStyles({
   root: {
@@ -112,6 +114,10 @@ export default function StudyDetail(props) {
   const [open, setOpen] = React.useState(false);
   const [studyapply_mylevel, setStudyApplyMyLevel] = React.useState(0);
   const [studyapply_comment, setStudyApplyComment] = React.useState("");
+  const [studydata, setStudyData] = React.useState([]);
+  const { search } = props.location;
+  const queryObj = queryStirng.parse(search);
+  const { study_num } = queryObj;
 
   const handleOpen = () => {
     setOpen(true);
@@ -127,6 +133,20 @@ export default function StudyDetail(props) {
     setStudyApplyComment(event.target.value);
     console.log(`comment:${studyapply_comment}`);
   };
+  const getStudyData = (event) => {
+    const url =
+      "http://localhost:8000/project/study/detail?study_num=" + study_num;
+    Axios.get(url)
+      .then((res) => {
+        setStudyData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getStudyData();
+  }, []);
 
   const modal = (
     <div style={modalStyle} className={modalClasses.paper}>
@@ -197,19 +217,24 @@ export default function StudyDetail(props) {
                 모집 정보
               </Typography>
               <Typography variant="h6">
-                분류&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JAVA
+                분류&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {studydata.study_type}
               </Typography>
               <Typography variant="h6">
-                개설자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;김성현
+                개설자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {studydata.study_writer}
               </Typography>
               <Typography variant="h6">
-                시작날짜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2020-06-10
+                시작날짜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {studydata.study_startdate}
               </Typography>
               <Typography variant="h6">
-                끝날짜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2020-08-10
+                끝날짜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {studydata.study_enddate}
               </Typography>
               <Typography variant="h6">
-                모임요일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;화, 수
+                모임요일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {studydata.study_gatherday}
               </Typography>
               <Typography variant="h6">
                 인원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3/6
