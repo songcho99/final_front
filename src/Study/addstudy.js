@@ -87,6 +87,10 @@ function getFormatDate(date) {
 export default function AddStudy(props) {
 
   const post = () => {
+    const container = document.getElementById('map');
+    const options = { center: new kakao.maps.LatLng(33.450701, 126.570667), level: 3 };
+     map = new kakao.maps.Map(container, options);
+     document.getElementById("map").style.visibility="hidden";
     new window.daum.Postcode({
       oncomplete: function (data) {
         const zonecode = data.zonecode;
@@ -116,7 +120,7 @@ export default function AddStudy(props) {
                 infowindow.open(map, marker);
                 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                 map.setCenter(coords);
-                document.getElementById("map").style.visibility="visible";
+                 document.getElementById("map").style.visibility="visible";
             } 
         }); 
 
@@ -128,16 +132,15 @@ export default function AddStudy(props) {
   useEffect(() => {
     const script = document.createElement("script");
 
-    const container = document.getElementById('map');
-    const options = { center: new kakao.maps.LatLng(33.450701, 126.570667), level: 3 };
-     map = new kakao.maps.Map(container, options);
+    
      
     script.src =
       "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
     script.async = true;
 
     document.body.appendChild(script);
-    document.getElementById("map").style.visibility="hidden";
+    
+     
   });
 
   const [study_type, setStudyType] = React.useState("");
