@@ -3,12 +3,23 @@ import "./mainpart2.scss";
 import image1 from "../image/worker.jpg";
 
 class mainpart2 extends Component {
+  constructor() {
+    super();
+  }
+
   render() {
+    let date = new Date();
+
+    let deg = {
+      transform:
+        "rotate(" + ((date.getSeconds() / 60) * 360 - 90).toString() + "deg)",
+      transformOrigin: "center",
+    };
     return (
       <div id="part2back">
         {/* //이미지 박스 */}
         <div id="part2imgbox">
-          <img src={require("../image/core.jpg")}></img>
+          <img src={require("../image/core.jpg")} style={{ deg }}></img>
           <div id="part2imgback"></div>
         </div>
         <div id="part2textbox">
