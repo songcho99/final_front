@@ -540,10 +540,8 @@ export default function StudyList(props) {
                 //   )
                 // }
                 title={
-                  <Typography variant="h6" align="center">
-                    모집중({countlist[idx] + "/" + ele.study_peoples})
-                    <hr />
-                    <br />
+                  <Typography align="center" id="studylistcardtit">
+                    모집중({countlist[idx]}/{ele.study_peoples})
                   </Typography>
                 }
                 subheader={
@@ -565,31 +563,38 @@ export default function StudyList(props) {
                   </Typography>
                 }
               />
-              <Typography
-                variant="body2"
-                align="center"
-                style={{ fontSize: "16pt" }}
-              >
-                {ele.study_intr}
-              </Typography>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Avatar
-                  alt=""
-                  src={
-                    "http://localhost:8000/project/uploadfile/" +
-                    profilelist[idx]
+              {/* 카드 몸통 */}
+              <div id="studylistcardmain">
+                <div id="studylistcardtextbox">
+                  <Typography variant="body2" id="studylistcardtext">
+                    {ele.study_subject}
+                  </Typography>
+                </div>
+
+                <Link
+                  id="studylistcardAvatarbox"
+                  to={
+                    "/studydetail?study_num=" +
+                    ele.study_num +
+                    "&count_peoples=" +
+                    countlist[idx] +
+                    "&study_peoples=" +
+                    ele.study_peoples
                   }
-                  className={avatarclasses.large}
-                />
-              </div>
-              <br />
-              <Link to={"/studydetail?study_num=" + ele.study_num}>
+                >
+                  <Avatar
+                    id="studylistcardAvatar"
+                    alt=""
+                    src={
+                      "http://localhost:8000/project/uploadfile/" +
+                      profilelist[idx]
+                    }
+                    className={avatarclasses.large}
+                  />
+                </Link>
+
+                <div id="studylistimgback"></div>
+
                 <CardMedia
                   id="studylistimg"
                   className={classes.media}
@@ -597,9 +602,8 @@ export default function StudyList(props) {
                     "http://localhost:8000/project/uploadfile/" +
                     ele.study_mainimage
                   }
-                  title="Ted talk"
                 />
-              </Link>
+              </div>
 
               {/* 카드 footer */}
               <CardContent id="studylistfooter">
@@ -617,9 +621,9 @@ export default function StudyList(props) {
                     ele.study_enddate.split("-")[1] +
                     "월 " +
                     ele.study_enddate.split("-")[2] +
-                    "일" +
-                    "  매주 " +
-                    ele.study_gatherday}
+                    "일"}
+                  <br />
+                  {"  매주 " + ele.study_gatherday}
                 </Typography>
               </CardContent>
             </Card>

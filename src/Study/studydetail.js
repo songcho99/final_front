@@ -39,8 +39,8 @@ const CssTextField = withStyles({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "60%",
-    marginLeft: "20%",
+    width: 800,
+    marginLeft: 360,
   },
 }));
 
@@ -117,7 +117,9 @@ export default function StudyDetail(props) {
   const [studydata, setStudyData] = React.useState([]);
   const { search } = props.location;
   const queryObj = queryStirng.parse(search);
-  const { study_num } = queryObj;
+  const { study_num, count_peoples, study_peoples } = queryObj;
+  const [studyaddress, setStudyAddress] = React.useState("");
+  const [studylevel, setStudyLevel] = React.useState(0);
 
   const handleOpen = () => {
     setOpen(true);
@@ -139,11 +141,22 @@ export default function StudyDetail(props) {
     Axios.get(url)
       .then((res) => {
         setStudyData(res.data);
+        setStudyAddress(res.data.study_address.substring(7));
+        setStudyLevel(
+          res.data.study_level === "하" || res.data.study_level === 0
+            ? 0
+            : res.data.study_level === "중" || res.data.study_level === 50
+            ? 50
+            : res.data.study_level === "상" || res.data.study_level === 100
+            ? 100
+            : 0
+        );
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
   useEffect(() => {
     getStudyData();
   }, []);
@@ -197,15 +210,22 @@ export default function StudyDetail(props) {
         <br />
         <br />
         <Paper elevation={3}>
-          <h2 style={{ margin: "8px" }}>JAVA 스터디 모집중</h2>
-          <img alt="" src={defaultImage} style={{ width: "60%" }}></img>
+          <h2 style={{ margin: "8px" }}>{studydata.study_subject}</h2>
+          <img
+            alt=""
+            src={
+              "http://localhost:8000/project/uploadfile/" +
+              studydata.study_mainimage
+            }
+            style={{ width: "100%" }}
+          ></img>
           <Card
             className={cardClasses.root}
             style={{
               position: "absolute",
-              width: "20%",
-              left: "58%",
-              top: "18%",
+              left: "1200px",
+              top: "112px",
+              width: "300px",
             }}
           >
             <CardContent>
@@ -216,32 +236,38 @@ export default function StudyDetail(props) {
               >
                 모집 정보
               </Typography>
-              <Typography variant="h6">
-                분류&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Typography variant="body1">
+                <b> 분류</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 {studydata.study_type}
               </Typography>
-              <Typography variant="h6">
-                개설자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Typography variant="body1">
+                <b>개설자</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 {studydata.study_writer}
               </Typography>
-              <Typography variant="h6">
-                시작날짜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Typography variant="body1">
+                <b>시작날짜</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 {studydata.study_startdate}
               </Typography>
-              <Typography variant="h6">
-                끝날짜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Typography variant="body1">
+                <b> 끝날짜</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 {studydata.study_enddate}
               </Typography>
-              <Typography variant="h6">
-                모임요일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Typography variant="body1">
+                <b>모임요일</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 {studydata.study_gatherday}
               </Typography>
-              <Typography variant="h6">
-                인원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3/6
+              <Typography variant="body1">
+                <b>인원</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {count_peoples + "/" + study_peoples}
               </Typography>
-              <Typography variant="h6">
-                장소&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서울
-                강남구 삼원타워
+              <Typography variant="body1">
+                <b>장소</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {studyaddress + " " + studydata.study_detailaddr}
               </Typography>
             </CardContent>
             <CardActions>
@@ -273,7 +299,7 @@ export default function StudyDetail(props) {
             <br />
             <br />
             <Slider
-              value={50}
+              value={studylevel}
               aria-labelledby="discrete-slider"
               getAriaValueText={valuetext}
               valueLabelDisplay="off"
@@ -288,36 +314,25 @@ export default function StudyDetail(props) {
           <div style={{ marginLeft: "2%", marginRight: "40%" }}>
             <h3 style={{ display: "inline" }}>소개</h3>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <p>
-              깊은 대화까지도 자연스러워지는 Topics for Racers - 사랑&관계,
-              여행, 가족, 뮤지션, 가치관 얘기부터 비즈니스영어까지. - 알고나면
-              활용도100% 리얼한 대화표현들!
-            </p>
+            <p>{studydata.study_intr}</p>
           </div>
           <br />
           <br />
           <div style={{ marginLeft: "2%", marginRight: "40%" }}>
             <h3 style={{ display: "inline" }}>목표</h3>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <p>
-              마지막에는 스프링 클라우드 기능을 녹일 수 있는 토이 프로젝트 진행
-            </p>
+            <p>{studydata.study_goal}</p>
           </div>
           <br />
           <br />
           <div style={{ marginLeft: "2%", marginRight: "40%" }}>
             <h3 style={{ display: "inline" }}>진행 방식</h3>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <p>
-              1. 매주 책 정리 및 예제 실습한 결과물을 깃헙( 컨플루언스 등등 모두
-              가능합니다 ) 공유 2. 매주 발표자 1~2명 ( 정리한 내용을 발표하시면
-              됩니다ㅎㅎ ) 3. 마지막에는 스프링 클라우드 기능을 녹일 수 있는
-              토이 프로젝트 진행
-            </p>
+            <p>{studydata.study_progress}</p>
           </div>
           <br />
           <br />
-          <div style={{ marginLeft: "77%" }}>
+          <div style={{ marginLeft: "70%" }}>
             <Button
               variant="contained"
               color="primary"
