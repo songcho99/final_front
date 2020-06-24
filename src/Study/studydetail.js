@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
   Paper,
@@ -12,33 +12,36 @@ import {
   TextField,
 } from "@material-ui/core";
 import defaultImage from "../image/studytestimage.jpg";
+import Axios from "axios";
+import queryStirng from "query-string";
+import Swal from "sweetalert2";
 
-const CssTextField = withStyles({
-  root: {
-    "& label.Mui-focused": {
-      color: "green",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "green",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "green",
-      },
-      "&:hover fieldset": {
-        borderColor: "green",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "green",
-      },
-    },
-  },
-})(TextField);
+// const CssTextField = withStyles({
+//   root: {
+//     "& label.Mui-focused": {
+//       color: "green",
+//     },
+//     "& .MuiInput-underline:after": {
+//       borderBottomColor: "green",
+//     },
+//     "& .MuiOutlinedInput-root": {
+//       "& fieldset": {
+//         borderColor: "green",
+//       },
+//       "&:hover fieldset": {
+//         borderColor: "green",
+//       },
+//       "&.Mui-focused fieldset": {
+//         borderColor: "green",
+//       },
+//     },
+//   },
+// })(TextField);
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "60%",
-    marginLeft: "20%",
+    width: 800,
+    marginLeft: 360,
   },
 }));
 
@@ -112,6 +115,12 @@ export default function StudyDetail(props) {
   const [open, setOpen] = React.useState(false);
   const [studyapply_mylevel, setStudyApplyMyLevel] = React.useState(0);
   const [studyapply_comment, setStudyApplyComment] = React.useState("");
+  const [studydata, setStudyData] = React.useState([]);
+  const { search } = props.location;
+  const queryObj = queryStirng.parse(search);
+  const { study_num, count_peoples, study_peoples } = queryObj;
+  const [studyaddress, setStudyAddress] = React.useState("");
+  const [studylevel, setStudyLevel] = React.useState(0);
 
   const handleOpen = () => {
     setOpen(true);
@@ -121,49 +130,124 @@ export default function StudyDetail(props) {
   };
   const handleLevelChange = (event, newValue) => {
     setStudyApplyMyLevel(newValue);
-    console.log(`level:${studyapply_mylevel}`);
   };
   const handleCommentChange = (event) => {
     setStudyApplyComment(event.target.value);
     console.log(`comment:${studyapply_comment}`);
   };
+  const getStudyData = (event) => {
+    const url =
+      "http://localhost:8000/project/study/detail?study_num=" + study_num;
+    Axios.get(url)
+      .then((res) => {
+        setStudyData(res.data.studydata);
+        setStudyAddress(res.data.studydata.study_address.substring(7));
+        setStudyLevel(
+          res.data.studydata.study_level === "하" ||
+            res.data.studydata.study_level === 0
+            ? 0
+            : res.data.studydata.study_level === "중" ||
+              res.data.studydata.study_level === 50
+            ? 50
+            : res.data.studydata.study_level === "상" ||
+              res.data.studydata.study_level === 100
+            ? 100
+            : 0
+        );
+        if (res.data.study_writer_num == localStorage.num)
+          document.getElementById("updatebutton").style.visibility = "block";
+        else
+          document.getElementById("updatebutton").style.visibility = "hidden";
+        if (res.data.study_writer_num == localStorage.num)
+          document.getElementById("deletebutton").style.visibility = "block";
+        else
+          document.getElementById("deletebutton").style.visibility = "hidden";
+        if (res.data.study_writer_num == localStorage.num)
+          document.getElementById("aplicationbutton").style.visibility =
+            "hidden";
+        else
+          document.getElementById("aplicationbutton").style.visibility =
+            "block";
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const url = "http://localhost:8000/project/studygroup/add";
+    const formData = new FormData();
+    formData.append("studygroup_study_num", study_num);
+    formData.append("studygroup_member_num", localStorage.num);
+    Axios.post(url, formData)
+      .then((res) => {
+        Swal.fire({
+          position: "middle-middle",
+          icon: "success",
+          title: "스터디 신청 성공!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        handleClose();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getStudyData();
+  }, []);
+
+  useEffect(() => {
+    studyapply_mylevel === 0 || studyapply_mylevel === "하"
+      ? setStudyApplyMyLevel("하")
+      : studyapply_mylevel === 50 || studyapply_mylevel === "중"
+      ? setStudyApplyMyLevel("중")
+      : studyapply_mylevel === 100 || studyapply_mylevel === "상"
+      ? setStudyApplyMyLevel("상")
+      : setStudyApplyMyLevel("하");
+    console.log(`level:${studyapply_mylevel}`);
+  }, [studyapply_mylevel]);
 
   const modal = (
     <div style={modalStyle} className={modalClasses.paper}>
       <div style={{ width: "80%", marginLeft: "10%" }}>
         <h2 id="simple-modal-title">내가 생각하는 숙련도</h2>
-        <Slider
-          value={studyapply_mylevel}
-          onChange={handleLevelChange}
-          aria-labelledby="discrete-slider-restrict"
-          getAriaValueText={valuetext}
-          valueLabelDisplay="off"
-          step={null}
-          marks={marks}
-          style={{ width: "100%", color: "green" }}
-        />
-        <br />
-        <br />
-        <CssTextField
-          id="outlined-multiline-static"
-          label="진행방식"
-          required
-          multiline
-          rows={5}
-          variant="outlined"
-          style={{ width: "100%" }}
-          onChange={handleCommentChange}
-        />
-        <br />
-        <br />
-        <Button
-          variant="contained"
-          color="primary"
-          href="#"
-          style={{ marginLeft: "65%", backgroundColor: "green" }}
-        >
-          스터디 신청
-        </Button>
+        <form onSubmit={onSubmit}>
+          <Slider
+            value={studyapply_mylevel}
+            onChange={handleLevelChange}
+            aria-labelledby="discrete-slider-restrict"
+            getAriaValueText={valuetext}
+            valueLabelDisplay="off"
+            step={null}
+            marks={marks}
+            style={{ width: "100%" }}
+          />
+          <br />
+          <br />
+          <TextField
+            id="outlined-multiline-static"
+            label="comment"
+            required
+            multiline
+            rows={5}
+            variant="outlined"
+            style={{ width: "100%" }}
+            onChange={handleCommentChange}
+          />
+          <br />
+          <br />
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ marginLeft: "65%" }}
+            type="submit"
+          >
+            스터디 신청
+          </Button>
+        </form>
       </div>
     </div>
   );
@@ -177,15 +261,22 @@ export default function StudyDetail(props) {
         <br />
         <br />
         <Paper elevation={3}>
-          <h2 style={{ margin: "8px" }}>JAVA 스터디 모집중</h2>
-          <img alt="" src={defaultImage} style={{ width: "60%" }}></img>
+          <h2 style={{ margin: "8px" }}>{studydata.study_subject}</h2>
+          <img
+            alt=""
+            src={
+              "http://localhost:8000/project/uploadfile/" +
+              studydata.study_mainimage
+            }
+            style={{ width: "100%" }}
+          ></img>
           <Card
             className={cardClasses.root}
             style={{
               position: "absolute",
-              width: "20%",
-              left: "58%",
-              top: "18%",
+              left: "1200px",
+              top: "112px",
+              width: "300px",
             }}
           >
             <CardContent>
@@ -196,27 +287,38 @@ export default function StudyDetail(props) {
               >
                 모집 정보
               </Typography>
-              <Typography variant="h6">
-                분류&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JAVA
+              <Typography variant="body1">
+                <b> 분류</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {studydata.study_type}
               </Typography>
-              <Typography variant="h6">
-                개설자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;김성현
+              <Typography variant="body1">
+                <b>개설자</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {studydata.study_writer}
               </Typography>
-              <Typography variant="h6">
-                시작날짜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2020-06-10
+              <Typography variant="body1">
+                <b>시작날짜</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {studydata.study_startdate}
               </Typography>
-              <Typography variant="h6">
-                끝날짜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2020-08-10
+              <Typography variant="body1">
+                <b> 끝날짜</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {studydata.study_enddate}
               </Typography>
-              <Typography variant="h6">
-                모임요일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;화, 수
+              <Typography variant="body1">
+                <b>모임요일</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {studydata.study_gatherday}
               </Typography>
-              <Typography variant="h6">
-                인원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3/6
+              <Typography variant="body1">
+                <b>인원</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {count_peoples + "/" + study_peoples}
               </Typography>
-              <Typography variant="h6">
-                장소&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서울
-                강남구 삼원타워
+              <Typography variant="body1">
+                <b>장소</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {studyaddress + " " + studydata.study_detailaddr}
               </Typography>
             </CardContent>
             <CardActions>
@@ -224,6 +326,7 @@ export default function StudyDetail(props) {
                 size="small"
                 style={{ marginLeft: "80%", color: "green" }}
                 onClick={handleOpen}
+                id="aplicationbutton"
               >
                 신청하기
               </Button>
@@ -248,7 +351,7 @@ export default function StudyDetail(props) {
             <br />
             <br />
             <Slider
-              value={50}
+              value={studylevel}
               aria-labelledby="discrete-slider"
               getAriaValueText={valuetext}
               valueLabelDisplay="off"
@@ -263,41 +366,31 @@ export default function StudyDetail(props) {
           <div style={{ marginLeft: "2%", marginRight: "40%" }}>
             <h3 style={{ display: "inline" }}>소개</h3>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <p>
-              깊은 대화까지도 자연스러워지는 Topics for Racers - 사랑&관계,
-              여행, 가족, 뮤지션, 가치관 얘기부터 비즈니스영어까지. - 알고나면
-              활용도100% 리얼한 대화표현들!
-            </p>
+            <p>{studydata.study_intr}</p>
           </div>
           <br />
           <br />
           <div style={{ marginLeft: "2%", marginRight: "40%" }}>
             <h3 style={{ display: "inline" }}>목표</h3>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <p>
-              마지막에는 스프링 클라우드 기능을 녹일 수 있는 토이 프로젝트 진행
-            </p>
+            <p>{studydata.study_goal}</p>
           </div>
           <br />
           <br />
           <div style={{ marginLeft: "2%", marginRight: "40%" }}>
             <h3 style={{ display: "inline" }}>진행 방식</h3>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <p>
-              1. 매주 책 정리 및 예제 실습한 결과물을 깃헙( 컨플루언스 등등 모두
-              가능합니다 ) 공유 2. 매주 발표자 1~2명 ( 정리한 내용을 발표하시면
-              됩니다ㅎㅎ ) 3. 마지막에는 스프링 클라우드 기능을 녹일 수 있는
-              토이 프로젝트 진행
-            </p>
+            <p>{studydata.study_progress}</p>
           </div>
           <br />
           <br />
-          <div style={{ marginLeft: "77%" }}>
+          <div style={{ marginLeft: "70%" }}>
             <Button
               variant="contained"
               color="primary"
               href="/updatestudy"
               style={{ margin: "8px", backgroundColor: "green" }}
+              id="updatebutton"
             >
               수정
             </Button>
@@ -306,6 +399,7 @@ export default function StudyDetail(props) {
               color="secondary"
               href="/deletestudy"
               style={{ margin: "8px" }}
+              id="deletebutton"
             >
               삭제
             </Button>

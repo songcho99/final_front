@@ -12,7 +12,6 @@ import {
   Card,
   CardHeader,
   Avatar,
-  IconButton,
   CardMedia,
   CardContent,
   Select,
@@ -25,9 +24,6 @@ import {
   ExpansionPanelActions,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import image from "../image/studytestimage.jpg";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Skeleton from "@material-ui/lab/Skeleton";
 import { Link } from "react-router-dom";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -113,6 +109,7 @@ export default function StudyList(props) {
 
   const [listdata, setListData] = React.useState([]);
   const [profilelist, setProfileList] = React.useState([]);
+  const [countlist, setCountList] = React.useState([]);
   const [searchFilter, setSearchFilter] = React.useState("");
   const [searchSubject, setSearchSubject] = React.useState("");
   const [searchLevel, setSearchLevel] = React.useState("");
@@ -135,7 +132,7 @@ export default function StudyList(props) {
   const [searchGatherdayName, setSearchGetherdayName] = React.useState([]);
   const [searchAddress, setSearchAddress] = React.useState("");
   const [searchDetailAddr, setSearchDetailAddr] = React.useState("");
-  const [expanded, setExpanded] = React.useState("panel");
+  // const [expanded, setExpanded] = React.useState("panel");
 
   const handleSearchFilterChange = (event) => {
     setSearchFilter(event.target.value);
@@ -199,9 +196,9 @@ export default function StudyList(props) {
     setSearchDetailAddr(event.target.value);
     console.log(`searchdetailaddr:${searchDetailAddr}`);
   };
-  const handlePanelChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
-  };
+  // const handlePanelChange = (panel) => (event, newExpanded) => {
+  //   setExpanded(newExpanded ? panel : false);
+  // };
   const handleSearchClick = (event) => {
     console.log(listdata);
   };
@@ -211,6 +208,7 @@ export default function StudyList(props) {
       .then((res) => {
         setListData(res.data.listdata);
         setProfileList(res.data.profilelist);
+        setCountList(res.data.countlist);
       })
       .catch((err) => {
         console.log(err);
@@ -242,8 +240,8 @@ export default function StudyList(props) {
       <br />
       <div className={classes.root}>
         <ExpansionPanel
-          expanded={expanded === "panel"}
-          onChange={handlePanelChange("panel")}
+        // expanded={expanded === "panel"}
+        // onChange={handlePanelChange("panel")}
         >
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
@@ -517,7 +515,7 @@ export default function StudyList(props) {
       <br></br>
       {/* 240 * 400 사이즈로 제작 */}
       <div id="studylistcardbox">
-        <div id="studylistcardback">
+        <div id="studylistcardback" style={{ marginLeft: "10%" }}>
           {listdata.map((ele, idx) => (
             <Card className={classes.card} id="studylistcard">
               <CardHeader
@@ -543,7 +541,7 @@ export default function StudyList(props) {
                 // }
                 title={
                   <Typography align="center" id="studylistcardtit">
-                    모집중
+                    모집중({countlist[idx]}/{ele.study_peoples})
                   </Typography>
                 }
                 subheader={
@@ -569,11 +567,21 @@ export default function StudyList(props) {
               <div id="studylistcardmain">
                 <div id="studylistcardtextbox">
                   <Typography variant="body2" id="studylistcardtext">
-                    {ele.study_intr}
+                    {ele.study_subject}
                   </Typography>
                 </div>
 
-                <Link id="studylistcardAvatarbox" to="/studydetail">
+                <Link
+                  id="studylistcardAvatarbox"
+                  to={
+                    "/studydetail?study_num=" +
+                    ele.study_num +
+                    "&count_peoples=" +
+                    countlist[idx] +
+                    "&study_peoples=" +
+                    ele.study_peoples
+                  }
+                >
                   <Avatar
                     id="studylistcardAvatar"
                     alt=""
@@ -594,7 +602,6 @@ export default function StudyList(props) {
                     "http://localhost:8000/project/uploadfile/" +
                     ele.study_mainimage
                   }
-                  title="Ted talk"
                 />
               </div>
 
@@ -614,9 +621,9 @@ export default function StudyList(props) {
                     ele.study_enddate.split("-")[1] +
                     "월 " +
                     ele.study_enddate.split("-")[2] +
-                    "일" +
-                    "  매주 " +
-                    ele.study_gatherday}
+                    "일"}
+                  <br />
+                  {"  매주 " + ele.study_gatherday}
                 </Typography>
               </CardContent>
             </Card>

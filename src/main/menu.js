@@ -321,7 +321,6 @@ class Menu extends Component {
             FindPwModalOpen={this.FindPwModalOpen.bind(this)}
             FindPwModalClose={this.FindPwModalClose.bind(this)}
             PwResetOpen={this.PwResetOpen.bind(this)}
-            
           ></FindPw>
           {/* <FindPw
             FindIdModalClose={this.FindIdModalClose.bind(this)}
@@ -335,7 +334,8 @@ class Menu extends Component {
           ariaHideApp={false}
           id="PwResetModal"
         >
-          <PwReset PwResetClose={this.PwResetClose.bind(this)}
+          <PwReset
+            PwResetClose={this.PwResetClose.bind(this)}
             LoginModalClose={this.LoginModalClose.bind(this)}
             LoginModalOpen={this.LoginModalOpen.bind(this)}
           ></PwReset>
