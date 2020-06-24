@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import Pagination from "./Pagination";
 import noticeimg from "./noticeback.jpg";
+import Sid from "./noticeSid";
+
 class Notice_List extends Component {
   constructor() {
     super();
@@ -211,6 +213,7 @@ class Notice_List extends Component {
           paginate={this.paginate.bind(this)}
         />
         <div style={{ paddingBottom: "100px" }}></div>
+        <Sid></Sid>
       </div>
     );
   }

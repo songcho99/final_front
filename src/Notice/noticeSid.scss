@@ -1,0 +1,39 @@
+:root {
+  --gray: #9e9e9e;
+  --dgray: #777;
+  --white: #ffffff;
+  --teal: #2a9d8f;
+  --red: #e63946;
+  --blue: rgb(34, 83, 184);
+  --black: rgb(52, 52, 52);
+  --yellow: #ffbe0b;
+  --orange: #ff6b35;
+  --bluesky: #caf0f8;
+}
+
+#noticSid {
+  position: fixed;
+  top: 20%;
+  left: 0;
+  flex-direction: column;
+  width: 150px;
+  display: flex;
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.noticnav {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-bottom: 1px var(--dgray) solid;
+  text-decoration: none;
+  color: var(--white);
+}
+
+.noticnav:hover {
+  background-color: var(--blue);
+}

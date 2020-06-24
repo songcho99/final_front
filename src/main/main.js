@@ -45,6 +45,8 @@ import CurriculumSchedule from "../Curriculum/CurriculumSchedule";
 import ClassPage from "../MyClass/ClassPage";
 import MyNote from "../MyClass/MyNote";
 
+import QnA from "../QnA/qna";
+
 class main extends Component {
   constructor({ history }, props) {
     super(props);
@@ -95,6 +97,7 @@ class main extends Component {
           <Route path="/noticeadd" component={Notice_Add} />
           <Route path="/noticedetail" component={Notice_Detail} />
           <Route path="/noticeupdate" component={Notice_Update} />
+          <Route path="/qna" component={QnA} />
 
           {/* 학원소개 관련 기능 */}
           <Route path="/academyintro" component={AcademyIntro} />

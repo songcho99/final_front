@@ -12,6 +12,7 @@ class IntroduceMenu extends Component {
     roadOn: "",
     standad: 0,
   };
+
   componentDidMount() {
     window.addEventListener("scroll", () => {
       // console.log(window.innerHeight);
