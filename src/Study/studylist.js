@@ -231,7 +231,7 @@ export default function StudyList(props) {
           스터디 만들기
         </Button>
         &nbsp;
-        <Button variant="outlined" color="primary" href="/mystudyteam">
+        <Button variant="outlined" color="primary" href="/mystudymain">
           마이 스터디
         </Button>
       </div>
@@ -541,7 +541,9 @@ export default function StudyList(props) {
                 // }
                 title={
                   <Typography align="center" id="studylistcardtit">
-                    모집중({countlist[idx]}/{ele.study_peoples})
+                    {countlist[idx] !== ele.study_peoples
+                      ? `모집중(${countlist[idx]}/${ele.study_peoples})`
+                      : "모집완료"}
                   </Typography>
                 }
                 subheader={
