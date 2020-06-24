@@ -79,7 +79,8 @@ yarn add react-daum-postcode
 yarn add react-modal
 yarn add @material-ui/lab
 yarn add sweetalert2
-
+yarn add styled-components
+yarn add query-string
 <!-- scss 설치  -->
 
 yarn add node-sass sass-loader
