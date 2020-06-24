@@ -14,12 +14,12 @@
 // 사이드 바
 #introduceMenu {
   position: fixed;
-  top: 40%;
+  top: 20%;
   left: 0;
   flex-direction: column;
   width: 150px;
   display: flex;
-  background-color: var(--gray);
+  background-color: var(--black);
   color: var(--white);
 }
 
@@ -51,4 +51,8 @@
   justify-content: center;
   cursor: pointer;
   border-bottom: 1px var(--dgray) solid;
+}
+
+.introMenuColor {
+  background-color: var(--blue);
 }
