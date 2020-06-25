@@ -11,6 +11,7 @@ import UpdateData from "../ClassData/updatedata";
 import StudyList from "../Study/studylist";
 import AddStudy from "../Study/addstudy";
 import StudyDetail from "../Study/studydetail";
+import UpdateStudy from "../Study/updatestudy";
 import MyStudy from "../MyPage/mystudymain";
 import MyStudyTeam from "../MyPage/mystudyteam";
 
@@ -92,6 +93,7 @@ class main extends Component {
           {/* 스터디 관련 기능 */}
           <Route path="/addstudy" component={AddStudy} />
           <Route path="/studydetail" component={StudyDetail} />
+          <Route path="/updatestudy" component={UpdateStudy} />
           <Route path="/mystudymain" component={MyStudy} />
           <Route path="/mystudyteam" component={MyStudyTeam} />
 

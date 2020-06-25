@@ -24,6 +24,7 @@ import {
   ExpansionPanelActions,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import { Link } from "react-router-dom";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -584,6 +585,13 @@ export default function StudyList(props) {
                     ele.study_peoples
                   }
                 >
+                  <div id="studylistcardeye">
+                    <VisibilityOutlinedIcon />
+                    <div style={{ marginLeft: "3px", marginBottom: "2px" }}>
+                      {ele.study_readcount}
+                    </div>
+                  </div>
+
                   <Avatar
                     id="studylistcardAvatar"
                     alt=""

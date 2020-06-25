@@ -234,6 +234,31 @@ export default function StudyDetail(props) {
         console.log(err);
       });
   };
+  const deleteStudy = (study_num) => {
+    const url = `http://localhost:8000/project/study/delete?study_num=${study_num}`;
+
+    Swal.fire({
+      title: "정말 삭제하시겠습니까?",
+      text: "삭제 하시려면 삭제 버튼을 눌러주세요",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.value) {
+        Axios.delete(url)
+          .then((res) => {
+            window.location.href = "/studylist";
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        Swal.fire("삭제 성공!", "정상적으로 삭제되었습니다", "success");
+      }
+    });
+  };
 
   useEffect(() => {
     getStudyData();
@@ -434,7 +459,7 @@ export default function StudyDetail(props) {
             <Button
               variant="contained"
               color="primary"
-              href="/updatestudy"
+              href={`/updatestudy?study_num=${study_num}`}
               style={{ margin: "8px", backgroundColor: "green" }}
               id="updatebutton"
             >
@@ -443,9 +468,11 @@ export default function StudyDetail(props) {
             <Button
               variant="outlined"
               color="secondary"
-              href="/deletestudy"
               style={{ margin: "8px" }}
               id="deletebutton"
+              onClick={() => {
+                deleteStudy(studydata.study_num);
+              }}
             >
               삭제
             </Button>

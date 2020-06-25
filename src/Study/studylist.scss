@@ -113,3 +113,13 @@
   height: 50px;
   padding: 0;
 }
+
+//눈 + 조회수
+#studylistcardeye {
+  position: absolute;
+  bottom: 0;
+  color: lightgray;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
