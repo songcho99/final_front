@@ -45,6 +45,11 @@ import CurriculumSchedule from "../Curriculum/CurriculumSchedule";
 import ClassPage from "../MyClass/ClassPage";
 import MyNote from "../MyClass/MyNote";
 
+import AddReview from "../Review/AddReview";
+import ReviewList from "../Review/ReviewList";
+import UpdateReview from "../Review/UpdateReview";
+import DeleteReview from "../Review/DeleteReview";
+
 class main extends Component {
   constructor({ history }, props) {
     super(props);
@@ -109,6 +114,12 @@ class main extends Component {
           {/* 강사,수강생 전용 학습 페이지 */}
           <Route path="/classpage" component={ClassPage} />
           <Route path="/mynote" component={MyNote} />
+
+          {/* 리뷰 관련 기능 */}
+          <Route path="/addreview" component={AddReview} />
+          <Route path="/reviewlist" component={ReviewList}/>
+          <Route path="/updatereview" component={UpdateReview}/>
+          <Route path="/deletereview" component={DeleteReview}/>
         </BrowserRouter>
       </div>
     );

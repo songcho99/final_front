@@ -158,6 +158,11 @@ class Menu extends Component {
             check: localStorage.check,
             loginchange: false,
           });
+          localStorage.removeItem("name");
+          localStorage.removeItem("name2");
+          localStorage.removeItem("num");
+          localStorage.removeItem("type");
+          localStorage.removeItem("profile");
           window.location.href = "/";
         } else {
           localStorage.check = "false";
