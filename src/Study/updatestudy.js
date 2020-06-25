@@ -202,7 +202,7 @@ export default function UpdateStudy(props) {
   const { search } = props.location;
   const queryObj = queryStirng.parse(search);
   const { study_num } = queryObj;
-  const [updateprevimg, setUpdatePrevImg] = React.useState("");
+  const [study_oldmainimage, setStudyOldMainImage] = React.useState("");
 
   const countList = count.map((count, idx) => (
     <MenuItem value={count} key={idx}>
@@ -302,6 +302,14 @@ export default function UpdateStudy(props) {
       Friday = false,
       Saturday = false,
       Sunday = false;
+    let Mon = "",
+      Tue = "",
+      Wed = "",
+      Thu = "",
+      Fri = "",
+      Sat = "",
+      Sun = "";
+
     const url =
       "http://localhost:8000/project/study/detail?study_num=" + study_num;
     Axios.get(url)
@@ -334,6 +342,16 @@ export default function UpdateStudy(props) {
           Saturday,
           Sunday,
         });
+        if (Monday === true) Mon = "월";
+        if (Tuesday === true) Tue = "화";
+        if (Wednesday === true) Wed = "수";
+        if (Thursday === true) Thu = "목";
+        if (Friday === true) Fri = "금";
+        if (Saturday === true) Sat = "토";
+        if (Sunday === true) Sun = "일";
+        setStudyGatherdayName(
+          study_gatherdayname.concat(Mon, Tue, Wed, Thu, Fri, Sat, Sun)
+        );
 
         setStudyPeoples(res.data.studydata.study_peoples);
         res.data.studydata.study_level === 0 ||
@@ -352,6 +370,41 @@ export default function UpdateStudy(props) {
         setStudyAddress(res.data.studydata.study_address);
         setStudyDetailaddr(res.data.studydata.study_detailaddr);
         setStudyMainImage(res.data.studydata.study_mainimage);
+        setStudyOldMainImage(res.data.studydata.study_mainimage);
+
+        const container = document.getElementById("map");
+        const options = {
+          center: new kakao.maps.LatLng(33.450701, 126.570667),
+          level: 3,
+        };
+        var geocoder = new kakao.maps.services.Geocoder();
+        var map = new kakao.maps.Map(container, options);
+        console.log(geocoder == null);
+        // 주소로 좌표를 검색합니다
+        geocoder.addressSearch(
+          res.data.studydata.study_address.substring(7),
+          function (result, status) {
+            console.log(kakao.maps.services.Status);
+            // 정상적으로 검색이 완료됐으면
+            if (status === kakao.maps.services.Status.OK) {
+              var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+              var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords,
+              });
+
+              // 인포윈도우로 장소에 대한 설명을 표시합니다
+              var infowindow = new kakao.maps.InfoWindow({
+                content:
+                  '<div style="width:150px;text-align:center;padding:6px 0;">모임장소</div>',
+              });
+              infowindow.open(map, marker);
+              // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+              map.setCenter(coords);
+              document.getElementById("map").style.visibility = "visible";
+            }
+          }
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -371,14 +424,15 @@ export default function UpdateStudy(props) {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    const url = "http://localhost:8000/project/study/add";
-    const formData = new FormData();
 
+    const url = "http://localhost:8000/project/study/update";
+    const formData = new FormData();
+    console.log(study_gatherdayname);
     console.log(study_level);
 
+    formData.append("study_num", study_num);
     formData.append("study_type", study_type);
     formData.append("study_subject", study_subject);
-    formData.append("study_member_num", localStorage.num);
     formData.append("study_startdate", study_startdate);
     formData.append("study_enddate", study_enddate);
     formData.append("study_gatherdayname", study_gatherdayname);
@@ -389,36 +443,22 @@ export default function UpdateStudy(props) {
     formData.append("study_progress", study_progress);
     formData.append("study_address", study_address);
     formData.append("study_detailaddr", study_detailaddr);
-    formData.append("uploadfile", study_mainimage);
-    formData.append("study_writer", localStorage.name);
-    formData.append("study_writer_num", localStorage.num);
+    if (typeof study_mainimage === "string")
+      formData.append("study_mainimage", study_mainimage);
+    else formData.append("uploadfile", study_mainimage);
+    formData.append("study_oldmainimage", study_oldmainimage);
     Axios({
       method: "post",
       url: url,
-      // data: {
-      //   study_type: study_type,
-      //   study_subject: study_subject,
-      //   study_startdate: study_startdate,
-      //   study_enddate: study_enddate,
-      //   study_gatherday: study_gatherday,
-      //   study_peoples: study_peoples,
-      //   study_level: study_level,
-      //   study_intr: study_intr,
-      //   study_goal: study_goal,
-      //   study_progress: study_progress,
-      //   study_address: study_address,
-      //   study_detailaddr: study_detailaddr,
-      // },
-      // data: { formData: formData },
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => {
-        console.log(`데이터 추가:${res}`);
+        console.log(`데이터 수정:${res}`);
         window.location.href = "/studylist";
       })
       .catch((err) => {
-        console.log(`데이터 추가 오류:${err}`);
+        console.log(`데이터 수정 오류:${err}`);
       });
   };
 
@@ -431,6 +471,7 @@ export default function UpdateStudy(props) {
 
   useEffect(() => {
     setPreviewImg(<img alt="" src={previewURL} width="400"></img>);
+    console.log(study_gatherdayname);
   }, [previewURL]);
 
   return (
@@ -753,7 +794,18 @@ export default function UpdateStudy(props) {
           <br />
           <br />
           <div style={{ marginLeft: "8px" }}>
-            {previewimg != null ? previewimg : updateprevimg}
+            {study_mainimage != "" ? (
+              <img
+                alt=""
+                src={
+                  "http://localhost:8000/project/uploadfile/" + study_mainimage
+                }
+                style={{ width: "400px" }}
+              ></img>
+            ) : (
+              ""
+            )}
+            {previewimg != "" ? previewimg : ""}
           </div>
           <br />
           <br />
@@ -763,8 +815,15 @@ export default function UpdateStudy(props) {
               color="primary"
               type="submit"
               style={{ marginLeft: "640px" }}
+              onMouseOver={() => {
+                setStudyGatherdayName(
+                  study_gatherdayname.filter(function (item) {
+                    return item !== null && item !== undefined && item !== "";
+                  })
+                );
+              }}
             >
-              개설하기
+              수정하기
             </Button>
             &nbsp;
             <Button variant="outlined" color="primary" href="./studylist">
