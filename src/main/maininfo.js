@@ -9,9 +9,9 @@ class maininfo extends Component {
     super();
 
     this.state = {
-      show: 3,
-      num: "none",
-      num2: "none",
+      show: 1,
+      num: "nonedown",
+      num2: "nonedown",
       num3: "nonedown",
       num4: "nonedown",
 
