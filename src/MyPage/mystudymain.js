@@ -324,7 +324,19 @@ export default function MyStudyMain(props) {
                       <TableCell align="center" component="th" scope="row">
                         {row.study_subject}
                       </TableCell>
+
                       <TableCell align="right">
+                        <Button
+                          variant="outlined"
+                          color="default"
+                          size="small"
+                          onClick={() => {
+                            handleOpen();
+                            getApplyMember(row.study_num);
+                          }}
+                        >
+                          입장
+                        </Button>
                         <Button
                           variant="outlined"
                           color="primary"
