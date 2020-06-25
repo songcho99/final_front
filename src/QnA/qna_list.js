@@ -72,9 +72,13 @@ class qna_list extends Component {
           console.log(this.state.listData[i].qna_restep);
           let re = this.state.space;
           if (this.state.listData[i].qna_restep > 0) {
-            re.push("   ");
+            re.push(<span>&nbsp;&nbsp;</span>);
           } else {
-            re.push("");
+            re.push(
+              <span>
+                <i class="fab fa-weixin" style={{ fontSize: "30px" }}></i>&nbsp;
+              </span>
+            );
           }
           this.setState({
             space: re,
@@ -161,7 +165,7 @@ class qna_list extends Component {
         <br />
         <br />
         <span style={{ fontSize: "18px", color: "##A6A6A6" }}>
-          여러분의 궁금증을 풀어드립니다.
+          여러분의 궁금증을 해결해 드립니다.
         </span>
         <div style={{ paddingTop: "100px" }}></div>
         <table style={tableStyle} align="center">

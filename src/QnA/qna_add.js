@@ -116,7 +116,7 @@ class qna_add extends Component {
         <br />
         <br />
         <span style={{ fontSize: "18px", color: "##A6A6A6" }}>
-          여러분의 궁금증을 풀어드립니다.
+          여러분의 궁금증을 해결해 드립니다.
         </span>
         <div style={{ paddingTop: "100px" }}></div>
         <form onSubmit={this.onSave.bind(this)}>
