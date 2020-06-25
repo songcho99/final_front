@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Paper,
   Button,
@@ -11,7 +11,6 @@ import {
   Modal,
   TextField,
 } from "@material-ui/core";
-import defaultImage from "../image/studytestimage.jpg";
 import Axios from "axios";
 import queryStirng from "query-string";
 import Swal from "sweetalert2";
@@ -168,6 +167,12 @@ export default function StudyDetail(props) {
         else
           document.getElementById("aplicationbutton").style.visibility =
             "block";
+        if (count_peoples == study_peoples)
+          document.getElementById("aplicationbutton").style.visibility =
+            "hidden";
+        else
+          document.getElementById("aplicationbutton").style.visibility =
+            "block";
       })
       .catch((err) => {
         console.log(err);
@@ -175,11 +180,14 @@ export default function StudyDetail(props) {
   };
   const onSubmit = (event) => {
     event.preventDefault();
-    const url = "http://localhost:8000/project/studygroup/add";
-    const formData = new FormData();
-    formData.append("studygroup_study_num", study_num);
-    formData.append("studygroup_member_num", localStorage.num);
-    Axios.post(url, formData)
+    const url = "http://localhost:8000/project/studyapply/add";
+
+    Axios.post(url, {
+      studyapply_member_num: localStorage.num,
+      studyapply_study_num: study_num,
+      studyapply_mylevel: studyapply_mylevel,
+      studyapply_comment: studyapply_comment,
+    })
       .then((res) => {
         Swal.fire({
           position: "middle-middle",
@@ -194,10 +202,47 @@ export default function StudyDetail(props) {
         console.log(err);
       });
   };
+  const getApplyState = (event) => {
+    const url = `http://localhost:8000/project/studyapply/state?studyapply_member_num=${localStorage.num}&studyapply_study_num=${study_num}`;
+
+    Axios.get(url)
+      .then((res) => {
+        if (res.data == 1) {
+          document.getElementById("aplicationbutton").innerHTML = "승인대기";
+          document
+            .getElementById("aplicationbutton")
+            .setAttribute("disabled", "true");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const getGroupState = (event) => {
+    const url = `http://localhost:8000/project/studygroup/state?studygroup_member_num=${localStorage.num}&studygroup_study_num=${study_num}`;
+
+    Axios.get(url)
+      .then((res) => {
+        if (res.data == 1) {
+          document.getElementById("aplicationbutton").style.visibility =
+            "hidden";
+          document.getElementById("aplicationbutton").style.visibility =
+            "block";
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     getStudyData();
   }, []);
+
+  useEffect(() => {
+    getApplyState();
+    getGroupState();
+  }, [getStudyData]);
 
   useEffect(() => {
     studyapply_mylevel === 0 || studyapply_mylevel === "하"
@@ -324,7 +369,8 @@ export default function StudyDetail(props) {
             <CardActions>
               <Button
                 size="small"
-                style={{ marginLeft: "80%", color: "green" }}
+                color="primary"
+                style={{ marginLeft: "78%" }}
                 onClick={handleOpen}
                 id="aplicationbutton"
               >
