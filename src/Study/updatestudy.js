@@ -202,6 +202,7 @@ export default function UpdateStudy(props) {
   const { search } = props.location;
   const queryObj = queryStirng.parse(search);
   const { study_num } = queryObj;
+  const [updateprevimg, setUpdatePrevImg] = React.useState("");
 
   const countList = count.map((count, idx) => (
     <MenuItem value={count} key={idx}>
@@ -350,6 +351,7 @@ export default function UpdateStudy(props) {
         setStudyProgress(res.data.studydata.study_progress);
         setStudyAddress(res.data.studydata.study_address);
         setStudyDetailaddr(res.data.studydata.study_detailaddr);
+        setStudyMainImage(res.data.studydata.study_mainimage);
       })
       .catch((err) => {
         console.log(err);
@@ -424,10 +426,6 @@ export default function UpdateStudy(props) {
   const sliderclasses = sliderStyles();
 
   useEffect(() => {
-    // setTimeout(() => {
-    //   getStudyData();
-    // }, 1000);
-    // window.addEventListener("load", getStudyData);
     getStudyData();
   }, []);
 
@@ -755,7 +753,7 @@ export default function UpdateStudy(props) {
           <br />
           <br />
           <div style={{ marginLeft: "8px" }}>
-            {previewimg != null ? previewimg : study_mainimage}
+            {previewimg != null ? previewimg : updateprevimg}
           </div>
           <br />
           <br />
