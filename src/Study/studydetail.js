@@ -257,6 +257,7 @@ export default function StudyDetail(props) {
           });
         Swal.fire("삭제 성공!", "정상적으로 삭제되었습니다", "success");
       }
+      window.location.href = "/studylist";
     });
   };
 
