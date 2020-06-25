@@ -21,14 +21,6 @@ class Notice_Detail extends Component {
       currentPage: this.props.location.state.currentPage,
     });
     this.detailList(this.state.num);
-    // if (this.state.member_name === '관리자' || this.state.member_name === '매니저') {
-    //     this.setState({
-    //         admin: <span>
-    //             <Link to={{ pathname: "/noticeupdate", state: { noticedata: this.state.noticedata, noticefile: this.state.noticefile } }} style={{ color: 'black', textDecoration: 'none' }}>수정</Link>
-    //             <Link to='/noticelist' onClick={this.onDelete.bind(this, this.state.num)}>삭제</Link>
-    //         </span>
-    //     })
-    // }
   }
   detailList = (num) => {
     let url = "http://localhost:8000/project/notice/noticedetail?num=" + num;
@@ -153,6 +145,15 @@ class Notice_Detail extends Component {
       borderBottom: "1px solid black",
       height: "60px",
     };
+    const buttonStyle = {
+      fontSize: "16px",
+      backgroundColor: "white",
+      width: "110px",
+      height: "40px",
+      borderRadius: "25px",
+      cursor: "pointer",
+      border: "1px solid gray",
+    };
     return (
       <div style={{ textAlign: "center" }}>
         <div style={{ paddingTop: "100px" }}></div>
@@ -223,18 +224,7 @@ class Notice_Detail extends Component {
             textDecoration: "none",
           }}
         >
-          <button
-            type="button"
-            style={{
-              fontSize: "16px",
-              backgroundColor: "white",
-              width: "110px",
-              height: "40px",
-              borderRadius: "25px",
-              cursor: "pointer",
-              border: "1px solid gray",
-            }}
-          >
+          <button type="button" style={buttonStyle}>
             <i className="fas fa-bars"></i>&nbsp;&nbsp; 목록
           </button>
         </Link>

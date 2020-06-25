@@ -8,7 +8,7 @@ class noticeSid extends Component {
         <a className="noticnav" href="/noticelist">
           공지사항
         </a>
-        <a className="noticnav" href="/qna">
+        <a className="noticnav" href="/qnalist">
           Q&A
         </a>
       </div>

@@ -134,6 +134,15 @@ class Notice_Add extends Component {
       borderBottom: "1px solid black",
       height: "60px",
     };
+    const buttonStyle = {
+      fontSize: "16px",
+      backgroundColor: "white",
+      width: "110px",
+      height: "40px",
+      borderRadius: "25px",
+      cursor: "pointer",
+      border: "1px solid gray",
+    };
     return (
       <div style={{ textAlign: "center" }}>
         <div style={{ paddingTop: "100px" }}></div>
@@ -162,18 +171,7 @@ class Notice_Add extends Component {
                   textDecoration: "none",
                 }}
               >
-                <button
-                  type="button"
-                  style={{
-                    fontSize: "16px",
-                    backgroundColor: "white",
-                    width: "110px",
-                    height: "40px",
-                    borderRadius: "25px",
-                    cursor: "pointer",
-                    border: "1px solid gray",
-                  }}
-                >
+                <button type="button" style={buttonStyle}>
                   <i className="fas fa-bars"></i>&nbsp;&nbsp; 목록
                 </button>
               </Link>
@@ -248,20 +246,7 @@ class Notice_Add extends Component {
             {this.state.contentcheck}
           </b>
           &nbsp;&nbsp;
-          <button
-            type="submit"
-            style={{
-              fontSize: "16px",
-              backgroundColor: "white",
-              width: "110px",
-              height: "40px",
-              borderRadius: "25px",
-              cursor: "pointer",
-              border: "1px solid gray",
-              float: "right",
-              marginRight: "350px",
-            }}
-          >
+          <button type="submit" style={buttonStyle}>
             <i className="fas fa-plus"></i>&nbsp;&nbsp;추가
           </button>
         </form>

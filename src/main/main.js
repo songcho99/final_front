@@ -45,7 +45,11 @@ import CurriculumSchedule from "../Curriculum/CurriculumSchedule";
 import ClassPage from "../MyClass/ClassPage";
 import MyNote from "../MyClass/MyNote";
 
-import QnA from "../QnA/qna";
+import qna_list from "../QnA/qna_list";
+import qna_add from "../QnA/qna_add";
+import qna_detail from "../QnA/qna_detail";
+import qna_update from "../QnA/qna_update";
+import qna_answer from "../QnA/qna_answer";
 
 class main extends Component {
   constructor({ history }, props) {
@@ -97,7 +101,13 @@ class main extends Component {
           <Route path="/noticeadd" component={Notice_Add} />
           <Route path="/noticedetail" component={Notice_Detail} />
           <Route path="/noticeupdate" component={Notice_Update} />
-          <Route path="/qna" component={QnA} />
+
+          {/* QnA */}
+          <Route path="/qnalist" component={qna_list} />
+          <Route path="/qnaadd" component={qna_add} />
+          <Route path="/qnadetail" component={qna_detail} />
+          <Route path="/qnaupdate" component={qna_update} />
+          <Route path="/qnaanswer" component={qna_answer} />
 
           {/* 학원소개 관련 기능 */}
           <Route path="/academyintro" component={AcademyIntro} />
