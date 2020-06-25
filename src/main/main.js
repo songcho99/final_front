@@ -40,6 +40,9 @@ import AcademyMap from "../Introduce/AcademyMap";
 import AcademyLink from "../Introduce/AcademyLink";
 
 import CurriculumList from "../Curriculum/CurriculumList";
+import CurriculumDetail from "../Curriculum/CurriculumDetail";
+import CurriculumUpdate from "../Curriculum/CurriculumUpdate";
+import CurriculumAdd from "../Curriculum/CurriculumAdd";
 import CurriculumSchedule from "../Curriculum/CurriculumSchedule";
 
 import ClassPage from "../MyClass/ClassPage";
@@ -107,6 +110,15 @@ class main extends Component {
 
           {/* 수강과정 관련 기능 */}
           <Route path="/curriculumlist" component={CurriculumList} />
+          <Route
+            path="/CurriculumDetail/:process_num"
+            component={CurriculumDetail}
+          />
+          <Route path="/CurriculumAdd" component={CurriculumAdd} />
+          <Route
+            path="/CurriculumUpdate/:process_num"
+            component={CurriculumUpdate}
+          />
           <Route path="/curriculumschedule" component={CurriculumSchedule} />
 
           {/* 강사,수강생 전용 학습 페이지 */}
