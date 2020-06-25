@@ -1,15 +1,16 @@
-import React,{Component} from'react';
-import CurriculumMenu from "../Curriculum/CurriculumMenu"
+import React, { Component } from "react";
+import CurriculumMenu from "../Curriculum/CurriculumMenu";
+import "./CurriculumList.scss";
 
-class CurriculumList extends Component{
-    render(){
-        return(
-            <div>
-                <br></br><br></br><br></br><br></br><br></br>
-                <CurriculumMenu/>
-                <h2>수강과정 목록입니다</h2>
-            </div>
-        )
-    }
+class CurriculumList extends Component {
+  render() {
+    return (
+      <div id={this.props.currilist}>
+        <div id="curriListback">
+          <div>수강과정 목록입니다</div>
+        </div>
+      </div>
+    );
+  }
 }
 export default CurriculumList;

@@ -102,7 +102,7 @@ class sidmenu extends Component {
           {/* 수강과정 */}
           <div id="sidschedulebox">
             <div id="sidschedulesub">수강과정</div>
-            <a href="/curriculumlist" id="sidschedulemain">
+            <a href="/curriculumschedule" id="sidschedulemain">
               <i className="far fa-calendar-alt"></i>
             </a>
           </div>
