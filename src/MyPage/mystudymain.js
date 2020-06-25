@@ -227,12 +227,13 @@ export default function MyStudyMain(props) {
 
     Swal.fire({
       title: "정말 탈퇴하시겠습니까?",
-      text: "탈퇴 하시려면 secession 버튼을 눌러주세요",
+      text: "탈퇴 하시려면 탈퇴 버튼을 눌러주세요",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "secession",
+      confirmButtonText: "탈퇴",
+      cancelButtonText: "취소",
     }).then((result) => {
       if (result.value) {
         Axios.delete(url)
@@ -251,12 +252,13 @@ export default function MyStudyMain(props) {
 
     Swal.fire({
       title: "정말 취소하시겠습니까?",
-      text: "취소 하시려면 Cancel application 버튼을 눌러주세요",
+      text: "취소 하시려면 신청 취소 버튼을 눌러주세요",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Cancel application",
+      confirmButtonText: "신청 취소",
+      cancelButtonText: "취소",
     }).then((result) => {
       if (result.value) {
         Axios.delete(url)
