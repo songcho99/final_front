@@ -91,14 +91,14 @@ const marks = [
   },
 ];
 
-// function getFormatDate(date) {
-//   var year = date.getFullYear(); //yyyy
-//   var month = 1 + date.getMonth(); //M
-//   month = month >= 10 ? month : "0" + month; //month 두자리로 저장
-//   var day = date.getDate(); //d
-//   day = day >= 10 ? day : "0" + day; //day 두자리로 저장
-//   return year + "" + month + "" + day; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
-// }
+function getFormatDate(date) {
+  var year = date.getFullYear(); // yyyy
+  var month = 1 + date.getMonth(); // M
+  month = month >= 10 ? month : "0" + month; // month 두자리로 저장
+  var day = date.getDate(); // d
+  day = day >= 10 ? day : "0" + day; // day 두자리로 저장
+  return year + "-" + month + "-" + day; // '-' 추가하여 yyyy-mm-dd 형태 생성
+}
 
 function valuetext() {
   return marks.label;
@@ -117,12 +117,8 @@ export default function StudyList(props) {
   const [searchSubject, setSearchSubject] = React.useState("");
   const [searchLevel, setSearchLevel] = React.useState("");
   const [searchType, setSearchType] = React.useState("");
-  const [searchStartdate, setSearchStartdate] = React.useState(
-    new Date().setDate(new Date().getDate() + 1)
-  );
-  const [searchEnddate, setSearchEnddate] = React.useState(
-    new Date().setDate(new Date().getDate() + 1)
-  );
+  const [searchStartdate, setSearchStartdate] = React.useState("");
+  const [searchEnddate, setSearchEnddate] = React.useState("");
   const [searchGatherday, setSearchGetherday] = React.useState({
     Monday: false,
     Tuesday: false,
@@ -149,13 +145,13 @@ export default function StudyList(props) {
   };
   const handleSearchLevelChange = (event, newValue) => {
     setSearchLevel(newValue);
-    setField("study_level")
+    setField("study_level");
     console.log(`searchlevel:${searchLevel}`);
     console.log("검색어:" + field);
   };
   const handleSearchTypeChange = (event) => {
     setSearchType(event.target.value);
-    setField("study_type")
+    setField("study_type");
     console.log(`searchtype:${searchType}`);
     console.log("검색어:" + field);
   };
@@ -168,8 +164,9 @@ export default function StudyList(props) {
       alert("시작 날짜는 끝 날짜 이후를 선택 불가능합니다");
       return false;
     }
-    setSearchStartdate(date);
+    setSearchStartdate(getFormatDate(date));
     setField("study_startdate");
+    console.log("시작날짜=" + searchStartdate);
     console.log("검색어:" + field);
   };
   const handleSearchEnddateChange = (date) => {
@@ -181,8 +178,9 @@ export default function StudyList(props) {
       alert("시작 날짜보다 이전 날짜는 선택 불가능합니다");
       return false;
     }
-    setSearchEnddate(date);
+    setSearchEnddate(getFormatDate(date));
     setField("study_enddate");
+    console.log("끝날짜=" + searchEnddate);
     console.log("검색어:" + field);
   };
   const handleSearchGatherdayChange = (event) => {
@@ -191,6 +189,7 @@ export default function StudyList(props) {
       [event.target.name]: event.target.checked,
     });
     setField("study_gatherday");
+
     console.log("검색어:" + field);
 
     if (event.target.checked) {
@@ -224,16 +223,20 @@ export default function StudyList(props) {
     list();
   };
   const list = () => {
-
     const data = new FormData();
-    data.append('study_subject', field[0]);
-    data.append('study_level', field[1]);
-    data.append('study_type', field[2]);
-    data.append('study_startdata', field[3]);
-    data.append('study_enddate', field[4]);
-    data.append('study_gatherday', field[5]);
-    data.append('study_address', field[6]);
-    data.append('study_detailaddress', field[7]);
+    // for (let i = 0; i < 10; i++) {
+    //   data.append(`textfield[${i}]`);
+    // }
+    console.log(searchStartdate);
+    data.append("textfield", searchFilter);
+    data.append("searchSubject", searchSubject);
+    data.append("searchLevel", searchLevel);
+    data.append("searchType", searchType);
+    data.append("searchStartdate", searchStartdate);
+    data.append("searchEnddate", searchEnddate);
+    data.append("searchGatherday", searchGatherday);
+    data.append("searchAddress", searchAddress);
+    data.append("searchDetailAddr", searchDetailAddr);
 
     const url = "http://localhost:8000/project/study/list";
     Axios.post(url, data)
@@ -241,7 +244,7 @@ export default function StudyList(props) {
         setListData(res.data.listdata);
         setProfileList(res.data.profilelist);
         setCountList(res.data.countlist);
-
+        console.log(res.data.listdata);
       })
       .catch((err) => {
         console.log(err);
@@ -252,6 +255,10 @@ export default function StudyList(props) {
     list();
   }, []);
 
+  const click = () => {
+    setSearchStartdate(getFormatDate(new Date()));
+    setSearchEnddate(getFormatDate(new Date()));
+  };
   return (
     <div>
       <br />
@@ -277,6 +284,7 @@ export default function StudyList(props) {
         // onChange={handlePanelChange("panel")}
         >
           <ExpansionPanelSummary
+            onClick={() => click()}
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
@@ -294,15 +302,16 @@ export default function StudyList(props) {
                 native
                 value={searchFilter}
                 onChange={handleSearchFilterChange}
+                name="textfield"
                 inputProps={{
                   name: "searchFilter",
                   id: "outlined-age-native-simple",
                 }}
               >
-                <option value={"전체"}>전체</option>
-                <option value={"제목"}>제목</option>
-                <option value={"내용"}>내용</option>
-                <option value={"작성자"}>작성자</option>
+                <option value={""}>전체</option>
+                <option value={"study_subject"}>제목</option>
+                <option value={"study_content"}>내용</option>
+                <option value={"study_writer"}>작성자</option>
               </Select>
             </FormControl>
             &nbsp;&nbsp;
@@ -310,6 +319,7 @@ export default function StudyList(props) {
               id="outlined-read-only-input"
               label="제목"
               variant="outlined"
+              name="searchSubject"
               onChange={handleSearchSubjectChange}
               required
               style={{ margin: "8px", width: "500px" }}
@@ -321,6 +331,7 @@ export default function StudyList(props) {
                 난이도
               </Typography>
               <Slider
+                name="searchLevel"
                 onChange={handleSearchLevelChange}
                 getAriaValueText={valuetext}
                 valueLabelDisplay="off"
