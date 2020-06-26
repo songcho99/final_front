@@ -364,6 +364,10 @@ function CurriculumUpdate({ match }) {
       icon: "success",
       title: "성공!!",
       text: "수강 과정 수정이 성공적으로 처리되었습니다!",
+    }).then((result) => {
+      if (result.value) {
+        window.location.href = "/CurriculumDetail/" + match.params.process_num;
+      }
     });
   };
 

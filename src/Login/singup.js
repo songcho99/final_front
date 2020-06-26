@@ -296,14 +296,26 @@ class singup extends Component {
       axios
         .post(url, memberData)
         .then((res) => {
+          this.props.SingUpClose();
+          this.props.LoginModalClose();
           Swal.fire({
-            position: "middle-middle",
-            icon: "success",
-            title: "회원가입 완료!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          window.location.href = "/";
+            title: '회원가입 성공',
+            text: "회원가입이 완료되었습니다",
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#008000',
+            confirmButtonText: '로그인',
+            cancelButtonText: '홈으로'
+          }).then((result) => {
+            if (result.value) {
+              this.props.LoginModalOpen()
+            }
+            else if (result.dismiss === Swal.DismissReason.cancel) {
+
+            }
+          })
+
         })
         .catch((err) => {
           console.log("회원가입 에러 : " + err);

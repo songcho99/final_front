@@ -348,7 +348,11 @@ class Menu extends Component {
 
         {/* 회원가입 모달  */}
         <Modal isOpen={this.state.SingUp} ariaHideApp={false} id="SingUpModal">
-          <SingUp SingUpClose={this.SingUpClose.bind(this)}></SingUp>
+          <SingUp
+            SingUpClose={this.SingUpClose.bind(this)}
+            LoginModalClose={this.LoginModalClose.bind(this)}
+            LoginModalOpen={this.LoginModalOpen.bind(this)}
+          ></SingUp>
         </Modal>
 
         {/* 사이드 바 */}

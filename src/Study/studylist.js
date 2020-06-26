@@ -107,6 +107,8 @@ export default function StudyList(props) {
   const classes = useStyles();
   const avatarclasses = avatarStyles();
 
+  const [field, setField] = React.useState([]);
+
   const [listdata, setListData] = React.useState([]);
   const [profilelist, setProfileList] = React.useState([]);
   const [countlist, setCountList] = React.useState([]);
@@ -140,15 +142,21 @@ export default function StudyList(props) {
   };
   const handleSearchSubjectChange = (event) => {
     setSearchSubject(event.target.value);
+    setField("study_subject");
     console.log(`searchsubject:${searchSubject}`);
+    console.log("검색어:" + field);
   };
   const handleSearchLevelChange = (event, newValue) => {
     setSearchLevel(newValue);
+    setField("study_level")
     console.log(`searchlevel:${searchLevel}`);
+    console.log("검색어:" + field);
   };
   const handleSearchTypeChange = (event) => {
     setSearchType(event.target.value);
+    setField("study_type")
     console.log(`searchtype:${searchType}`);
+    console.log("검색어:" + field);
   };
   const handleSearchStartdateChange = (date) => {
     if (new Date() > date) {
@@ -160,6 +168,8 @@ export default function StudyList(props) {
       return false;
     }
     setSearchStartdate(date);
+    setField("study_startdate");
+    console.log("검색어:" + field);
   };
   const handleSearchEnddateChange = (date) => {
     if (new Date() > date) {
@@ -171,12 +181,16 @@ export default function StudyList(props) {
       return false;
     }
     setSearchEnddate(date);
+    setField("study_enddate");
+    console.log("검색어:" + field);
   };
   const handleSearchGatherdayChange = (event) => {
     setSearchGetherday({
       ...searchGatherday,
       [event.target.name]: event.target.checked,
     });
+    setField("study_gatherday");
+    console.log("검색어:" + field);
 
     if (event.target.checked) {
       setSearchGetherdayName(searchGatherdayName.concat(event.target.value));
@@ -190,25 +204,43 @@ export default function StudyList(props) {
   };
   const handleSearchAddressChange = (event) => {
     setSearchAddress(event.target.value);
+    setField("study_address");
     console.log(`searchaddr:${searchAddress}`);
+    console.log("검색어:" + field);
   };
   const handleSearchDetailAddrChange = (event) => {
     setSearchDetailAddr(event.target.value);
+    setField("study_detailaddress");
     console.log(`searchdetailaddr:${searchDetailAddr}`);
+    console.log("검색어:" + field);
   };
   // const handlePanelChange = (panel) => (event, newExpanded) => {
   //   setExpanded(newExpanded ? panel : false);
   // };
   const handleSearchClick = (event) => {
     console.log(listdata);
+    console.log(field);
+    list();
   };
   const list = () => {
+
+    const data = new FormData();
+    data.append('study_subject', field[0]);
+    data.append('study_level', field[1]);
+    data.append('study_type', field[2]);
+    data.append('study_startdata', field[3]);
+    data.append('study_enddate', field[4]);
+    data.append('study_gatherday', field[5]);
+    data.append('study_address', field[6]);
+    data.append('study_detailaddress', field[7]);
+
     const url = "http://localhost:8000/project/study/list";
-    Axios.get(url)
+    Axios.post(url, data)
       .then((res) => {
         setListData(res.data.listdata);
         setProfileList(res.data.profilelist);
         setCountList(res.data.countlist);
+
       })
       .catch((err) => {
         console.log(err);

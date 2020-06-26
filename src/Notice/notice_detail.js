@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
 import noticeimg from "./noticeback.jpg";
+import Swal from "sweetalert2";
 
 class Notice_Detail extends Component {
   constructor(props) {
@@ -111,14 +112,28 @@ class Notice_Detail extends Component {
       });
   };
   onDelete = (num) => {
-    let url = "http://localhost:8000/project/notice/noticedelete?num=" + num;
-    Axios.get(url)
-      .then((res) => {
-        window.location.href = "/noticelist";
-      })
-      .catch((err) => {
-        console.log("notice delete error=" + err);
-      });
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        let url = "http://localhost:8000/project/notice/noticedelete?num=" + num;
+        Axios.get(url)
+          .then((res) => {
+            window.location.href = "/noticelist";
+          })
+          .catch((err) => {
+            console.log("notice delete error=" + err);
+          });
+      }
+
+    })
+
   };
   render() {
     const backimage = {

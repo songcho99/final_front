@@ -280,7 +280,7 @@ function CurriculumAdd() {
           let url2 = "http://localhost:8000/project/books/insert";
           axios
             .post(url2, bookdata)
-            .then((res) => {})
+            .then((res) => { })
             .catch((err) => {
               console.log("제공 교재 등록 에러 : " + err);
             });
@@ -289,6 +289,10 @@ function CurriculumAdd() {
           icon: "success",
           title: "성공!!",
           text: "수강 과정 등록이 성공적으로 처리되었습니다!",
+        }).then((result) => {
+          if (result.value) {
+            window.location.href = "/curriculumlist";
+          }
         });
 
         redirectAfterInsert();
