@@ -10,7 +10,7 @@ class qna_detail extends Component {
       qnadata: [],
       num: this.props.location.state.num,
       currentPage: 1,
-      member_name: localStorage.name,
+      member_type: localStorage.type,
       member_num: localStorage.num,
       detailpage: this.props.location.state.currentPage,
       page: 1,
@@ -35,7 +35,7 @@ class qna_detail extends Component {
         console.log(this.state.qnadata.qna_member_num);
         if (
           this.state.member_num == this.state.qnadata.qna_member_num &&
-          this.state.member_name !== ("관리자" || "매니저")
+          this.state.member_type !== "매니저"
         ) {
           this.setState({
             student: (
@@ -87,7 +87,7 @@ class qna_detail extends Component {
         }
         if (
           this.state.qnadata.qna_restep === 0 &&
-          this.state.member_name === ("관리자" || "매니저")
+          this.state.member_type === "매니저"
         ) {
           this.setState({
             admin: (
@@ -140,7 +140,7 @@ class qna_detail extends Component {
         if (
           this.state.qnadata.qna_restep !== 0 &&
           this.state.member_num == this.state.qnadata.qna_member_num &&
-          this.state.member_name === ("관리자" || "매니저")
+          this.state.member_type === "매니저"
         ) {
           this.setState({
             admin: (

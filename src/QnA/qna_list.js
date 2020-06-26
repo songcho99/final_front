@@ -13,11 +13,13 @@ class qna_list extends Component {
       listData: [],
       memberData: [],
       pageNum: 1,
-      member_name: localStorage.name,
+      member_type: localStorage.type,
       currentPage: 1, // 현재페이지
       postPerPage: 10, //한페이지에서 보여줄 데이터 갯수
       indexOfFirstPage: 0, //초기값
       space: [],
+      search: "",
+      field: "qna_subject",
     };
   }
   componentWillMount() {
@@ -37,12 +39,14 @@ class qna_list extends Component {
     Axios.get(url)
       .then((res) => {
         this.setState({
-          listData: res.data.qdto,
-          memberData: res.data.member_name,
-          currentPosts: res.data.qdto.slice(0, 10),
+          listData: res.data,
+          currentPosts: res.data.slice(0, 10),
         });
 
-        if (this.state.member_name !== ("관리자" || "매니저")) {
+        if (
+          this.state.member_type !== "관리자" ||
+          this.state.member_type !== "매니저"
+        ) {
           this.setState({
             write: (
               <Link
@@ -114,6 +118,33 @@ class qna_list extends Component {
     console.log(this.state.currentPosts);
     console.log(this.state.indexOfFirstPage);
   };
+  searchQna = (e) => {
+    console.log(this.state.field);
+    console.log(this.state.search);
+    let url =
+      "http://localhost:8000/project/qna/qnalist?field=" +
+      this.state.field +
+      "&search=" +
+      this.state.search;
+    Axios.get(url)
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          listData: res.data,
+          currentPosts: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log("search 에러:" + err);
+      });
+  };
+  onKeyChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+    console.log(this.state.field);
+    console.log(this.state.search);
+  };
   render() {
     const backimage = {
       width: "100%",
@@ -147,6 +178,33 @@ class qna_list extends Component {
       cursor: "pointer",
       border: "1px solid gray",
     };
+    const searchStyle1 = {
+      fontSize: "16px",
+      textAlign: "center",
+      backgroundColor: "white",
+      width: "100px",
+      height: "40px",
+      cursor: "pointer",
+      border: "1px solid gray",
+    };
+    const searchStyle2 = {
+      fontSize: "16px",
+      textAlign: "left",
+      backgroundColor: "white",
+      width: "400px",
+      height: "37px",
+      cursor: "pointer",
+      border: "1px solid gray",
+    };
+    const searchStyle3 = {
+      fontSize: "16px",
+      textAlign: "left",
+      backgroundColor: "white",
+      width: "100px",
+      height: "37px",
+      cursor: "pointer",
+      border: "1px solid gray",
+    };
     return (
       <div style={{ textAlign: "center" }}>
         <Sid></Sid>
@@ -168,6 +226,38 @@ class qna_list extends Component {
           여러분의 궁금증을 해결해 드립니다.
         </span>
         <div style={{ paddingTop: "100px" }}></div>
+        {/* 검색 유형 선택 창 */}
+        <div align="center">
+          <span>
+            <select
+              onChange={this.onKeyChange.bind(this)}
+              style={searchStyle1}
+              name="field"
+            >
+              <option value="qna_subject">제목</option>
+              <option value="qna_member_name">작성자</option>
+            </select>
+          </span>
+          &nbsp;&nbsp;
+          {/* 검색어 입력 창 */}
+          <input
+            type="text"
+            required="required"
+            placeholder="검색어를 입력하세요."
+            onChange={this.onKeyChange.bind(this)}
+            name="search"
+            style={searchStyle2}
+          />
+          &nbsp;&nbsp;
+          <button
+            type="button"
+            style={searchStyle3}
+            onClick={this.searchQna.bind(this)}
+          >
+            <i className="fas fa-search"></i>
+            &nbsp;&nbsp; 검색
+          </button>
+        </div>
         <table style={tableStyle} align="center">
           <caption style={{ textAlign: "right", marginBottom: "20px" }}>
             {this.state.write}
@@ -219,7 +309,7 @@ class qna_list extends Component {
                       {item.qna_subject}
                     </Link>
                   </td>
-                  <td>{this.state.memberData[idx]}</td>
+                  <td>{item.qna_member_name}</td>
                   <td>{item.qna_writeday}</td>
                   <td>{item.qna_readcount}</td>
                 </tr>

@@ -12,7 +12,7 @@ import img2 from "./member2.png";
 
 export default function MemberList_Form() {
   // 검색 필터 값 받는 변수
-  const [field, setField] = React.useState("");
+  const [field, setField] = React.useState("member_type");
 
   //선택값에 따라 필터값 바뀌는 이벤트
   const handleChange = (event) => {
@@ -179,7 +179,7 @@ export default function MemberList_Form() {
             <option value="member_name">이름</option>
             <option value="member_phone">핸드폰</option>
             <option value="member_email">이메일</option>
-            <option value="member_addr">주소</option>
+            <option value="member_address">주소</option>
           </select>
         </span>
         &nbsp;&nbsp;

@@ -34,7 +34,7 @@ class singup extends Component {
 
     checknum: "",
     randomsu: "123456",
-    phCheck_msg: ""
+    phCheck_msg: "",
   };
   componentDidMount() {
     const script = document.createElement("script");
@@ -276,8 +276,8 @@ class singup extends Component {
 
     if (this.state.randomsu === "123456") {
       this.setState({
-        phCheck_msg: "핸드폰 인증이 필요합니다."
-      })
+        phCheck_msg: "핸드폰 인증이 필요합니다.",
+      });
       return;
     } else if (this.state.randomsu == this.state.checknum) {
       let memberData = new FormData();
@@ -310,28 +310,35 @@ class singup extends Component {
         });
     } else {
       this.setState({
-        phCheck_msg: "인증번호가 맞지 않습니다."
-      })
+        phCheck_msg: "인증번호가 맞지 않습니다.",
+      });
+      return;
+    }
+  };
+  //send SMS
+  onSms = () => {
+    if (this.state.member_phone === "") {
+      this.setState({
+        phCheck_msg: "핸드폰 번호를 입력해주세요.",
+      });
       return;
     }
 
-
-  }
-  //send SMS
-  onSms = () => {
     const dataForm = new FormData();
     dataForm.append("member_phone", this.state.member_phone);
     var url = "http://localhost:8000/project/check/checknum";
-    axios.post(url, dataForm)
+    axios
+      .post(url, dataForm)
       .then((res) => {
         this.setState({
           randomsu: res.data,
-          phCheck_msg: "인증번호 발송이 완료되었습니다."
+          phCheck_msg: "인증번호 발송이 완료되었습니다.",
         });
-      }).catch((err) => {
-        console.log("발송 버튼 error=" + err);
       })
-  }
+      .catch((err) => {
+        console.log("발송 버튼 error=" + err);
+      });
+  };
 
   render() {
     const post = () => {
@@ -524,7 +531,6 @@ class singup extends Component {
                   </LoginBtn>
                 </div>
               </div>
-
 
               {/* 인증번호 입력 박스  */}
               <div id="findidbox">

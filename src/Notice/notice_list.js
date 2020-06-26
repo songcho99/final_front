@@ -10,24 +10,24 @@ class Notice_List extends Component {
     super();
     this.state = {
       listData: [],
+      searchlistData: [],
       pageNum: 1,
       noti: "",
       member_name: localStorage.name,
       currentPage: 1, // 현재페이지
       postPerPage: 10, //한페이지에서 보여줄 데이터 갯수
       indexOfFirstPage: 0, //초기값
+      search: "",
+      field: "notice_type",
     };
-  }
-  componentWillMount() {
-    this.setState({
-      pageNum: 1,
-    });
-    //console.log(this.props.location.state.page);
   }
 
   componentDidMount() {
     console.log("currentPage=" + this.state.currentPage);
     this.list();
+    this.setState({
+      pageNum: 1,
+    });
     if (
       this.state.member_name === "관리자" ||
       this.state.member_name === "매니저"
@@ -101,6 +101,33 @@ class Notice_List extends Component {
     console.log(this.state.currentPosts);
     console.log(this.state.indexOfFirstPage);
   };
+  searchNotice = (e) => {
+    console.log(this.state.field);
+    console.log(this.state.search);
+    let url =
+      "http://localhost:8000/project/notice/noticelist?field=" +
+      this.state.field +
+      "&search=" +
+      this.state.search;
+    Axios.get(url)
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          listData: res.data,
+          currentPosts: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log("search 에러:" + err);
+      });
+  };
+  onKeyChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+    console.log(this.state.field);
+    console.log(this.state.search);
+  };
   render() {
     const backimage = {
       width: "100%",
@@ -134,6 +161,33 @@ class Notice_List extends Component {
       cursor: "pointer",
       border: "1px solid gray",
     };
+    const searchStyle1 = {
+      fontSize: "16px",
+      textAlign: "center",
+      backgroundColor: "white",
+      width: "100px",
+      height: "40px",
+      cursor: "pointer",
+      border: "1px solid gray",
+    };
+    const searchStyle2 = {
+      fontSize: "16px",
+      textAlign: "left",
+      backgroundColor: "white",
+      width: "400px",
+      height: "37px",
+      cursor: "pointer",
+      border: "1px solid gray",
+    };
+    const searchStyle3 = {
+      fontSize: "16px",
+      textAlign: "left",
+      backgroundColor: "white",
+      width: "100px",
+      height: "37px",
+      cursor: "pointer",
+      border: "1px solid gray",
+    };
     return (
       <div style={{ textAlign: "center" }}>
         <div style={{ paddingTop: "100px" }}></div>
@@ -154,6 +208,38 @@ class Notice_List extends Component {
           IT Campus의 새로운 소식을 알려드립니다.
         </span>
         <div style={{ paddingTop: "100px" }}></div>
+        {/* 검색 유형 선택 창 */}
+        <div align="center">
+          <span>
+            <select
+              onChange={this.onKeyChange.bind(this)}
+              style={searchStyle1}
+              name="field"
+            >
+              <option value="notice_type">구분</option>
+              <option value="notice_subject">제목</option>
+            </select>
+          </span>
+          &nbsp;&nbsp;
+          {/* 검색어 입력 창 */}
+          <input
+            type="text"
+            required="required"
+            placeholder="검색어를 입력하세요."
+            onChange={this.onKeyChange.bind(this)}
+            name="search"
+            style={searchStyle2}
+          />
+          &nbsp;&nbsp;
+          <button
+            type="button"
+            style={searchStyle3}
+            onClick={this.searchNotice.bind(this)}
+          >
+            <i className="fas fa-search"></i>
+            &nbsp;&nbsp; 검색
+          </button>
+        </div>
         <table style={tableStyle} align="center">
           <caption style={{ textAlign: "right", marginBottom: "20px" }}>
             {this.state.admin}
