@@ -58,6 +58,7 @@ import AddReview from "../Review/AddReview";
 import ReviewList from "../Review/ReviewList";
 import UpdateReview from "../Review/UpdateReview";
 import DeleteReview from "../Review/DeleteReview";
+import mypagelist from "../MyPage/mypagelist";
 
 class main extends Component {
   constructor({ history }, props) {
@@ -98,6 +99,7 @@ class main extends Component {
           <Route path="/mystudyteam" component={MyStudyTeam} />
 
           {/* 마이 페이지 관련 기능 */}
+          <Route path="/mypagelist" component={mypagelist} />
           <Route path="/mypageupdate" component={MyPageUpdate} />
           <Route path="/signupmanage" component={SignUpManage} />
           <Route path="/signup" component={SignUp} />

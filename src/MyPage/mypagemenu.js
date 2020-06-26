@@ -7,81 +7,113 @@ class MyPageMenu extends Component {
     const activeStyle = {
       color: "#ffe66d",
     };
-
+    const menuStyle = {
+      textAlign: "center",
+    };
+    const divStyle = {
+      float: "left",
+      marginLeft: "50px",
+      marginRight: "50px",
+    };
     return (
-      <div id="mypageMenu">
+      <div style={menuStyle}>
         <NavLink
           to="/mypageupdate"
           className="mypagemenu-link"
           activeStyle={activeStyle}
         >
-          정보 수정
+          <div style={divStyle}>
+            <i className="fas fa-user-edit" style={{ fontSize: "80px" }} />
+            <br />
+            회원 정보
+          </div>
         </NavLink>
-        
         {/* 일반 회원만 */}
-        {localStorage.type==="일반" &&(
-        <NavLink
-          to="/signup"
-          className="mypagemenu-link"
-          activeStyle={activeStyle}
-        >
-          수강신청 현황
-        </NavLink>
+        {localStorage.type === "일반" && (
+          <NavLink
+            to="/signup"
+            className="mypagemenu-link"
+            activeStyle={activeStyle}
+          >
+            <div style={divStyle}>
+              <i className="fas fa-folder-plus" style={{ fontSize: "80px" }} />
+              <br />
+              수강신청
+            </div>
+          </NavLink>
         )}
         {/* 매니저만 */}
-        {localStorage.type==="매니저" &&(
-        <NavLink
-          to="/signupmanage"
-          className="mypagemenu-link"
-          activeStyle={activeStyle}
-        >
-          수강신청 관리
-        </NavLink>
+        {localStorage.type === "매니저" && (
+          <NavLink
+            to="/signupmanage"
+            className="mypagemenu-link"
+            activeStyle={activeStyle}
+          >
+            <div style={divStyle}>
+              <i
+                className="fas fa-clipboard-list"
+                style={{ fontSize: "80px" }}
+              />
+              <br />
+              수강신청 관리
+            </div>
+          </NavLink>
         )}
-        {localStorage.type==="매니저" &&(
-        <NavLink
-          to="/memberlist"
-          className="mypagemenu-link"
-          activeStyle={activeStyle}
-        >
-          회원관리
-        </NavLink>
+        {localStorage.type === "매니저" && (
+          <NavLink
+            to="/memberlist"
+            className="mypagemenu-link"
+            activeStyle={activeStyle}
+          >
+            <div style={divStyle}>
+              <i className="fas fa-user-friends" style={{ fontSize: "80px" }} />
+              <br />
+              회원 관리
+            </div>
+          </NavLink>
         )}
-        {localStorage.type==="강사" &&(
-        <NavLink
-          to="/graph"
-          className="mypagemenu-link"
-          activeStyle={activeStyle}
-        >
-          통계
-        </NavLink>
+
+        {localStorage.type === "수강생" && (
+          <NavLink
+            to="/mystudymain"
+            className="mypagemenu-link"
+            activeStyle={activeStyle}
+          >
+            <div style={divStyle}>
+              <i className="fas fa-book-open" style={{ fontSize: "80px" }} />
+              <br />
+              마이 스터디
+            </div>
+          </NavLink>
         )}
-        {localStorage.type==="수강생" &&(
-        <NavLink
-          to="/mystudymain"
-          className="mypagemenu-link"
-          activeStyle={activeStyle}
-        >
-          마이 스터디
-        </NavLink>
+        {localStorage.type === "수강생" && (
+          <NavLink
+            to="/myclass"
+            className="mypagemenu-link"
+            activeStyle={activeStyle}
+          >
+            <div style={divStyle}>
+              <i className="fab fa-chromecast" style={{ fontSize: "80px" }} />
+              <br />
+              마이 강의
+            </div>
+          </NavLink>
         )}
-        {localStorage.type==="수강생" &&(
-        <NavLink
-          to="/myclass"
-          className="mypagemenu-link"
-          activeStyle={activeStyle}
-        >
-          내 학습공간
-        </NavLink>
-        )}
-        {localStorage.type==="강사" &&(
-        <NavLink
-          to="/classmanage"
-          className="mypagemenu-link"
-          activeStyle={activeStyle}
-        >
-          수업 관리
-        </NavLink>
+        {localStorage.type === "강사" && (
+          <NavLink
+            to="/classmanage"
+            className="mypagemenu-link"
+            activeStyle={activeStyle}
+          >
+            <div style={divStyle}>
+              <i
+                className="fas fa-chalkboard-teacher"
+                style={{ fontSize: "80px" }}
+              />
+              <br />
+              수업관리
+            </div>
+          </NavLink>
         )}
       </div>
     );

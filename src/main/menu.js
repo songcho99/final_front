@@ -264,7 +264,7 @@ class Menu extends Component {
               {localStorage.type === "일반" && (
                 <b id="hdspan">{localStorage.name} 님</b>
               )}
-              <Link to="/mypageupdate" id="hdafterprofile">
+              <Link to="/mypagelist" id="hdafterprofile">
                 <Avatar
                   alt=""
                   src={this.state.profile}

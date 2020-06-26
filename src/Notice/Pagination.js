@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 const Wrapper = styled.div`
   display: flex;
@@ -24,7 +24,13 @@ const PageButton = styled.button`
 //color: ${(props) => props.theme.uiColorOrange};
 function Pagination({ postPerPage, totalPosts, paginate }) {
   const pageNumbers = [];
-
+  // const onFirst = () => {
+  //   document.getElementById(1).style.fontWeight = "bold";
+  // };
+  //라이프싸이클
+  // useEffect(() => {
+  //   onFirst();
+  // }, []);
   // 페이지 넘버를 설정하기 위해 페이지당 포스트 개수와 총 포스트 개수를 가져온다.
   // index 를 1로 설정하고, index 가 (총 포스트개수 / 페이지당 포스트 개수) 보다 크지 않을때까지 i값을 올린다.
   // 그리고 그 값을 pageNumber 에 넣어서 설장한다.
