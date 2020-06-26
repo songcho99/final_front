@@ -81,6 +81,7 @@ yarn add @material-ui/lab
 yarn add sweetalert2
 yarn add styled-components
 yarn add query-string
+yarn add semantic-ui-react
 
 <!-- scss 설치  -->
 
