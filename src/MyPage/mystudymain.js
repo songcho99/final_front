@@ -330,13 +330,11 @@ export default function MyStudyMain(props) {
                           variant="outlined"
                           color="default"
                           size="small"
-                          onClick={() => {
-                            handleOpen();
-                            getApplyMember(row.study_num);
-                          }}
+                          href={`/mystudyteam?studyfeed_studygroup_num=${row.study_num}`}
                         >
                           입장
                         </Button>
+                        &nbsp;
                         <Button
                           variant="outlined"
                           color="primary"
@@ -404,6 +402,15 @@ export default function MyStudyMain(props) {
                       <TableCell align="right">
                         <Button
                           variant="outlined"
+                          color="default"
+                          size="small"
+                          href={`/mystudyteam?studyfeed_studygroup_num=${row.study_num}`}
+                        >
+                          입장
+                        </Button>
+                        &nbsp;
+                        <Button
+                          variant="outlined"
                           color="secondary"
                           size="small"
                           onClick={() => {
@@ -458,6 +465,15 @@ export default function MyStudyMain(props) {
                       </TableCell>
                       <TableCell align="right">{row.study_writer}</TableCell>
                       <TableCell align="right">
+                        <Button
+                          variant="outlined"
+                          color="default"
+                          size="small"
+                          href={`/mystudyteam?studyfeed_studygroup_num=${row.study_num}`}
+                        >
+                          입장
+                        </Button>
+                        &nbsp;
                         <Button
                           variant="outlined"
                           color="secondary"
