@@ -11,8 +11,8 @@ class CurriculumSchedule extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      calender: "calender",
-      currilist: "currilistOff",
+      calender: "calenderOff",
+      currilist: "currilistOn",
     };
   }
 
