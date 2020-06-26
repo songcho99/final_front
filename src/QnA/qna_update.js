@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import noticeimg from "../Notice/noticeback.jpg";
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import Swal from "sweetalert2";
 
 class qna_update extends Component {
   constructor(props) {
@@ -60,7 +61,13 @@ class qna_update extends Component {
     Axios.post(url, dataForm)
       .then((res) => {
         console.log("QnA update");
-        window.location.href = "/qnalist";
+        Swal.fire({
+          icon: 'success',
+          title: '수정 완료',
+          text: 'QnA 수정이 완료되었습니다',
+        }).then((result) => {
+          window.location.href = "/qnalist";
+        })
       })
       .catch((err) => {
         console.log("qna update error=" + err);

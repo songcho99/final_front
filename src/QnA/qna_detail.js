@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import noticeimg from "../Notice/noticeback.jpg";
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import Swal from "sweetalert2";
 
 class qna_detail extends Component {
   constructor(props) {
@@ -196,14 +197,32 @@ class qna_detail extends Component {
       });
   };
   onDelete = (num) => {
-    let url = "http://localhost:8000/project/qna/qnadelete?qna_num=" + num;
-    Axios.get(url)
-      .then((res) => {
-        window.location.href = "/qnalist";
-      })
-      .catch((err) => {
-        console.log("QnA delete error=" + err);
-      });
+
+    Swal.fire({
+      title: "해당 QnA를 삭제하시겠습니까?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.value) {
+        let url = "http://localhost:8000/project/qna/qnadelete?qna_num=" + num;
+        Axios.get(url)
+          .then((res) => {
+            Swal.fire("Deleted!", "Your file has been deleted.", "success").then((result) => {
+              if (result.value) {
+                window.location.href = "/qnalist";
+              }
+            })
+          })
+          .catch((err) => {
+            console.log("QnA delete error=" + err);
+          });
+      }
+
+    });
   };
   render() {
     const backimage = {

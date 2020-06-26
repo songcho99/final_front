@@ -87,8 +87,13 @@ class CurriculumDetail extends Component {
 
         Axios.get(url)
           .then((res) => {
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
-            this.props.history.goback();
+            Swal.fire("Deleted!", "Your file has been deleted.", "success").then((result) => {
+              if (result.value) {
+                window.location.href = "/curriculumlist";
+              }
+
+            })
+
           })
           .catch((err) => {
             console.log("수강 과정 삭제 에러 : " + err);

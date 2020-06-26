@@ -121,17 +121,18 @@ class findid extends Component {
           this.props.FindIdModalClose();
           this.props.LoginModalClose();
           Swal.fire('회원님의 이메일로 ID가 전송되었습니다')
-          .then((result)=>{
-            if(result.value){
+            .then((result) => {
 
-              this.setState({
-                IdCheck_msg2: '인증번호 확인이 완료 되었습니다.' + <br /> + "해당 이메일로 아이디를 확인해주세요."
-              })
-              this.props.LoginModalOpen();
-            }
-          })
+              if (result.value) {
 
-          
+                this.setState({
+                  IdCheck_msg2: '인증번호 확인이 완료 되었습니다.' + <br /> + "해당 이메일로 아이디를 확인해주세요."
+                })
+                this.props.LoginModalOpen();
+              }
+            })
+
+
         }).catch((err) => {
           console.log("아이디 이메일 전송 error=" + err);
         })

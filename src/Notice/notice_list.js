@@ -13,7 +13,7 @@ class Notice_List extends Component {
       searchlistData: [],
       pageNum: 1,
       noti: "",
-      member_name: localStorage.name,
+      member_type: localStorage.type,
       currentPage: 1, // 현재페이지
       postPerPage: 10, //한페이지에서 보여줄 데이터 갯수
       indexOfFirstPage: 0, //초기값
@@ -29,8 +29,8 @@ class Notice_List extends Component {
       pageNum: 1,
     });
     if (
-      this.state.member_name === "관리자" ||
-      this.state.member_name === "매니저"
+      this.state.member_type === "관리자" ||
+      this.state.member_type === "매니저"
     ) {
       this.setState({
         admin: (

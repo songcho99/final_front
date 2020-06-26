@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Axios from "axios";
 import noticeimg from "./noticeback.jpg";
+import Swal from "sweetalert2";
 
 class Notice_Update extends Component {
   constructor(props) {
@@ -121,7 +122,13 @@ class Notice_Update extends Component {
     })
       .then((res) => {
         console.log("notice update");
-        window.location.href = "/noticelist";
+        Swal.fire({
+          icon: 'success',
+          title: '수정 완료',
+          text: '공지사항 수정이 완료되었습니다',
+        }).then((result) => {
+          window.location.href = "/noticelist";
+        })
       })
       .catch((err) => {
         console.log("notice update error=" + err);

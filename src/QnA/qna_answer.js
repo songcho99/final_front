@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import noticeimg from "../Notice/noticeback.jpg";
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import Swal from "sweetalert2";
 class qna_answer extends Component {
   constructor(props) {
     super(props);
@@ -52,8 +53,14 @@ class qna_answer extends Component {
     let url = "http://localhost:8000/project/qna/qnaadd";
     Axios.post(url, dataForm)
       .then((res) => {
-        console.log("QnA answer add");
-        window.location.href = "/qnalist";
+        Swal.fire({
+          icon: 'success',
+          title: '작성 완료',
+          text: '답변 작성이 완료되었습니다',
+        }).then((result) => {
+          window.location.href = "/qnalist";
+        })
+
       })
       .catch((err) => {
         console.log("qna add error=" + err);
