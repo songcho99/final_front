@@ -144,7 +144,14 @@ export default function StudyList(props) {
     console.log("검색어:" + field);
   };
   const handleSearchLevelChange = (event, newValue) => {
-    setSearchLevel(newValue);
+    if (newValue === 0) {
+      setSearchLevel("하");
+    }
+    else if (newValue === 50) {
+      setSearchLevel("중");
+    } else {
+      setSearchLevel("상");
+    }
     setField("study_level");
     console.log(`searchlevel:${searchLevel}`);
     console.log("검색어:" + field);
@@ -156,7 +163,7 @@ export default function StudyList(props) {
     console.log("검색어:" + field);
   };
   const handleSearchStartdateChange = (date) => {
-    if (new Date() > date) {
+    if (new Date() > date + 1) {
       alert("현재 날짜보다 이전 날짜는 선택 불가능합니다");
       return false;
     }
@@ -183,11 +190,43 @@ export default function StudyList(props) {
     console.log("끝날짜=" + searchEnddate);
     console.log("검색어:" + field);
   };
+  const [searchDay, setSearchDay] = React.useState([]);
   const handleSearchGatherdayChange = (event) => {
     setSearchGetherday({
       ...searchGatherday,
       [event.target.name]: event.target.checked,
     });
+    const arr = [];
+    if (event.target.checked) {
+      if (event.target.name === "Monday") {
+        arr.push("월");
+      }
+      else if (event.target.name === "Tuesday") {
+        arr.push("화");
+      }
+      else if (event.target.name === "Wednesday") {
+        arr.push("수");
+      }
+      else if (event.target.name === "Thursday") {
+        arr.push("목");
+      }
+      else if (event.target.name === "Friday") {
+        arr.push("금");
+      }
+      else if (event.target.name === "Saturday") {
+        arr.push("토");
+      }
+      else if (event.target.name === "Sunday") {
+        arr.push("일");
+      }
+    } else {
+      const a = searchDay.indexOf(event.target.name);
+      searchDay.splice(a, 1);
+      console.log(searchDay);
+    }
+    setSearchDay(searchDay.concat(arr));
+    console.log(searchDay);
+
     setField("study_gatherday");
 
     console.log("검색어:" + field);
@@ -218,8 +257,12 @@ export default function StudyList(props) {
   //   setExpanded(newExpanded ? panel : false);
   // };
   const handleSearchClick = (event) => {
-    console.log(listdata);
-    console.log(field);
+    //console.log(listdata);
+    //console.log(field);
+    console.log("------");
+    console.log(searchDay);
+    console.log("------");
+
     list();
   };
   const list = () => {
@@ -227,14 +270,14 @@ export default function StudyList(props) {
     // for (let i = 0; i < 10; i++) {
     //   data.append(`textfield[${i}]`);
     // }
-    console.log(searchStartdate);
+    console.log(searchGatherday);
     data.append("textfield", searchFilter);
     data.append("searchSubject", searchSubject);
     data.append("searchLevel", searchLevel);
     data.append("searchType", searchType);
     data.append("searchStartdate", searchStartdate);
     data.append("searchEnddate", searchEnddate);
-    data.append("searchGatherday", searchGatherday);
+    data.append("searchGatherday", searchDay);
     data.append("searchAddress", searchAddress);
     data.append("searchDetailAddr", searchDetailAddr);
 
