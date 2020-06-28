@@ -58,7 +58,11 @@ import AddReview from "../Review/AddReview";
 import ReviewList from "../Review/ReviewList";
 import UpdateReview from "../Review/UpdateReview";
 import DeleteReview from "../Review/DeleteReview";
+
 import mypagelist from "../MyPage/mypagelist";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core";
+
+const theme = createMuiTheme();
 
 class main extends Component {
   constructor({ history }, props) {
@@ -127,17 +131,19 @@ class main extends Component {
           <Route path="/academylink" component={AcademyLink} />
 
           {/* 수강과정 관련 기능 */}
-          <Route path="/curriculumlist" component={CurriculumList} />
-          <Route
-            path="/CurriculumDetail/:process_num"
-            component={CurriculumDetail}
-          />
-          <Route path="/CurriculumAdd" component={CurriculumAdd} />
-          <Route
-            path="/CurriculumUpdate/:process_num"
-            component={CurriculumUpdate}
-          />
-          <Route path="/curriculumschedule" component={CurriculumSchedule} />
+          <ThemeProvider theme={theme}>
+            <Route path="/curriculumlist" component={CurriculumList} />
+            <Route
+              path="/CurriculumDetail/:process_num"
+              component={CurriculumDetail}
+            />
+            <Route path="/CurriculumAdd" component={CurriculumAdd} />
+            <Route
+              path="/CurriculumUpdate/:process_num"
+              component={CurriculumUpdate}
+            />
+            <Route path="/curriculumschedule" component={CurriculumSchedule} />
+          </ThemeProvider>
 
           {/* 강사,수강생 전용 학습 페이지 */}
           <Route path="/classpage" component={ClassPage} />

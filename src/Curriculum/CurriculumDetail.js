@@ -12,6 +12,7 @@ import { TableHead } from "@material-ui/core";
 import Modal from "react-modal";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Swal from "sweetalert2";
+import "./CurriculumDetail.scss";
 
 class CurriculumDetail extends Component {
   constructor({ match }) {
@@ -32,6 +33,7 @@ class CurriculumDetail extends Component {
     let url =
       "http://localhost:8000/project/process/detail?process_num=" +
       this.process_num;
+    console.log(this.process_num);
     Axios.get(url)
       .then((res) => {
         this.setState({
@@ -176,22 +178,13 @@ class CurriculumDetail extends Component {
 
     const imageUrl = "http://localhost:8000/project/uploadfile/";
     return (
-      <div>
-        <div
-          style={{
-            width: "80%",
-            height: "100%",
-            marginLeft: "10%",
-            border: "1px solid black",
-          }}
-        >
-          <br />
-          <br />
+      <div id="curridetail">
+        <div id="curridetailback">
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableBody>
                 <TableRow>
-                  <TableCell>
+                  <TableCell style={{ textAlign: "center" }}>
                     <h1>{this.state.processData.process_subject}</h1>
                   </TableCell>
                 </TableRow>
@@ -252,6 +245,7 @@ class CurriculumDetail extends Component {
                         key={index}
                         src={imageUrl + item.processfiles_process_filename}
                         alt=""
+                        className="curridetailimg"
                       />
                     ))}
                   </TableCell>
@@ -296,49 +290,80 @@ class CurriculumDetail extends Component {
               </TableBody>
             </Table>
           </TableContainer>
-          <Button onClick={this.ProcessApply.bind(this)}>과정 신청</Button>
-          <hr />
-          <NavLink React to="/curriculumlist">
-            <Button>LIST</Button>
-          </NavLink>
-          <Button onClick={this.DeleteProcess.bind(this)}>DELETE</Button>
-          <NavLink exact to={"/CurriculumUpdate/" + this.process_num}>
-            <Button>UPDATE</Button>
-          </NavLink>
-          <Modal
-            style={{ width: "400px", height: "300px" }}
-            isOpen={this.state.modalOpen}
-          >
-            <div>
-              수강 과정명 : {this.state.processData.process_subject}
-              <br />
-              수강 과정 타입 : {this.state.processData.process_type}
-              <br />
-              과정 기간 : {this.state.processData.process_startdate} ~{" "}
-              {this.state.processData.process_enddate}
-              <br />
-              <form onSubmit={this.ProcessApplySubmit.bind(this)}>
-                <TextareaAutosize
-                  name="processapply_applyreason"
-                  onChange={this.applyTextChange.bind(this)}
-                  style={{ width: "300px", height: "150px" }}
-                  aria-label="minimum height"
-                  rowsMin={3}
-                  placeholder="수강 과정에 신청하시는 이유를 적어주세요."
-                  value={this.state.processapply_applyreason}
-                />
-                <br />
-                <button type="submit">수강 과정 신청</button>
-              </form>
-              <button
-                onClick={() => {
-                  this.setState({
-                    modalOpen: false,
-                  });
-                }}
-              >
-                취소
-              </button>
+          <div id="curridetailnav">
+            <Button onClick={this.ProcessApply.bind(this)} id="curridetailbtn">
+              과정 신청
+            </Button>
+            <hr />
+            <NavLink
+              React
+              to="/curriculumschedule"
+              className="curridetailsubbtn"
+            >
+              <Button>LIST</Button>
+            </NavLink>
+            <Button
+              onClick={this.DeleteProcess.bind(this)}
+              className="curridetailsubbtn"
+            >
+              DELETE
+            </Button>
+            <NavLink
+              exact
+              to={"/CurriculumUpdate/" + this.process_num}
+              className="curridetailsubbtn"
+            >
+              <Button>UPDATE</Button>
+            </NavLink>
+          </div>
+          <Modal isOpen={this.state.modalOpen} id="curridetailmodal">
+            <div id="curridetailmodalback">
+              <div id="curridetailmodalback2">
+                <div id="curridetailmodaltit">
+                  {this.state.processData.process_subject}
+                </div>
+                <div className="curridetailmodalsub">
+                  <div className="curridetailmodalsubspan">
+                    수강 과정 타입 :
+                  </div>{" "}
+                  {this.state.processData.process_type}
+                </div>
+                <div className="curridetailmodalsub">
+                  <div className="curridetailmodalsubspan">과정 기간 :</div>{" "}
+                  {this.state.processData.process_startdate} ~{" "}
+                  {this.state.processData.process_enddate}
+                </div>
+                <form
+                  onSubmit={this.ProcessApplySubmit.bind(this)}
+                  id="curridetailmodaltextareabox"
+                >
+                  <TextareaAutosize
+                    name="processapply_applyreason"
+                    onChange={this.applyTextChange.bind(this)}
+                    id="curridetailmodaltextarea"
+                    aria-label="minimum height"
+                    rowsMin={3}
+                    placeholder="수강 과정에 신청하시는 이유를 적어주세요."
+                    value={this.state.processapply_applyreason}
+                  />
+
+                  <div id="curridetailbodalbtnbox">
+                    <button type="submit" className="curridetailbodalbtn">
+                      신청
+                    </button>
+                    <button
+                      className="curridetailbodalbtn"
+                      onClick={() => {
+                        this.setState({
+                          modalOpen: false,
+                        });
+                      }}
+                    >
+                      취소
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </Modal>
         </div>
