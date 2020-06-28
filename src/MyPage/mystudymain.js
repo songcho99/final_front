@@ -469,9 +469,9 @@ export default function MyStudyMain(props) {
                           variant="outlined"
                           color="default"
                           size="small"
-                          href={`/mystudyteam?studyfeed_studygroup_num=${row.study_num}`}
+                          href={`studydetail?study_num=${row.study_num}`}
                         >
-                          입장
+                          과정보기
                         </Button>
                         &nbsp;
                         <Button
