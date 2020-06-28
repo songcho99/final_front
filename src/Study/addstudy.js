@@ -218,16 +218,11 @@ export default function AddStudy(props) {
       ...study_gatherday,
       [event.target.name]: event.target.checked,
     });
-
-    if (event.target.checked) {
-      setStudyGatherdayName(study_gatherdayname.concat(event.target.value));
-    } else {
-      setStudyGatherdayName(
-        study_gatherdayname.filter((gather) => gather !== event.target.value)
-      );
-    }
-
-    console.log(study_gatherdayname);
+    // if (event.target.checked) {
+    //   study_gatherdayname.push(event.target.value);
+    // } else {
+    //   study_gatherdayname.filter((gather) => gather !== event.target.value);
+    // }
   };
   const handleStartDateChange = (date) => {
     if (new Date() > date) {
@@ -305,52 +300,74 @@ export default function AddStudy(props) {
     const url = "http://localhost:8000/project/study/add";
     const formData = new FormData();
 
-    console.log(study_level);
+    if (study_mainimage !== "") {
+      let Mon = "",
+        Tue = "",
+        Wed = "",
+        Thu = "",
+        Fri = "",
+        Sat = "",
+        Sun = "";
 
-    formData.append("study_type", study_type);
-    formData.append("study_subject", study_subject);
-    formData.append("study_member_num", localStorage.num);
-    formData.append("study_startdate", study_startdate);
-    formData.append("study_enddate", study_enddate);
-    formData.append("study_gatherdayname", study_gatherdayname);
-    formData.append("study_peoples", study_peoples);
-    formData.append("study_level", study_level);
-    formData.append("study_intr", study_intr);
-    formData.append("study_goal", study_goal);
-    formData.append("study_progress", study_progress);
-    formData.append("study_address", study_address);
-    formData.append("study_detailaddr", study_detailaddr);
-    formData.append("uploadfile", study_mainimage);
-    formData.append("study_writer", localStorage.name);
-    formData.append("study_writer_num", localStorage.num);
-    Axios({
-      method: "post",
-      url: url,
-      // data: {
-      //   study_type: study_type,
-      //   study_subject: study_subject,
-      //   study_startdate: study_startdate,
-      //   study_enddate: study_enddate,
-      //   study_gatherday: study_gatherday,
-      //   study_peoples: study_peoples,
-      //   study_level: study_level,
-      //   study_intr: study_intr,
-      //   study_goal: study_goal,
-      //   study_progress: study_progress,
-      //   study_address: study_address,
-      //   study_detailaddr: study_detailaddr,
-      // },
-      // data: { formData: formData },
-      data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-      .then((res) => {
-        console.log(`데이터 추가:${res}`);
-        window.location.href = "/studylist";
-      })
-      .catch((err) => {
-        console.log(`데이터 추가 오류:${err}`);
-      });
+      if (study_gatherday.Monday === true) Mon = "월";
+      if (study_gatherday.Tuesday === true) Tue = "화";
+      if (study_gatherday.Wednesday === true) Wed = "수";
+      if (study_gatherday.Thursday === true) Thu = "목";
+      if (study_gatherday.Friday === true) Fri = "금";
+      if (study_gatherday.Saturday === true) Sat = "토";
+      if (study_gatherday.Sunday === true) Sun = "일";
+
+      study_gatherdayname.push(Mon, Tue, Wed, Thu, Fri, Sat, Sun);
+
+      console.log(study_level);
+
+      setTimeout(() => {
+        formData.append("study_type", study_type);
+        formData.append("study_subject", study_subject);
+        formData.append("study_member_num", localStorage.num);
+        formData.append("study_startdate", study_startdate);
+        formData.append("study_enddate", study_enddate);
+        formData.append("study_gatherdayname", study_gatherdayname);
+        formData.append("study_peoples", study_peoples);
+        formData.append("study_level", study_level);
+        formData.append("study_intr", study_intr);
+        formData.append("study_goal", study_goal);
+        formData.append("study_progress", study_progress);
+        formData.append("study_address", study_address);
+        formData.append("study_detailaddr", study_detailaddr);
+        formData.append("uploadfile", study_mainimage);
+        formData.append("study_writer", localStorage.name);
+        formData.append("study_writer_num", localStorage.num);
+        Axios({
+          method: "post",
+          url: url,
+          // data: {
+          //   study_type: study_type,
+          //   study_subject: study_subject,
+          //   study_startdate: study_startdate,
+          //   study_enddate: study_enddate,
+          //   study_gatherday: study_gatherday,
+          //   study_peoples: study_peoples,
+          //   study_level: study_level,
+          //   study_intr: study_intr,
+          //   study_goal: study_goal,
+          //   study_progress: study_progress,
+          //   study_address: study_address,
+          //   study_detailaddr: study_detailaddr,
+          // },
+          // data: { formData: formData },
+          data: formData,
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+          .then((res) => {
+            console.log(`데이터 추가:${res}`);
+            window.location.href = "/studylist";
+          })
+          .catch((err) => {
+            console.log(`데이터 추가 오류:${err}`);
+          });
+      }, 1000);
+    }
   };
 
   const classes = useStyles();

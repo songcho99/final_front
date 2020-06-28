@@ -223,16 +223,13 @@ export default function UpdateStudy(props) {
       ...study_gatherday,
       [event.target.name]: event.target.checked,
     });
-
-    if (event.target.checked) {
-      setStudyGatherdayName(study_gatherdayname.concat(event.target.value));
-    } else {
-      setStudyGatherdayName(
-        study_gatherdayname.filter((gather) => gather !== event.target.value)
-      );
-    }
-
-    console.log(study_gatherdayname);
+    // if (event.target.checked) {
+    //   setStudyGatherdayName(study_gatherdayname.concat(event.target.value));
+    // } else {
+    //   setStudyGatherdayName(
+    //     study_gatherdayname.filter((gather) => gather !== event.target.value)
+    //   );
+    // }
   };
   const handleStartDateChange = (date) => {
     if (new Date() > date) {
@@ -342,16 +339,6 @@ export default function UpdateStudy(props) {
           Saturday,
           Sunday,
         });
-        if (Monday === true) Mon = "월";
-        if (Tuesday === true) Tue = "화";
-        if (Wednesday === true) Wed = "수";
-        if (Thursday === true) Thu = "목";
-        if (Friday === true) Fri = "금";
-        if (Saturday === true) Sat = "토";
-        if (Sunday === true) Sun = "일";
-        setStudyGatherdayName(
-          study_gatherdayname.concat(Mon, Tue, Wed, Thu, Fri, Sat, Sun)
-        );
 
         setStudyPeoples(res.data.studydata.study_peoples);
         res.data.studydata.study_level === 0 ||
@@ -427,7 +414,25 @@ export default function UpdateStudy(props) {
 
     const url = "http://localhost:8000/project/study/update";
     const formData = new FormData();
-    console.log(study_gatherdayname);
+
+    let Mon = "",
+      Tue = "",
+      Wed = "",
+      Thu = "",
+      Fri = "",
+      Sat = "",
+      Sun = "";
+
+    if (study_gatherday.Monday === true) Mon = "월";
+    if (study_gatherday.Tuesday === true) Tue = "화";
+    if (study_gatherday.Wednesday === true) Wed = "수";
+    if (study_gatherday.Thursday === true) Thu = "목";
+    if (study_gatherday.Friday === true) Fri = "금";
+    if (study_gatherday.Saturday === true) Sat = "토";
+    if (study_gatherday.Sunday === true) Sun = "일";
+
+    study_gatherdayname.push(Mon, Tue, Wed, Thu, Fri, Sat, Sun);
+
     console.log(study_level);
 
     formData.append("study_num", study_num);
@@ -815,13 +820,6 @@ export default function UpdateStudy(props) {
               color="primary"
               type="submit"
               style={{ marginLeft: "640px" }}
-              onMouseOver={() => {
-                setStudyGatherdayName(
-                  study_gatherdayname.filter(function (item) {
-                    return item !== null && item !== undefined && item !== "";
-                  })
-                );
-              }}
             >
               수정하기
             </Button>
