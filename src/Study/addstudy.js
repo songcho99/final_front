@@ -21,6 +21,7 @@ import {
 import { PhotoCamera } from "@material-ui/icons";
 import "./addstudy.css";
 import Axios from "axios";
+import Swal from "sweetalert2";
 
 const { kakao } = window;
 
@@ -293,10 +294,10 @@ export default function AddStudy(props) {
     study_level === 0 || study_level === "하"
       ? setStudyLevel("하")
       : study_level === 50 || study_level === "중"
-      ? setStudyLevel("중")
-      : study_level === 100 || study_level === "상"
-      ? setStudyLevel("상")
-      : setStudyLevel("하");
+        ? setStudyLevel("중")
+        : study_level === 100 || study_level === "상"
+          ? setStudyLevel("상")
+          : setStudyLevel("하");
     console.log(`level:${study_level}`);
   }, [study_level]);
 
@@ -345,8 +346,18 @@ export default function AddStudy(props) {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => {
-        console.log(`데이터 추가:${res}`);
-        window.location.href = "/studylist";
+
+        Swal.fire(
+          '작성 완료',
+          '스터디 작성이 완료되었습니다',
+          'success'
+        ).then((result) => {
+          if (result.value) {
+            console.log(`데이터 추가:${res}`);
+            window.location.href = "/studylist";
+          }
+        })
+
       })
       .catch((err) => {
         console.log(`데이터 추가 오류:${err}`);

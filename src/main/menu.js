@@ -232,12 +232,12 @@ class Menu extends Component {
             <div id="hdbox2after">
               {localStorage.type === "수강생" && (
                 <Link to="/classpage">
-                  <b id="hdspan">{localStorage.type}</b>
+                  <b id="hdspan">마이 강의실</b>
                 </Link>
               )}
               {localStorage.type === "강사" && (
                 <Link to="/classpage">
-                  <b id="hdspan">{localStorage.type}</b>
+                  <b id="hdspan">마이 강의실</b>
                 </Link>
               )}
               {localStorage.type === "매니저" && (

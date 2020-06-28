@@ -222,14 +222,12 @@ export default function StudyList(props) {
     } else {
       const a = searchDay.indexOf(event.target.name);
       searchDay.splice(a, 1);
+
       console.log(searchDay);
     }
     setSearchDay(searchDay.concat(arr));
     console.log(searchDay);
 
-    setField("study_gatherday");
-
-    console.log("검색어:" + field);
 
     if (event.target.checked) {
       setSearchGetherdayName(searchGatherdayName.concat(event.target.value));
@@ -310,13 +308,29 @@ export default function StudyList(props) {
       <br />
       <br />
       <div style={{ float: "right", marginRight: "10%" }}>
-        <Button variant="contained" color="primary" href="./addstudy">
-          스터디 만들기
-        </Button>
+        {localStorage.type === "수강생" && (
+          <Button variant="contained" color="primary" href="./addstudy">
+            스터디 만들기
+          </Button>
+        )}
+        {localStorage.type === "일반" && (
+          <Button variant="contained" color="primary" href="./addstudy">
+            스터디 만들기
+          </Button>
+        )}
+
         &nbsp;
-        <Button variant="outlined" color="primary" href="/mystudymain">
-          마이 스터디
-        </Button>
+        {localStorage.type === "일반" && (
+          <Button variant="outlined" color="primary" href="/mystudymain">
+            마이 스터디
+          </Button>
+        )}
+        {localStorage.type === "수강생" && (
+          <Button variant="outlined" color="primary" href="/mystudymain">
+            마이 스터디
+          </Button>
+        )}
+
       </div>
 
       <br />
