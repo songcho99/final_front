@@ -150,11 +150,11 @@ export default function StudyDetail(props) {
             ? 0
             : res.data.studydata.study_level === "중" ||
               res.data.studydata.study_level === 50
-            ? 50
-            : res.data.studydata.study_level === "상" ||
-              res.data.studydata.study_level === 100
-            ? 100
-            : 0
+              ? 50
+              : res.data.studydata.study_level === "상" ||
+                res.data.studydata.study_level === 100
+                ? 100
+                : 0
         );
         if (res.data.study_writer_num == localStorage.num)
           document.getElementById("updatebutton").style.visibility = "block";
@@ -258,19 +258,26 @@ export default function StudyDetail(props) {
           .catch((err) => {
             console.log(err);
           });
-        Swal.fire("삭제 성공!", "정상적으로 삭제되었습니다", "success");
+        Swal.fire("삭제 성공!", "정상적으로 삭제되었습니다", "success")
+          .then((result) => {
+            if (result.value) {
+              window.location.href = "/studylist";
+            }
+
+          })
       }
-      window.location.href = "/studylist";
     });
   };
 
   const post = () => {
     const container = document.getElementById("map");
+    var geocoder = new kakao.maps.services.Geocoder();
+
     const options = {
       center: new kakao.maps.LatLng(33.450701, 126.570667),
       level: 3,
     };
-    var geocoder = new kakao.maps.services.Geocoder();
+
     var map = new kakao.maps.Map(container, options);
     console.log(geocoder == null);
     // 주소로 좌표를 검색합니다
@@ -311,10 +318,10 @@ export default function StudyDetail(props) {
     studyapply_mylevel === 0 || studyapply_mylevel === "하"
       ? setStudyApplyMyLevel("하")
       : studyapply_mylevel === 50 || studyapply_mylevel === "중"
-      ? setStudyApplyMyLevel("중")
-      : studyapply_mylevel === 100 || studyapply_mylevel === "상"
-      ? setStudyApplyMyLevel("상")
-      : setStudyApplyMyLevel("하");
+        ? setStudyApplyMyLevel("중")
+        : studyapply_mylevel === 100 || studyapply_mylevel === "상"
+          ? setStudyApplyMyLevel("상")
+          : setStudyApplyMyLevel("하");
     console.log(`level:${studyapply_mylevel}`);
   }, [studyapply_mylevel]);
 

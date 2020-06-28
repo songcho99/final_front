@@ -9,7 +9,6 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import img1 from "./member1.png";
 import img2 from "./member2.png";
-import Mypagelist from "../MyPage/mypagelist";
 
 export default function MemberList_Form() {
   // 검색 필터 값 받는 변수
@@ -29,6 +28,24 @@ export default function MemberList_Form() {
     setSearch(event.target.value);
     console.log(event.target.value);
   };
+
+  //테이블 TH부분
+  const header = () => (
+    <TableHead>
+      <TableRow>
+        <TableCell style={{ textAlign: "center", width: 80 }}>구분</TableCell>
+        <TableCell style={{ textAlign: "center", width: 100 }}>이름</TableCell>
+        <TableCell style={{ textAlign: "center", width: 100 }}>
+          핸드폰
+        </TableCell>
+        <TableCell style={{ textAlign: "center", width: 200 }}>
+          이메일
+        </TableCell>
+        <TableCell style={{ textAlign: "center", width: 570 }}>주소</TableCell>
+        <TableCell style={{ textAlign: "center", width: 50 }}>비고</TableCell>
+      </TableRow>
+    </TableHead>
+  );
 
   //멤버 목록 담는 변수
   let memberList = [];
@@ -88,10 +105,11 @@ export default function MemberList_Form() {
       });
   };
   const trash = (item) => {
-    if (item.member_name !== ("매니저" || "관리자")) {
+    if (item.member_name !== "매니저") {
       return select(item);
     }
   };
+
 
   const select = (item) => (
     <span
@@ -101,26 +119,17 @@ export default function MemberList_Form() {
       <i className="far fa-trash-alt" style={{ fontSize: "20px" }} />
     </span>
   );
-  const tableStyle = {
-    textAlign: "center",
-    fontSize: "16px",
-    width: "1250px",
-    border: "0px",
-    borderCollapse: "collapse",
-    borderTop: "1px solid black",
-  };
-  const trStyle = {
-    borderBottom: "1px solid black",
-    height: "60px",
-  };
-  const buttonStyle = {
-    fontSize: "16px",
-    backgroundColor: "white",
-    width: "110px",
-    height: "40px",
-    borderRadius: "25px",
-    cursor: "pointer",
-    border: "1px solid gray",
+  const backimage = {
+    width: "1400px",
+    height: "400px",
+    backgroundImage: `url(${img2})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100% 500px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    display: "inline-block",
   };
   const searchStyle1 = {
     fontSize: "16px",
@@ -156,10 +165,13 @@ export default function MemberList_Form() {
   }, []);
   return (
     <div style={{ textAlign: "center" }} align="center">
-      <Mypagelist />
-      <div style={{ paddingTop: "100px" }}></div>
-      <span style={{ fontSize: "40px" }}>회원 목록</span>
       <div style={{ paddingTop: "200px" }}></div>
+      <div style={backimage} align="center">
+        <span style={{ fontSize: "70px", color: "#A6A6A6" }}>MEMBER</span>
+        <br />
+        <span style={{ fontSize: "18px", color: "#A6A6A6" }}></span>
+      </div>
+      <div style={{ paddingTop: "100px" }}></div>
       {/* 검색 유형 선택 창 */}
       <div align="center">
         <span>
@@ -191,30 +203,39 @@ export default function MemberList_Form() {
       {/* 테이블 반복 출력 부분 */}
 
       <div align="center">
-        <table style={tableStyle}>
-          <thead>
-            <tr style={trStyle}>
-              <td style={{ textAlign: "center", width: 150 }}>구분</td>
-              <td style={{ textAlign: "center", width: 100 }}>이름</td>
-              <td style={{ textAlign: "center", width: 150 }}>핸드폰</td>
-              <td style={{ textAlign: "center", width: 200 }}>이메일</td>
-              <td style={{ textAlign: "center", width: 550 }}>주소</td>
-              <td style={{ textAlign: "center", width: 100 }}>비고</td>
-            </tr>
-          </thead>
-          <tbody>
+        <Paper style={{ width: 1400 }}>
+          <Table style={{ width: 1400 }} align="center">
+            {header()}
             {asd.map((item, idx) => (
-              <tr style={trStyle}>
-                <td> {item.member_type}</td>
-                <td>{item.member_name}</td>
-                <td>{item.member_phone}</td>
-                <td>{item.member_phone}</td>
-                <td style={{ textAlign: "left" }}>{item.member_address + " " + item.member_detailaddr}</td>
-                <td>{trash(item)}</td>
-              </tr>
+              <TableBody style={{ width: 1100 }}>
+                <TableCell style={{ textAlign: "center" }}>
+                  <select>
+                    <option>{item.member_type}</option>
+                    <option>매니저</option>
+                    <option>강사</option>
+                  </select>
+
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  {item.member_name}
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  {item.member_phone}
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  {item.member_email}
+                </TableCell>
+                <TableCell style={{ textAlign: "left" }}>
+                  {item.member_address + " " + item.member_detailaddr}
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>
+                  {}
+                  {trash(item)}
+                </TableCell>
+              </TableBody>
             ))}
-          </tbody>
-        </table>
+          </Table>
+        </Paper>
       </div>
       <div style={{ paddingBottom: "100px" }}></div>
     </div>
