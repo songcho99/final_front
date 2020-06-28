@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import axios from "axios";
+import "./CurriculumUpdate.scss";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -471,6 +472,7 @@ function CurriculumUpdate({ match }) {
       noValidate
       autoComplete="off"
       onSubmit={ProcessSubmit}
+      id="curriupdate"
     >
       <div>
         <br />

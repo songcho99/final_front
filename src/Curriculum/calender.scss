@@ -92,6 +92,29 @@
   margin-bottom: 80px;
 }
 
+.caldaybox {
+  width: calc(100% / 7);
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  &:first-child {
+    color: var(--red);
+  }
+
+  &:last-child {
+    color: var(--blue);
+  }
+}
+
+.calday {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .daybox {
   width: calc(100% / 7);
   height: 120px;

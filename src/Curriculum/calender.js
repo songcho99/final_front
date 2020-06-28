@@ -1,6 +1,7 @@
 import React, { Component, useState } from "react";
 import "./calender.scss";
 import Modal from "react-modal";
+import axios from "axios";
 
 //  참고 사이트 :
 // https://velog.io/@zynkn/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0-%EC%BA%98%EB%A6%B0%EB%8D%94
@@ -19,12 +20,28 @@ class calender extends Component {
       thisYear: year,
       thisMonth: month,
       thisDates: [],
+      processFiles: [],
     };
+  }
+
+  componentWillMount() {
+    let url = "http://localhost:8000/project/process/list";
+    axios
+      .post(url)
+      .then((res) => {
+        this.setState({
+          list: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log("수강 과정 켈린더 불러오기 에러 : " + err);
+      });
   }
 
   componentDidMount() {
     this._get_month();
   }
+
   componentDidUpdate() {
     //Update 될 때, .today, .click을 다시 찾아주지 않으면 기존에 있던 자리에 그대로 남아있게 된다.
     this._find_today();
@@ -52,8 +69,8 @@ class calender extends Component {
           <div className="calenderdaybox">
             {days.map((value, i) => {
               return (
-                <div className="daybox">
-                  <span className="calenderday" key={i}>
+                <div className="caldaybox">
+                  <span className="calday" key={i}>
                     {value}
                   </span>
                 </div>
@@ -84,7 +101,8 @@ class calender extends Component {
                     key={i}
                   >
                     {/* {value.date === 1 ? value.month + "월 " : ""} */}
-                    <b>{value.date}</b>
+                    <div>{value.date}</div>
+                    {}
                   </span>
                 </div>
               );

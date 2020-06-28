@@ -14,6 +14,7 @@ import Button from "@material-ui/core/Button";
 import Swal from "sweetalert2";
 import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
+import "./CurriculumAdd.scss";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -382,7 +383,7 @@ function CurriculumAdd() {
       autoComplete="off"
       onSubmit={ProcessSubmit}
     >
-      <div>
+      <div id="curriadd">
         <br />
         <br />
         <TextField

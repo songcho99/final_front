@@ -11,6 +11,9 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import "./CurriculumList.scss";
 
+// 마테리얼 아바타
+import { Avatar } from "@material-ui/core";
+
 let today = new Date(),
   month = today.getMonth() + 1,
   year = today.getFullYear();
@@ -24,8 +27,25 @@ class CurriculumList extends Component {
       thisYear: year,
       thisMonth: month,
       thisDates: [],
+      processFiles: [],
     };
   }
+
+  img = () => {
+    let url =
+      "http://localhost:8000/project/process/detail?process_num=" +
+      this.process_num;
+    axios
+      .post(url)
+      .then((res) => {
+        this.setState({
+          processFiles: res.data.processfiles,
+        });
+      })
+      .catch((err) => {
+        console.log("수강 메인 이미지 출력 오류 : " + err);
+      });
+  };
 
   componentWillMount() {
     let url = "http://localhost:8000/project/process/list";
@@ -39,31 +59,72 @@ class CurriculumList extends Component {
       .catch((err) => {
         console.log("수강 과정 목록 불러오기 에러 : " + err);
       });
-  }
-  render() {
-    const imageUrl = "http://localhost:8000/project/process/image";
 
+    this.img();
+  }
+
+  render() {
+    const imageUrl = "http://localhost:8000/project/uploadfile/";
     return (
       <div id={this.props.currilist}>
-        <header id="calenderhd">
-          <button className="calenderhdbtn" onClick={this._prev_month}>
-            &lt;
-          </button>
-          <button className="calenderhdtit" onClick={this._back_today}>
-            {this.state.thisYear}년 {this.state.thisMonth}월
-          </button>
-          <button className="calenderhdbtn" onClick={this._next_month}>
-            &gt;
-          </button>
-        </header>
-
         <div id="currilistbtnbox">
           <a href="/CurriculumAdd" id="currilistbtn">
-            과정 추가
+            <div id="currilisticon">
+              <i className="fas fa-plus"></i>
+            </div>
+            <div>추가</div>
           </a>
         </div>
-        <TableContainer component={Paper}>
-          <Table aria-label="simple table">
+
+        {/* 카드  */}
+        {/* 제목, 분류, 시작날짜 , 끝날짜, 인원수 , 담당 강사, 대표이미지,제공 교제  */}
+        <div id="currilistcardbox">
+          <div id="currilistcardback">
+            {this.state.list.map((row, index) => (
+              <div className="curricard">
+                {/* 헤드 부분 */}
+                <div className="curricardhd">
+                  <div className="curricarthdtit">모집중(1/2)</div>
+                  <div className="curricarthdsub">{row.process_type}</div>
+                </div>
+
+                {/* 몸통 부분 */}
+                <div className="curricardmain">
+                  <div className="curricardmainimgbox">
+                    {this.state.processFiles.map((row) => (
+                      <img
+                        src={imageUrl + row.processfiles_process_filename}
+                        className="curricardmainimg"
+                      ></img>
+                    ))}
+                  </div>
+                  <div className="curricardmainback"></div>
+                  <a
+                    className="curricardmaintext"
+                    href={"/CurriculumDetail/" + row.process_num}
+                  >
+                    <div className="studylistcardAvatar">
+                      <Avatar style={{ width: "80px", height: "80px" }} />
+                    </div>
+                    <div className="curricardmainnav">
+                      {row.process_subject}
+                    </div>
+                  </a>
+                </div>
+
+                {/* 바닥 */}
+                <div className="currifooter">
+                  <div>
+                    {row.process_startdate}&nbsp;~&nbsp;{row.process_enddate}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* <TableContainer component={Paper}>
+          <Table aria-label="simple table" id="dafdsfadfadsf">
             <TableHead>
               <TableRow>
                 <TableCell></TableCell>
@@ -101,7 +162,7 @@ class CurriculumList extends Component {
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
+        </TableContainer> */}
       </div>
     );
   }

@@ -96,13 +96,29 @@
 
 .curriSchnavbox {
   margin-right: 70px;
+  cursor: pointer;
 }
 
+//필터 스타일
 .curriSchcercle {
   width: 80px;
   height: 80px;
   border: 1px var(--blue) solid;
   color: var(--blue);
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 45px;
+  margin-bottom: 10px;
+}
+
+.currilistAllbox {
+  width: 80px;
+  height: 80px;
+  border: 1px var(--blue) solid;
+  color: var(--white);
+  background-color: var(--blue);
   border-radius: 50px;
   display: flex;
   justify-content: center;

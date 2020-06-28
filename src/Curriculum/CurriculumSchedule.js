@@ -5,17 +5,61 @@ import Calender from "./calender";
 import CurriculumList from "./CurriculumList";
 
 //  참고 사이트 :
-// https://blog.flowandform.agency/create-a-custom-calendar-in-react-3df1bfd0b728
+// https://blog.flowandform.agency/create-a-custom-calendar-in-react-
 
 class CurriculumSchedule extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      calender: "calenderOff",
-      currilist: "currilistOn",
+      calender: "calender",
+      currilist: "currilistOff",
+
+      // 박스 변수
+      allbox: "currilistAllbox",
+      phpbox: "curriSchcercle",
+      Reactbox: "curriSchcercle",
+      Java: "curriSchcercle",
     };
   }
 
+  // 박스 클릭 이벤트
+  AllBox = () => {
+    this.setState({
+      allbox: "currilistAllbox",
+      phpbox: "curriSchcercle",
+      Reactbox: "curriSchcercle",
+      Java: "curriSchcercle",
+    });
+  };
+
+  PHPBox = () => {
+    this.setState({
+      allbox: "curriSchcercle",
+      phpbox: "currilistAllbox",
+      Reactbox: "curriSchcercle",
+      Java: "curriSchcercle",
+    });
+  };
+
+  ReactBox = () => {
+    this.setState({
+      allbox: "curriSchcercle",
+      phpbox: "curriSchcercle",
+      Reactbox: "currilistAllbox",
+      Java: "curriSchcercle",
+    });
+  };
+
+  JavaBox = () => {
+    this.setState({
+      allbox: "curriSchcercle",
+      phpbox: "curriSchcercle",
+      Reactbox: "curriSchcercle",
+      Java: "currilistAllbox",
+    });
+  };
+
+  // 사이드바
   CurrilistOn = () => {
     console.log("CurrilistOn 클릭");
     this.setState({
@@ -67,32 +111,32 @@ class CurriculumSchedule extends Component {
           {/* 상단에 필터 선택 창 */}
           <div id="curriSchnav">
             {/* 전체 박스 */}
-            <div className="curriSchnavbox">
-              <div className="curriSchcercle">
+            <div className="curriSchnavbox" onClick={this.AllBox.bind(this)}>
+              <div className={this.state.allbox}>
                 <i className="fas fa-globe"></i>
               </div>
               <div className="curriSchcerletex">All</div>
             </div>
 
             {/* PHP 박스 */}
-            <div className="curriSchnavbox">
-              <div className="curriSchcercle">
+            <div className="curriSchnavbox" onClick={this.PHPBox.bind(this)}>
+              <div className={this.state.phpbox}>
                 <i className="fab fa-php"></i>
               </div>
               <div className="curriSchcerletex">PHP</div>
             </div>
 
             {/* React 박스 */}
-            <div className="curriSchnavbox">
-              <div className="curriSchcercle">
+            <div className="curriSchnavbox" onClick={this.ReactBox.bind(this)}>
+              <div className={this.state.Reactbox}>
                 <i className="fab fa-react"></i>
               </div>
               <div className="curriSchcerletex">React</div>
             </div>
 
             {/* JAVA 박스 */}
-            <div>
-              <div className="curriSchcercle">
+            <div className="curriSchnavbox" onClick={this.JavaBox.bind(this)}>
+              <div className={this.state.Java}>
                 <i className="fab fa-java"></i>
               </div>
               <div className="curriSchcerletex">JAVA</div>
