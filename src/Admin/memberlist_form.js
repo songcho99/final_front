@@ -194,7 +194,7 @@ export default function MemberList_Form() {
         <table style={tableStyle}>
           <thead>
             <tr style={trStyle}>
-              <td style={{ textAlign: "center", width: 150 }}>구분</td>
+              <td style={{ textAlign: "center", width: 150 }}>구분1</td>
               <td style={{ textAlign: "center", width: 100 }}>이름</td>
               <td style={{ textAlign: "center", width: 150 }}>핸드폰</td>
               <td style={{ textAlign: "center", width: 200 }}>이메일</td>

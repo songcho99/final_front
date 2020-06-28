@@ -159,7 +159,15 @@ class Notice_Update extends Component {
       borderBottom: "1px solid black",
       height: "60px",
     };
-
+    const buttonStyle = {
+      fontSize: "16px",
+      backgroundColor: "white",
+      width: "110px",
+      height: "40px",
+      borderRadius: "25px",
+      cursor: "pointer",
+      border: "1px solid gray",
+    };
     return (
       <div style={{ textAlign: "center" }}>
         <div style={{ paddingTop: "100px" }}></div>
@@ -245,15 +253,7 @@ class Notice_Update extends Component {
           <div style={{ paddingBottom: "20px" }}></div>
           <button
             type="submit"
-            style={{
-              fontSize: "16px",
-              backgroundColor: "white",
-              width: "110px",
-              height: "40px",
-              borderRadius: "25px",
-              cursor: "pointer",
-              border: "1px solid gray",
-            }}
+            style={buttonStyle}
           >
             <i class="fas fa-pencil-alt"></i>&nbsp;&nbsp; 저장
           </button>
@@ -271,15 +271,7 @@ class Notice_Update extends Component {
           >
             <button
               type="button"
-              style={{
-                fontSize: "16px",
-                backgroundColor: "white",
-                width: "110px",
-                height: "40px",
-                borderRadius: "25px",
-                cursor: "pointer",
-                border: "1px solid gray",
-              }}
+              style={buttonStyle}
             >
               <i class="fas fa-undo-alt"></i>&nbsp;&nbsp; 뒤로
             </button>
