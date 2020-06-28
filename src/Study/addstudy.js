@@ -21,6 +21,7 @@ import {
 import { PhotoCamera } from "@material-ui/icons";
 import "./addstudy.css";
 import Axios from "axios";
+import Swal from "sweetalert2";
 
 const { kakao } = window;
 
@@ -288,10 +289,10 @@ export default function AddStudy(props) {
     study_level === 0 || study_level === "하"
       ? setStudyLevel("하")
       : study_level === 50 || study_level === "중"
-      ? setStudyLevel("중")
-      : study_level === 100 || study_level === "상"
-      ? setStudyLevel("상")
-      : setStudyLevel("하");
+        ? setStudyLevel("중")
+        : study_level === 100 || study_level === "상"
+          ? setStudyLevel("상")
+          : setStudyLevel("하");
     console.log(`level:${study_level}`);
   }, [study_level]);
 

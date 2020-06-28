@@ -123,8 +123,8 @@ class sidmenu extends Component {
 
           {/* 채용공고 or 리뷰 */}
           <div id="mypagebox">
-            <div id="mypagesub">채용공고</div>
-            <a href="/mypageupdate" id="mypagemain">
+            <div id="mypagesub">수강후기</div>
+            <a href="/reviewlist" id="mypagemain">
               <i className="far fa-address-card"></i>
             </a>
           </div>
