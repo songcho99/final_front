@@ -10,6 +10,7 @@ import Modal from "react-modal";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Swal from "sweetalert2";
 import Axios from "axios";
+import Mypagelist from "../MyPage/mypagelist";
 
 class signupmanage extends Component {
   state = {
@@ -164,11 +165,11 @@ class signupmanage extends Component {
   };
   render() {
     return (
-      <div>
-        <br />
-        <br />
-        <br />
-        <br />
+      <div style={{ textAlign: "center" }} align="center">
+        <Mypagelist />
+        <div style={{ paddingTop: "100px" }}></div>
+        <span style={{ fontSize: "40px" }}>수강신청 관리</span>
+        <div style={{ paddingTop: "200px" }}></div>
         <TableContainer
           component={Paper}
           style={{ width: "90%", marginLeft: "5%" }}
@@ -282,6 +283,7 @@ class signupmanage extends Component {
             </button>
           </div>
         </Modal>
+        <div style={{ paddingBottom: "100px" }}></div>
       </div>
     );
   }
