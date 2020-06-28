@@ -38,7 +38,6 @@ const mypagelist = () => {
       <div style={{ paddingTop: "100px" }}></div>
       {header()}
       <br />
-      <MyPageMenu />
     </div>
   );
 };

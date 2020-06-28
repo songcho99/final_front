@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import Axios from "axios";
 import { Avatar, makeStyles } from "@material-ui/core";
 import Swal from "sweetalert2";
+import Mypagelist from "./mypagelist";
 
 const MypageupButton = styled(Button)({
   color: "#2a9d8f",
@@ -181,123 +182,126 @@ export default function MyPageUpdate(props) {
   };
 
   return (
-    <div id="mypageupdate">
-      <MyPageMenu />
-      {/* 프로필 타이틀 */}
-      <div id="mypagup-tit">
-        <div id="mypageup-span">프로필 수정</div>
-        <div id="mypageup-label">
-          IT Campus 대표 프로필과 정보를 수정 하실 수 있습니다.
-        </div>
-      </div>
-      <form id="mypageup-box" method="post" onSubmit={onSubmit}>
-        <div id="mypageup-photo">
-          <div id="mypageup-profilebox">{previewImg}</div>
-          <div className="filebox">
-            {/* for 사용하면 빨간색 경고창이 뜸 하지만 for 사용을 해야지 input[file] 과 연동하여 사용가능함  */}
-            <label for="ex_file">사진 변경</label>
-            <input
-              type="file"
-              id="ex_file"
-              accept="image/*"
-              onChange={handleImageChange}
-            ></input>
+    <div style={{ textAlign: "center" }} align="center">
+      <Mypagelist />
+      <div style={{ paddingTop: "100px" }}></div>
+      <span style={{ fontSize: "40px" }}>회원 정보</span>
+      <br />
+      <br />
+      <span style={{ fontSize: "18px", color: "##A6A6A6" }}>
+        IT Campus 회원 정보를 수정 하실 수 있습니다.
+        </span>
+      <div style={{ paddingTop: "200px" }}></div>
+      <form id="mypageup-box" onSubmit={onSubmit}>
+        <div align="center" style={{ width: "100%", float: "center" }}>
+          <div id="mypageup-photo" style={{ display: "inline-block", float: "left" }}>
+            <div id="mypageup-profilebox">{previewImg}</div>
+            <div className="filebox">
+              {/* for 사용하면 빨간색 경고창이 뜸 하지만 for 사용을 해야지 input[file] 과 연동하여 사용가능함  */}
+              <label for="ex_file">사진 변경</label>
+              <input
+                type="file"
+                id="ex_file"
+                accept="image/*"
+                onChange={handleImageChange}
+              ></input>
+            </div>
           </div>
-        </div>
-        {/* 프로필 테이블 창*/}
-        <div id="mypageup-taback">
-          <table id="mypageup-ta">
-            <tbody>
-              <tr>
-                <td className="mypageupta-cel1">이름</td>
-                <td className="mypageupta-cel2">{member_name}</td>
-              </tr>
-              <tr>
-                <td className="mypageupta-cel1">과정</td>
-                <td className="mypageupta-cel2">{member_type}</td>
-              </tr>
-              <tr>
-                <td className="mypageupta-cel1">핸드폰</td>
-                <td className="mypageupta-cel2">
-                  <div id="mypageup-tel">
-                    <div id="mypageup-telbox">
-                      <input
-                        type="text"
-                        className="logininput"
-                        name="member_phone"
-                        defaultValue={member_phone}
-                        maxLength="13"
-                        onChange={handlePhoneChange}
-                      ></input>
-                      <div className="mypageup-i"></div>
+          {/* 프로필 테이블 창*/}
+          <div id="mypageup-taback" style={{ display: "inline-block", float: "left" }}>
+            <table id="mypageup-ta">
+              <tbody>
+                <tr>
+                  <td className="mypageupta-cel1">이름</td>
+                  <td className="mypageupta-cel2">{member_name}</td>
+                </tr>
+                <tr>
+                  <td className="mypageupta-cel1">과정</td>
+                  <td className="mypageupta-cel2">{member_type}</td>
+                </tr>
+                <tr>
+                  <td className="mypageupta-cel1">핸드폰</td>
+                  <td className="mypageupta-cel2">
+                    <div id="mypageup-tel">
+                      <div id="mypageup-telbox">
+                        <input
+                          type="text"
+                          className="logininput"
+                          name="member_phone"
+                          defaultValue={member_phone}
+                          maxLength="13"
+                          onChange={handlePhoneChange}
+                        ></input>
+                        <div className="mypageup-i"></div>
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td className="mypageupta-cel1">이메일</td>
-                <td className="mypageupta-cel2">
-                  <div>
-                    <input
-                      type="text"
-                      className="mypageup-input"
-                      defaultValue={member_email}
-                      onChange={handleEmailChange}
-                    ></input>
-                    <div className="mypageup-i"></div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td id="mypageupta-last1">주소</td>
-                <td id="mypageupta-last2">
-                  <div id="mypageup-addr">
-                    <div id="mypageup-addrtop">
+                  </td>
+                </tr>
+                <tr>
+                  <td className="mypageupta-cel1">이메일</td>
+                  <td className="mypageupta-cel2">
+                    <div>
                       <input
                         type="text"
                         className="mypageup-input"
-                        id="mypageup-addrinp"
-                        defaultValue={member_address}
-                        readOnly
+                        defaultValue={member_email}
+                        onChange={handleEmailChange}
                       ></input>
                       <div className="mypageup-i"></div>
                     </div>
-                    <div>
-                      <MypageupButton
-                        variant="outlined"
-                        id="mypage-addrbtn"
-                        onClick={post}
-                      >
-                        주소 검색
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mypageupta-last1">주소</td>
+                  <td id="mypageupta-last2">
+                    <div id="mypageup-addr">
+                      <div id="mypageup-addrtop">
+                        <input
+                          type="text"
+                          className="mypageup-input"
+                          id="mypageup-addrinp"
+                          defaultValue={member_address}
+                          readOnly
+                        ></input>
+                        <div className="mypageup-i"></div>
+                      </div>
+                      <div>
+                        <MypageupButton
+                          variant="outlined"
+                          id="mypage-addrbtn"
+                          onClick={post}
+                        >
+                          주소 검색
                       </MypageupButton>
+                      </div>
                     </div>
-                  </div>
-                  <div id="mypageup-addrbot">
-                    <input
-                      type="text"
-                      className="mypageup-input"
-                      id="mypageup-addrinp2"
-                      defaultValue={member_detailaddr}
-                      onChange={handleDetailAddrChange}
-                    ></input>
-                    <div className="mypageup-i"></div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div id="mypage-btn">
-            <MypageupButton
-              variant="outlined"
-              className="mypage-sub"
-              id="mypage-sub"
-              type="submit"
-            >
-              적용
+                    <div id="mypageup-addrbot">
+                      <input
+                        type="text"
+                        className="mypageup-input"
+                        id="mypageup-addrinp2"
+                        defaultValue={member_detailaddr}
+                        onChange={handleDetailAddrChange}
+                      ></input>
+                      <div className="mypageup-i"></div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div id="mypage-btn">
+              <MypageupButton
+                variant="outlined"
+                className="mypage-sub"
+                id="mypage-sub"
+                type="submit"
+              >
+                적용
             </MypageupButton>
-            <MypageupButton variant="outlined" className="mypage-sub">
-              취소
+              <MypageupButton variant="outlined" className="mypage-sub">
+                취소
             </MypageupButton>
+            </div>
           </div>
         </div>
       </form>

@@ -44,7 +44,6 @@ class qna_list extends Component {
         });
 
         if (
-          this.state.member_type !== "관리자" ||
           this.state.member_type !== "매니저"
         ) {
           this.setState({
