@@ -3,15 +3,31 @@ import "./maininfo.scss";
 import MainPart1 from "../MainAdd/mainpart1";
 import MianPart2 from "../MainAdd/mainpart2";
 import MainPart3 from "../MainAdd/mainpart3";
+import axios from "axios";
 
 class maininfo extends Component {
   constructor() {
     super();
 
     this.state = {
-      show: 1,
-      num: "nonedown",
-      num2: "nonedown",
+      startpage: 0,
+      endpage: 5,
+      searchtxt: "java",
+      saraminlist: [],
+      saraminhiresubject: [],
+      saraminhirehref: [],
+      saramincorphref: [],
+      saramincorpname: [],
+      samrainenddates: [],
+      hiresubject: [],
+      hirehref: [],
+      corpname: [],
+      corphref: [],
+      enddates: [],
+
+      show: 3,
+      num: "none",
+      num2: "none",
       num3: "nonedown",
       num4: "nonedown",
 
@@ -228,6 +244,101 @@ class maininfo extends Component {
     }
   };
 
+  selectChange = (e) => {
+    this.setState({
+      [e.target.name]: "",
+    });
+    this.changeSearchText(e.target.value);
+    this.GetHireList();
+  };
+
+  changeSearchText = (item) => {
+    this.setState({
+      searchtxt: item,
+    });
+    console.log(this.state.searchtxt);
+  };
+  GetHireList = () => {
+    let url =
+      "http://localhost:8000/project/process/hirelist?searchtxt=" +
+      this.state.searchtxt;
+    axios
+      .get(url)
+      .then((res) => {
+        this.setState({
+          saraminhiresubject: res.data.hiresubject,
+
+          saraminhirehref: res.data.hirehref,
+          saramincorphref: res.data.corphref,
+          saramincorpname: res.data.corpname,
+          saraminenddates: res.data.enddates,
+        });
+        this.HireListWithPage();
+        console.log(this.state.saramincorpname);
+      })
+      .catch((err) => {
+        console.log("채용 공고 목록 불러오기 에러 :" + err);
+      });
+  };
+
+  HireListWithPage = () => {
+    let hiresubject = [];
+    let hirehref = [];
+    let corpname = [];
+    let corphref = [];
+    let enddates = [];
+    for (let i = this.state.startpage; i < this.state.endpage; i++) {
+      hiresubject.push(this.state.saraminhiresubject[i]);
+      hirehref.push(this.state.saraminhirehref[i]);
+      corpname.push(this.state.saramincorpname[i]);
+      corphref.push(this.state.saramincorphref[i]);
+      enddates.push(this.state.saraminenddates[i]);
+    }
+
+    this.setState({
+      hiresubject: hiresubject,
+      hirehref: hirehref,
+      corpname: corpname,
+      corphref: corphref,
+      enddates: enddates,
+    });
+  };
+  changePage = (item) => {
+    console.log(item);
+    if (item === "next") {
+      if (this.state.endpage === 40) {
+        this.setState({
+          startpage: 0,
+          endpage: 5,
+        });
+        this.HireListWithPage();
+      } else {
+        this.setState({
+          startpage: this.state.startpage + 5,
+          endpage: this.state.endpage + 5,
+        });
+        this.HireListWithPage();
+      }
+    } else {
+      if (this.state.startpage === 0) {
+        this.setState({
+          startpage: 35,
+          endpage: 40,
+        });
+        this.HireListWithPage();
+      } else {
+        this.setState({
+          startpage: this.state.startpage - 5,
+          endpage: this.state.endpage - 5,
+        });
+        this.HireListWithPage();
+      }
+    }
+  };
+  componentWillMount = () => {
+    this.GetHireList();
+  };
+
   render() {
     return (
       <div>
@@ -265,6 +376,63 @@ class maininfo extends Component {
         {/* 네번째 화면  */}
         <div id="main-con4" className={this.state.num4}>
           4번창 입니다.
+          <div
+            style={{
+              width: "80%",
+              height: "50%",
+              backgroundColor: "white",
+              overflow: "auto",
+            }}
+          >
+            <select
+              value={this.state.searchtxt}
+              onChange={this.selectChange.bind(this)}
+              name="searchtxt"
+            >
+              <option>java</option>
+              <option>spring</option>
+              <option>react</option>
+            </select>
+            <br />
+            <button
+              style={{ float: "left" }}
+              onClick={this.changePage.bind(this, "prev")}
+            >
+              PREV
+            </button>
+            <button
+              style={{ float: "right" }}
+              onClick={this.changePage.bind(this, "next")}
+            >
+              NEXT
+            </button>
+            <div>
+              <table>
+                <thead>
+                  <th>공고명</th>
+                  <th>마감일</th>
+                  <th>Corp</th>
+                </thead>
+                <tbody>
+                  {this.state.hiresubject.map((item, index) => (
+                    <tr>
+                      <td>
+                        <a href={this.state.hirehref[index]} alt="" key={index}>
+                          {item}
+                        </a>
+                      </td>
+                      <td>{this.state.enddates[index]}</td>
+                      <td>
+                        <a href={this.state.corphref[index]} alt="" key={index}>
+                          {this.state.corpname[index]}
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
 
         {/* 화면 이동 화살표 박스  */}
