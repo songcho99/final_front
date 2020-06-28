@@ -277,7 +277,9 @@ export default function StudyList(props) {
     data.append("searchType", searchType);
     data.append("searchStartdate", searchStartdate);
     data.append("searchEnddate", searchEnddate);
-    data.append("searchGatherday", searchDay);
+    for (var i = 0; i < searchDay.length; i++) {
+      data.append(`searchGatherday[${i}]`, searchDay[i]);
+    }
     data.append("searchAddress", searchAddress);
     data.append("searchDetailAddr", searchDetailAddr);
 
