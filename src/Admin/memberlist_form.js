@@ -105,7 +105,7 @@ export default function MemberList_Form() {
       });
   };
   const trash = (item) => {
-    if (item.member_name !== ("매니저" || "관리자")) {
+    if (item.member_name !== "매니저") {
       return select(item);
     }
   };
@@ -208,7 +208,12 @@ export default function MemberList_Form() {
             {asd.map((item, idx) => (
               <TableBody style={{ width: 1100 }}>
                 <TableCell style={{ textAlign: "center" }}>
-                  {item.member_type}
+                  <select>
+                    <option>{item.member_type}</option>
+                    <option>매니저</option>
+                    <option>강사</option>
+                  </select>
+
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
                   {item.member_name}
@@ -223,6 +228,7 @@ export default function MemberList_Form() {
                   {item.member_address + " " + item.member_detailaddr}
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
+                  {}
                   {trash(item)}
                 </TableCell>
               </TableBody>
