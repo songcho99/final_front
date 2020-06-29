@@ -84,6 +84,8 @@ yarn add query-string
 yarn add semantic-ui-react
 yarn add react-id-swiper
 yarn add swiper
+yarn add socket.io
+yarn add socket.io-client
 
 <!-- scss 설치  -->
 

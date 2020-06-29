@@ -32,7 +32,7 @@ class AcademyMap extends Component {
   }
   render() {
     return (
-      <div id="academyMap" style={{ textAlign: "center", display: "inline-block", float: "center" }} align="center">
+      <div id="academyMap">
         {/* 1번 위치  */}
         <div id="academyMaptext">
           <span>
