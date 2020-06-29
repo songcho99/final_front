@@ -37,21 +37,21 @@ class mainpart1 extends Component {
           </div>
           <div className="part1tagbox" onClick={this.props.PHPClick}>
             <div className={this.props.part1PHPtag}>
-              <i className="fab fa-php"></i>
+              <i className="fas fa-database"></i>
             </div>
-            <div className="part1tagtext">PHP</div>
+            <div className="part1tagtext">빅데이터</div>
           </div>
           <div className="part1tagbox" onClick={this.props.ReactClick}>
             <div className={this.props.part1Reacttag}>
-              <i className="fab fa-react"></i>
+              <i className="fas fa-cloud"></i>
             </div>
-            <div className="part1tagtext">React</div>
+            <div className="part1tagtext">클라우드</div>
           </div>
           <div className="part1tagbox" onClick={this.props.JavaClick}>
             <div className={this.props.part1Javatag}>
-              <i className="fab fa-java"></i>
+              <i className="fas fa-brain"></i>
             </div>
-            <div className="part1tagtext">JAVA</div>
+            <div className="part1tagtext">인공지능</div>
           </div>
         </div>
 
