@@ -230,40 +230,27 @@ class Menu extends Component {
           {/* 로그인 되어있을때 상단 메뉴에 과정명,마이페이지 버튼,이름 활성화 */}
           {this.state.loggedInfo && (
             <div id="hdbox2after">
-              {localStorage.type === "수강생" && (
+
+              {localStorage.type !== "일반" && localStorage.type !== "매니저" && (
+
                 <Link to="/classpage">
-                  <b id="hdspan">마이 강의실</b>
+                  <b id="hdspan">{localStorage.type}</b>
                 </Link>
-              )}
-              {localStorage.type === "강사" && (
-                <Link to="/classpage">
-                  <b id="hdspan">마이 강의실</b>
-                </Link>
-              )}
-              {localStorage.type === "매니저" && (
-                <b id="hdspan">{localStorage.type}</b>
-              )}
-              {localStorage.type === "관리자" && (
-                <b id="hdspan">{localStorage.type}</b>
-              )}
-              {localStorage.type === "일반" && (
-                <b id="hdspan">{localStorage.type}</b>
-              )}
-              {localStorage.type === "강사" && (
-                <b id="hdspan">{localStorage.name} 강사님</b>
               )}
               {localStorage.type === "매니저" && (
                 <b id="hdspan">{localStorage.name} 매니저님</b>
               )}
-              {localStorage.type === "관리자" && (
-                <b id="hdspan">{localStorage.name} 관리자님</b>
-              )}
-              {localStorage.type === "수강생" && (
-                <b id="hdspan">{localStorage.name} 수강생님</b>
+              {localStorage.type === "강사" && (
+                <b id="hdspan">{localStorage.name} 강사님</b>
               )}
               {localStorage.type === "일반" && (
                 <b id="hdspan">{localStorage.name} 님</b>
               )}
+              {localStorage.type !== "매니저" && localStorage.type !== "강사" && localStorage.type !== "일반" && (
+                <b id="hdspan">{localStorage.name} 님</b>
+              )}
+
+
               <Link to="/mypagelist" id="hdafterprofile">
                 <Avatar
                   alt=""
