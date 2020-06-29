@@ -51,8 +51,8 @@ const avatarStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
   },
   large: {
-    width: theme.spacing(6),
-    height: theme.spacing(6),
+    width: theme.spacing(5),
+    height: theme.spacing(5),
     margin: theme.spacing(1),
   },
 }));
@@ -75,6 +75,11 @@ export default function MyStudyTeam(props) {
   const [filecount, setFileCount] = React.useState(0);
   const [feedlist, setFeedList] = React.useState([]);
   const [filelist, setFileList] = React.useState([]);
+  const [replybox, setReplyBox] = React.useState("");
+  const [reply_content, setReplyContent] = React.useState("");
+  const [replylist, setReplyList] = React.useState([]);
+  const [re_reply_content, setRe_ReplyContent] = React.useState("");
+  const [file_num, setFileNum] = React.useState(0);
 
   const handleContentChange = (event) => {
     setStudyFeedContent(event.target.value);
@@ -106,7 +111,7 @@ export default function MyStudyTeam(props) {
   };
 
   const getFeedList = () => {
-    const url = "http://localhost:8000/project/studyfeed/feedlist";
+    const url = `http://localhost:8000/project/studyfeed/feedlist?studyfeed_studygroup_num=${studyfeed_studygroup_num}`;
 
     Axios.get(url)
       .then((res) => {
@@ -121,6 +126,8 @@ export default function MyStudyTeam(props) {
     const url =
       "http://localhost:8000/project/studyfeed/filelist?studyfeedfiles_studyfeed_num=" +
       studyfeedfiles_studyfeed_num;
+
+    setFileNum(studyfeedfiles_studyfeed_num);
 
     Axios.get(url)
       .then((res) => {
@@ -152,7 +159,89 @@ export default function MyStudyTeam(props) {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => {
-        getStudyMember();
+        window.location.href = window.location.href;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getReplyBox = (reply_num) => {
+    if (document.getElementById(reply_num).style.display === "none")
+      document.getElementById(reply_num).style.display = "block";
+    else {
+      document.getElementById(reply_num).style.display = "none";
+    }
+  };
+
+  const handleReplyContentChange = (event) => {
+    setReplyContent(event.target.value);
+    console.log(reply_content);
+  };
+
+  const onCommentSubmit = (event, studyfeed_num) => {
+    event.preventDefault();
+    console.log(studyfeed_num);
+    const url = "http://localhost:8000/project/reply/add";
+
+    Axios.post(url, {
+      reply_member_num: localStorage.num,
+      reply_studyfeed_num: studyfeed_num,
+      reply_content: reply_content,
+    })
+      .then((res) => {
+        getFeedList();
+        window.location.href = window.location.href;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getReplyList = (et) => {
+    const url = "http://localhost:8000/project/reply/list";
+
+    Axios.get(url)
+      .then((res) => {
+        console.log(res);
+        setReplyList(res.data);
+
+        if (et.nextElementSibling.style.display === "none") {
+          et.nextElementSibling.style.display = "block";
+        } else {
+          et.nextElementSibling.style.display = "none";
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleRe_ReplyContentChange = (event) => {
+    setRe_ReplyContent(event.target.value);
+    console.log(re_reply_content);
+  };
+
+  const onReCommentSubmit = (
+    event,
+    reply_num,
+    studyfeed_num,
+    reply_regroup
+  ) => {
+    event.preventDefault();
+    console.log(reply_num);
+    const url = "http://localhost:8000/project/reply/add";
+
+    Axios.post(url, {
+      reply_num: reply_num,
+      reply_member_num: localStorage.num,
+      reply_studyfeed_num: studyfeed_num,
+      reply_content: re_reply_content,
+      reply_regroup: reply_regroup,
+    })
+      .then((res) => {
+        getFeedList();
+        window.location.href = window.location.href;
       })
       .catch((err) => {
         console.log(err);
@@ -164,6 +253,13 @@ export default function MyStudyTeam(props) {
     getFeedList();
   }, []);
 
+  const blank = {
+    marginLeft: "30px",
+    backgroundColor: "#F6F6F6",
+    paddingLeft: "10px",
+    paddingBottom: "10px",
+  };
+  const noblank = {};
   return (
     <div>
       <br />
@@ -219,9 +315,9 @@ export default function MyStudyTeam(props) {
             </Button>
           </form>
           <hr style={{ width: "650px", marginRight: "100px" }} />
-
+          <Typography variant="h6">{"피드 " + feedlist.length}</Typography>
           {feedlist.map((row, idx) => (
-            <Feed>
+            <Feed style={{ overflowX: "hidden" }}>
               <Feed.Event>
                 <Avatar
                   alt={row.member_name}
@@ -240,102 +336,141 @@ export default function MyStudyTeam(props) {
                     </Feed.Date>
                   </Feed.Summary>
                   <Feed.Extra text>{row.studyfeed_content}</Feed.Extra>
-                  <Feed.Meta>
-                    <Feed.Like>
-                      <Icon name="like" />
-                      {row.studyfeed_likes} Likes
-                    </Feed.Like>
-                  </Feed.Meta>
                   &nbsp;&nbsp;
                   <Button
                     variant="text"
                     color="primary"
                     type="submit"
                     size="small"
-                    style={{ marginLeft: "450px" }}
+                    style={{ marginLeft: "480px" }}
                     onClick={() => {
                       getFileList(row.studyfeed_num);
                     }}
                   >
                     첨부파일
                   </Button>
-                  {filelist.map((row, idx) => (
-                    <Typography variant="body1">{row}</Typography>
+                  {filelist.map((ele, i) => (
+                    <Typography variant="body1">
+                      {row.studyfeed_num === file_num ? ele : ""}
+                    </Typography>
                   ))}
                 </Feed.Content>
               </Feed.Event>
-              <Comment.Group>
-                <Header as="h3" dividing>
-                  댓글 3
-                </Header>
+              <Header
+                as="h3"
+                dividing
+                style={{ width: "650px", cursor: "pointer" }}
+                onClick={(e) => {
+                  getReplyList(e.target);
+                }}
+              >
+                댓글
+              </Header>
 
-                <Comment>
-                  <Comment.Avatar src="https://react.semantic-ui.comhttps://react.semantic-ui.com/images/avatar/small/matt.jpg" />
-                  <Comment.Content>
-                    <Comment.Author as="a">Matt</Comment.Author>
-                    <Comment.Metadata>
-                      <div>Today at 5:42PM</div>
-                    </Comment.Metadata>
-                    <Comment.Text>How artistic!</Comment.Text>
-                    <Comment.Actions>
-                      <Comment.Action>Reply</Comment.Action>
-                    </Comment.Actions>
-                  </Comment.Content>
-                </Comment>
-
-                <Comment>
-                  <Comment.Avatar src="https://react.semantic-ui.comhttps://react.semantic-ui.com/images/avatar/small/elliot.jpg" />
-                  <Comment.Content>
-                    <Comment.Author as="a">Elliot Fu</Comment.Author>
-                    <Comment.Metadata>
-                      <div>Yesterday at 12:30AM</div>
-                    </Comment.Metadata>
-                    <Comment.Text>
-                      <p>
-                        This has been very useful for my research. Thanks as
-                        well!
-                      </p>
-                    </Comment.Text>
-                    <Comment.Actions>
-                      <Comment.Action>Reply</Comment.Action>
-                    </Comment.Actions>
-                  </Comment.Content>
-                  <Comment.Group>
-                    <Comment>
-                      <Comment.Avatar src="https://react.semantic-ui.comhttps://react.semantic-ui.com/images/avatar/small/jenny.jpg" />
+              <Comment.Group
+                id={"reply" + row.studyfeed_num}
+                key={idx}
+                style={{ display: "none" }}
+              >
+                {replylist.map((ele, i) =>
+                  ele.reply_studyfeed_num === row.studyfeed_num ? (
+                    <Comment style={ele.reply_restep !== 0 ? blank : noblank}>
+                      <Avatar
+                        alt={ele.member_name}
+                        style={{ float: "left" }}
+                        src={
+                          "http://localhost:8000/project/uploadfile/" +
+                          ele.member_profile
+                        }
+                        className={avatarclasses.small}
+                      />
                       <Comment.Content>
-                        <Comment.Author as="a">Jenny Hess</Comment.Author>
+                        <Comment.Author as="a">
+                          {ele.member_name}
+                        </Comment.Author>
                         <Comment.Metadata>
-                          <div>Just now</div>
+                          <div>
+                            {new Date(ele.reply_writeday).toLocaleDateString()}
+                          </div>
                         </Comment.Metadata>
-                        <Comment.Text>
-                          Elliot you are always so right :)
-                        </Comment.Text>
-                        <Comment.Actions>
-                          <Comment.Action>Reply</Comment.Action>
+                        <Comment.Text>{ele.reply_content}</Comment.Text>
+                        <Comment.Actions style={{ marginLeft: "39px" }}>
+                          {ele.reply_restep === 0 ? (
+                            <Comment.Action
+                              onClick={() => {
+                                getReplyBox(ele.reply_num);
+                              }}
+                            >
+                              답글
+                            </Comment.Action>
+                          ) : (
+                            ""
+                          )}
                         </Comment.Actions>
+                        <div id={ele.reply_num} style={{ display: "none" }}>
+                          <Form
+                            key={i}
+                            onSubmit={(event) => {
+                              onReCommentSubmit(
+                                event,
+                                ele.reply_num,
+                                row.studyfeed_num,
+                                ele.reply_regroup
+                              );
+                            }}
+                          >
+                            <Form.TextArea
+                              style={{
+                                width: "610px",
+                                height: "100px",
+                                marginLeft: "39px",
+                                marginTop: "8px",
+                              }}
+                              onChange={handleRe_ReplyContentChange}
+                            />
+                            <SemanticButton
+                              content="등록"
+                              labelPosition="left"
+                              icon="edit"
+                              primary
+                              style={{
+                                marginLeft: "540px",
+                              }}
+                              type="submit"
+                            ></SemanticButton>
+                          </Form>
+                        </div>
                       </Comment.Content>
                     </Comment>
-                  </Comment.Group>
-                </Comment>
-
-                <Form reply>
-                  <Form.TextArea style={{ height: "100px" }} />
-                  <SemanticButton
-                    content="댓글 작성"
-                    labelPosition="left"
-                    icon="edit"
-                    primary
-                    style={{ marginLeft: "509.8px" }}
-                  />
-                </Form>
-                <br />
-                <br />
-                <br />
-                <br />
+                  ) : (
+                    ""
+                  )
+                )}
               </Comment.Group>
+
+              <Form
+                reply
+                onSubmit={(event) => {
+                  onCommentSubmit(event, row.studyfeed_num);
+                }}
+              >
+                <Form.TextArea
+                  style={{ height: "100px", width: "650px" }}
+                  onChange={handleReplyContentChange}
+                />
+                <SemanticButton
+                  content="댓글 작성"
+                  labelPosition="left"
+                  icon="edit"
+                  primary
+                  type="submit"
+                  style={{ marginLeft: "509.8px" }}
+                />
+              </Form>
             </Feed>
           ))}
+          <br />
+          <br />
         </div>
       </div>
       <div className={paperClasses.root}>
@@ -347,17 +482,20 @@ export default function MyStudyTeam(props) {
             <div key={idx}>
               <Avatar
                 alt={row.member_name}
-                style={{ float: "left" }}
                 src={
                   "http://localhost:8000/project/uploadfile/" +
                   row.member_profile
                 }
+                style={{ float: "left" }}
                 className={avatarclasses.large}
-              />
-              <br />
-              <Typography variant="body1" style={{ fontSize: "12pt" }}>
+              >
                 {row.member_name}
-              </Typography>
+              </Avatar>
+              <br />
+              {row.member_name}
+              <br />
+              <br />
+              <br />
             </div>
           ))}
           <br />

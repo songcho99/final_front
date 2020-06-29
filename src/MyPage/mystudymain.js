@@ -286,7 +286,8 @@ export default function MyStudyMain(props) {
       <br />
       <br />
       <br />
-      <MyPageMenu />
+      <br />
+      <br />
       <br />
       <div style={{ marginLeft: "350px" }}>
         <ExpansionPanel className={classes.root}>
@@ -494,9 +495,6 @@ export default function MyStudyMain(props) {
         </ExpansionPanel>
         <br />
       </div>
-      <Link to="/">
-        <button>홈으로</button>
-      </Link>
     </div>
   );
 }
