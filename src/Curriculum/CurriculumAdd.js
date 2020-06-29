@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
 import "./CurriculumAdd.scss";
+import "./CurriculumSchedule.scss";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,28 +55,16 @@ function CurriculumAdd() {
 
   const currencies = [
     {
-      value: "인공지능",
-      label: "인공지능",
-    },
-    {
-      value: "블록체인",
-      label: "블록체인",
-    },
-    {
-      value: "빅데이터 분석",
-      label: "빅데이터 분석",
-    },
-    {
-      value: "빅데이터 기술",
-      label: "빅데이터 기술",
-    },
-    {
-      value: "알고리즘",
-      label: "알고리즘",
+      value: "빅데이터",
+      label: "빅데이터",
     },
     {
       value: "클라우드",
       label: "클라우드",
+    },
+    {
+      value: "인공지능",
+      label: "인공지능",
     },
   ];
 
@@ -281,7 +270,7 @@ function CurriculumAdd() {
           let url2 = "http://localhost:8000/project/books/insert";
           axios
             .post(url2, bookdata)
-            .then((res) => { })
+            .then((res) => {})
             .catch((err) => {
               console.log("제공 교재 등록 에러 : " + err);
             });
@@ -292,7 +281,7 @@ function CurriculumAdd() {
           text: "수강 과정 등록이 성공적으로 처리되었습니다!",
         }).then((result) => {
           if (result.value) {
-            window.location.href = "/curriculumlist";
+            window.location.href = "/curriculumschedule";
           }
         });
 
@@ -379,232 +368,315 @@ function CurriculumAdd() {
   const handleSave = () => {
     alert(`POST Files Here..\n\n ${JSON.stringify(files, null, 2)}`);
   };
-
+  const tableStyle = {
+    textAlign: "center",
+    fontSize: "16px",
+    width: "1200px",
+    border: "0px",
+    borderCollapse: "collapse",
+    borderTop: "1px solid black",
+  };
+  const trStyle = {
+    borderBottom: "1px solid black",
+    height: "60px",
+  };
+  const buttonStyle = {
+    fontSize: "16px",
+    backgroundColor: "white",
+    width: "110px",
+    height: "40px",
+    borderRadius: "25px",
+    cursor: "pointer",
+    border: "1px solid gray",
+  };
   return (
-    <form
-      className={classes.root}
-      noValidate
-      autoComplete="off"
-      onSubmit={ProcessSubmit}
-    >
-      <div id="curriadd">
-        <br />
-        <br />
-        <TextField
-          id="standard-multiline-flexible"
-          multiline
-          label="Subject"
-          rowsMax={4}
-          value={process_subject}
-          onChange={handleChange}
-          onFocus={onFocusSubject}
-          style={{ width: "500px", left: "30%" }}
-        />
-        <br />
-        <br />
-        <TextField
-          id="standard-select-currency"
-          select
-          label="Type"
-          value={process_type}
-          onChange={selectChange}
-          helperText="과정 분류를 선택해 주세요"
-          style={{ width: "300px", left: "30%" }}
-        >
-          {currencies.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <br />
-        <br />
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <KeyboardDatePicker
-            disableToolbar
-            variant="inline"
-            format="MM/dd/yyyy"
-            margin="normal"
-            id="date-picker-inline"
-            label="과정 시작 날짜"
-            value={process_startdate}
-            onChange={handleStartDateChange}
-            KeyboardButtonProps={{
-              "aria-label": "change date",
-            }}
-            style={{ left: "30%" }}
-          />
-          <br />
-          <br />
-          <KeyboardDatePicker
-            disableToolbar
-            variant="inline"
-            format="MM/dd/yyyy"
-            margin="normal"
-            id="date-picker-inline"
-            label="과정 끝 날짜"
-            value={process_enddate}
-            onChange={handleEndDateChange}
-            KeyboardButtonProps={{
-              "aria-label": "change date",
-            }}
-            style={{ left: "30%" }}
-          />
-        </MuiPickersUtilsProvider>
-        <br />
-        <br />
-        <FormControl
-          className={classes.formControl}
-          style={{ left: "30.4%", width: "223px" }}
-        >
-          <InputLabel id="demo-simple-select-label">인원 수</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={process_peoples}
-            onChange={handleSelectChange}
-          >
-            {peoples}
-          </Select>
-        </FormControl>
-        <br />
-        <br />
-        <FormControl
-          className={classes.formControl}
-          style={{ left: "30.4%", width: "223px" }}
-        >
-          <InputLabel id="teacherlabel">담당 강사님</InputLabel>
-          <Select
-            labelId="teacherlabel"
-            id="demo-simple-select"
-            onChange={handleTeacherChange}
-            value={process_teacher}
-          >
-            {teachers}
-          </Select>
-        </FormControl>
-        <br />
-        <br />
-        <textarea
-          rowsMax={8}
-          aria-label="maximum height"
-          placeholder="해당 수강과정의 소개를 작성해주세요"
-          onChange={intrChange}
-          style={{ marginLeft: "30%", width: "400px", height: "110px" }}
-        />
-        <br />
-        <br />
-        <input
-          accept="image/*"
-          className={classes.input}
-          id="contained-button-file"
-          multiple
-          type="file"
-          onChange={selectFiles}
-          style={{ visibility: "hidden" }}
-        />
-        <label htmlFor="contained-button-file" style={{ marginLeft: "16.7%" }}>
-          <Button variant="contained" color="primary" component="span">
-            Upload curriculum image
-          </Button>
-        </label>
-        &nbsp;
-        {filesLength}개
-        <br />
-        <div>
-          {files.map((f) => {
-            return (
-              <div>
-                <img src={f.url} height="100" width="100" />
-              </div>
-            );
-          })}
+    <div align="center">
+      <div id="curriSchimgbox">
+        <img src={require("../image/keyboard.jpg")} id="curriSchimg"></img>
+        <div id="curriSchimgback"></div>
+        <div id="curriSchimgtextbox">
+          <div id="curriSchimgtitbox">
+            <div>IT Campus CurriCulum</div>
+            <div className="margin10">
+              <i className="far fa-calendar-alt"></i>
+            </div>
+          </div>
+          <div id="curriSchimgsubbox">
+            <div id="marginbottom10">
+              기업이 "신입" 에게 바라는 것은 "SW 개발의 기본을 출실히 알고
+              있는가?"입니다.
+            </div>
+            <div>6개월이 지난 후 기업 실무현장에서의 당신은 "당당합니다."</div>
+          </div>
         </div>
-        <br />
-        <hr />
-        <table>
-          {bookTag.map((item) => (
-            <tr>
-              <td>
-                <span
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    deleteBooks(item);
+      </div>
+      <div style={{ paddingTop: "100px" }}></div>
+      <span style={{ fontSize: "40px" }}>수강 과정 등록</span>
+      <br />
+      <br />
+      <span style={{ fontSize: "18px" }}>
+        IT Campus의 수강 과정을 등록하실 수 있습니다.
+      </span>
+      <div style={{ paddingTop: "100px" }}></div>
+      <form
+        // className={classes.root}
+        // noValidate
+        // autoComplete="off"
+        onSubmit={ProcessSubmit}
+      >
+        <table style={tableStyle} align="center">
+          <caption style={{ textAlign: "right", marginBottom: "20px" }}>
+            <button
+              style={buttonStyle}
+              type="submit"
+              className={classes.margin}
+            >
+              <i className="fas fa-plus"></i>&nbsp;&nbsp; 등록
+            </button>
+          </caption>
+          <tbody>
+            <tr style={trStyle}>
+              <td style={{ width: 150 }}>과정명</td>
+              <td align="left">
+                <input
+                  type="text"
+                  value={process_subject}
+                  onChange={handleChange}
+                  onFocus={onFocusSubject}
+                  style={{
+                    width: 1000,
+                    height: "40px",
+                    textAlign: "left",
+                    border: "0px",
                   }}
-                >
-                  {item.books_brand}&nbsp;<b>{item.books_name}</b>&nbsp;
-                  {item.books_writer}
-                </span>
+                />
               </td>
             </tr>
-          ))}
-        </table>
-        <hr />
-        <TextField
-          multiline
-          label="제공 교재 검색"
-          rowsMax={4}
-          value={searchBook}
-          onFocus={getBooksList}
-          onChange={bookListChange}
-          style={{ width: "300px", left: "29%" }}
-        />
-        <br />
-        <table
-          style={{
-            marginLeft: "30%",
-            width: "500px",
-            height: "300px",
-            overflow: "scroll",
-          }}
-        >
-          <tbody>
-            {/* {books.map((item) => (
-              <tr>
-                <td>{item.books_brand}</td>
-                <td>
-                  <span style={{ cursor: "pointer" }}>{item.books_name}</span>
-                </td>
-                <td>{item.books_writer}</td>
-              </tr>
-            ))} */}
-            {findData.map((item, index) => (
-              <tr>
-                <td>{item.books_brand}</td>
-                <td>
+            <tr style={trStyle}>
+              <td>분류</td>
+              <td align="left" style={{ textAlign: "left" }}>
+                <TextField
+                  id="standard-select-currency"
+                  select
+                  value={process_type}
+                  onChange={selectChange}
+                  style={{ width: "200px" }}
+                >
+                  {currencies.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>시작 날짜</td>
+              <td align="left" style={{ textAlign: "left" }}>
+                <MuiPickersUtilsProvider
+                  utils={DateFnsUtils}
+                  style={{ width: "200px" }}
+                >
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="MM/dd/yyyy"
+                    margin="normal"
+                    id="date-picker-inline"
+                    value={process_startdate}
+                    onChange={handleStartDateChange}
+                    KeyboardButtonProps={{
+                      "aria-label": "change date",
+                    }}
+                  />
+                </MuiPickersUtilsProvider>
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>끝 날짜</td>
+              <td align="left" style={{ textAlign: "left" }}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="MM/dd/yyyy"
+                    margin="normal"
+                    id="date-picker-inline"
+                    value={process_enddate}
+                    onChange={handleEndDateChange}
+                    KeyboardButtonProps={{
+                      "aria-label": "change date",
+                    }}
+                  />
+                </MuiPickersUtilsProvider>
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>인원</td>
+              <td align="left" style={{ textAlign: "left" }}>
+                <FormControl
+                  className={classes.formControl}
+                  style={{ width: "200px" }}
+                >
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={process_peoples}
+                    onChange={handleSelectChange}
+                  >
+                    {peoples}
+                  </Select>
+                </FormControl>
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>담당 강사</td>
+              <td align="left" style={{ textAlign: "left" }}>
+                <FormControl
+                  className={classes.formControl}
+                  style={{ width: "200px" }}
+                >
+                  <Select
+                    labelId="teacherlabel"
+                    id="demo-simple-select"
+                    onChange={handleTeacherChange}
+                    value={process_teacher}
+                  >
+                    {teachers}
+                  </Select>
+                </FormControl>
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>소개</td>
+              <td align="left" style={{ textAlign: "left" }}>
+                <textarea
+                  rowsMax={8}
+                  aria-label="maximum height"
+                  placeholder="해당 수강과정의 소개를 작성해주세요"
+                  onChange={intrChange}
+                  style={{
+                    marginTop: "10px",
+                    marginBottom: "10px",
+                    width: "1000px",
+                    height: "400px",
+                    border: "0px",
+                  }}
+                />
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>파일</td>
+              <td align="left" style={{ textAlign: "left" }}>
+                <span style={{ marginTop: "10px" }}>
+                  <label htmlFor="contained-button-file">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      component="span"
+                    >
+                      파일 첨부
+                    </Button>
+                  </label>
+                  &nbsp;&nbsp;
+                  {filesLength}개
+                  <input
+                    accept="image/*"
+                    className={classes.input}
+                    id="contained-button-file"
+                    multiple
+                    type="file"
+                    onChange={selectFiles}
+                    style={{ visibility: "hidden" }}
+                  />
+                </span>
+                <br />
+                <br />
+                {files.map((f) => {
+                  return (
+                    <span>
+                      <img
+                        alt=""
+                        src={f.url}
+                        style={{ height: "100px", width: "100px" }}
+                      />
+                    </span>
+                  );
+                })}
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td rowSpan="2">교재</td>
+              <td align="left" style={{ textAlign: "left" }}>
+                {bookTag.map((item) => (
                   <span
-                    key={index}
                     style={{ cursor: "pointer" }}
                     onClick={() => {
-                      plusBook(item, index);
+                      deleteBooks(item);
                     }}
                   >
-                    {item.books_name}
+                    {item.books_brand}&nbsp;<b>{item.books_name}</b>&nbsp;
+                    {item.books_writer}
+                    <br />
                   </span>
-                </td>
-                <td>{item.books_writer}</td>
-              </tr>
-            ))}
+                ))}
+                <br />
+                <input
+                  type="text"
+                  value={searchBook}
+                  placeholder="교재명을 검색하세요."
+                  onFocus={getBooksList}
+                  onChange={bookListChange}
+                  style={{
+                    width: 1000,
+                    height: "40px",
+                    textAlign: "left",
+                    border: "0px",
+                  }}
+                />
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>
+                <table style={{ width: "1000px" }}>
+                  <thead>
+                    <th>책 이름</th>
+                    <th>저자</th>
+                    <th>출판사</th>
+                  </thead>
+                  <tbody>
+                    {findData.map((item, index) => (
+                      <tr>
+                        <td style={{ textAlign: "left" }}>
+                          <span
+                            key={index}
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              plusBook(item, index);
+                            }}
+                          >
+                            {item.books_name}
+                          </span>
+                        </td>
+                        <td>{item.books_writer}</td>
+                        <td>{item.books_brand}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </td>
+            </tr>
           </tbody>
         </table>
-        <hr />
-        <Button
-          type="submit"
-          style={{ left: "50%" }}
-          variant="contained"
-          size="large"
-          color="primary"
-          className={classes.margin}
-        >
-          수강과정 등록
-        </Button>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
-    </form>
+        <div id="curriadd">
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+        </div>
+      </form>
+    </div>
   );
 }
 

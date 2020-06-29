@@ -22,10 +22,15 @@ class calender extends Component {
       thisDates: [],
       processFiles: [],
       list: [],
+      processType: [],
+      ptype: [],
     };
   }
 
   componentWillMount() {
+    this.list();
+  }
+  list = () => {
     let url = "http://localhost:8000/project/process/list";
     axios
       .post(url)
@@ -33,12 +38,27 @@ class calender extends Component {
         this.setState({
           list: res.data,
         });
+        for (var i = 0; i < this.state.list.length; i++) {
+          console.log("process type=" + this.state.list[i].process_type);
+          if (this.state.list[i].process_type === "빅데이터") {
+            this.state.processType.push("bigdata");
+          } else if (this.state.list[i].process_type === "클라우드") {
+            this.state.processType.push("cloud");
+          } else {
+            this.state.processType.push("ai");
+          }
+          console.log(this.state.processType[i]);
+        }
+        console.log(this.state.processType);
+        this.setState({
+          ptype: this.state.processType,
+        });
+        console.log(this.state.ptype);
       })
       .catch((err) => {
         console.log("수강 과정 목록 불러오기 에러 : " + err);
       });
-  }
-
+  };
   but = () => {
     console.log(this.state.list);
   };
@@ -119,7 +139,7 @@ class calender extends Component {
                     {/* {value.date === 1 ? value.month + "월 " : ""} */}
                     <div>{value.date}</div>
                     {/* <div>{value.fulldate.replace(/0/gi, "")}</div> */}
-                    {this.state.list.map((row) => {
+                    {this.state.list.map((row, idx) => {
                       // console.log(
                       //   "1:" +
                       //     row.process_startdate
@@ -139,7 +159,11 @@ class calender extends Component {
                           "." ===
                         value.fulldate.replace(/0/gi, "").replace(/(\s*)/g, "")
                       ) {
-                        return <div>{row.process_subject} 시작</div>;
+                        return (
+                          <div className={this.state.ptype[idx]}>
+                            {row.process_subject} 시작
+                          </div>
+                        );
                       } else if (
                         row.process_enddate
                           .replace(/-/gi, ".")
@@ -147,7 +171,11 @@ class calender extends Component {
                           "." ===
                         value.fulldate.replace(/0/gi, "").replace(/(\s*)/g, "")
                       ) {
-                        return <div>{row.process_subject} 종료</div>;
+                        return (
+                          <div className={this.state.ptype[idx]}>
+                            {row.process_subject} 종료
+                          </div>
+                        );
                       }
                     })}
                   </span>

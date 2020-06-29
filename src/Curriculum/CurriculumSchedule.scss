@@ -23,7 +23,7 @@
 //백 이미지 박스
 #curriSchimgbox {
   width: 100%;
-  height: 200px;
+  height: 400px;
   position: relative;
   z-index: 1;
   display: flex;
@@ -34,13 +34,13 @@
 
 #curriSchimg {
   width: 100%;
-  height: 200px;
+  height: 400px;
   position: absolute;
 }
 
 #curriSchimgback {
   width: 100%;
-  height: 200px;
+  height: 400px;
   position: absolute;
   background-color: var(--blue);
   opacity: 0.5;
