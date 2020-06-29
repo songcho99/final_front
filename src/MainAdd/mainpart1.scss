@@ -67,12 +67,14 @@ root {
 // 타이틀
 #part1tit {
   height: 100px;
-  font-size: 100px;
+  font-size: 120px;
   font-weight: bold;
   color: var(--white);
   letter-spacing: 8px;
   margin-bottom: 20px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 #part1sub {

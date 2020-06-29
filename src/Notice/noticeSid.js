@@ -5,6 +5,7 @@ class noticeSid extends Component {
   render() {
     return (
       <div id="noticSid">
+        <div id="noticSidback"></div>
         <a className="noticnav" href="/noticelist">
           공지사항
         </a>

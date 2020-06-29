@@ -43,9 +43,7 @@ class qna_list extends Component {
           currentPosts: res.data.slice(0, 10),
         });
 
-        if (
-          this.state.member_type !== "매니저"
-        ) {
+        if (this.state.member_type !== "매니저") {
           this.setState({
             write: (
               <Link
@@ -207,7 +205,7 @@ class qna_list extends Component {
     return (
       <div style={{ textAlign: "center" }}>
         <Sid></Sid>
-        <div style={{ paddingTop: "100px" }}></div>
+        <div style={{ paddingTop: "115px" }}></div>
         <div style={backimage}>
           <span style={{ fontSize: "70px", color: "#A6A6A6" }}>
             IT Campus Service

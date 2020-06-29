@@ -6,12 +6,13 @@ class CurriculumMenu extends Component {
   render() {
     return (
       <div id="curriMenu">
-        <div className="curriMenunav" onClick={this.props.CurrilistOn}>
-          수강과정 목록
-        </div>{" "}
+        <div id="curriMenuback"></div>
         <div className="curriMenunav" onClick={this.props.calenderOn}>
           수강과정 일정
-        </div>{" "}
+        </div>
+        <div className="curriMenunav" onClick={this.props.CurrilistOn}>
+          수강과정 목록
+        </div>
       </div>
     );
   }

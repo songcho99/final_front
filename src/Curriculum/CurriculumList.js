@@ -93,7 +93,7 @@ class CurriculumList extends Component {
                   <div className="curricardmainimgbox">
                     {this.state.processFiles.map((row) => (
                       <img
-                        src={imageUrl + row.processfiles_process_filename}
+                        src={imageUrl + row.process_num}
                         className="curricardmainimg"
                       ></img>
                     ))}
