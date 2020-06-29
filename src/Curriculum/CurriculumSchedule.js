@@ -121,25 +121,25 @@ class CurriculumSchedule extends Component {
             {/* PHP 박스 */}
             <div className="curriSchnavbox" onClick={this.PHPBox.bind(this)}>
               <div className={this.state.phpbox}>
-                <i className="fab fa-php"></i>
+                <i className="fas fa-database"></i>
               </div>
-              <div className="curriSchcerletex">인공지능</div>
+              <div className="curriSchcerletex">빅데이터</div>
             </div>
 
             {/* React 박스 */}
             <div className="curriSchnavbox" onClick={this.ReactBox.bind(this)}>
               <div className={this.state.Reactbox}>
-                <i className="fab fa-react"></i>
+                <i className="fas fa-cloud"></i>
               </div>
-              <div className="curriSchcerletex">블록체인</div>
+              <div className="curriSchcerletex">클라우드</div>
             </div>
 
             {/* JAVA 박스 */}
             <div className="curriSchnavbox" onClick={this.JavaBox.bind(this)}>
               <div className={this.state.Java}>
-                <i className="fab fa-java"></i>
+                <i className="fas fa-brain"></i>
               </div>
-              <div className="curriSchcerletex">빅데이터</div>
+              <div className="curriSchcerletex">인공지능</div>
             </div>
           </div>
         </div>

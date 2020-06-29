@@ -5,8 +5,8 @@ import "./IntroduceMenu.scss";
 class IntroduceMenu extends Component {
   state = {
     Intro: 0,
-    house: window.innerHeight - 115,
-    road: window.innerHeight * 2,
+    house: window.innerHeight,
+    road: window.innerHeight + 700,
     introOn: "introMenuColor",
     houseOn: "",
     roadOn: "",
@@ -29,7 +29,7 @@ class IntroduceMenu extends Component {
         });
       } else if (
         scrollY >= window.innerHeight - 115 &&
-        scrollY < window.innerHeight * 2
+        scrollY < window.innerHeight + 700
       ) {
         // console.log("학원 시설");
         this.setState({
@@ -37,7 +37,7 @@ class IntroduceMenu extends Component {
           houseOn: "introMenuColor",
           roadOn: "",
         });
-      } else if (scrollY >= window.innerHeight * 2) {
+      } else if (scrollY >= window.innerHeight + 700) {
         // console.log("오시는길");
         this.setState({
           introOn: "",
@@ -70,27 +70,42 @@ class IntroduceMenu extends Component {
     return (
       <div>
         <div id="introduceMenu">
-          <div id="introduceMenuback"></div>
-          <div
-            id="introMenu"
-            onClick={this.Intro.bind(this)}
-            className={this.state.introOn}
-          >
-            학원 소개
-          </div>
-          <div
-            id="introMenu2"
-            onClick={this.House.bind(this)}
-            className={this.state.houseOn}
-          >
-            학원 시설
-          </div>
-          <div
-            id="introMenu3"
-            onClick={this.Road.bind(this)}
-            className={this.state.roadOn}
-          >
-            오시는 길
+          <div className="sidmenunav">
+            {/* 학원 소개 */}
+            <div id="academyLink" className={this.state.introOn}>
+              <div id="academyLinksub">IT소개</div>
+              <a
+                id="academyLinkmain"
+                onClick={this.Intro.bind(this)}
+                className={this.state.introOn}
+              >
+                <i className="far fa-bookmark"></i>
+              </a>
+            </div>
+
+            {/* 학원 시설 */}
+            <div id="introMenu2" className={this.state.houseOn}>
+              <div id="introMenu2sub">학원시설</div>
+              <a
+                id="introMenu2main"
+                onClick={this.House.bind(this)}
+                className={this.state.houseOn}
+              >
+                <i className="fas fa-archway"></i>
+              </a>
+            </div>
+
+            {/* 오시는길 */}
+            <div id="introMenu3" className={this.state.roadOn}>
+              <div id="introMenu3sub">오시는길</div>
+              <a
+                id="introMenu3main"
+                onClick={this.Road.bind(this)}
+                className={this.state.roadOn}
+              >
+                <i className="fas fa-train"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>

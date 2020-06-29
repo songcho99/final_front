@@ -132,6 +132,9 @@ class calender extends Component {
                       //       .replace(/0/gi, "")
                       //       .replace(/(\s*)/g, "")
                       // );
+                      //인공지능
+                      //블록체인
+                      //빅데이터
                       if (
                         row.process_startdate
                           .replace(/-/gi, ".")
