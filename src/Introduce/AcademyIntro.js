@@ -21,7 +21,7 @@ class AcademyIntro extends Component {
               <Facility></Facility>
             </div>
           </div>
-          <div id="academyintrobox2">
+          <div id="academyintrobox3">
             <Map></Map>
           </div>
         </div>

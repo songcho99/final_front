@@ -21,6 +21,7 @@ class calender extends Component {
       thisMonth: month,
       thisDates: [],
       processFiles: [],
+      list: [],
     };
   }
 
@@ -34,9 +35,13 @@ class calender extends Component {
         });
       })
       .catch((err) => {
-        console.log("수강 과정 켈린더 불러오기 에러 : " + err);
+        console.log("수강 과정 목록 불러오기 에러 : " + err);
       });
   }
+
+  but = () => {
+    console.log(this.state.list);
+  };
 
   componentDidMount() {
     this._get_month();
@@ -62,7 +67,18 @@ class calender extends Component {
             &gt;
           </button>
         </header>
-
+        <button onClick={this.but.bind(this)}>돌아와</button>
+        <div>
+          {this.state.list.map((row) => {
+            if (row.process_startdate == "2020-06-26") {
+              return (
+                <div>
+                  {row.process_startdate.replace(/-/gi, ".").replace(/0/gi, "")}
+                </div>
+              );
+            }
+          })}
+        </div>
         {/* 날짜 출력 */}
         <section>
           {/* 요일 출력 */}
@@ -102,7 +118,38 @@ class calender extends Component {
                   >
                     {/* {value.date === 1 ? value.month + "월 " : ""} */}
                     <div>{value.date}</div>
-                    {}
+                    {/* <div>{value.fulldate.replace(/0/gi, "")}</div> */}
+                    {this.state.list.map((row) => {
+                      // console.log(
+                      //   "1:" +
+                      //     row.process_startdate
+                      //       .replace(/-/gi, ".")
+                      //       .replace(/0/gi, "")
+                      // );
+                      // console.log(
+                      //   "2:" +
+                      //     value.fulldate
+                      //       .replace(/0/gi, "")
+                      //       .replace(/(\s*)/g, "")
+                      // );
+                      if (
+                        row.process_startdate
+                          .replace(/-/gi, ".")
+                          .replace(/0/gi, "") +
+                          "." ===
+                        value.fulldate.replace(/0/gi, "").replace(/(\s*)/g, "")
+                      ) {
+                        return <div>{row.process_subject} 시작</div>;
+                      } else if (
+                        row.process_enddate
+                          .replace(/-/gi, ".")
+                          .replace(/0/gi, "") +
+                          "." ===
+                        value.fulldate.replace(/0/gi, "").replace(/(\s*)/g, "")
+                      ) {
+                        return <div>{row.process_subject} 종료</div>;
+                      }
+                    })}
                   </span>
                 </div>
               );

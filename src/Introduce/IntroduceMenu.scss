@@ -14,16 +14,28 @@
 // 사이드 바
 #introduceMenu {
   position: fixed;
-  top: 20%;
+  top: 75px;
   left: 0;
-  flex-direction: column;
-  width: 150px;
+  width: 100%;
   display: flex;
-  background-color: var(--black);
+  background-color: transparent;
   color: var(--white);
+  z-index: 100;
 }
 
+#introduceMenuback {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  z-index: 1;
+  background-color: var(--blue);
+  opacity: 0.7;
+}
 #introMenu {
+  position: relative;
+  z-index: 3;
   width: 100%;
   height: 40px;
   display: flex;
@@ -34,6 +46,8 @@
 }
 
 #introMenu2 {
+  position: relative;
+  z-index: 3;
   width: 100%;
   height: 40px;
   display: flex;
@@ -44,6 +58,8 @@
 }
 
 #introMenu3 {
+  position: relative;
+  z-index: 3;
   width: 100%;
   height: 40px;
   display: flex;
