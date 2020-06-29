@@ -1,12 +1,13 @@
 import React from "react";
 import back from "./back.jpg";
+import "./AcademyLink.scss";
 
 const backimage = {
   width: "100%",
   height: "100%",
   backgroundImage: `url(${back})`,
   backgroundRepeat: "no-repeat",
-  backgroundSize: "100% 1000px",
+  backgroundSize: "100% 100%",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -16,21 +17,17 @@ const AcademyLink = () => {
   return (
     <div style={{ textAlign: "center", height: "100%" }}>
       <div style={backimage}>
-        <span
-          style={{ fontSize: "110px", color: "#2253B8", fontWeight: "bold" }}
-        >
-          "IT Campus"
-        </span>
+        <span id="academylinktit">IT Campus</span>
         <br />
         <br />
-        <span style={{ fontSize: "40px" }}>
+        <span style={{ fontSize: "20px" }}>
           변화의 디지털 시대에 맞는 <br />
           <span style={{ color: "#2253B8" }}>고객의 최고의 파트너</span>가
           되고자 힘을 모았습니다.
         </span>
         <br />
         <br />
-        <span style={{ fontSize: "30px", color: "#8C8C8C" }}>
+        <span style={{ fontSize: "18px", color: "#8C8C8C" }}>
           과거 ICT기술은 냉대,열대,아열대처럼 그 변화의 주기 및 속도가 우리의
           빠른 대응을 이끌어 내기에는 부족했습니다.
           <br />
