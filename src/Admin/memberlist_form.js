@@ -13,6 +13,7 @@ import Mypagelist from "../MyPage/mypagelist";
 
 export default function MemberList_Form() {
   // 검색 필터 값 받는 변수
+  const [member_type, setMember_type] = React.useState("");
   const [field, setField] = React.useState("member_type");
 
   //선택값에 따라 필터값 바뀌는 이벤트
@@ -92,6 +93,40 @@ export default function MemberList_Form() {
       return select(item);
     }
   };
+
+  const onMemberUpdate = (member_num) => {
+    let url = "http://localhost:8000/project/member/memberlistupdate";
+    const data = new FormData();
+    data.append("member_num", member_num);
+    data.append("member_type", member_type);
+    axios.post(url, data)
+      .then((res) => {
+        Swal.fire({
+          icon: 'success',
+          title: '변경 완료',
+          text: '회원 유형의 변경이 완료되었습니다',
+        }).then((result) => {
+          list();
+        })
+
+      })
+      .catch((err) => {
+        console.log(member_num);
+        console.log("수정 오류:" + err);
+      });
+  };
+
+  const update = (item) => (
+    <span onClick={onMemberUpdate.bind(this, item.member_num)}
+      style={{ cursor: "pointer" }}>
+      <i className="fa fa-pencil fa-fw" style={{ fontSize: "20px" }} />
+    </span>
+  )
+
+  const changeTypeHandler = (e) => {
+    setMember_type(e.target.value);
+    console.log(e.target.value);
+  }
 
 
   const select = (item) => (
@@ -196,7 +231,7 @@ export default function MemberList_Form() {
         <table style={tableStyle}>
           <thead>
             <tr style={trStyle}>
-              <td style={{ textAlign: "center", width: 150 }}>구분1</td>
+              <td style={{ textAlign: "center", width: 150 }}>구분</td>
               <td style={{ textAlign: "center", width: 100 }}>이름</td>
               <td style={{ textAlign: "center", width: 150 }}>핸드폰</td>
               <td style={{ textAlign: "center", width: 200 }}>이메일</td>
@@ -207,12 +242,18 @@ export default function MemberList_Form() {
           <tbody>
             {asd.map((item, idx) => (
               <tr style={trStyle}>
-                <td> {item.member_type}</td>
+                <td>
+                  <select name="typechange" onChange={changeTypeHandler}>
+                    <option>{item.member_type}</option>
+                    <option value="매니저">매니저</option>
+                    <option value="강사">강사</option>
+                  </select>
+                </td>
                 <td>{item.member_name}</td>
                 <td>{item.member_phone}</td>
-                <td>{item.member_phone}</td>
+                <td>{item.member_email}</td>
                 <td style={{ textAlign: "left" }}>{item.member_address + " " + item.member_detailaddr}</td>
-                <td>{trash(item)}</td>
+                <td>{update(item)}&nbsp;&nbsp;{trash(item)}</td>
               </tr>
             ))}
           </tbody>
