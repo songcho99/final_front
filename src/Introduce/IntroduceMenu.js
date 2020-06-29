@@ -5,7 +5,7 @@ import "./IntroduceMenu.scss";
 class IntroduceMenu extends Component {
   state = {
     Intro: 0,
-    house: window.innerHeight,
+    house: window.innerHeight - 115,
     road: window.innerHeight * 2,
     introOn: "introMenuColor",
     houseOn: "",
@@ -16,11 +16,11 @@ class IntroduceMenu extends Component {
   componentDidMount() {
     window.addEventListener("scroll", () => {
       // console.log(window.innerHeight);
-      // console.log(window.scrollY);
+      console.log(window.scrollY);
       let scrollY = window.scrollY;
       // console.log("scrollY: " + scrollY);
 
-      if (scrollY >= 0 && scrollY < window.innerHeight) {
+      if (scrollY >= 0 && scrollY < window.innerHeight - 115) {
         // console.log("학원소개");
         this.setState({
           introOn: "introMenuColor",
@@ -28,7 +28,7 @@ class IntroduceMenu extends Component {
           roadOn: "",
         });
       } else if (
-        scrollY >= window.innerHeight &&
+        scrollY >= window.innerHeight - 115 &&
         scrollY < window.innerHeight * 2
       ) {
         // console.log("학원 시설");
@@ -70,6 +70,7 @@ class IntroduceMenu extends Component {
     return (
       <div>
         <div id="introduceMenu">
+          <div id="introduceMenuback"></div>
           <div
             id="introMenu"
             onClick={this.Intro.bind(this)}

@@ -123,7 +123,7 @@ class CurriculumSchedule extends Component {
               <div className={this.state.phpbox}>
                 <i className="fab fa-php"></i>
               </div>
-              <div className="curriSchcerletex">PHP</div>
+              <div className="curriSchcerletex">인공지능</div>
             </div>
 
             {/* React 박스 */}
@@ -131,7 +131,7 @@ class CurriculumSchedule extends Component {
               <div className={this.state.Reactbox}>
                 <i className="fab fa-react"></i>
               </div>
-              <div className="curriSchcerletex">React</div>
+              <div className="curriSchcerletex">블록체인</div>
             </div>
 
             {/* JAVA 박스 */}
@@ -139,7 +139,7 @@ class CurriculumSchedule extends Component {
               <div className={this.state.Java}>
                 <i className="fab fa-java"></i>
               </div>
-              <div className="curriSchcerletex">JAVA</div>
+              <div className="curriSchcerletex">빅데이터</div>
             </div>
           </div>
         </div>

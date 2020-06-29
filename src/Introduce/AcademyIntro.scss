@@ -14,6 +14,7 @@
 //기본 위치
 #academyintro {
   width: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
 }
@@ -25,10 +26,15 @@
 #academyintrobox {
   width: 100%;
   height: 100vh;
-  padding-top: 75px;
+  padding-top: 115px;
 }
 
 #academyintrobox2 {
   width: 100%;
   height: 100vh;
+}
+
+#academyintrobox3 {
+  width: 100%;
+  height: 800px;
 }
