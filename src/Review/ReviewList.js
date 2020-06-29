@@ -118,10 +118,10 @@ class ReviewList extends Component {
       width: "1200px",
       border: "0px",
       borderCollapse: "collapse",
-      borderTop: "1px solid black",
+      borderTop: "1px solid #D5D5D5",
     };
     const trStyle = {
-      borderBottom: "1px solid black",
+      borderBottom: "1px solid #D5D5D5",
       height: "60px",
     };
     const buttonStyle = {
@@ -132,6 +132,7 @@ class ReviewList extends Component {
       borderRadius: "25px",
       cursor: "pointer",
       border: "1px solid gray",
+      outline: "none",
     };
     const url = "http://localhost:8000/project/uploadfile/";
     return (
@@ -177,11 +178,11 @@ class ReviewList extends Component {
             <tr>
               <td colSpan="2" style={{ height: "100px" }}>
                 <span style={{ fontSize: "20px" }}>
-                  커리큘럼
+                  커리큘럼&nbsp;
                   <Rating name="Curri" value={plansavg_value} readOnly />
-                  &nbsp;&nbsp;&nbsp;&nbsp; 전달력
+                  &nbsp;&nbsp;&nbsp;&nbsp; 전달력&nbsp;
                   <Rating name="Commu" value={commuavg_value} readOnly />
-                  &nbsp;&nbsp;&nbsp;&nbsp; 준비성
+                  &nbsp;&nbsp;&nbsp;&nbsp; 준비성&nbsp;
                   <Rating name="Ready" value={readyavg_value} readOnly />
                 </span>
               </td>
@@ -190,7 +191,7 @@ class ReviewList extends Component {
         </table>
         <div style={{ paddingTop: "50px" }}></div>
         <table style={tableStyle1} align="center">
-          <caption style={{ textAlign: "right" }}>
+          <caption style={{ textAlign: "right", marginBottom: "10px" }}>
             <Link to="/addreview">
               <button style={buttonStyle}>
                 <i className="fas fa-pencil-alt"></i> 작성
@@ -214,8 +215,9 @@ class ReviewList extends Component {
                       Width: 100,
                       height: 100,
                       maxWidth: 100,
-                      border: "1px solid gray",
+                      border: "0px",
                       borderRadius: "50%",
+                      marginBottom: "5px",
                     }}
                   />
                   <br />
@@ -225,62 +227,58 @@ class ReviewList extends Component {
                 <td style={{ width: 1000, textAlign: "left" }}>
                   <span>{item.review_process}</span>
                   <br />
-                  <span>{item.review_subject}</span>
+                  <span style={{ fontSize: "20px" }}>
+                    {item.review_subject}
+                  </span>
                   <br />
-                  <span>{item.review_content}</span>
+                  <span>
+                    <pre style={{ fontWeight: "bold" }}>
+                      {item.review_content}
+                    </pre>
+                  </span>
+                  <br />
+                  <span>
+                    커리큘럼&nbsp;
+                    <Rating name="Curri" value={item.review_plans} readOnly />
+                    &nbsp;&nbsp;&nbsp;&nbsp; 전달력&nbsp;
+                    <Rating name="Commu" value={item.review_commu} readOnly />
+                    &nbsp;&nbsp;&nbsp;&nbsp; 준비성&nbsp;
+                    <Rating name="Ready" value={item.review_ready} readOnly />
+                  </span>
+                  <br />
+                  <span style={{ color: "#BDBDBD" }}>
+                    {item.review_writeday}
+                  </span>
+                  <span style={{ float: "right" }}>
+                    {localStorage.name === item.review_member_name && (
+                      <Link
+                        to={{
+                          pathname: "/updatereview",
+                          state: { reviewList: item },
+                        }}
+                        style={{ textDecoration: "none", color: "black" }}
+                      >
+                        <span style={{ fontSize: "18px" }}>
+                          <i className="fas fa-pencil-alt"></i>
+                        </span>
+                      </Link>
+                    )}
+
+                    {localStorage.name === item.review_member_name && (
+                      <span
+                        onClick={this.onDelete.bind(this, item.review_num)}
+                        style={{ fontSize: "18px" }}
+                      >
+                        &nbsp;&nbsp;<i className="far fa-trash-alt"></i>
+                      </span>
+                    )}
+                  </span>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <br></br>
-        <br></br>
-
-        <table>
-          {this.state.reviewList.map((item, idx) => (
-            <tbody>
-              <tr key={idx}>
-                <td style={{ width: 200, heigth: 200 }}>
-                  <img
-                    src={url + item.member_profile}
-                    alt=""
-                    style={{ maxWidth: 100 }}
-                  />
-                </td>
-                <td style={{ width: 100 }}>{item.review_subject}</td>
-                <td>
-                  {" "}
-                  <b>{item.review_process}</b>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  {item.review_member_name}{" "}
-                  {localStorage.name === item.review_member_name && (
-                    <Link
-                      to={{
-                        pathname: "/updatereview",
-                        state: { reviewList: item },
-                      }}
-                      style={{ color: "black", textDecoration: "none" }}
-                    >
-                      <button>수정</button>
-                    </Link>
-                  )}
-                  {localStorage.name === item.review_member_name && (
-                    <button onClick={this.onDelete.bind(this, item.review_num)}>
-                      삭제
-                    </button>
-                  )}
-                </td>
-                <td colSpan="2" style={{ width: 200 }}>
-                  {item.review_content}
-                </td>
-              </tr>
-              <br></br>
-            </tbody>
-          ))}
-        </table>
+        <div style={{ paddingBottom: "100px" }}></div>
       </div>
     );
   }
