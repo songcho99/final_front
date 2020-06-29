@@ -9,11 +9,11 @@ import AcademyLink from "./AcademyLink";
 class AcademyIntro extends Component {
   render() {
     return (
-      <div id="academyintro">
+      <div id="academyintro" style={{ width: "100%" }} >
         <IntroduceMenu />
 
-        <div id="academyintroback">
-          <div id="academyintrobox">
+        <div id="academyintroback" style={{ width: "100%" }}>
+          <div id="academyintrobox" style={{ width: "100%" }}>
             <AcademyLink></AcademyLink>
           </div>
           <div id="academyintrobox2">
@@ -21,7 +21,7 @@ class AcademyIntro extends Component {
               <Facility></Facility>
             </div>
           </div>
-          <div id="academyintrobox2">
+          <div id="academyintrobox2" style={{ width: "1200px", display: "inline-block", float: "center" }} align="center">
             <Map></Map>
           </div>
         </div>

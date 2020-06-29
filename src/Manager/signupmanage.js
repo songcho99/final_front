@@ -163,47 +163,53 @@ class signupmanage extends Component {
   componentWillMount = () => {
     this.processApplyList();
   };
+
   render() {
+    const tableStyle = {
+      textAlign: "center",
+      fontSize: "16px",
+      width: "1200px",
+      border: "0px",
+      borderCollapse: "collapse",
+      borderTop: "1px solid black",
+    };
+    const trStyle = {
+      borderBottom: "1px solid black",
+      height: "60px",
+    };
     return (
       <div style={{ textAlign: "center" }} align="center">
         <Mypagelist />
         <div style={{ paddingTop: "100px" }}></div>
         <span style={{ fontSize: "40px" }}>수강신청 관리</span>
         <div style={{ paddingTop: "200px" }}></div>
-        <TableContainer
-          component={Paper}
-          style={{ width: "90%", marginLeft: "5%" }}
-        >
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>수강 과정명</TableCell>
-                <TableCell align="center">이름</TableCell>
-                <TableCell align="center">PHONE</TableCell>
-                <TableCell align="center">EMAIL</TableCell>
-                <TableCell align="center"></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {this.state.processapplyList.map((item, index) => (
-                <TableRow>
-                  <TableCell>{item.processapply_process_subject}</TableCell>
-                  <TableCell>{item.processapply_member_name}</TableCell>
-                  <TableCell>{item.processapply_member_phone}</TableCell>
-                  <TableCell>{item.processapply_member_email}</TableCell>
-                  <TableCell>
-                    <span
-                      style={{ cursor: "pointer" }}
-                      onClick={this.detailInfo.bind(this, item)}
-                    >
-                      확인
-                    </span>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <table style={tableStyle} align="center">
+          <thead>
+            <tr style={trStyle}>
+              <td style={{ width: 100 }}>이름</td>
+              <td style={{ width: 150 }}>핸드폰</td>
+              <td style={{ width: 200 }}>이메일</td>
+              <td style={{ width: 650 }}>과정명</td>
+              <td style={{ width: 100 }}>비고</td>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.processapplyList.map((item, index) => (
+              <tr style={trStyle}>
+                <td>{item.processapply_member_name}</td>
+                <td>{item.processapply_member_phone}</td>
+                <td>{item.processapply_member_email}</td>
+                <td>{item.processapply_process_subject}</td>
+                <td><span
+                  style={{ cursor: "pointer" }}
+                  onClick={this.detailInfo.bind(this, item)}
+                >
+                  확인
+                    </span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <Modal
           style={{ width: "400px", height: "300px" }}
           isOpen={this.state.modalOpen}

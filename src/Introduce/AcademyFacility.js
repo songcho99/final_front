@@ -1,13 +1,47 @@
-import React, { Component } from "react";
-import IntroduceMenu from "../Introduce/IntroduceMenu";
+import React from 'react';
+import Swiper from 'react-id-swiper';
+import slide1 from './slide1.jpg';
+import slide2 from './slide2.jpg';
+import slide3 from './slide3.jpg';
+import slide4 from './slide4.jpg';
 
-class AcademyFacility extends Component {
-  render() {
-    return (
-      <div>
-        <div>학원시설 페이지입니다</div>
-      </div>
-    );
+const AcademyFacility = () => {
+  const params = {
+    spaceBetween: 30,
+    centeredSlides: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev'
+    }
+
   }
-}
+  const divStyle = {
+    textAlign: "center",
+    width: "1200px",
+    height: "400px",
+    border: "1px solid gray",
+    display: "inline-block",
+    float: "left"
+  }
+  return (
+    <div style={divStyle} align="center">
+      <div style={{ paddingTop: "100px" }}></div>
+      <Swiper {...params}>
+        <div ><img alt="" src={slide1} style={{ width: "inherit" }} /></div>
+        <div ><img alt="" src={slide2} style={{ width: "inherit" }} /></div>
+        <div ><img alt="" src={slide3} style={{ width: "inherit" }} /></div>
+        <div ><img alt="" src={slide4} style={{ width: "inherit" }} /></div>
+      </Swiper>
+    </div>
+  );
+};
+
 export default AcademyFacility;
