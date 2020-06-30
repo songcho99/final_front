@@ -1,13 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Feed,
-  Icon,
-  Comment,
-  Header,
-  Form,
-  ButtonGroup,
-  FeedLabel,
-} from "semantic-ui-react";
+import { Feed, Comment, Header, Form } from "semantic-ui-react";
 import {
   TextField,
   Paper,
@@ -19,6 +11,14 @@ import {
 import SemanticButton from "semantic-ui-react/dist/commonjs/elements/Button/Button";
 import queryStirng from "query-string";
 import Axios from "axios";
+import useIntersect from "./useIntersect";
+import BeatLoader from "react-spinners/BeatLoader";
+import CreateIcon from "@material-ui/icons/Create";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import ClearIcon from "@material-ui/icons/Clear";
+import Swal from "sweetalert2";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
@@ -57,7 +57,34 @@ const avatarStyles = makeStyles((theme) => ({
   },
 }));
 
+const fakeFetch = (delay = 1000) =>
+  new Promise((res) => setTimeout(res, delay));
+
 export default function MyStudyTeam(props) {
+  const [state, setState] = React.useState({ itemCount: 0, isLoading: false });
+  /* fake async fetch */
+  const fetchItems = async () => {
+    setState((prev) => ({ ...prev, isLoading: true }));
+    await fakeFetch();
+    setState((prev) => ({
+      itemCount: prev.itemCount + 3,
+      isLoading: false,
+    }));
+  };
+  /* initial fetch */
+  useEffect(() => {
+    fetchItems();
+  }, []);
+  useEffect(() => {
+    getFeedList(state.itemCount);
+  }, [state.itemCount]);
+  const [_, setRef] = useIntersect(async (entry, observer) => {
+    observer.unobserve(entry.target);
+    await fetchItems();
+    observer.observe(entry.target);
+  }, {});
+  const { itemCount, isLoading } = state;
+
   const paperClasses = paperStyles();
   const avatarclasses = avatarStyles();
 
@@ -75,11 +102,10 @@ export default function MyStudyTeam(props) {
   const [filecount, setFileCount] = React.useState(0);
   const [feedlist, setFeedList] = React.useState([]);
   const [filelist, setFileList] = React.useState([]);
-  const [replybox, setReplyBox] = React.useState("");
   const [reply_content, setReplyContent] = React.useState("");
   const [replylist, setReplyList] = React.useState([]);
-  const [re_reply_content, setRe_ReplyContent] = React.useState("");
   const [file_num, setFileNum] = React.useState(0);
+  const [updatefilecount, setUpdateFileCount] = React.useState(0);
 
   const handleContentChange = (event) => {
     setStudyFeedContent(event.target.value);
@@ -110,12 +136,15 @@ export default function MyStudyTeam(props) {
       });
   };
 
-  const getFeedList = () => {
-    const url = `http://localhost:8000/project/studyfeed/feedlist?studyfeed_studygroup_num=${studyfeed_studygroup_num}`;
+  const getFeedList = (itemCount) => {
+    const url = `http://localhost:8000/project/studyfeed/feedlist?studyfeed_studygroup_num=${studyfeed_studygroup_num}&offset=${itemCount}`;
 
     Axios.get(url)
       .then((res) => {
-        setFeedList(res.data);
+        var array = res.data;
+        for (let index = 0; index < array.length; index++) {
+          feedlist.push(array[index]);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -166,14 +195,6 @@ export default function MyStudyTeam(props) {
       });
   };
 
-  const getReplyBox = (reply_num) => {
-    if (document.getElementById(reply_num).style.display === "none")
-      document.getElementById(reply_num).style.display = "block";
-    else {
-      document.getElementById(reply_num).style.display = "none";
-    }
-  };
-
   const handleReplyContentChange = (event) => {
     setReplyContent(event.target.value);
     console.log(reply_content);
@@ -190,8 +211,7 @@ export default function MyStudyTeam(props) {
       reply_content: reply_content,
     })
       .then((res) => {
-        getFeedList();
-        window.location.href = window.location.href;
+        getReplyList();
       })
       .catch((err) => {
         console.log(err);
@@ -203,7 +223,6 @@ export default function MyStudyTeam(props) {
 
     Axios.get(url)
       .then((res) => {
-        console.log(res);
         setReplyList(res.data);
 
         if (et.nextElementSibling.style.display === "none") {
@@ -217,30 +236,65 @@ export default function MyStudyTeam(props) {
       });
   };
 
-  const handleRe_ReplyContentChange = (event) => {
-    setRe_ReplyContent(event.target.value);
-    console.log(re_reply_content);
+  const getUpdateForm = (event, idx) => {
+    if (document.getElementById("update" + idx).style.display === "none") {
+      document.getElementById("feed" + idx).style.display = "none";
+      document.getElementById("update" + idx).style.display = "block";
+    }
   };
 
-  const onReCommentSubmit = (
-    event,
-    reply_num,
-    studyfeed_num,
-    reply_regroup
-  ) => {
-    event.preventDefault();
-    console.log(reply_num);
-    const url = "http://localhost:8000/project/reply/add";
+  const getFeedForm = (event, idx) => {
+    if (document.getElementById("feed" + idx).style.display === "none") {
+      document.getElementById("update" + idx).style.display = "none";
+      document.getElementById("feed" + idx).style.display = "block";
+    }
+  };
 
-    Axios.post(url, {
-      reply_num: reply_num,
-      reply_member_num: localStorage.num,
-      reply_studyfeed_num: studyfeed_num,
-      reply_content: re_reply_content,
-      reply_regroup: reply_regroup,
+  const handleFileDelete = (filename, i) => {
+    const url =
+      "http://localhost:8000/project/studyfeed/filedelete?studyfeedfiles_studyfeed_filename=" +
+      filename;
+
+    Axios.delete(url)
+      .then((res) => {
+        document.getElementById("file" + i).style.display = "none";
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleUpdateFileChange = (event) => {
+    console.log(event.target.files.length);
+    setUpdateFileCount(event.target.files.length);
+    for (let i = 0; i < event.target.files.length; i++) {
+      uploadfile.push(event.target.files[i]);
+      studyfeedfiles_studyfeed_filename.push(event.target.files[i].name);
+    }
+    console.log(uploadfile);
+    console.log(studyfeedfiles_studyfeed_filename);
+  };
+
+  const onUpdateSubmit = (event, studyfeed_num) => {
+    event.preventDefault();
+
+    const url = "http://localhost:8000/project/studyfeed/update";
+    const formData = new FormData();
+
+    for (var i = 0; i < uploadfile.length; i++) {
+      formData.append(`uploadfile[${i}]`, uploadfile[i]);
+    }
+    formData.append(
+      "studyfeedfiles_studyfeed_filename",
+      studyfeedfiles_studyfeed_filename
+    );
+    formData.append("studyfeed_content", studyfeed_content);
+    formData.append("studyfeed_num", studyfeed_num);
+
+    Axios.post(url, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => {
-        getFeedList();
         window.location.href = window.location.href;
       })
       .catch((err) => {
@@ -248,18 +302,66 @@ export default function MyStudyTeam(props) {
       });
   };
 
+  const onDeleteFeed = (event, idx, studyfeed_num) => {
+    const url =
+      "http://localhost:8000/project/studyfeed/delete?studyfeed_num=" +
+      studyfeed_num;
+
+    Swal.fire({
+      title: "정말 삭제하시겠습니까?",
+      text: "삭제 하시려면 삭제 버튼을 눌러주세요",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.value) {
+        Axios.delete(url)
+          .then((res) => {
+            document.getElementById("feedcontent" + idx).style.display = "none";
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        Swal.fire("삭제 성공!", "정상적으로 삭제되었습니다", "success");
+      }
+    });
+  };
+
+  const onDeleteComment = (reply_num, i) => {
+    const url =
+      "http://localhost:8000/project/reply/delete?reply_num=" + reply_num;
+
+    Swal.fire({
+      title: "정말 삭제하시겠습니까?",
+      text: "삭제 하시려면 삭제 버튼을 눌러주세요",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.value) {
+        Axios.delete(url)
+          .then((res) => {
+            document.getElementById("comment" + i).style.display = "none";
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        Swal.fire("삭제 성공!", "정상적으로 삭제되었습니다", "success");
+      }
+    });
+  };
+
   useEffect(() => {
     getStudyMember();
-    getFeedList();
   }, []);
 
-  const blank = {
-    marginLeft: "30px",
-    backgroundColor: "#F6F6F6",
-    paddingLeft: "10px",
-    paddingBottom: "10px",
-  };
-  const noblank = {};
+  if (!itemCount) return null;
   return (
     <div>
       <br />
@@ -317,8 +419,8 @@ export default function MyStudyTeam(props) {
           <hr style={{ width: "650px", marginRight: "100px" }} />
           <Typography variant="h6">{"피드 " + feedlist.length}</Typography>
           {feedlist.map((row, idx) => (
-            <Feed style={{ overflowX: "hidden" }}>
-              <Feed.Event>
+            <Feed style={{ overflowX: "hidden" }} id={"feedcontent" + idx}>
+              <Feed.Event id={"feed" + idx}>
                 <Avatar
                   alt={row.member_name}
                   style={{ float: "left" }}
@@ -334,6 +436,25 @@ export default function MyStudyTeam(props) {
                     <Feed.Date>
                       {new Date(row.studyfeed_writeday).toLocaleDateString()}
                     </Feed.Date>
+                    {localStorage.num == row.studyfeed_member_num ? (
+                      <span style={{ marginLeft: "450px" }}>
+                        <CreateIcon
+                          style={{ color: "gray", cursor: "pointer" }}
+                          onClick={(event) => {
+                            getUpdateForm(event, idx);
+                          }}
+                        />
+                        &nbsp;&nbsp;
+                        <DeleteOutlineIcon
+                          style={{ color: "gray", cursor: "pointer" }}
+                          onClick={(event) => {
+                            onDeleteFeed(event, idx, row.studyfeed_num);
+                          }}
+                        />
+                      </span>
+                    ) : (
+                      ""
+                    )}
                   </Feed.Summary>
                   <Feed.Extra text>{row.studyfeed_content}</Feed.Extra>
                   &nbsp;&nbsp;
@@ -356,6 +477,98 @@ export default function MyStudyTeam(props) {
                   ))}
                 </Feed.Content>
               </Feed.Event>
+              <form
+                onSubmit={(event) => {
+                  onUpdateSubmit(event, row.studyfeed_num);
+                }}
+                style={{ display: "none" }}
+                id={"update" + idx}
+              >
+                <ArrowBackIcon
+                  style={{ color: "gray", cursor: "pointer" }}
+                  onClick={(event) => {
+                    getFeedForm(event, idx);
+                  }}
+                />
+                <br />
+                <TextField
+                  id="outlined-multiline-static"
+                  label="내용"
+                  multiline
+                  rows={5}
+                  style={{ width: "650px" }}
+                  variant="outlined"
+                  onChange={handleContentChange}
+                  defaultValue={row.studyfeed_content}
+                />
+                <br />
+                <br />
+
+                <div>
+                  <input
+                    style={{ display: "none" }}
+                    id="contained-button-updatefile"
+                    multiple
+                    onChange={handleUpdateFileChange}
+                    type="file"
+                  />
+                  <label htmlFor="contained-button-updatefile">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      component="span"
+                      size="small"
+                    >
+                      파일 선택
+                    </Button>
+                    &nbsp;
+                    {updatefilecount !== 0
+                      ? updatefilecount + " 개 첨부됨"
+                      : ""}
+                    <br />
+                    <Button
+                      variant="text"
+                      color="primary"
+                      size="small"
+                      style={{ marginLeft: "480px" }}
+                      onClick={() => {
+                        getFileList(row.studyfeed_num);
+                      }}
+                    >
+                      파일 내역
+                    </Button>
+                  </label>
+                  {filelist.map((ele, i) => (
+                    <Typography variant="body1">
+                      {row.studyfeed_num === file_num ? (
+                        <span id={"file" + i}>
+                          {ele}
+                          <ClearIcon
+                            style={{
+                              cursor: "pointer",
+                              paddingTop: "10px",
+                              color: "red",
+                            }}
+                            onClick={() => {
+                              handleFileDelete(ele, i);
+                            }}
+                          />
+                        </span>
+                      ) : (
+                        ""
+                      )}
+                    </Typography>
+                  ))}
+                </div>
+                <Button
+                  variant="text"
+                  color="primary"
+                  type="submit"
+                  style={{ marginLeft: "570px", fontSize: "12pt" }}
+                >
+                  수정
+                </Button>
+              </form>
               <Header
                 as="h3"
                 dividing
@@ -374,7 +587,7 @@ export default function MyStudyTeam(props) {
               >
                 {replylist.map((ele, i) =>
                   ele.reply_studyfeed_num === row.studyfeed_num ? (
-                    <Comment style={ele.reply_restep !== 0 ? blank : noblank}>
+                    <Comment id={"comment" + i}>
                       <Avatar
                         alt={ele.member_name}
                         style={{ float: "left" }}
@@ -392,83 +605,54 @@ export default function MyStudyTeam(props) {
                           <div>
                             {new Date(ele.reply_writeday).toLocaleDateString()}
                           </div>
-                        </Comment.Metadata>
-                        <Comment.Text>{ele.reply_content}</Comment.Text>
-                        <Comment.Actions style={{ marginLeft: "39px" }}>
-                          {ele.reply_restep === 0 ? (
-                            <Comment.Action
+                          {ele.reply_member_num == localStorage.num ? (
+                            <HighlightOffIcon
+                              style={{ marginLeft: "450px", cursor: "pointer" }}
                               onClick={() => {
-                                getReplyBox(ele.reply_num);
+                                onDeleteComment(ele.reply_num, i);
                               }}
-                            >
-                              답글
-                            </Comment.Action>
+                            />
                           ) : (
                             ""
                           )}
-                        </Comment.Actions>
-                        <div id={ele.reply_num} style={{ display: "none" }}>
-                          <Form
-                            key={i}
-                            onSubmit={(event) => {
-                              onReCommentSubmit(
-                                event,
-                                ele.reply_num,
-                                row.studyfeed_num,
-                                ele.reply_regroup
-                              );
-                            }}
-                          >
-                            <Form.TextArea
-                              style={{
-                                width: "610px",
-                                height: "100px",
-                                marginLeft: "39px",
-                                marginTop: "8px",
-                              }}
-                              onChange={handleRe_ReplyContentChange}
-                            />
-                            <SemanticButton
-                              content="등록"
-                              labelPosition="left"
-                              icon="edit"
-                              primary
-                              style={{
-                                marginLeft: "540px",
-                              }}
-                              type="submit"
-                            ></SemanticButton>
-                          </Form>
-                        </div>
+                        </Comment.Metadata>
+                        <Comment.Text>{ele.reply_content}</Comment.Text>
                       </Comment.Content>
                     </Comment>
                   ) : (
                     ""
                   )
                 )}
+                <Form
+                  reply
+                  onSubmit={(event) => {
+                    onCommentSubmit(event, row.studyfeed_num);
+                  }}
+                >
+                  <Form.TextArea
+                    style={{ height: "100px", width: "650px" }}
+                    onChange={handleReplyContentChange}
+                  />
+                  <SemanticButton
+                    content="댓글 작성"
+                    labelPosition="left"
+                    icon="edit"
+                    primary
+                    type="submit"
+                    style={{ marginLeft: "509.8px" }}
+                  />
+                </Form>
               </Comment.Group>
-
-              <Form
-                reply
-                onSubmit={(event) => {
-                  onCommentSubmit(event, row.studyfeed_num);
-                }}
-              >
-                <Form.TextArea
-                  style={{ height: "100px", width: "650px" }}
-                  onChange={handleReplyContentChange}
-                />
-                <SemanticButton
-                  content="댓글 작성"
-                  labelPosition="left"
-                  icon="edit"
-                  primary
-                  type="submit"
-                  style={{ marginLeft: "509.8px" }}
-                />
-              </Form>
             </Feed>
           ))}
+          <br />
+          <div ref={setRef} className="Loading">
+            {isLoading && (
+              <div style={{ marginLeft: "280px" }}>
+                <BeatLoader color="#5AAEFF" />
+              </div>
+            )}
+          </div>
           <br />
           <br />
         </div>
