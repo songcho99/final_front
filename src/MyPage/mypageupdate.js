@@ -205,7 +205,9 @@ export default function MyPageUpdate(props) {
     <div style={{ textAlign: "center" }}>
       <Mypagelist />
       <div style={{ paddingTop: "100px" }}></div>
-      <span style={{ fontSize: "40px" }}>회원 정보</span>
+      <span style={{ fontSize: "40px", color: "rgb(34, 83, 184)" }}>
+        회원 정보
+      </span>
       <br />
       <br />
       <span style={{ fontSize: "18px", color: "#A6A6A6" }}>
