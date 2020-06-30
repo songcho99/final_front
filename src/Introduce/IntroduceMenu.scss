@@ -16,7 +16,6 @@
   position: fixed;
   top: 400px;
   right: 0;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -39,6 +38,7 @@
   justify-content: flex-end;
   align-items: center;
   transition: all ease-in 200ms;
+  cursor: pointer;
   #academyLinkmain {
     width: 60px;
     height: 60px;
@@ -63,6 +63,7 @@
   background-color: var(--blue);
   width: 180px;
   transition: all ease-out 200ms;
+  cursor: pointer;
   #academyLinksub {
     display: flex;
     justify-content: center;
@@ -83,6 +84,7 @@
   justify-content: flex-end;
   align-items: center;
   transition: all ease-in 200ms;
+  cursor: pointer;
   #introMenu2main {
     width: 60px;
     height: 60px;
@@ -107,6 +109,7 @@
   background-color: var(--blue);
   width: 180px;
   transition: all ease-out 200ms;
+  cursor: pointer;
   #introMenu2sub {
     display: flex;
     justify-content: center;
@@ -127,6 +130,7 @@
   justify-content: flex-end;
   align-items: center;
   transition: all ease-in 200ms;
+  cursor: pointer;
   #introMenu3main {
     width: 60px;
     height: 60px;
@@ -151,6 +155,7 @@
   background-color: var(--blue);
   width: 180px;
   transition: all ease-out 200ms;
+  cursor: pointer;
   #introMenu3sub {
     display: flex;
     justify-content: center;

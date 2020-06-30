@@ -141,11 +141,26 @@
 }
 //과정별 css
 .bigdata {
-  color: red;
+  background-color: var(--red);
+  color: var(--white);
+  border-bottom: 1px solid var(--black);
+  overflow: hidden;
+  font-size: 12px;
+  height: 18px;
 }
 .cloud {
-  color: green;
+  background-color: var(--dgray);
+  color: var(--white);
+  border-bottom: 1px solid var(--black);
+  overflow: hidden;
+  font-size: 12px;
+  height: 18px;
 }
 .ai {
-  color: blue;
+  background-color: var(--blue);
+  color: var(--white);
+  border-bottom: 1px solid var(--black);
+  overflow: hidden;
+  font-size: 12px;
+  height: 18px;
 }

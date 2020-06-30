@@ -80,46 +80,138 @@ class CurriculumList extends Component {
         {/* 제목, 분류, 시작날짜 , 끝날짜, 인원수 , 담당 강사, 대표이미지,제공 교제  */}
         <div id="currilistcardbox">
           <div id="currilistcardback">
-            {this.state.list.map((row, index) => (
-              <div className="curricard">
-                {/* 헤드 부분 */}
-                <div className="curricardhd">
-                  <div className="curricarthdtit">모집중(1/2)</div>
-                  <div className="curricarthdsub">{row.process_type}</div>
-                </div>
-
-                {/* 몸통 부분 */}
-                <div className="curricardmain">
-                  <div className="curricardmainimgbox">
-                    {this.state.processFiles.map((row) => (
-                      <img
-                        src={imageUrl + row.process_num}
-                        className="curricardmainimg"
-                      ></img>
-                    ))}
-                  </div>
-                  <div className="curricardmainback"></div>
-                  <a
-                    className="curricardmaintext"
-                    href={"/CurriculumDetail/" + row.process_num}
-                  >
-                    <div className="studylistcardAvatar">
-                      <Avatar style={{ width: "80px", height: "80px" }} />
+            {this.state.list.map((row, index) => {
+              if (row.process_type === "빅데이터") {
+                return (
+                  <div className="curricard" id={this.props.bigdatacard}>
+                    {/* 헤드 부분 */}
+                    <div className="curricardhd">
+                      <div className="curricarthdtit">모집중(1/2)</div>
+                      <div className="curricarthdsub">{row.process_type}</div>
                     </div>
-                    <div className="curricardmainnav">
-                      {row.process_subject}
-                    </div>
-                  </a>
-                </div>
 
-                {/* 바닥 */}
-                <div className="currifooter">
-                  <div>
-                    {row.process_startdate}&nbsp;~&nbsp;{row.process_enddate}
+                    {/* 몸통 부분 */}
+                    <div className="curricardmain">
+                      <div className="curricardmainimgbox">
+                        {this.state.processFiles.map((row) => (
+                          <img
+                            src={imageUrl + row.process_num}
+                            className="curricardmainimg"
+                          ></img>
+                        ))}
+                      </div>
+                      <div className="curricardmainback"></div>
+                      <a
+                        className="curricardmaintext"
+                        href={"/CurriculumDetail/" + row.process_num}
+                      >
+                        <div className="studylistcardAvatar">
+                          <Avatar style={{ width: "80px", height: "80px" }} />
+                        </div>
+                        <div className="curricardmainnav">
+                          {row.process_subject}
+                        </div>
+                      </a>
+                    </div>
+
+                    {/* 바닥 */}
+                    <div className="currifooter">
+                      <div>
+                        {row.process_startdate}&nbsp;~&nbsp;
+                        {row.process_enddate}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                );
+              } else if (row.process_type === "클라우드") {
+                return (
+                  <div className="curricard" id={this.props.cardcloud}>
+                    {/* 헤드 부분 */}
+                    <div className="curricardhd">
+                      <div className="curricarthdtit">모집중(1/2)</div>
+                      <div className="curricarthdsub">{row.process_type}</div>
+                    </div>
+
+                    {/* 몸통 부분 */}
+                    <div className="curricardmain">
+                      <div className="curricardmainimgbox">
+                        {this.state.processFiles.map((row) => (
+                          <img
+                            src={imageUrl + row.process_num}
+                            className="curricardmainimg"
+                          ></img>
+                        ))}
+                      </div>
+                      <div className="curricardmainback"></div>
+                      <a
+                        className="curricardmaintext"
+                        href={"/CurriculumDetail/" + row.process_num}
+                      >
+                        <div className="studylistcardAvatar">
+                          <Avatar style={{ width: "80px", height: "80px" }} />
+                        </div>
+                        <div className="curricardmainnav">
+                          {row.process_subject}
+                        </div>
+                      </a>
+                    </div>
+
+                    {/* 바닥 */}
+                    <div className="currifooter">
+                      <div>
+                        {row.process_startdate}&nbsp;~&nbsp;
+                        {row.process_enddate}
+                      </div>
+                    </div>
+                  </div>
+                );
+              } else if (row.process_type === "인공지능") {
+                return (
+                  <div className="curricard" id={this.props.cardai}>
+                    {/* 헤드 부분 */}
+                    <div className="curricardhd">
+                      <div className="curricarthdtit">모집중(1/2)</div>
+                      <div className="curricarthdsub">{row.process_type}</div>
+                    </div>
+
+                    {/* 몸통 부분 */}
+                    <div className="curricardmain">
+                      <div className="curricardmainimgbox">
+                        {this.state.processFiles.map((row) => (
+                          <img
+                            src={imageUrl + row.process_num}
+                            className="curricardmainimg"
+                          ></img>
+                        ))}
+                      </div>
+                      <div className="curricardmainback"></div>
+                      <a
+                        className="curricardmaintext"
+                        href={"/CurriculumDetail/" + row.process_num}
+                      >
+                        <div className="studylistcardAvatar">
+                          <Avatar style={{ width: "80px", height: "80px" }} />
+                        </div>
+                        <div className="curricardmainnav">
+                          {row.process_subject}
+                        </div>
+                      </a>
+                    </div>
+
+                    {/* 바닥 */}
+                    <div className="currifooter">
+                      <div>
+                        {row.process_startdate}&nbsp;~&nbsp;
+                        {row.process_enddate}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+            })}
+            {/* {this.state.list.map((row, index) => (
+              
+            ))} */}
           </div>
         </div>
 
