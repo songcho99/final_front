@@ -22,6 +22,8 @@ import { PhotoCamera } from "@material-ui/icons";
 import "./addstudy.css";
 import Axios from "axios";
 import queryStirng from "query-string";
+import studyimg from "./study.jpg";
+import { Link } from "react-router-dom";
 
 const { kakao } = window;
 
@@ -479,360 +481,456 @@ export default function UpdateStudy(props) {
     console.log(study_gatherdayname);
   }, [previewURL]);
 
+  const backimage = {
+    width: "100%",
+    height: "500px",
+    backgroundImage: `url(${studyimg})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100% 500px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  };
+  const tableStyle = {
+    textAlign: "center",
+    fontSize: "16px",
+    width: "1200px",
+    border: "0px",
+    borderCollapse: "collapse",
+    borderTop: "1px solid black",
+  };
+  const trStyle = {
+    borderBottom: "1px solid black",
+    height: "60px",
+  };
+  const buttonStyle = {
+    fontSize: "16px",
+    backgroundColor: "white",
+    width: "110px",
+    height: "40px",
+    borderRadius: "25px",
+    cursor: "pointer",
+    border: "1px solid gray",
+    outline: "none",
+  };
   return (
-    <div id="addstudyback2">
+    <div style={{ textAlign: "center" }} aling="center">
+      <div style={{ paddingTop: "115px" }}></div>
+      <div style={backimage}>
+        <span style={{ fontSize: "70px", color: "white" }}>
+          IT Campus Study
+        </span>
+        <br />
+        <span style={{ fontSize: "18px", color: "white" }}>
+          IT Campus Study
+        </span>
+      </div>
+      <div style={{ paddingTop: "100px" }}></div>
+      <span style={{ fontSize: "40px" }}>스터디</span>
       <br />
       <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <form
-        className={classes.root}
-        noValidate
-        autoComplete="off"
-        id="addstudyback"
-        onSubmit={onSubmit}
-      >
-        <div id="addstudynomargin">
-          <div>
-            <TextField
-              required
-              id="subject"
-              label="제목"
-              style={{ width: "800px" }}
-              value={study_subject}
-              onChange={handleSubjectChange}
-            />
-          </div>
-          <br />
-          <br />
-          <div style={{ marginLeft: "8px" }}>
-            <FormControl
-              className={(classes.root, classes.formControl)}
-              required
-            >
-              <InputLabel id="type-select-required-label">분류</InputLabel>
-              <Select
-                labelId="type-select-required-label"
-                id="select-required"
-                value={study_type}
-                onChange={handleTypeChange}
-                className={classes.selectEmpty}
-                style={{
-                  width: "200px",
-                }}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={"Java"}>Java</MenuItem>
-                <MenuItem value={"Spring"}>Spring</MenuItem>
-                <MenuItem value={"React"}>React</MenuItem>
-                <MenuItem value={"기타"}>기타</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-          <br />
-          <br />
-          <div id="addstudybox">
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                disableToolbar
-                variant="inline"
-                format="yyyy/MM/dd"
-                margin="normal"
-                id="date-picker-inline"
-                label="시작날짜"
-                value={study_startdate}
-                onChange={handleStartDateChange}
-                KeyboardButtonProps={{
-                  "aria-label": "change date",
-                }}
-              />
-            </MuiPickersUtilsProvider>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                disableToolbar
-                variant="inline"
-                format="yyyy/MM/dd"
-                margin="normal"
-                id="date-picker-inline"
-                label="끝날짜"
-                value={study_enddate}
-                onChange={handleEndDateChange}
-                KeyboardButtonProps={{
-                  "aria-label": "change date",
-                }}
-              />
-            </MuiPickersUtilsProvider>
-          </div>
-          <br />
-          <br />
-          <div style={{ marginLeft: "8px" }}>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={study_gatherday.Monday}
-                    onChange={handleGatherdayChange}
-                    id="Monday"
-                    name="Monday"
-                    color="primary"
-                    value="월"
+      <span style={{ fontSize: "18px" }}>
+        IT Campus의 스터디 모임을 수정 할 수 있습니다.
+      </span>
+      <div style={{ paddingTop: "100px" }}></div>
+      <form onSubmit={onSubmit}>
+        <table style={tableStyle} align="center">
+          <tbody>
+            <tr style={trStyle}>
+              <td style={{ width: 200 }}>작성자</td>
+              <td style={{ textAlign: "left", width: 1000 }}>
+                {localStorage.name}
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>분류</td>
+              <td style={{ textAlign: "left" }}>
+                <FormControl
+                  className={(classes.root, classes.formControl)}
+                  required
+                >
+                  <Select
+                    labelId="type-select-required-label"
+                    id="select-required"
+                    value={study_type}
+                    onChange={handleTypeChange}
+                    className={classes.selectEmpty}
+                    style={{
+                      width: "200px",
+                    }}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={"Java"}>Java</MenuItem>
+                    <MenuItem value={"Spring"}>Spring</MenuItem>
+                    <MenuItem value={"React"}>React</MenuItem>
+                    <MenuItem value={"기타"}>기타</MenuItem>
+                  </Select>
+                </FormControl>
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>인원</td>
+              <td style={{ textAlign: "left" }}>
+                <FormControl
+                  className={(classes.root, classes.formControl)}
+                  required
+                >
+                  <Select
+                    labelId="peoples-select-required-label"
+                    id="select-required"
+                    value={study_peoples}
+                    onChange={handlePeoplesChange}
+                    className={classes.selectEmpty}
+                    style={{ width: "200px" }}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    {countList}
+                  </Select>
+                </FormControl>
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>난이도</td>
+              <td style={{ textAlign: "left" }}>
+                <Slider
+                  value={study_level}
+                  onChange={handleLevelChange}
+                  aria-labelledby="discrete-slider-restrict"
+                  getAriaValueText={valuetext}
+                  valueLabelDisplay="off"
+                  step={null}
+                  marks={marks}
+                  style={{ width: "200px" }}
+                />
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>시작 날짜</td>
+              <td style={{ textAlign: "left" }}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="yyyy/MM/dd"
+                    margin="normal"
+                    id="date-picker-inline"
+                    value={study_startdate}
+                    onChange={handleStartDateChange}
+                    KeyboardButtonProps={{
+                      "aria-label": "change date",
+                    }}
                   />
-                }
-                label="월요일"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={study_gatherday.Tuesday}
-                    onChange={handleGatherdayChange}
-                    id="Tuesday"
-                    name="Tuesday"
-                    color="primary"
-                    value="화"
+                </MuiPickersUtilsProvider>
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>끝 날짜</td>
+              <td style={{ textAlign: "left" }}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="yyyy/MM/dd"
+                    margin="normal"
+                    id="date-picker-inline"
+                    value={study_enddate}
+                    onChange={handleEndDateChange}
+                    KeyboardButtonProps={{
+                      "aria-label": "change date",
+                    }}
                   />
-                }
-                label="화요일"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={study_gatherday.Wednesday}
-                    onChange={handleGatherdayChange}
-                    id="Wednesday"
-                    name="Wednesday"
-                    color="primary"
-                    value="수"
+                </MuiPickersUtilsProvider>
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>요일</td>
+              <td>
+                <FormGroup row>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={study_gatherday.Monday}
+                        onChange={handleGatherdayChange}
+                        name="Monday"
+                        color="primary"
+                        value="월"
+                        id="Monday"
+                      />
+                    }
+                    label="월요일"
                   />
-                }
-                label="수요일"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={study_gatherday.Thursday}
-                    onChange={handleGatherdayChange}
-                    id="Thursday"
-                    name="Thursday"
-                    color="primary"
-                    value="목"
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={study_gatherday.Tuesday}
+                        onChange={handleGatherdayChange}
+                        name="Tuesday"
+                        color="primary"
+                        value="화"
+                        id="Tuesday"
+                      />
+                    }
+                    label="화요일"
                   />
-                }
-                label="목요일"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={study_gatherday.Friday}
-                    onChange={handleGatherdayChange}
-                    id="Friday"
-                    name="Friday"
-                    color="primary"
-                    value="금"
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={study_gatherday.Wednesday}
+                        onChange={handleGatherdayChange}
+                        name="Wednesday"
+                        color="primary"
+                        id="Wednesday"
+                        value="수"
+                      />
+                    }
+                    label="수요일"
                   />
-                }
-                label="금요일"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={study_gatherday.Saturday}
-                    onChange={handleGatherdayChange}
-                    id="Saturday"
-                    name="Saturday"
-                    color="primary"
-                    value="토"
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={study_gatherday.Thursday}
+                        onChange={handleGatherdayChange}
+                        name="Thursday"
+                        color="primary"
+                        value="목"
+                        id="Thursday"
+                      />
+                    }
+                    label="목요일"
                   />
-                }
-                label="토요일"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={study_gatherday.Sunday}
-                    onChange={handleGatherdayChange}
-                    id="Sunday"
-                    name="Sunday"
-                    color="primary"
-                    value="일"
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={study_gatherday.Friday}
+                        onChange={handleGatherdayChange}
+                        name="Friday"
+                        color="primary"
+                        value="금"
+                        id="Friday"
+                      />
+                    }
+                    label="금요일"
                   />
-                }
-                label="일요일"
-              />
-            </FormGroup>
-          </div>
-          <br />
-          <div style={{ marginLeft: "8px" }}>
-            <FormControl
-              className={(classes.root, classes.formControl)}
-              required
-            >
-              <InputLabel id="peoples-select-required-label">인원</InputLabel>
-              <Select
-                labelId="peoples-select-required-label"
-                id="select-required"
-                value={study_peoples}
-                onChange={handlePeoplesChange}
-                className={classes.selectEmpty}
-                style={{ width: "200px" }}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                {countList}
-              </Select>
-            </FormControl>
-          </div>
-          <br />
-          <br />
-          <div className={sliderclasses.root} style={{ marginLeft: "8px" }}>
-            <Typography id="discrete-slider-restrict" gutterBottom>
-              난이도
-            </Typography>
-            <Slider
-              value={study_level}
-              onChange={handleLevelChange}
-              aria-labelledby="discrete-slider-restrict"
-              getAriaValueText={valuetext}
-              valueLabelDisplay="off"
-              step={null}
-              marks={marks}
-            />
-          </div>
-          <br />
-          <TextField
-            id="outlined-multiline-static"
-            label="소개"
-            required
-            multiline
-            rows={4}
-            variant="outlined"
-            style={{ width: "800px", zIndex: "0" }}
-            value={study_intr}
-            onChange={handleIntrChange}
-          />
-          <br />
-          <br />
-          <TextField
-            required
-            id="standard-required"
-            label="목표"
-            onChange={handleGoalChange}
-            value={study_goal}
-            style={{ width: "800px", zIndex: "0" }}
-          />
-          <br />
-          <br />
-          <TextField
-            id="outlined-multiline-static"
-            label="진행방식"
-            required
-            multiline
-            rows={4}
-            variant="outlined"
-            value={study_progress}
-            style={{ width: "800px", zIndex: "0" }}
-            onChange={handleProgressChange}
-          />
-          <br />
-          <br />
-          <div>
-            <TextField
-              id="outlined-read-only-input"
-              className="detailaddr"
-              label="기본 주소"
-              variant="outlined"
-              style={{ zIndex: "0" }}
-              InputProps={{
-                readOnly: true,
-              }}
-              value={study_address}
-              onChange={handleAddressChange}
-              required
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={post}
-              style={{ marginTop: "20px" }}
-            >
-              검색
-            </Button>
-          </div>
-          <br />
-          <TextField
-            id="outlined-read-only-input"
-            label="상세 주소"
-            variant="outlined"
-            value={study_detailaddr}
-            style={{ zIndex: "0" }}
-            onChange={handleDetailAddrChange}
-            required
-          />
-          <br />
-          <div id="map" style={{ width: "500px", height: "400px" }}></div>
-          <br />
-          <br />
-          <input
-            accept="image/*"
-            className={classes.input}
-            id="contained-button-file"
-            type="file"
-            name="study_mainimage"
-            onChange={handleImageChange}
-          />
-          <label htmlFor="contained-button-file">
-            <Button
-              variant="contained"
-              color="primary"
-              component="span"
-              startIcon={<PhotoCamera />}
-              style={{ marginLeft: "8px" }}
-            >
-              대표 이미지 선택
-            </Button>
-          </label>
-          <br />
-          <br />
-          <div style={{ marginLeft: "8px" }}>
-            {study_mainimage != "" ? (
-              <img
-                alt=""
-                src={
-                  "http://localhost:8000/project/uploadfile/" + study_mainimage
-                }
-                style={{ width: "400px" }}
-              ></img>
-            ) : (
-              ""
-            )}
-            {previewimg != "" ? previewimg : ""}
-          </div>
-          <br />
-          <br />
-          <div>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              style={{ marginLeft: "640px" }}
-            >
-              수정하기
-            </Button>
-            &nbsp;
-            <Button variant="outlined" color="primary" href="./studylist">
-              목록
-            </Button>
-            <br />
-            <br />
-            <br />
-          </div>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={study_gatherday.Saturday}
+                        onChange={handleGatherdayChange}
+                        name="Saturday"
+                        color="primary"
+                        value="토"
+                        id="Saturday"
+                      />
+                    }
+                    label="토요일"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={study_gatherday.Sunday}
+                        onChange={handleGatherdayChange}
+                        name="Sunday"
+                        color="primary"
+                        value="일"
+                        id="Sunday"
+                      />
+                    }
+                    label="일요일"
+                  />
+                </FormGroup>
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td style={{ width: 200 }}>제목</td>
+              <td>
+                <input
+                  type="text"
+                  id="subject"
+                  value={study_subject}
+                  onChange={handleSubjectChange}
+                  style={{
+                    width: 1000,
+                    height: "40px",
+                    textAlign: "left",
+                    border: "0px",
+                  }}
+                />
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>소개</td>
+              <td style={{ textAlign: "left" }}>
+                <TextField
+                  id="outlined-multiline-static"
+                  required
+                  multiline
+                  rows={4}
+                  variant="outlined"
+                  style={{
+                    width: "1000px",
+                    border: "0px",
+                    marginTop: "10px",
+                    marginBottom: "10px",
+                  }}
+                  onChange={handleIntrChange}
+                  value={study_intr}
+                />
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>목표</td>
+              <td>
+                <input
+                  type="text"
+                  required
+                  onChange={handleGoalChange}
+                  style={{
+                    width: "1000px",
+                    height: "40px",
+                    textAlign: "left",
+                    border: "0px",
+                  }}
+                  value={study_goal}
+                />
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>진행 방식</td>
+              <td>
+                <TextField
+                  id="outlined-multiline-static"
+                  required
+                  multiline
+                  rows={4}
+                  variant="outlined"
+                  style={{
+                    width: "1000px",
+                    border: "0px",
+                    marginTop: "10px",
+                    marginBottom: "10px",
+                  }}
+                  value={study_progress}
+                  onChange={handleProgressChange}
+                />
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>대표 이미지</td>
+              <td style={{ textAlign: "left" }}>
+                <label htmlFor="contained-button-file">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    component="span"
+                    startIcon={<PhotoCamera />}
+                    style={{ marginTop: "10px", marginbottom: "10px" }}
+                  >
+                    대표 이미지
+                  </Button>
+                </label>
+                <input
+                  accept="image/*"
+                  className={classes.input}
+                  id="contained-button-file"
+                  type="file"
+                  name="study_mainimage"
+                  onChange={handleImageChange}
+                />
+                <br />
+                <br />
+                {study_mainimage != "" ? (
+                  <img
+                    alt=""
+                    src={
+                      "http://localhost:8000/project/uploadfile/" +
+                      study_mainimage
+                    }
+                    style={{ width: "400px" }}
+                  ></img>
+                ) : (
+                  ""
+                )}
+                {previewimg != "" ? previewimg : ""}
+              </td>
+            </tr>
+            <tr style={trStyle}>
+              <td>장소</td>
+              <td style={{ textAlign: "left" }}>
+                <TextField
+                  id="outlined-read-only-input"
+                  className="detailaddr"
+                  readOnly
+                  label="기본 주소"
+                  variant="outlined"
+                  style={{
+                    width: 600,
+                    border: "0px",
+                    marginTop: "10px",
+                    marginBottom: "10px",
+                  }}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  value={study_address}
+                  onChange={handleAddressChange}
+                  required
+                />
+                &nbsp;&nbsp;&nbsp;
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={post}
+                  style={{ marginTop: "20px", width: 80, height: 40 }}
+                >
+                  검색
+                </Button>
+                <br />
+                <TextField
+                  id="outlined-read-only-input"
+                  label="상세 주소"
+                  variant="outlined"
+                  value={study_detailaddr}
+                  style={{ marginBottom: "10px", width: 700 }}
+                  onChange={handleDetailAddrChange}
+                  required
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div style={{ paddingTop: "20px" }}></div>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div id="map" style={{ width: 1200, height: 300 }}></div>
         </div>
+        <div style={{ paddingTop: "20px" }}></div>
+        <button type="submit" style={buttonStyle}>
+          <i className="fas fa-plus"></i>&nbsp;&nbsp; 수정
+        </button>
+        &nbsp;&nbsp;
+        <Link
+          to="/studylist"
+          style={{
+            textDecoration: "none",
+          }}
+        >
+          <button type="button" style={buttonStyle}>
+            <i className="fas fa-bars"></i>&nbsp;&nbsp; 목록
+          </button>
+        </Link>
       </form>
+      <div style={{ paddingTop: "100px" }}></div>
     </div>
   );
 }

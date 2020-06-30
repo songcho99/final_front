@@ -32,6 +32,7 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import Axios from "axios";
+import studyimg from "./study.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -146,8 +147,7 @@ export default function StudyList(props) {
   const handleSearchLevelChange = (event, newValue) => {
     if (newValue === 0) {
       setSearchLevel("하");
-    }
-    else if (newValue === 50) {
+    } else if (newValue === 50) {
       setSearchLevel("중");
     } else {
       setSearchLevel("상");
@@ -200,23 +200,17 @@ export default function StudyList(props) {
     if (event.target.checked) {
       if (event.target.name === "Monday") {
         arr.push("월");
-      }
-      else if (event.target.name === "Tuesday") {
+      } else if (event.target.name === "Tuesday") {
         arr.push("화");
-      }
-      else if (event.target.name === "Wednesday") {
+      } else if (event.target.name === "Wednesday") {
         arr.push("수");
-      }
-      else if (event.target.name === "Thursday") {
+      } else if (event.target.name === "Thursday") {
         arr.push("목");
-      }
-      else if (event.target.name === "Friday") {
+      } else if (event.target.name === "Friday") {
         arr.push("금");
-      }
-      else if (event.target.name === "Saturday") {
+      } else if (event.target.name === "Saturday") {
         arr.push("토");
-      }
-      else if (event.target.name === "Sunday") {
+      } else if (event.target.name === "Sunday") {
         arr.push("일");
       }
     } else {
@@ -227,7 +221,6 @@ export default function StudyList(props) {
     }
     setSearchDay(searchDay.concat(arr));
     console.log(searchDay);
-
 
     if (event.target.checked) {
       setSearchGetherdayName(searchGatherdayName.concat(event.target.value));
@@ -302,13 +295,51 @@ export default function StudyList(props) {
     setSearchStartdate(getFormatDate(new Date()));
     setSearchEnddate(getFormatDate(new Date()));
   };
+  const backimage = {
+    width: "100%",
+    height: "500px",
+    backgroundImage: `url(${studyimg})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100% 500px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  };
+  const tableStyle = {
+    textAlign: "center",
+    fontSize: "16px",
+    width: "1200px",
+    border: "0px",
+    borderCollapse: "collapse",
+    borderTop: "1px solid black",
+  };
+  const trStyle = {
+    borderBottom: "1px solid black",
+    height: "60px",
+  };
+  const buttonStyle = {
+    fontSize: "16px",
+    backgroundColor: "white",
+    width: "110px",
+    height: "40px",
+    borderRadius: "25px",
+    cursor: "pointer",
+    border: "1px solid gray",
+  };
   return (
     <div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      <div style={{ paddingTop: "115px" }}></div>
+      <div style={backimage}>
+        <span style={{ fontSize: "70px", color: "white" }}>
+          IT Campus Study
+        </span>
+        <br />
+        <span style={{ fontSize: "18px", color: "white" }}>
+          IT Campus Study
+        </span>
+      </div>
+      <div style={{ paddingTop: "100px" }}></div>
       <div style={{ float: "right", marginRight: "10%" }}>
         {localStorage.type === "수강생" && (
           <Button variant="contained" color="primary" href="./addstudy">
@@ -320,7 +351,6 @@ export default function StudyList(props) {
             스터디 만들기
           </Button>
         )}
-
         &nbsp;
         {localStorage.type === "일반" && (
           <Button variant="outlined" color="primary" href="/mystudymain">
@@ -332,7 +362,6 @@ export default function StudyList(props) {
             마이 스터디
           </Button>
         )}
-
       </div>
 
       <br />
@@ -435,7 +464,6 @@ export default function StudyList(props) {
                 format="yyyy/MM/dd"
                 margin="normal"
                 id="date-picker-inline"
-                label="시작날짜"
                 value={searchStartdate}
                 onChange={handleSearchStartdateChange}
                 KeyboardButtonProps={{
@@ -451,7 +479,6 @@ export default function StudyList(props) {
                 format="yyyy/MM/dd"
                 margin="normal"
                 id="date-picker-inline"
-                label="끝날짜"
                 value={searchEnddate}
                 onChange={handleSearchEnddateChange}
                 KeyboardButtonProps={{
@@ -552,64 +579,33 @@ export default function StudyList(props) {
                   id: "outlined-age-native-simple",
                 }}
               >
-                <option value={"강원도"}>강원도</option>
-                <option value={"경기도"}>경기도</option>
-                <option value={"경상남도"}>경상남도</option>
-                <option value={"경상북도"}>경상북도</option>
-                <option value={"광주광역시"}>광주광역시</option>
-                <option value={"대구광역시"}>대구광역시</option>
-                <option value={"대전광역시"}>대전광역시</option>
-                <option value={"부산광역시"}>부산광역시</option>
-                <option value={"서울특별시"}>서울특별시</option>
-                <option value={"세종특별자치시"}>세종특별자치시</option>
-                <option value={"울산광역시"}>울산광역시</option>
-                <option value={"인천광역시"}>인천광역시</option>
-                <option value={"전라남도"}>전라남도</option>
-                <option value={"전라북도"}>전라북도</option>
-                <option value={"제주특별자치도"}>제주특별자치도</option>
+                <option value={"서울"}>서울</option>
+                <option value={"경기"}>경기</option>
+                <option value={"인천"}>인천</option>
+                <option value={"세종"}>세종</option>
+                <option value={"강원"}>강원</option>
                 <option value={"충청남도"}>충청남도</option>
                 <option value={"충청북도"}>충청북도</option>
-              </Select>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <Select
-                native
-                value={searchDetailAddr}
-                onChange={handleSearchDetailAddrChange}
-                inputProps={{
-                  name: "searchAddress",
-                  id: "outlined-age-native-simple",
-                }}
-              >
-                <option value={"강원도"}>강원도</option>
-                <option value={"경기도"}>경기도</option>
                 <option value={"경상남도"}>경상남도</option>
                 <option value={"경상북도"}>경상북도</option>
-                <option value={"광주광역시"}>광주광역시</option>
-                <option value={"대구광역시"}>대구광역시</option>
-                <option value={"대전광역시"}>대전광역시</option>
-                <option value={"부산광역시"}>부산광역시</option>
-                <option value={"서울특별시"}>서울특별시</option>
-                <option value={"세종특별자치시"}>세종특별자치시</option>
-                <option value={"울산광역시"}>울산광역시</option>
-                <option value={"인천광역시"}>인천광역시</option>
                 <option value={"전라남도"}>전라남도</option>
                 <option value={"전라북도"}>전라북도</option>
-                <option value={"제주특별자치도"}>제주특별자치도</option>
-                <option value={"충청남도"}>충청남도</option>
-                <option value={"충청북도"}>충청북도</option>
+                <option value={"광주"}>광주광역시</option>
+                <option value={"대구"}>대구광역시</option>
+                <option value={"대전"}>대전광역시</option>
+                <option value={"부산"}>부산광역시</option>
+                <option value={"울산"}>울산광역시</option>
+                <option value={"제주"}>제주특별자치도</option>
               </Select>
             </FormControl>
+            <ExpansionPanelActions>
+              <span align="right" style={{ textAlign: "right" }}>
+                <Button onClick={handleSearchClick} color="primary">
+                  검색
+                </Button>
+              </span>
+            </ExpansionPanelActions>
           </ExpansionPanelDetails>
-          <ExpansionPanelActions>
-            <Button
-              onClick={handleSearchClick}
-              style={{ marginLeft: "90%" }}
-              color="primary"
-            >
-              검색
-            </Button>
-          </ExpansionPanelActions>
         </ExpansionPanel>
       </div>
       <br />

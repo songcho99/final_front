@@ -160,6 +160,7 @@ class Notice_List extends Component {
       borderRadius: "25px",
       cursor: "pointer",
       border: "1px solid gray",
+      outline: "none",
     };
     const searchStyle1 = {
       fontSize: "16px",
