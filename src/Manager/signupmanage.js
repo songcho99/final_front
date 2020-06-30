@@ -24,7 +24,8 @@ class signupmanage extends Component {
   };
   processApplyList = () => {
     let url =
-      "http://localhost:8000/project/processapply/list?member_num=" + 12;
+      "http://localhost:8000/project/processapply/list?member_num=" +
+      localStorage.num;
     Axios.get(url)
       .then((res) => {
         this.setState({
@@ -200,12 +201,14 @@ class signupmanage extends Component {
                 <td>{item.processapply_member_phone}</td>
                 <td>{item.processapply_member_email}</td>
                 <td>{item.processapply_process_subject}</td>
-                <td><span
-                  style={{ cursor: "pointer" }}
-                  onClick={this.detailInfo.bind(this, item)}
-                >
-                  확인
-                    </span></td>
+                <td>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={this.detailInfo.bind(this, item)}
+                  >
+                    확인
+                  </span>
+                </td>
               </tr>
             ))}
           </tbody>

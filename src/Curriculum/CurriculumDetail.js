@@ -196,7 +196,8 @@ class CurriculumDetail extends Component {
     let formdata = new FormData();
 
     let checkUrl =
-      "http://localhost:8000/project/processapply/check?member_num=" + 12;
+      "http://localhost:8000/project/processapply/check?member_num=" +
+      localStorage.num;
     Axios.get(checkUrl)
       .then((res) => {
         if (res.data > 0) {
@@ -215,7 +216,7 @@ class CurriculumDetail extends Component {
             "processapply_process_num",
             this.state.processData.process_num
           );
-          formdata.append("processapply_member_num", 13);
+          formdata.append("processapply_member_num", localStorage.num);
 
           let applyUrl = "http://localhost:8000/project/processapply/insert";
           Axios.post(applyUrl, formdata)
