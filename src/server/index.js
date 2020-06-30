@@ -1,6 +1,6 @@
 const express = require("express");
 const http = require("http");
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 const app = express();
 const server = http.createServer(app);
 
@@ -11,7 +11,6 @@ app.get("/", (req, res) => {
 
 const socketIO = require("socket.io");
 const io = socketIO(server);
-
 const rooms = [];
 
 io.sockets.on("connection", (socket) => {

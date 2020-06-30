@@ -163,6 +163,7 @@ class Menu extends Component {
           localStorage.removeItem("num");
           localStorage.removeItem("type");
           localStorage.removeItem("profile");
+          localStorage.removeItem("room");
           window.location.href = "/";
         } else {
           localStorage.check = "false";
@@ -177,6 +178,7 @@ class Menu extends Component {
           localStorage.removeItem("num");
           localStorage.removeItem("type");
           localStorage.removeItem("profile");
+          localStorage.removeItem("room");
           window.location.href = "/";
         }
       }
@@ -230,9 +232,7 @@ class Menu extends Component {
           {/* 로그인 되어있을때 상단 메뉴에 과정명,마이페이지 버튼,이름 활성화 */}
           {this.state.loggedInfo && (
             <div id="hdbox2after">
-
               {localStorage.type !== "일반" && localStorage.type !== "매니저" && (
-
                 <Link to="/classpage">
                   <b id="hdspan">{localStorage.type}</b>
                 </Link>
@@ -246,10 +246,11 @@ class Menu extends Component {
               {localStorage.type === "일반" && (
                 <b id="hdspan">{localStorage.name} 님</b>
               )}
-              {localStorage.type !== "매니저" && localStorage.type !== "강사" && localStorage.type !== "일반" && (
-                <b id="hdspan">{localStorage.name} 님</b>
-              )}
-
+              {localStorage.type !== "매니저" &&
+                localStorage.type !== "강사" &&
+                localStorage.type !== "일반" && (
+                  <b id="hdspan">{localStorage.name} 님</b>
+                )}
 
               <Link to="/mypagelist" id="hdafterprofile">
                 <Avatar

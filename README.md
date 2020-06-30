@@ -87,6 +87,9 @@ yarn add swiper
 yarn add socket.io
 yarn add socket.io-client
 yarn add react-spinners
+yarn add express
+yarn add @toast-ui/react-editor
+yarn add react-html-parser
 
 <!-- scss 설치  -->
 
