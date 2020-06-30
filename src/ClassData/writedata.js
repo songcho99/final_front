@@ -115,7 +115,7 @@ class WriteData extends Component {
             />
             <label htmlFor="icon-button-photo">
               <Button color="primary" component="span" startIcon={<DescriptionIcon />}>
-                파일 선택
+                파일 선택1
                     </Button>
             </label>
           </Fragment>
