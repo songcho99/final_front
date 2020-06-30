@@ -14,6 +14,9 @@ import "./CurriculumList.scss";
 // 마테리얼 아바타
 import { Avatar } from "@material-ui/core";
 
+// 모달
+import Modal from "react-modal";
+
 let today = new Date(),
   month = today.getMonth() + 1,
   year = today.getFullYear();
@@ -31,6 +34,9 @@ class CurriculumList extends Component {
     };
   }
 
+  // constructor({ match }) {
+  //   super();
+  // }
   img = () => {
     let url =
       "http://localhost:8000/project/process/detail?process_num=" +
@@ -67,6 +73,7 @@ class CurriculumList extends Component {
     const imageUrl = "http://localhost:8000/project/uploadfile/";
     return (
       <div id={this.props.currilist}>
+        <Modal></Modal>
         <div id="currilistbtnbox">
           <a href="/CurriculumAdd" id="currilistbtn">
             <div id="currilisticon">

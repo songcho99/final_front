@@ -8,12 +8,26 @@ import CurriculumList from "./CurriculumList";
 // https://blog.flowandform.agency/create-a-custom-calendar-in-react-
 
 class CurriculumSchedule extends Component {
-  constructor(props) {
-    super(props);
+  constructor({ match }) {
+    super();
+    // if (match.params.list_num == 2) {
+    //   console.log("2");
+    //   this.state = {
+    //     calender: "calenderOff",
+    //     currilist: "currilistOn",
+    //   };
+    // } else {
+    //   console.log("1");
+    //   this.state = {
+    //     calender: "calender",
+    //     currilist: "currilistOff",
+    //   };
+    // }
+
+    this.num = match.params.list_num;
     this.state = {
       calender: "calender",
       currilist: "currilistOff",
-
       // 박스 변수
       allbox: "currilistAllbox",
       phpbox: "curriSchcercle",
@@ -29,8 +43,37 @@ class CurriculumSchedule extends Component {
       bigdatacard: "",
       cardcloud: "",
       cardai: "",
+
+      // 카드 디테일 모달
+      CardModal: false,
     };
   }
+
+  componentWillMount() {
+    if (this.num == 2) this.CurrilistOn();
+    else this.calenderOn();
+  }
+  // constructor({ match }) {
+  //   super();
+  //   // if (match.params.list_num == 2) {
+  //   //   this.setState({
+  //   //     calender: "calenderOff",
+  //   //     currilist: "currilistOn",
+  //   //   });
+  //   // }
+  // }
+  // 카드 디테일 열기
+  CardModalOn = () => {
+    this.setState({
+      CardModal: true,
+    });
+  };
+
+  CardModalOff = () => {
+    this.setState({
+      CardModal: false,
+    });
+  };
 
   // 박스 클릭 이벤트
   AllBox = () => {
@@ -210,6 +253,10 @@ class CurriculumSchedule extends Component {
             bigdatacard={this.state.bigdatacard}
             cardcloud={this.state.cardcloud}
             cardai={this.state.cardai}
+            // 모달
+            CardModalOn={this.CardModalOn.bind(this)}
+            CardModalOff={this.CardModalOff.bind(this)}
+            CardModal={this.state.CardModal}
           ></CurriculumList>
         </div>
       </div>
