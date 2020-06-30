@@ -137,7 +137,7 @@ class ReviewList extends Component {
     const url = "http://localhost:8000/project/uploadfile/";
     return (
       <div style={{ textAlign: "center" }} align="center">
-        <div style={{ paddingTop: "100px" }}></div>
+        <div style={{ paddingTop: "75px" }}></div>
         <div style={backimage}>
           <span style={{ fontSize: "70px", color: "black" }}>
             IT Campus Review
