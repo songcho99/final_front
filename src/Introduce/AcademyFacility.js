@@ -1,9 +1,9 @@
 import React from "react";
-import Swiper from "react-id-swiper";
-import slide1 from "./slide1.jpg";
-import slide2 from "./slide2.jpg";
-import slide3 from "./slide3.jpg";
-import slide4 from "./slide4.jpg";
+// import Swiper from "react-id-swiper";
+// import slide1 from "./slide1.jpg";
+// import slide2 from "./slide2.jpg";
+// import slide3 from "./slide3.jpg";
+// import slide4 from "./slide4.jpg";
 
 const AcademyFacility = () => {
   const params = {
@@ -33,7 +33,7 @@ const AcademyFacility = () => {
   return (
     <div style={divStyle} align="center">
       <div style={{ paddingTop: "100px" }}></div>
-      <Swiper {...params} style={{ float: "left", display: "inline-block" }}>
+      {/* <Swiper {...params} style={{ float: "left", display: "inline-block" }}>
         <div style={{ float: "left", display: "inline-block" }}>
           <img
             alt=""
@@ -62,7 +62,7 @@ const AcademyFacility = () => {
             style={{ width: "inherit", height: "400px" }}
           />
         </div>
-      </Swiper>
+      </Swiper> */}
     </div>
   );
 };

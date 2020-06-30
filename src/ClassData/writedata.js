@@ -4,6 +4,7 @@ import { Button, makeStyles, TextField } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
 import DescriptionIcon from '@material-ui/icons/Description';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 // import SaveIcon from "@material-ui/icons/Save"
 
 const styles = (theme) => ({
@@ -56,33 +57,31 @@ class WriteData extends Component {
   }
 
   isUpload = (e) => {
+
     e.preventDefault();
 
     const data = new FormData();
     data.append('classdata_subject', this.state.classdata_subject)
     data.append('classdata_content', this.state.classdata_content)
     for (let i = 0; i < document.getElementById('icon-button-photo').files.length; i++) {
-      data.append('uploadFiles', uploadFiles[i]);
+      data.append('classdata_files', document.getElementById('icon-button-photo').files[i]);
     }
     data.append('classdata_member_num', localStorage.num)
     data.append('classdata_writer', localStorage.name)
-    let url = "http://localhost:8000/controller/classdata/insertclassdata"
+    let url = "http://localhost:8000/project/classdata/insertclassdata";
     axios.post(url, data)
       .then((res) => {
-        window.location.href = "/";
+        console.log("Notice add");
+        Swal.fire({
+          icon: 'success',
+          title: '작성 완료',
+          text: '수업자료 작성이 완료되었습니다',
+        }).then((result) => {
+          window.location.href = "/classdata";
+        })
       }).catch(err => {
         console.log("업로드 오류: " + err)
       })
-
-    // FormData의 key 확인
-    for (let key of data.keys()) {
-      console.log(key);
-    }
-
-    // FormData의 value 확인
-    for (let value of data.values()) {
-      console.log(value);
-    }
   }
 
 
