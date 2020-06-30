@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import "./mainpart3.scss";
 import { tr } from "date-fns/locale";
 
+// 마테리얼 아바타
+import { Avatar } from "@material-ui/core";
+
 class mainpart3 extends Component {
   state = {
     page: true,
@@ -28,6 +31,9 @@ class mainpart3 extends Component {
   render() {
     return (
       <div id="part3back">
+        <div id="part3backimgbox">
+          <img src={require("../image/study.jpg")} id="part3backimg"></img>
+        </div>
         <div id="part3back2"></div>
         <div id="part3box">
           <div id="part3textbox">
@@ -55,84 +61,32 @@ class mainpart3 extends Component {
             </div>
             <div id="part3slidtext">
               {/* 첫번째 박스 */}
-              <ul id={this.state.box} className="part3slidch">
-                <li>
-                  <div className="part3slidli">
-                    <div className="part3slidboxin">
-                      <img
-                        src={require("../image/worker.jpg")}
-                        className="part3slidimg"
-                      ></img>
-                    </div>
-                    <div className="part3slidboxin">
-                      <div className="part3intit">김성현의 강남역 모임</div>
-                      <div className="part3insub">
-                        시작날짜: 2020-06-22 ~ 끝날짜: 2020-07-1
-                      </div>
-                      <div className="partinlabel">
-                        코딩으로 세계 정복할 파티원 구합니다.
-                      </div>
-                    </div>
+              <div id={this.state.box} className="part3slidch">
+                <div className="curricard">
+                  {/* 헤드 부분 */}
+                  <div className="curricardhd">
+                    <div className="curricarthdtit">모집중(1/2)</div>
+                    <div className="curricarthdsub">안녕</div>
                   </div>
-                </li>
-                <li>
-                  <div className="part3slidli">
-                    <div className="part3slidboxin">
-                      <img
-                        src={require("../image/worker.jpg")}
-                        className="part3slidimg"
-                      ></img>
-                    </div>
-                    <div className="part3slidboxin">
-                      <div className="part3intit">김성현의 강남역 모임</div>
-                      <div className="part3insub">
-                        시작날짜: 2020-06-22 ~ 끝날짜: 2020-07-1
+
+                  {/* 몸통 부분 */}
+                  <div className="curricardmain">
+                    <div className="curricardmainimgbox">이미지</div>
+                    <div className="curricardmainback"></div>
+                    <a className="curricardmaintext">
+                      <div className="studylistcardAvatar">
+                        <Avatar style={{ width: "80px", height: "80px" }} />
                       </div>
-                      <div className="partinlabel">
-                        코딩으로 세계 정복할 파티원 구합니다.
-                      </div>
-                    </div>
+                      <div className="curricardmainnav">제목</div>
+                    </a>
                   </div>
-                </li>
-                <li>
-                  <div className="part3slidli">
-                    <div className="part3slidboxin">
-                      <img
-                        src={require("../image/worker.jpg")}
-                        className="part3slidimg"
-                      ></img>
-                    </div>
-                    <div className="part3slidboxin">
-                      <div className="part3intit">김성현의 강남역 모임</div>
-                      <div className="part3insub">
-                        시작날짜: 2020-06-22 ~ 끝날짜: 2020-07-1
-                      </div>
-                      <div className="partinlabel">
-                        코딩으로 세계 정복할 파티원 구합니다.
-                      </div>
-                    </div>
+
+                  {/* 바닥 */}
+                  <div className="currifooter">
+                    <div>시작날짜&nbsp;~&nbsp; 종료날짜</div>
                   </div>
-                </li>
-                <li>
-                  <div className="part3slidlilast">
-                    <div className="part3slidboxin">
-                      <img
-                        src={require("../image/worker.jpg")}
-                        className="part3slidimg"
-                      ></img>
-                    </div>
-                    <div className="part3slidboxin">
-                      <div className="part3intit">김성현의 강남역 모임</div>
-                      <div className="part3insub">
-                        시작날짜: 2020-06-22 ~ 끝날짜: 2020-07-1
-                      </div>
-                      <div className="partinlabel">
-                        코딩으로 세계 정복할 파티원 구합니다.
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
+                </div>
+              </div>
 
               {/* 두번째 박스 */}
               <ul id={this.state.box2}>

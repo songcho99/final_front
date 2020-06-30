@@ -86,6 +86,7 @@ yarn add react-id-swiper
 yarn add swiper
 yarn add socket.io
 yarn add socket.io-client
+yarn add react-spinners
 
 <!-- scss 설치  -->
 

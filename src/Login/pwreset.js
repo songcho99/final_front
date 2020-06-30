@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./pwreset.css";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 //마테리얼
 import { styled } from "@material-ui/core/styles";
@@ -10,14 +10,15 @@ import Axios from "axios";
 class pwreset extends Component {
   state = {
     member_id: localStorage.saveid,
-    pwCheckmsg: ""
-  }
+    pwCheckmsg: "",
+  };
   updatePassword = (e) => {
     e.preventDefault();
     var regex = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
     if (!regex.test(e.target.member_password.value)) {
       this.setState({
-        pwCheckmsg: "문자/숫자/특수문자(!@#$%^&+=)를 포함한 8~15자리를 입력하세요."
+        pwCheckmsg:
+          "문자/숫자/특수문자(!@#$%^&+=)를 포함한 8~15자리를 입력하세요.",
       });
       return;
     } else {
@@ -32,27 +33,26 @@ class pwreset extends Component {
             localStorage.removeItem("saveid");
             this.props.PwResetClose();
             this.props.LoginModalClose();
-            Swal.fire('비밀번호 재설정 완료')
-            .then((result)=>{
+            Swal.fire("비밀번호 재설정 완료").then((result) => {
               this.props.LoginModalOpen();
-            })
-          }).catch((err) => {
-            console.log("비밀번호 업데이트 에러=" + err);
+            });
           })
+          .catch((err) => {
+            console.log("비밀번호 업데이트 에러=" + err);
+          });
       } else {
         this.setState({
-          pwCheckmsg: "비밀번호가 일치하지 않습니다."
-        })
+          pwCheckmsg: "비밀번호가 일치하지 않습니다.",
+        });
         return;
       }
     }
-
-  }
+  };
   render() {
     console.log(this.state.member_id);
     const LoginBtn = styled(Button)({
-      color: "#2a9d8f",
-      borderColor: "#2a9d8f",
+      color: "rgb(34, 83, 184)",
+      borderColor: "rgb(34, 83, 184)",
     });
     return (
       <div id="pwreset">
@@ -66,7 +66,7 @@ class pwreset extends Component {
                 type="password"
                 className="logininput"
                 placeholder="비밀번호"
-                name='member_password'
+                name="member_password"
               ></input>
               <div className="logini"></div>
             </div>
@@ -77,7 +77,7 @@ class pwreset extends Component {
                 type="password"
                 className="logininput"
                 placeholder="비밀번호 확인"
-                name='member_repassword'
+                name="member_repassword"
               ></input>
               <div className="logini"></div>
             </div>
@@ -94,14 +94,14 @@ class pwreset extends Component {
                 type="submit"
               >
                 확인
-            </LoginBtn>
+              </LoginBtn>
               <LoginBtn
                 onClick={this.props.PwResetClose}
                 variant="outlined"
                 className="findidbtnm"
               >
                 취소
-            </LoginBtn>
+              </LoginBtn>
             </div>
           </form>
         </div>

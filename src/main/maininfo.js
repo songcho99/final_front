@@ -25,9 +25,9 @@ class maininfo extends Component {
       corphref: [],
       enddates: [],
 
-      show: 1,
-      num: "nonedown",
-      num2: "nonedown",
+      show: 3,
+      num: "none",
+      num2: "none",
       num3: "nonedown",
       num4: "nonedown",
 
@@ -375,63 +375,90 @@ class maininfo extends Component {
         </div>
         {/* 네번째 화면  */}
         <div id="main-con4" className={this.state.num4}>
-          4번창 입니다.
-          <div
-            style={{
-              width: "80%",
-              height: "50%",
-              backgroundColor: "white",
-              overflow: "auto",
-            }}
-          >
-            <select
-              value={this.state.searchtxt}
-              onChange={this.selectChange.bind(this)}
-              name="searchtxt"
-            >
-              <option>java</option>
-              <option>spring</option>
-              <option>react</option>
-            </select>
-            <br />
-            <button
-              style={{ float: "left" }}
-              onClick={this.changePage.bind(this, "prev")}
-            >
-              PREV
-            </button>
-            <button
-              style={{ float: "right" }}
-              onClick={this.changePage.bind(this, "next")}
-            >
-              NEXT
-            </button>
-            <div>
-              <table>
-                <thead>
-                  <th>공고명</th>
-                  <th>마감일</th>
-                  <th>Corp</th>
-                </thead>
-                <tbody>
-                  {this.state.hiresubject.map((item, index) => (
-                    <tr>
-                      <td>
-                        <a href={this.state.hirehref[index]} alt="" key={index}>
-                          {item}
-                        </a>
-                      </td>
-                      <td>{this.state.enddates[index]}</td>
-                      <td>
-                        <a href={this.state.corphref[index]} alt="" key={index}>
-                          {this.state.corpname[index]}
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          {/* 투명막 */}
+          <div id="maincon4back"></div>
+
+          {/* 타이틀 박스  */}
+          <div id="maincon4text">
+            <div id="maincon4tit">Job Storage</div>
+            <div className="maincon4sub">
+              취업은 "내가 얼마나 알고 있는가?" 보다는 "내가 얼마나 전달할 수
+              있는가?"가 더 중요합니다.
             </div>
+            <div className="maincon4sub">
+              취업동향 및 트랜드를 파악하고 당신만의 취업전략을 찾도록
+              도와드리겠습니다.
+            </div>
+          </div>
+
+          {/* 카드 출력 박스  */}
+          <div id="maincon4cardbox">
+            {/* 버튼 부분 */}
+            <div id="maincon4nav">
+              <div>
+                <select
+                  value={this.state.searchtxt}
+                  onChange={this.selectChange.bind(this)}
+                  name="searchtxt"
+                  id="maincon4sel"
+                >
+                  <option>java</option>
+                  <option>spring</option>
+                  <option>react</option>
+                </select>
+              </div>
+              <div
+                onClick={this.changePage.bind(this, "prev")}
+                id="maincon4arr"
+              >
+                <i className="fas fa-angle-left"></i>
+              </div>
+              <div
+                onClick={this.changePage.bind(this, "next")}
+                id="maincon4arr2"
+              >
+                <i className="fas fa-angle-right"></i>
+              </div>
+              {/* 버튼 부분 끝 */}
+            </div>
+
+            {/* 출력 테이블  */}
+            <table id="maincon4tab">
+              <thead>
+                <tr id="maincon4tabtr">
+                  <th>제목</th>
+                  <th>마감일</th>
+                  <th>업체</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.hiresubject.map((item, index) => (
+                  <tr>
+                    <td style={{ textAlign: "left" }}>
+                      <a
+                        href={this.state.hirehref[index]}
+                        alt=""
+                        key={index}
+                        style={{ paddingLeft: "80px", color: "white" }}
+                      >
+                        {item}
+                      </a>
+                    </td>
+                    <td>{this.state.enddates[index]}</td>
+                    <td>
+                      <a
+                        href={this.state.corphref[index]}
+                        alt=""
+                        key={index}
+                        style={{ color: "white" }}
+                      >
+                        {this.state.corpname[index]}
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
 

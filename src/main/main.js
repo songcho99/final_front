@@ -142,7 +142,10 @@ class main extends Component {
               path="/CurriculumUpdate/:process_num"
               component={CurriculumUpdate}
             />
-            <Route path="/curriculumschedule" component={CurriculumSchedule} />
+            <Route
+              path="/curriculumschedule/:list_num"
+              component={CurriculumSchedule}
+            />
           </ThemeProvider>
 
           {/* 강사,수강생 전용 학습 페이지 */}
