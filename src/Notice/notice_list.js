@@ -204,7 +204,7 @@ class Notice_List extends Component {
         <span style={{ fontSize: "40px" }}>공지사항</span>
         <br />
         <br />
-        <span style={{ fontSize: "18px", }}>
+        <span style={{ fontSize: "18px" }}>
           IT Campus의 새로운 소식을 알려드립니다.
         </span>
         <div style={{ paddingTop: "100px" }}></div>
