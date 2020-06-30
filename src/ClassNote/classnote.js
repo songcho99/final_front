@@ -2,28 +2,44 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import io from "socket.io-client";
 import Swal from "sweetalert2";
+import "codemirror/lib/codemirror.css";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { Editor } from "@toast-ui/react-editor";
+import HtmlParser from "react-html-parser";
+
 import Axios from "axios";
 
-const socket = io.connect("http://localhost:4000");
+const socket = io.connect("http://localhost:5000");
 class classnote extends Component {
-  state = {
-    searchgroup: [{ asd: "" }, { asd: 0 }, { fdf: "분야" }],
-    classcontent: "",
-    roomnum: 0,
-    memeocontent: "",
-  };
+  editorRef = React.createRef();
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchgroup: [{ asd: "" }, { asd: 0 }, { fdf: "분야" }],
+      classcontent: "",
+      roomnum: 0,
+      roomname: "",
+      memeocontent: "",
+      classList: [],
+    };
+  }
 
   updateContent = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-      roomname: "",
-    });
+    // this.setState({
+    //   [e.target.name]: e.target.value,
+    // });
 
-    this.sendMessage(e.target.value);
+    this.setState({
+      classcontent: this.editorRef.current.getInstance().getHtml(),
+    });
+    console.log(this.state.classcontent);
+
+    this.sendMessage(this.state.classcontent);
   };
 
   sendMessage(msg) {
-    socket.emit("update-msg", localStorage.type, msg);
+    socket.emit("update-msg", localStorage.room, msg);
   }
 
   updateMemo = (e) => {
@@ -36,14 +52,47 @@ class classnote extends Component {
 
   classSave = (e) => {
     e.preventDefault();
-    const script = document.createElement("script");
-    script.src = "https://use.typekit.net/foobar.js";
-    script.async = true;
-    document.body.appendChild(script);
+
+    let str = this.state.classcontent.replace(/</g, "&");
+    const str2 = str.replace(/>/g, "*");
+
+    console.log("str2:" + str2);
+
+    this.setState({
+      classcontent: this.state.classcontent.replace(/</g, "&"),
+    });
+    this.setState({
+      classcontent: this.state.classcontent.replace(/>/g, "*"),
+    });
+    console.log(this.state.classcontent);
+    /* let bytes = [];
+    for (let i = 0; i < this.state.classcontent.length; i++) {
+      var code = this.state.classcontent.charCodeAt(i);
+
+      bytes = bytes.concat([code]);
+      console.log(bytes);
+    }*/
+
+    window.open(
+      "http://localhost:8000/project/word/save?content=" +
+        str2 +
+        "&process_num=" +
+        this.state.roomnum,
+      "",
+      "width:200,height:200"
+    );
+
+    // const script = document.createElement("script");
+    // script.src = "https://use.typekit.net/foobar.js";
+    // script.async = true;
+    // document.body.appendChild(script);
   };
 
   memoSave = (e) => {
     e.preventDefault();
+
+    console.log("content:" + this.state.content);
+
     let url = "http://localhost:8000/project/memo/insert";
     let formData = new FormData();
     formData.append("memo_member_num", localStorage.num);
@@ -66,19 +115,40 @@ class classnote extends Component {
 
   componentWillMount() {
     let url =
-      "http://localhost:8000/project/processclass/opennote?process_subject=" +
-      localStorage.type;
+      "http://localhost:8000/project/processclass/opennote?member_num=" +
+      localStorage.num;
     Axios.get(url)
       .then((res) => {
         this.setState({
           roomnum: res.data.process_num,
+          roomname: res.data.process_subject,
         });
+
+        console.log("roomnum:" + this.state.roomnum);
+        console.log("roomname:" + this.state.roomname);
+        localStorage.room = this.state.roomname;
+
+        //지난 수업 목록 불러오기
+        let listUrl =
+          "http://localhost:8000/project/processclass/classlist?process_num=" +
+          this.state.roomnum;
+        Axios.get(listUrl)
+          .then((res) => {
+            console.log(res.data);
+            this.setState({
+              classList: res.data,
+            });
+            console.log(this.state.classList);
+          })
+          .catch((err) => {
+            console.log("지난 수업 목록 불러오기 에러 :" + err);
+          });
       })
       .catch((err) => {
         console.log("수강 과정 번호 불러오기 에러 :" + err);
       });
 
-    socket.emit("join", localStorage.type);
+    socket.emit("join", localStorage.room);
     socket.on("roomnum", (msg) => {
       console.log(msg);
     });
@@ -93,21 +163,45 @@ class classnote extends Component {
     });
   }
 
+  handleClick = () => {
+    this.setState({
+      classcontent: this.editorRef.getInstance().getHtml(),
+    });
+    console.log(this.state.classcontent);
+  };
+
   render() {
+    const filelist = this.state.classList.map((item) => (
+      <tr>
+        <td>{item}</td>
+      </tr>
+    ));
+
     return (
       <div>
         <br></br>
         <br></br>
         <br></br>
         <br></br>
+        <table>{filelist}</table>
         <br></br>
-        <textarea
+        <Editor
+          previewStyle="tab"
+          height="700px"
+          initialEditType="wysiwyg"
+          onChange={this.updateContent.bind(this)}
+          initialValue={this.state.classcontent}
+          ref={this.editorRef}
+        />
+        <div id="viewer">{HtmlParser(this.state.classcontent)}</div>
+
+        {/* <textarea
           rows="20"
           cols="30"
           name="classcontent"
           onChange={this.updateContent.bind(this)}
           value={this.state.classcontent}
-        ></textarea>
+        ></textarea> */}
         <br />
         <button onClick={this.classSave.bind(this)}>SAVE CLASS</button>
 
