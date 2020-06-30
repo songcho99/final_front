@@ -130,12 +130,12 @@ class Loginform extends Component {
   //로그인 시 로그아웃버튼 생기게하고 로그아웃 시, 로그인 폼 나오게 하기
   render() {
     const IdCheck = styled(Checkbox)({
-      color: "#2a9d8f",
+      color: "rgb(34, 83, 184)",
     });
 
     const LoginBtn = styled(Button)({
-      color: "#2a9d8f",
-      borderColor: "#2a9d8f",
+      color: "rgb(34, 83, 184)",
+      borderColor: "rgb(34, 83, 184)",
     });
     return (
       <div className="loginform">

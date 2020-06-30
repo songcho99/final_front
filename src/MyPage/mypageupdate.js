@@ -11,8 +11,8 @@ import Swal from "sweetalert2";
 import Mypagelist from "./mypagelist";
 
 const MypageupButton = styled(Button)({
-  color: "#2a9d8f",
-  borderColor: "#2a9d8f",
+  color: "rgb(34, 83, 184)",
+  borderColor: "rgb(34, 83, 184)",
   fontWeight: "bold",
 });
 
@@ -210,7 +210,7 @@ export default function MyPageUpdate(props) {
       <br />
       <span style={{ fontSize: "18px", color: "#A6A6A6" }}>
         IT Campus 회원 정보를 수정 하실 수 있습니다.
-        </span>
+      </span>
       <div style={{ paddingTop: "200px" }}></div>
       <form onSubmit={onSubmit}>
         {/* 프로필 테이블 창*/}
@@ -265,7 +265,7 @@ export default function MyPageUpdate(props) {
               </td>
             </tr>
             <tr style={trStyle}>
-              <td >주소</td>
+              <td>주소</td>
               <td style={{ textAlign: "left" }}>
                 <br />
                 <MypageupButton
@@ -274,7 +274,7 @@ export default function MyPageUpdate(props) {
                   onClick={post}
                 >
                   주소 검색
-                      </MypageupButton>
+                </MypageupButton>
                 <input
                   type="text"
                   className="mypageup-input"
@@ -296,11 +296,10 @@ export default function MyPageUpdate(props) {
         </table>
         <div style={{ paddingBottom: "20px" }}></div>
         <button type="submit" style={buttonStyle}>
-          <i class="fas fa-pencil-alt"></i>&nbsp;&nbsp;
-          저장
+          <i class="fas fa-pencil-alt"></i>&nbsp;&nbsp; 저장
         </button>
       </form>
       <div style={{ paddingBottom: "100px" }}></div>
-    </div >
+    </div>
   );
 }

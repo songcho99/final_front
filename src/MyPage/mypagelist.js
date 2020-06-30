@@ -1,6 +1,7 @@
 import React from "react";
 import mypageimg from "./mypage.jpg";
 import MyPageMenu from "./mypagemenu";
+import "./mypagelist.scss";
 
 const backimage = {
   width: "100%",
@@ -14,30 +15,31 @@ const backimage = {
   flexDirection: "column",
 };
 const header = () => (
-  <div style={backimage}>
-    <span
-      style={{
-        fontSize: "70px",
-        color: "#EAEAEA",
-        marginTop: "180px",
-      }}
-    >
-      IT Campus Mypage
-    </span>
-    <br />
-    <span style={{ fontSize: "18px", color: "#EAEAEA" }}>IT Campus Mypage</span>
-    <br />
-    <div style={{ paddingBottom: "250px" }}></div>
-    <MyPageMenu />
+  <div>
+    <span>IT Campus Mypage</span>
+
+    <span>IT Campus Mypage</span>
+
+    <div></div>
   </div>
 );
 
 const mypagelist = () => {
   return (
-    <div style={{ textAlign: "center" }}>
-      <div style={{ paddingTop: "100px" }}></div>
-      {header()}
-      <br />
+    <div id="mypagelist">
+      <div id="mypagelistback">
+        <div id="mypagelistbackbox">
+          <div id="mypagelistlastback"></div>
+          <div id="mypagelistimgbox">
+            <img src={require("./mypage.jpg")} id="mypagelistimg"></img>
+          </div>
+        </div>
+        <div id="mypagelisttextbox">
+          <div id="mypgaelisttit">IT Campus Mypage</div>
+          <div id="mypgaelistsub">IT Campus Mypage</div>
+          <MyPageMenu />
+        </div>
+      </div>
     </div>
   );
 };
