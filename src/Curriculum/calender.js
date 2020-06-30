@@ -87,18 +87,7 @@ class calender extends Component {
             &gt;
           </button>
         </header>
-        <button onClick={this.but.bind(this)}>돌아와</button>
-        <div>
-          {this.state.list.map((row) => {
-            if (row.process_startdate == "2020-06-26") {
-              return (
-                <div>
-                  {row.process_startdate.replace(/-/gi, ".").replace(/0/gi, "")}
-                </div>
-              );
-            }
-          })}
-        </div>
+
         {/* 날짜 출력 */}
         <section>
           {/* 요일 출력 */}
@@ -162,11 +151,30 @@ class calender extends Component {
                           "." ===
                         value.fulldate.replace(/0/gi, "").replace(/(\s*)/g, "")
                       ) {
-                        return (
-                          <div className={this.state.ptype[idx]}>
-                            {row.process_subject} 시작
-                          </div>
-                        );
+                        if (this.state.ptype[idx] === "bigdata") {
+                          return (
+                            <div className={this.props.bigdata}>
+                              Start {row.process_subject}
+                            </div>
+                          );
+                        } else if (this.state.ptype[idx] === "cloud") {
+                          return (
+                            <div className={this.props.cloud}>
+                              Start {row.process_subject}
+                            </div>
+                          );
+                        } else if (this.state.ptype[idx] === "ai") {
+                          return (
+                            <div className={this.props.ai}>
+                              Start {row.process_subject}
+                            </div>
+                          );
+                        }
+                        // return (
+                        //   <div className={this.state.ptype[idx]}>
+                        //     Start {row.process_subject}
+                        //   </div>
+                        // );
                       } else if (
                         row.process_enddate
                           .replace(/-/gi, ".")
@@ -174,11 +182,30 @@ class calender extends Component {
                           "." ===
                         value.fulldate.replace(/0/gi, "").replace(/(\s*)/g, "")
                       ) {
-                        return (
-                          <div className={this.state.ptype[idx]}>
-                            {row.process_subject} 종료
-                          </div>
-                        );
+                        if (this.state.ptype[idx] === "bigdata") {
+                          return (
+                            <div className={this.props.bigdata}>
+                              End {row.process_subject}
+                            </div>
+                          );
+                        } else if (this.state.ptype[idx] === "cloud") {
+                          return (
+                            <div className={this.props.cloud}>
+                              End {row.process_subject}
+                            </div>
+                          );
+                        } else if (this.state.ptype[idx] === "ai") {
+                          return (
+                            <div className={this.props.ai}>
+                              End {row.process_subject}
+                            </div>
+                          );
+                        }
+                        // return (
+                        //   <div className={this.state.ptype[idx]}>
+                        //     End {row.process_subject}
+                        //   </div>
+                        // );
                       }
                     })}
                   </span>

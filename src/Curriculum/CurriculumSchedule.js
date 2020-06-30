@@ -19,6 +19,16 @@ class CurriculumSchedule extends Component {
       phpbox: "curriSchcercle",
       Reactbox: "curriSchcercle",
       Java: "curriSchcercle",
+
+      // 필터링 달력
+      bigdata: "bigdata",
+      cloud: "cloud",
+      ai: "ai",
+
+      //필터링 카드
+      bigdatacard: "",
+      cardcloud: "",
+      cardai: "",
     };
   }
 
@@ -29,6 +39,16 @@ class CurriculumSchedule extends Component {
       phpbox: "curriSchcercle",
       Reactbox: "curriSchcercle",
       Java: "curriSchcercle",
+
+      // 달력 필터링
+      bigdata: "bigdata",
+      cloud: "cloud",
+      ai: "ai",
+
+      // 카드 필터링
+      bigdatacard: "",
+      cardcloud: "",
+      cardai: "",
     });
   };
 
@@ -38,6 +58,16 @@ class CurriculumSchedule extends Component {
       phpbox: "currilistAllbox",
       Reactbox: "curriSchcercle",
       Java: "curriSchcercle",
+
+      //달력 필터링
+      bigdata: "bigdata",
+      cloud: "hid",
+      ai: "hid",
+
+      // 카드 필터링
+      bigdatacard: "",
+      cardcloud: "hid",
+      cardai: "hid",
     });
   };
 
@@ -47,6 +77,16 @@ class CurriculumSchedule extends Component {
       phpbox: "curriSchcercle",
       Reactbox: "currilistAllbox",
       Java: "curriSchcercle",
+
+      //달력 필터링
+      bigdata: "hid",
+      cloud: "cloud",
+      ai: "hid",
+
+      // 카드 필터링
+      bigdatacard: "hid",
+      cardcloud: "",
+      cardai: "hid",
     });
   };
 
@@ -56,6 +96,16 @@ class CurriculumSchedule extends Component {
       phpbox: "curriSchcercle",
       Reactbox: "curriSchcercle",
       Java: "currilistAllbox",
+
+      //달력 필터링
+      bigdata: "hid",
+      cloud: "hid",
+      ai: "ai",
+
+      // 카드 필터링
+      bigdatacard: "hid",
+      cardcloud: "hid",
+      cardai: "",
     });
   };
 
@@ -145,10 +195,22 @@ class CurriculumSchedule extends Component {
         </div>
         <div id="curriSchnav2">
           {/* 달력 출력  */}
-          <Calender calender={this.state.calender}></Calender>
+          <Calender
+            calender={this.state.calender}
+            bigdata={this.state.bigdata}
+            cloud={this.state.cloud}
+            ai={this.state.ai}
+            num={this.state.num}
+          ></Calender>
 
           {/* 일정 출력 */}
-          <CurriculumList currilist={this.state.currilist}></CurriculumList>
+          <CurriculumList
+            currilist={this.state.currilist}
+            // 필터링
+            bigdatacard={this.state.bigdatacard}
+            cardcloud={this.state.cardcloud}
+            cardai={this.state.cardai}
+          ></CurriculumList>
         </div>
       </div>
     );
