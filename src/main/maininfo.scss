@@ -55,6 +55,7 @@ html {
 }
 
 #main-con3 {
+  position: relative;
   width: 100%;
   height: 100vh;
   color: white;
@@ -63,11 +64,11 @@ html {
   align-items: center;
   flex-direction: column;
   z-index: 31;
-  background-color: var(--blue);
+  background-color: var(--black);
 }
 
 #main-con4 {
-  background-image: url(../image/worker.jpg);
+  background-image: url(../image/100success.jpg);
   background-size: cover;
   width: 100%;
   height: 100vh;
@@ -77,11 +78,12 @@ html {
   align-items: center;
   flex-direction: column;
   z-index: 21;
+  position: relative;
 }
 
 #mainiffoarrowbox {
   position: fixed;
-  z-index: 52;
+  z-index: 800;
   bottom: 0;
   width: 100%;
   display: flex;
@@ -204,4 +206,105 @@ html {
   height: 0 !important;
   overflow: hidden;
   transition: all 1200ms ease;
+}
+
+// 4번째 화면
+#maincon4back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: lightgray;
+  opacity: 0.2;
+  z-index: 1;
+}
+
+#maincon4text {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+#maincon4tit {
+  font-size: 40px;
+  font-weight: bold;
+  letter-spacing: 10px;
+  margin-bottom: 10px;
+}
+
+.maincon4sub {
+  font-size: 12px;
+  margin-bottom: 5px;
+  color: lightgrey;
+}
+
+#maincon4cardbox {
+  position: relative;
+  z-index: 6;
+  width: 1000px;
+  height: 430px;
+  margin-top: 60px;
+  // background-color: var(--gray);
+  display: flex;
+  flex-direction: column;
+}
+
+#maincon4nav {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#maincon4sel {
+  font-size: 16px;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+  line-height: 1.15;
+  text-align: center;
+  outline: none;
+  margin-right: 10px;
+  background-color: transparent;
+  color: var(--white);
+  option {
+    color: var(--black);
+  }
+}
+
+#maincon4arr {
+  font-size: 30px;
+  color: var(--white);
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+#maincon4arr2 {
+  font-size: 30px;
+  color: var(--white);
+  cursor: pointer;
+}
+
+#maincon4tab {
+  text-align: center;
+  border-collapse: collapse;
+  th {
+    height: 60px;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+  }
+
+  td {
+    height: 60px;
+    border-bottom: 1px solid white;
+  }
+}
+
+#maincon4tabtr {
+  th {
+  }
 }

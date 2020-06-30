@@ -395,7 +395,7 @@ class CurriculumDetail extends Component {
         {this.state.normal}
         {this.state.admin}
         &nbsp;&nbsp;
-        <NavLink React to="/curriculumschedule" className="curridetailsubbtn">
+        <NavLink React to="/curriculumschedule/2" className="curridetailsubbtn">
           <button
             type="button"
             style={buttonStyle}
