@@ -299,7 +299,7 @@ class CurriculumDetail extends Component {
             <hr />
             <NavLink
               React
-              to="/curriculumschedule"
+              to={"/curriculumschedule/" + 2}
               className="curridetailsubbtn"
             >
               <Button>LIST</Button>
