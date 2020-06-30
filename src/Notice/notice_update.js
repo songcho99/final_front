@@ -123,12 +123,12 @@ class Notice_Update extends Component {
       .then((res) => {
         console.log("notice update");
         Swal.fire({
-          icon: 'success',
-          title: '수정 완료',
-          text: '공지사항 수정이 완료되었습니다',
+          icon: "success",
+          title: "수정 완료",
+          text: "공지사항 수정이 완료되었습니다",
         }).then((result) => {
           window.location.href = "/noticelist";
-        })
+        });
       })
       .catch((err) => {
         console.log("notice update error=" + err);
@@ -137,10 +137,10 @@ class Notice_Update extends Component {
   render() {
     const backimage = {
       width: "100%",
-      height: "400px",
+      height: "500px",
       backgroundImage: `url(${noticeimg})`,
       backgroundRepeat: "no-repeat",
-      backgroundSize: "100% 400px",
+      backgroundSize: "100% 500px",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -167,6 +167,7 @@ class Notice_Update extends Component {
       borderRadius: "25px",
       cursor: "pointer",
       border: "1px solid gray",
+      outline: "none",
     };
     return (
       <div style={{ textAlign: "center" }}>
@@ -251,10 +252,7 @@ class Notice_Update extends Component {
             </tbody>
           </table>
           <div style={{ paddingBottom: "20px" }}></div>
-          <button
-            type="submit"
-            style={buttonStyle}
-          >
+          <button type="submit" style={buttonStyle}>
             <i class="fas fa-pencil-alt"></i>&nbsp;&nbsp; 저장
           </button>
           &nbsp;&nbsp;
@@ -269,10 +267,7 @@ class Notice_Update extends Component {
             }}
             style={{ color: "black", textDecoration: "none" }}
           >
-            <button
-              type="button"
-              style={buttonStyle}
-            >
+            <button type="button" style={buttonStyle}>
               <i class="fas fa-undo-alt"></i>&nbsp;&nbsp; 뒤로
             </button>
           </Link>

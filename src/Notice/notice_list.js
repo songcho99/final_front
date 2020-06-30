@@ -131,10 +131,10 @@ class Notice_List extends Component {
   render() {
     const backimage = {
       width: "100%",
-      height: "400px",
+      height: "500px",
       backgroundImage: `url(${noticeimg})`,
       backgroundRepeat: "no-repeat",
-      backgroundSize: "100% 400px",
+      backgroundSize: "100% 500px",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",

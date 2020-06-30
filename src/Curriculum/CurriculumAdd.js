@@ -615,8 +615,9 @@ function CurriculumAdd() {
                       deleteBooks(item);
                     }}
                   >
-                    {item.books_brand}&nbsp;<b>{item.books_name}</b>&nbsp;
-                    {item.books_writer}
+                    <b>{item.books_name}</b>&nbsp;
+                    {item.books_writer}&nbsp;
+                    {item.books_brand}
                     <br />
                   </span>
                 ))}
@@ -668,14 +669,8 @@ function CurriculumAdd() {
             </tr>
           </tbody>
         </table>
-        <div id="curriadd">
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-        </div>
       </form>
+      <div style={{ paddingTop: "100px" }}></div>
     </div>
   );
 }

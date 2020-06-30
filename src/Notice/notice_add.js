@@ -105,13 +105,12 @@ class Notice_Add extends Component {
       .then((res) => {
         console.log("Notice add");
         Swal.fire({
-          icon: 'success',
-          title: '작성 완료',
-          text: '공지사항 작성이 완료되었습니다',
+          icon: "success",
+          title: "작성 완료",
+          text: "공지사항 작성이 완료되었습니다",
         }).then((result) => {
           window.location.href = "/noticelist";
-        })
-
+        });
       })
       .catch((err) => {
         console.log("notice add error=" + err);
@@ -120,10 +119,10 @@ class Notice_Add extends Component {
   render() {
     const backimage = {
       width: "100%",
-      height: "400px",
+      height: "500px",
       backgroundImage: `url(${noticeimg})`,
       backgroundRepeat: "no-repeat",
-      backgroundSize: "100% 400px",
+      backgroundSize: "100% 500px",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
