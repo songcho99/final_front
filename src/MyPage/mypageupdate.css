@@ -1,7 +1,14 @@
 :root {
   --gray: #9e9e9e;
+  --dgray: #777;
   --white: #ffffff;
   --teal: #2a9d8f;
+  --red: #e63946;
+  --blue: rgb(34, 83, 184);
+  --black: rgb(52, 52, 52);
+  --yellow: #ffbe0b;
+  --orange: #ff6b35;
+  --bluesky: #caf0f8;
 }
 
 /* 마이페이지 타이틀 */
@@ -61,14 +68,14 @@
 .filebox label {
   display: inline-block;
   padding: 0.5em 0.75em;
-  color: var(--teal);
+  color: var(--blue);
   font-size: inherit;
   line-height: normal;
   vertical-align: middle;
   background-color: var(--white);
   cursor: pointer;
-  border: 1px solid var(--teal);
-  border-bottom-color: var(--teal);
+  border: 1px solid var(--blue);
+  border-bottom-color: var(--blue);
   border-radius: 0.25em;
 }
 

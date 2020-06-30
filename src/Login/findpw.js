@@ -8,24 +8,23 @@ import Axios from "axios";
 
 class findpw extends Component {
   state = {
-    member_name: '',
-    member_id: '',
-    member_phone: '',
-    pwCheck_msg: '',
+    member_name: "",
+    member_id: "",
+    member_phone: "",
+    pwCheck_msg: "",
     pwCheck_msg2: "",
     checknum: "",
     randomsu: "",
-
   };
   onKeyChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
   //폰번호 실시간 입력 검증
   onPhoneChange = (e) => {
     this.setState({
-      member_phone: autoHypenPhone(e.target.value.replace(/[^0-9]/g, ""))
+      member_phone: autoHypenPhone(e.target.value.replace(/[^0-9]/g, "")),
     });
   };
   //인증번호 받기 누르면 인증번호 input 에 포커스
@@ -41,12 +40,13 @@ class findpw extends Component {
       .then((res) => {
         this.setState({
           randomsu: res.data,
-          pwCheck_msg: "인증번호 발송이 완료되었습니다."
+          pwCheck_msg: "인증번호 발송이 완료되었습니다.",
         });
-      }).catch((err) => {
-        console.log("발송 버튼 error=" + err);
       })
-  }
+      .catch((err) => {
+        console.log("발송 버튼 error=" + err);
+      });
+  };
   //비밀번호 재설정
   onCheckId = (e) => {
     e.preventDefault();
@@ -57,26 +57,25 @@ class findpw extends Component {
     dataForm.append("member_id", e.target.member_id.value);
     dataForm.append("member_phone", e.target.member_phone.value);
     var url = "http://localhost:8000/project/check/checklogin";
-    Axios.post(url,
-      dataForm
-    ).then((responseData) => {
-      console.log("responseData=" + responseData.data);
-      this.setState({
-        cnt: responseData.data
-      });
-      if (this.state.cnt === 1) {
-        this.onSms();
-        this.MessageFocus();
-      }
-      else {
+    Axios.post(url, dataForm)
+      .then((responseData) => {
+        console.log("responseData=" + responseData.data);
         this.setState({
-          pwCheck_msg: "등록된 회원 정보가 없습니다."
+          cnt: responseData.data,
         });
-      }
-    }).catch((error) => {
-      console.log("비밀번호 재설정하기 error=" + error);
-    });
-  }
+        if (this.state.cnt === 1) {
+          this.onSms();
+          this.MessageFocus();
+        } else {
+          this.setState({
+            pwCheck_msg: "등록된 회원 정보가 없습니다.",
+          });
+        }
+      })
+      .catch((error) => {
+        console.log("비밀번호 재설정하기 error=" + error);
+      });
+  };
   checkNumber = (e) => {
     e.preventDefault();
     console.log("인증번호=" + this.state.randomsu);
@@ -87,15 +86,15 @@ class findpw extends Component {
       this.props.PwResetOpen();
     } else {
       this.setState({
-        pwCheck_msg2: '인증번호가 맞지 않습니다.',
-        [e.target.checknum.name]: ''
-      })
+        pwCheck_msg2: "인증번호가 맞지 않습니다.",
+        [e.target.checknum.name]: "",
+      });
     }
-  }
+  };
   render() {
     const LoginBtn = styled(Button)({
-      color: "#2a9d8f",
-      borderColor: "#2a9d8f",
+      color: "rgb(34, 83, 184)",
+      borderColor: "rgb(34, 83, 184)",
     });
     return (
       <div id="findid">
@@ -111,7 +110,7 @@ class findpw extends Component {
           </div>
 
           {/* 비밀번호 찾기 폼 */}
-          <form onSubmit={this.onCheckId.bind(this)}>
+          <form onSubmit={this.onCheckId.bind(this)} style={{ width: "100%" }}>
             <div className="loginbox">
               <input
                 type="text"
@@ -159,7 +158,7 @@ class findpw extends Component {
                   type="submit"
                 >
                   인증번호 받기
-              </LoginBtn>
+                </LoginBtn>
               </div>
             </div>
           </form>
@@ -167,7 +166,7 @@ class findpw extends Component {
           <div className="loginlabel">{this.state.pwCheck_msg}</div>
 
           {/* 인증번호 입력 박스  */}
-          <form onSubmit={this.checkNumber.bind(this)}>
+          <form onSubmit={this.checkNumber.bind(this)} className="findidmns">
             <div id="findidbox">
               <input
                 type="text"
@@ -175,7 +174,8 @@ class findpw extends Component {
                 id="findidinp"
                 name="checknum"
                 onChange={this.onKeyChange.bind(this)}
-                value={this.state.checknum}></input>
+                value={this.state.checknum}
+              ></input>
             </div>
             <div className="loginlabel">{this.state.pwCheck_msg2}</div>
             {/* 버튼 박스 */}
@@ -187,14 +187,14 @@ class findpw extends Component {
                 id="findidbtnm1"
               >
                 확인
-            </LoginBtn>
+              </LoginBtn>
               <LoginBtn
                 onClick={this.props.FindIdModalClose}
                 variant="outlined"
                 className="findidbtnm"
               >
                 취소
-            </LoginBtn>
+              </LoginBtn>
             </div>
           </form>
         </div>

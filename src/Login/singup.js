@@ -299,23 +299,20 @@ class singup extends Component {
           this.props.SingUpClose();
           this.props.LoginModalClose();
           Swal.fire({
-            title: '회원가입 성공',
+            title: "회원가입 성공",
             text: "회원가입이 완료되었습니다",
-            icon: 'success',
+            icon: "success",
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#008000',
-            confirmButtonText: '로그인',
-            cancelButtonText: '홈으로'
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#008000",
+            confirmButtonText: "로그인",
+            cancelButtonText: "홈으로",
           }).then((result) => {
             if (result.value) {
-              this.props.LoginModalOpen()
+              this.props.LoginModalOpen();
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
             }
-            else if (result.dismiss === Swal.DismissReason.cancel) {
-
-            }
-          })
-
+          });
         })
         .catch((err) => {
           console.log("회원가입 에러 : " + err);
@@ -364,8 +361,8 @@ class singup extends Component {
       }).open();
     };
     const LoginBtn = styled(Button)({
-      color: "#2a9d8f",
-      borderColor: "#2a9d8f",
+      color: "rgb(34, 83, 184)",
+      borderColor: "rgb(34, 83, 184)",
     });
     return (
       <div id="singup">
