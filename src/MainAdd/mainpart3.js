@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./mainpart3.scss";
 import { tr } from "date-fns/locale";
+import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 
 // 마테리얼 아바타
 import { Avatar } from "@material-ui/core";
@@ -118,7 +119,14 @@ class mainpart3 extends Component {
                             "http://localhost:8000/project/uploadfile/" +
                             item.study_mainimage
                           }
+                          className="curricardimg"
                         />
+                      </div>
+                      <div id="mainpart3cardeye">
+                        <VisibilityOutlinedIcon />
+                        <div style={{ marginLeft: "3px", marginBottom: "2px" }}>
+                          조회수
+                        </div>
                       </div>
                       <div className="curricardmainback"></div>
                       <Link
@@ -159,9 +167,8 @@ class mainpart3 extends Component {
                           "월 " +
                           item.study_enddate.split("-")[2] +
                           "일"}
-                        <br />
-                        {"매주 " + item.study_gatherday}
                       </div>
+                      <div>{"매주 " + item.study_gatherday}</div>
                     </div>
                   </div>
                 ))}
@@ -199,7 +206,16 @@ class mainpart3 extends Component {
                               "http://localhost:8000/project/uploadfile/" +
                               item.study_mainimage
                             }
+                            className="curricardimg"
                           />
+                        </div>
+                        <div id="mainpart3cardeye">
+                          <VisibilityOutlinedIcon />
+                          <div
+                            style={{ marginLeft: "3px", marginBottom: "2px" }}
+                          >
+                            조회수
+                          </div>
                         </div>
                         <div className="curricardmainback"></div>
                         <Link
@@ -240,9 +256,8 @@ class mainpart3 extends Component {
                             "월 " +
                             item.study_enddate.split("-")[2] +
                             "일"}
-                          <br />
-                          {"매주 " + item.study_gatherday}
                         </div>
+                        <div>{"매주 " + item.study_gatherday}</div>
                       </div>
                     </div>
                   </li>
