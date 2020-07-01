@@ -205,7 +205,7 @@ class qna_list extends Component {
     return (
       <div style={{ textAlign: "center" }}>
         <Sid></Sid>
-        <div style={{ paddingTop: "115px" }}></div>
+        <div style={{ paddingTop: "75px" }}></div>
         <div style={backimage}>
           <span style={{ fontSize: "70px", color: "#A6A6A6" }}>
             IT Campus Service

@@ -58,6 +58,7 @@ import AddReview from "../Review/AddReview";
 import ReviewList from "../Review/ReviewList";
 import UpdateReview from "../Review/UpdateReview";
 import DeleteReview from "../Review/DeleteReview";
+import AlertList from "../MyClass/AlertList";
 
 import mypagelist from "../MyPage/mypagelist";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
@@ -132,6 +133,7 @@ class main extends Component {
 
           {/* 수강과정 관련 기능 */}
           <ThemeProvider theme={theme}>
+            <Route path="/AlertList/:process_num" component={AlertList} />
             <Route path="/curriculumlist" component={CurriculumList} />
             <Route
               path="/CurriculumDetail/:process_num"

@@ -1,4 +1,5 @@
 import React from "react";
+import "./AcademyFacility.scss";
 
 const AcademyFacility = () => {
   return (
