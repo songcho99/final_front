@@ -11,7 +11,7 @@ class myclasssid extends Component {
             <div id="myclassnotesub">수업노트</div>
             <a
               id="myclassnotemain"
-              onClick={this.props.openClassNote2.bind(this)}
+              onClick={this.props.openClassNote.bind(this)}
             >
               <i className="fas fa-book-open"></i>
             </a>

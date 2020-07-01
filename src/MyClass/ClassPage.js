@@ -21,7 +21,7 @@ class ClassPage extends Component {
 
   openClassNote = (e) => {
     e.preventDefault();
-    window.open("/classnote", "", "width=500,height=500");
+    window.open("/classnote", "", "width=600,height=600");
   };
 
   openClassNote2 = (e) => {
@@ -61,7 +61,7 @@ class ClassPage extends Component {
       <div id="classpage">
         <MyclassSid
           process_num={this.state.process_num}
-          openClassNote2={this.openClassNote2.bind(this)}
+          openClassNote={this.openClassNote.bind(this)}
         ></MyclassSid>
         <div id="classpageback">
           <div id="classpageimgbox">

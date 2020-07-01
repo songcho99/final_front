@@ -188,16 +188,18 @@ class classnote extends Component {
                 ref={this.editorRef}
               />
               <br />
-              <a
+              {/* <a
                 href={document.getElementsByClassName("tui-editor-contents")}
                 alt=""
                 download
               >
                 SAVE CLASS
-              </a>
-              <button onClick={this.classSave.bind(this)} id="classnotebtn">
-                SAVE CLASS
-              </button>
+              </a> */}
+              <div id="classnotebtnbox">
+                <button onClick={this.classSave.bind(this)} id="classnotebtn">
+                  SAVE CLASS
+                </button>
+              </div>
             </div>
           )}
           {localStorage.type === this.state.roomname && (
@@ -219,18 +221,6 @@ class classnote extends Component {
           onChange={this.updateContent.bind(this)}
         /> */}
 
-          <h3>메모</h3>
-          <form onSubmit={this.memoSave.bind(this)}>
-            <textarea
-              name="memocontent"
-              value={this.state.memocontent}
-              onChange={this.updateMemo.bind(this)}
-            ></textarea>
-            <br />
-            <button type="submit" id="classnotebtn">
-              메모 저장
-            </button>
-          </form>
           <div style={{ width: "100%", height: "60px" }}></div>
 
           {/* 여기가 끝 */}
