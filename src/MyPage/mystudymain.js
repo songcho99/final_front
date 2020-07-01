@@ -215,6 +215,13 @@ export default function MyStudyMain(props) {
       studygroup_study_num: study_num,
     })
       .then((res) => {
+        Swal.fire({
+          position: 'middle-middle',
+          icon: 'success',
+          title: '스터디 신청 승인이 완료되었습니다',
+          showConfirmButton: false,
+          timer: 1500
+        })
         getApplyMember(study_num);
       })
       .catch((err) => {
@@ -229,6 +236,13 @@ export default function MyStudyMain(props) {
       studyapply_study_num: study_num,
     })
       .then((res) => {
+        Swal.fire({
+          position: 'middle-middle',
+          icon: 'error',
+          title: '스터디 신청 거절이 완료되었습니다',
+          showConfirmButton: false,
+          timer: 1500
+        })
         getApplyMember(study_num);
       })
       .catch((err) => {

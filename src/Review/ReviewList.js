@@ -191,7 +191,7 @@ class ReviewList extends Component {
         </table>
         <div style={{ paddingTop: "50px" }}></div>
         <table style={tableStyle1} align="center">
-          {localStorage.type !== "매니저" && localStorage.type !== "강사" && localStorage.type !== "일반" && (
+          {localStorage.type !== "매니저" && localStorage.type !== "강사" && localStorage.type !== "일반" && localStorage.num != null && (
             <caption style={{ textAlign: "right", marginBottom: "10px" }}>
               <Link to="/addreview">
                 <button style={buttonStyle}>

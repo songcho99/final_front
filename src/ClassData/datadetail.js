@@ -203,12 +203,13 @@ class DataDetail extends Component {
                   >
                     {this.state.classdatafile.map((item, idx) => (
                       <span key={idx}>
-                        <span
-                          style={{ cursor: "pointer" }}
-                          onClick={this.downloadFile.bind(this, item)}
+                        <a
+                          alt=""
+                          href={`http://localhost:8000/project/uploadfile/${item}`}
+                          download
                         >
                           {item}
-                        </span>
+                        </a>
                         <br />
                       </span>
                     ))}

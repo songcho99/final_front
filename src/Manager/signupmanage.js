@@ -155,7 +155,7 @@ class signupmanage extends Component {
           });
           Swal.fire({
             icon: "error",
-            title: "실패..ㅜㅜ",
+            title: "실패!",
             text: "해당 수강 과정에 이미 추가된 수강생입니다.",
           }).then((res) => {
             if (res) {
@@ -220,7 +220,12 @@ class signupmanage extends Component {
                       style={{ cursor: "pointer" }}
                       onClick={this.detailInfo.bind(this, item)}
                     >
-                      확인
+                      승인대기중
+                    </span>
+                  )}
+                  {(item.processapply_acceptreason !== "" || item.processapply_acceptreason !== null) && (
+                    <span>
+                      승인완료
                     </span>
                   )}
                 </td>

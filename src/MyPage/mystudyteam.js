@@ -444,6 +444,7 @@ export default function MyStudyTeam(props) {
                       rows={5}
                       style={{ width: "750px" }}
                       variant="outlined"
+                      required
                       onChange={handleContentChange}
                     />
                   </td>
@@ -540,8 +541,8 @@ export default function MyStudyTeam(props) {
                                 />
                               </span>
                             ) : (
-                              ""
-                            )}
+                                ""
+                              )}
                           </Feed.Summary>
                           <Feed.Extra text>{row.studyfeed_content}</Feed.Extra>
                           &nbsp;&nbsp;
@@ -570,8 +571,8 @@ export default function MyStudyTeam(props) {
                                   {ele}
                                 </a>
                               ) : (
-                                ""
-                              )}
+                                  ""
+                                )}
                             </Typography>
                           ))}
                         </Feed.Content>
@@ -657,8 +658,8 @@ export default function MyStudyTeam(props) {
                                       />
                                     </span>
                                   ) : (
-                                    ""
-                                  )}
+                                      ""
+                                    )}
                                 </Typography>
                               ))}
                             </div>
@@ -726,15 +727,15 @@ export default function MyStudyTeam(props) {
                                       }}
                                     />
                                   ) : (
-                                    ""
-                                  )}
+                                      ""
+                                    )}
                                 </Comment.Metadata>
                                 <Comment.Text>{ele.reply_content}</Comment.Text>
                               </Comment.Content>
                             </Comment>
                           ) : (
-                            ""
-                          )
+                              ""
+                            )
                         )}
                         <Form
                           reply
