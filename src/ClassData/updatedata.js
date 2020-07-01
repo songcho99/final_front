@@ -19,6 +19,7 @@ class UpdateData extends Component {
     state = {
         classdata: this.props.location.state.classdata,
         classdatafile: this.props.location.state.classdatafile,
+        process_num: this.props.match.params.process_num,
         delfile: [],
         uploadFile: [],
         filelist: [],
@@ -125,7 +126,7 @@ class UpdateData extends Component {
                     title: "수정 완료",
                     text: "수업자료 수정이 완료되었습니다",
                 }).then((result) => {
-                    window.location.href = "/classdata";
+                    window.location.href = "/classdata/" + this.state.process_num;
                 });
             })
             .catch((err) => {
@@ -214,7 +215,7 @@ class UpdateData extends Component {
                             등록
             </Button>{" "}
             &nbsp;&nbsp;
-            <Button variant="contained" color="primary" href="/classdata">
+            <Button variant="contained" color="primary" href={"/classdata/" + this.state.process_num}>
                             목록
             </Button>{" "}
             &nbsp;&nbsp;

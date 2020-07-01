@@ -32,7 +32,7 @@ class DataDetail extends Component {
                             <span>
                                 <Link
                                     to={{
-                                        pathname: "/updatedata",
+                                        pathname: "/updatedata/" + this.state.process_num,
                                         state: {
                                             classdata: this.state.classdata,
                                             classdatafile: this.state.classdatafile

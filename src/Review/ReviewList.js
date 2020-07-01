@@ -191,13 +191,15 @@ class ReviewList extends Component {
         </table>
         <div style={{ paddingTop: "50px" }}></div>
         <table style={tableStyle1} align="center">
-          <caption style={{ textAlign: "right", marginBottom: "10px" }}>
-            <Link to="/addreview">
-              <button style={buttonStyle}>
-                <i className="fas fa-pencil-alt"></i> 작성
+          {localStorage.type !== "매니저" && localStorage.type !== "강사" && localStorage.type !== "일반" && (
+            <caption style={{ textAlign: "right", marginBottom: "10px" }}>
+              <Link to="/addreview">
+                <button style={buttonStyle}>
+                  <i className="fas fa-pencil-alt"></i> 작성
               </button>
-            </Link>
-          </caption>
+              </Link>
+            </caption>
+          )}
           <tbody>
             {this.state.reviewList.map((item, idx) => (
               <tr key={idx} style={trStyle}>
