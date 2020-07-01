@@ -470,169 +470,35 @@ export default function MyStudyTeam(props) {
                       type="file"
                     />
                   </td>
-                  <td style={{ textAlign: "right" }}>  
-            <Button
-              variant="text"
-              color="primary"
-              type="submit"
-              style={{ marginLeft: "570px", fontSize: "12pt" }}
-            >
-              작성
-            </Button>
-            </td>
-            </tr>
-            </tbody>
-            </table>
-          </form>
-          <table style={tableStyle1} align="center">
-              <tbody>
-          <hr style={{ width: "650px", marginRight: "100px" }} />
-          <Typography variant="h6">{"피드 " + feedlist.length}</Typography>
-          {feedlist.map((row, idx) => (
-            <Feed style={{ overflowX: "hidden" }} id={"feedcontent" + idx}>
-              <Feed.Event id={"feed" + idx}>
-                <Avatar
-                  alt={row.member_name}
-                  style={{ float: "left" }}
-                  src={
-                    "http://localhost:8000/project/uploadfile/" +
-                    row.member_profile
-                  }
-                  className={avatarclasses.small}
-                />
-                <Feed.Content>
-                  <Feed.Summary>
-                    {row.member_name}
-                    <Feed.Date>
-                      {new Date(row.studyfeed_writeday).toLocaleDateString()}
-                    </Feed.Date>
-                    {localStorage.num == row.studyfeed_member_num ? (
-                      <span style={{ marginLeft: "450px" }}>
-                        <CreateIcon
-                          style={{ color: "gray", cursor: "pointer" }}
-                          onClick={(event) => {
-                            getUpdateForm(event, idx);
-                          }}
-                        />
-                        &nbsp;&nbsp;
-                        <DeleteOutlineIcon
-                          style={{ color: "gray", cursor: "pointer" }}
-                          onClick={(event) => {
-                            onDeleteFeed(event, idx, row.studyfeed_num);
-                          }}
-                        />
-                      </span>
-                    ) : (
-                      ""
-                    )}
-                  </Feed.Summary>
-                  <Feed.Extra text>{row.studyfeed_content}</Feed.Extra>
-                  &nbsp;&nbsp;
-                  <Button
-                    variant="text"
-                    color="primary"
-                    type="submit"
-                    size="small"
-                    style={{ marginLeft: "480px" }}
-                    onClick={() => {
-                      getFileList(row.studyfeed_num);
-                    }}
-                  >
-                    첨부파일
-                  </Button>
-                  {filelist.map((ele, i) => (
-                    <Typography variant="body1">
-                      {row.studyfeed_num === file_num ? (
-                        <a
-                          alt={ele}
-                          href={`http://localhost:8000/project/uploadfile/${ele}`}
-                          download
-                        >
-                          {ele}
-                        </a>
-                      ) : (
-                        ""
-                      )}
-                    </Typography>
-                  ))}
-                </Feed.Content>
-              </Feed.Event>
-              <form
-                onSubmit={(event) => {
-                  onUpdateSubmit(event, row.studyfeed_num);
-                }}
-                style={{ display: "none" }}
-                id={"update" + idx}
-              >
-                <ArrowBackIcon
-                  style={{ color: "gray", cursor: "pointer" }}
-                  onClick={(event) => {
-                    getFeedForm(event, idx);
-                  }}
-                />
-                <br />
-                <TextField
-                  id="outlined-multiline-static"
-                  label="내용"
-                  multiline
-                  rows={5}
-                  style={{ width: "650px" }}
-                  variant="outlined"
-                  onChange={handleContentChange}
-                  defaultValue={row.studyfeed_content}
-                />
-                <br />
-                <br />
-
-                <div>
-                  <input
-                    style={{ display: "none" }}
-                    id="contained-button-updatefile"
-                    multiple
-                    onChange={handleUpdateFileChange}
-                    type="file"
-                  />
-                  <label htmlFor="contained-button-updatefile">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      component="span"
-                      size="small"
-                    >
-                      파일 선택
-                    </Button>
-                    &nbsp;
-                    {updatefilecount !== 0
-                      ? updatefilecount + " 개 첨부됨"
-                      : ""}
-                    <br />
+                  <td style={{ textAlign: "right" }}>
                     <Button
                       variant="text"
                       color="primary"
                       type="submit"
-                      style={{ fontSize: "18px" }}
+                      style={{ marginLeft: "570px", fontSize: "12pt" }}
                     >
-                      <i className="fas fa-pencil-alt"></i>
+                      작성
                     </Button>
-                  </td>
-                </tr>
-                <tr style={trStyle1}>
-                  <td
-                    colSpan="2"
-                    style={{
-                      textAlign: "left",
-                      paddingTop: "20px",
-                      paddingBottom: "10px",
-                    }}
-                  >
-                    {"피드 (" + feedlist.length + ")"}
                   </td>
                 </tr>
               </tbody>
             </table>
           </form>
+          {/*  */}
           <table style={tableStyle1} align="center">
             <tbody>
+              <tr style={trStyle1}>
+                <td
+                  colSpan="2"
+                  style={{
+                    textAlign: "left",
+                    paddingTop: "20px",
+                    paddingBottom: "10px",
+                  }}
+                >
+                  {"피드 (" + feedlist.length + ")"}
+                </td>
+              </tr>
               {feedlist.map((row, idx) => (
                 <tr key={idx}>
                   <td colSpan="2">
