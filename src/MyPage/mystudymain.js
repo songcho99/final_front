@@ -304,7 +304,7 @@ export default function MyStudyMain(props) {
   };
   return (
     <div style={{ textAlign: "center" }} align="center">
-      <div style={{ paddingTop: "115px" }}></div>
+      <div style={{ paddingTop: "75px" }}></div>
       <div style={backimage}>
         <span style={{ fontSize: "70px", color: "white" }}>
           IT Campus Study
