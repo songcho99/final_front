@@ -113,10 +113,6 @@ class WriteData extends Component {
           className="writeinsert"
           onSubmit={this.isUpload.bind(this)}
         >
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
           <h1>수업 자료</h1>
           <br></br>
           <TextField
@@ -169,7 +165,7 @@ class WriteData extends Component {
               등록
             </Button>{" "}
             &nbsp;&nbsp;
-            <Button variant="contained" color="primary" href="/classdata">
+            <Button variant="contained" color="primary" href="/classdata/1">
               목록
             </Button>{" "}
             &nbsp;&nbsp;

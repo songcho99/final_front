@@ -142,6 +142,7 @@ class classdata extends Component {
                             num: item.classdata_num,
                           },
                         }}
+                        style={{ color: "black" }}
                       >
                         {item.classdata_subject}
                       </Link>
