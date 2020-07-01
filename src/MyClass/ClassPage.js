@@ -64,7 +64,42 @@ class ClassPage extends Component {
           openClassNote2={this.openClassNote2.bind(this)}
         ></MyclassSid>
         <div id="classpageback">
-          <div id="classpagebox">
+          <div id="classpageimgbox">
+            <img src={require("../ClassData/note.jpg")} id="classpageimg"></img>
+          </div>
+          <div id="classpagebacknav"></div>
+          {/* 텍스트 박스 */}
+          <div id="classpagebacknav2">
+            <div id="classdatatit">Lecture Room</div>
+            <div id="classdatasub">Note for study</div>
+          </div>
+
+          <div id="classpagebacknav3">
+            {/* 카드 박스  */}
+            <div id="classpagetextbox">
+              <div className="classpagesubbox">제목 : {this.state.subject}</div>
+              <div id="classdatasubbox" className="classpagesubbox">
+                <div>강사 : {this.state.subject}</div>
+                <div>메니저 : {this.state.manager}</div>
+              </div>
+              <div className="classpagesubbox">
+                기간 : {this.state.startdate} ~{this.state.enddate}
+              </div>
+            </div>
+            <div id="classdatalinkbox">
+              <div id="classdatalink">
+                <NavLink
+                  exact
+                  to={"/classdata/" + this.state.process_num}
+                  id="classdatalinkON"
+                >
+                  강의자료실 >>>
+                </NavLink>
+              </div>
+            </div>
+          </div>
+          {/* 안쓰는 부분  */}
+          {/* <div id="classpagebox">
             <div>{this.state.subject} 제목</div>
             <div>
               <table>
@@ -105,7 +140,8 @@ class ClassPage extends Component {
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> */}
+          {/* 끝 */}
         </div>
       </div>
     );
