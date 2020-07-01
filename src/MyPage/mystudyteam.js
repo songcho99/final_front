@@ -560,103 +560,119 @@ export default function MyStudyTeam(props) {
                           </Button>
                           {filelist.map((ele, i) => (
                             <Typography variant="body1">
-                              {row.studyfeed_num === file_num ? ele : ""}
-                            </Typography>
-                          ))}
-                        </Feed.Content>
-                      </Feed.Event>
-                      <form
-                        onSubmit={(event) => {
-                          onUpdateSubmit(event, row.studyfeed_num);
-                        }}
-                        style={{ display: "none" }}
-                        id={"update" + idx}
-                      >
-                        <ArrowBackIcon
-                          style={{ color: "gray", cursor: "pointer" }}
-                          onClick={(event) => {
-                            getFeedForm(event, idx);
-                          }}
-                        />
-                        <br />
-                        <TextField
-                          id="outlined-multiline-static"
-                          label="내용"
-                          multiline
-                          rows={5}
-                          style={{ width: "650px" }}
-                          variant="outlined"
-                          onChange={handleContentChange}
-                          defaultValue={row.studyfeed_content}
-                        />
-                        <br />
-                        <br />
-                        <div>
-                          <input
-                            style={{ display: "none" }}
-                            id="contained-button-updatefile"
-                            multiple
-                            onChange={handleUpdateFileChange}
-                            type="file"
-                          />
-                          <label htmlFor="contained-button-updatefile">
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              component="span"
-                              size="small"
-                            >
-                              파일 선택
-                            </Button>
-                            &nbsp;
-                            {updatefilecount !== 0
-                              ? updatefilecount + " 개 첨부됨"
-                              : ""}
-                            <br />
-                            <Button
-                              variant="text"
-                              color="primary"
-                              size="small"
-                              style={{ marginLeft: "480px" }}
-                              onClick={() => {
-                                getFileList(row.studyfeed_num);
-                              }}
-                            >
-                              파일 내역
-                            </Button>
-                          </label>
-                          {filelist.map((ele, i) => (
-                            <Typography variant="body1">
                               {row.studyfeed_num === file_num ? (
-                                <span id={"file" + i}>
+                                // 다운로드
+                                <a
+                                  alt=""
+                                  href={`http://localhost:8000/project/uploadfile/${ele}`}
+                                  download
+                                >
                                   {ele}
-                                  <ClearIcon
-                                    style={{
-                                      cursor: "pointer",
-                                      paddingTop: "10px",
-                                      color: "red",
-                                      textAlign: "right",
-                                    }}
-                                    onClick={() => {
-                                      handleFileDelete(ele, i);
-                                    }}
-                                  />
-                                </span>
+                                </a>
                               ) : (
                                 ""
                               )}
                             </Typography>
                           ))}
-                        </div>
-                        <Button
-                          variant="text"
-                          color="primary"
-                          type="submit"
-                          style={{ textAlign: "right", fontSize: "12pt" }}
-                        >
-                          수정
-                        </Button>
-                      </form>
+                        </Feed.Content>
+                      </Feed.Event>
+                      <Feed.Event
+                        style={{ display: "none" }}
+                        id={"update" + idx}
+                      >
+                        <Feed.Content>
+                          <form
+                            onSubmit={(event) => {
+                              onUpdateSubmit(event, row.studyfeed_num);
+                            }}
+                          >
+                            <ArrowBackIcon
+                              style={{ color: "gray", cursor: "pointer" }}
+                              onClick={(event) => {
+                                getFeedForm(event, idx);
+                              }}
+                            />
+                            <br />
+                            <TextField
+                              id="outlined-multiline-static"
+                              label="내용"
+                              multiline
+                              rows={5}
+                              style={{ width: "650px" }}
+                              variant="outlined"
+                              onChange={handleContentChange}
+                              defaultValue={row.studyfeed_content}
+                            />
+                            <br />
+                            <br />
+                            <div>
+                              <input
+                                style={{ display: "none" }}
+                                id="contained-button-updatefile"
+                                multiple
+                                onChange={handleUpdateFileChange}
+                                type="file"
+                              />
+                              <label htmlFor="contained-button-updatefile">
+                                <Button
+                                  variant="contained"
+                                  color="primary"
+                                  component="span"
+                                  size="small"
+                                >
+                                  파일 선택
+                                </Button>
+                                &nbsp;
+                                {updatefilecount !== 0
+                                  ? updatefilecount + " 개 첨부됨"
+                                  : ""}
+                                <br />
+                                <Button
+                                  variant="text"
+                                  color="primary"
+                                  size="small"
+                                  style={{ marginLeft: "480px" }}
+                                  onClick={() => {
+                                    getFileList(row.studyfeed_num);
+                                  }}
+                                >
+                                  파일 내역
+                                </Button>
+                              </label>
+                              {filelist.map((ele, i) => (
+                                <Typography variant="body1">
+                                  {row.studyfeed_num === file_num ? (
+                                    <span id={"file" + i}>
+                                      {ele}
+                                      <ClearIcon
+                                        style={{
+                                          cursor: "pointer",
+                                          paddingTop: "10px",
+                                          color: "red",
+                                          textAlign: "right",
+                                        }}
+                                        onClick={() => {
+                                          handleFileDelete(ele, i);
+                                        }}
+                                      />
+                                    </span>
+                                  ) : (
+                                    ""
+                                  )}
+                                </Typography>
+                              ))}
+                            </div>
+                            <Button
+                              variant="text"
+                              color="primary"
+                              type="submit"
+                              style={{ textAlign: "right", fontSize: "12pt" }}
+                            >
+                              수정
+                            </Button>
+                          </form>
+                        </Feed.Content>
+                      </Feed.Event>
                       <Header
                         as="h3"
                         dividing
