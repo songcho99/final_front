@@ -618,6 +618,14 @@ export default function StudyDetail(props) {
             </button>
           )}
         </div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          {modal}
+        </Modal>
       </div>
       <div style={{ paddingTop: "100px" }}></div>
     </div>
