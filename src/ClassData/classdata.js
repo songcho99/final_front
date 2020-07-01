@@ -21,7 +21,7 @@ class classdata extends Component {
   }
   openClassNote = (e) => {
     e.preventDefault();
-    window.open("/classnote", "", "width=500,height=500");
+    window.open("/classnote", "", "width=600,height=600");
   };
 
   openClassNote2 = (e) => {
@@ -74,9 +74,7 @@ class classdata extends Component {
   render() {
     return (
       <div id="classdata">
-        <MyclassSid
-          openClassNote2={this.openClassNote2.bind(this)}
-        ></MyclassSid>
+        <MyclassSid openClassNote={this.openClassNote.bind(this)}></MyclassSid>
         <div id="classdataback">
           {/* 헤더 부분 */}
           <div id="classdatanav">
