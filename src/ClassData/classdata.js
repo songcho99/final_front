@@ -89,7 +89,7 @@ class classdata extends Component {
 
             {/* 텍스트 박스 */}
             <div id="classdatatextbox">
-              <div id="classdatatit">강의 자료실</div>
+              <div id="classdatatit">Lecture Room</div>
               <div id="classdatasub">Note for study</div>
             </div>
           </div>
@@ -101,55 +101,63 @@ class classdata extends Component {
               <div>메니저 : {this.state.manager}</div>
             </div>
             <div>
-              기간 : {this.state.startdate} 2020.10.20 ~ 2020.11.22
-              {this.state.enddate}
+              기간 : {this.state.startdate} ~{this.state.enddate}
             </div>
           </div>
 
-          {/* classdataback 종료 부분 */}
-        </div>
-        <h2>수업자료입니다!</h2>
-        <NavLink exact to={"/writedata/" + this.process_num}>
-          <button>자료 작성</button>
-        </NavLink>{" "}
-        <br></br>
-        <br></br>
-        <div align="center">
-          <table>
-            <thead>
-              <tr>
-                <td style={{ textAlign: "center", width: 150 }}>번호</td>
-                <td style={{ textAlign: "center", width: 100 }}>제목</td>
-                <td style={{ textAlign: "center", width: 150 }}>작성자</td>
-                <td style={{ textAlign: "center", width: 200 }}>작성일</td>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.classdatalist.map((item, idx) => (
-                <tr key={idx}>
-                  <td style={{ textAlign: "center" }}>{idx + 1}</td>
-                  <td style={{ textAlign: "center" }}>
-                    <Link
-                      to={{
-                        pathname: "/datadetail/" + this.process_num,
-                        state: {
-                          num: item.classdata_num,
-                        },
-                      }}
-                    >
-                      {item.classdata_subject}
-                    </Link>
-                  </td>
-                  <td style={{ textAlign: "center" }}>
-                    {item.classdata_writer}
-                  </td>
-                  <td style={{ textAlign: "center" }}>
-                    {item.classdata_writeday}
-                  </td>
+          {/* 버튼 박스  */}
+          <div id="classdatanav3">
+            <NavLink
+              exact
+              to={"/writedata/" + this.process_num}
+              id="classdatabtn"
+            >
+              <span style={{ marginRight: "10px" }}>
+                <i className="fas fa-plus"></i>
+              </span>{" "}
+              자료 작성
+            </NavLink>
+          </div>
+
+          {/* 테이블 박스 */}
+          <div id="classdatanav4">
+            <table id="classdatatab">
+              <thead>
+                <tr>
+                  <th style={{ width: "10%" }}>번호</th>
+                  <th style={{ width: "50%" }}>제목</th>
+                  <th style={{ width: "20%" }}>작성자</th>
+                  <th style={{ width: "20%" }}>작성일</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {this.state.classdatalist.map((item, idx) => (
+                  <tr key={idx}>
+                    <td style={{ textAlign: "center" }}>{idx + 1}</td>
+                    <td style={{ padding: "0 10%" }}>
+                      <Link
+                        to={{
+                          pathname: "/datadetail/" + this.process_num,
+                          state: {
+                            num: item.classdata_num,
+                          },
+                        }}
+                      >
+                        {item.classdata_subject}
+                      </Link>
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {item.classdata_writer}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {item.classdata_writeday}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {/* classdataback 종료 부분 */}
         </div>
       </div>
     );
