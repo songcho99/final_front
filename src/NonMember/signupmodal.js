@@ -11,8 +11,8 @@ class signupmodal extends Component {
   };
   render() {
     const Mystudy = styled(Button)({
-      color: "#2a9d8f",
-      borderColor: "#2a9d8f",
+      color: "rgb(34, 83, 184)",
+      borderColor: "rgb(34, 83, 184)",
       fontWeight: "bold",
     });
     return (

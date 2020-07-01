@@ -1,8 +1,14 @@
 :root {
   --gray: #9e9e9e;
+  --dgray: #777;
   --white: #ffffff;
   --teal: #2a9d8f;
-  --yellow: #ffe66d;
+  --red: #e63946;
+  --blue: rgb(34, 83, 184);
+  --black: rgb(52, 52, 52);
+  --yellow: #ffbe0b;
+  --orange: #ff6b35;
+  --bluesky: #caf0f8;
 }
 
 #signupmodal-back {
@@ -42,7 +48,7 @@
 
 #signupmodaltit {
   font-size: 20px;
-  color: var(--teal);
+  color: var(--blue);
   font-weight: bold;
 }
 
@@ -54,7 +60,7 @@
 #signupclose {
   position: absolute;
   font-size: 40px;
-  color: var(--teal);
+  color: var(--blue);
   top: 0;
   right: 0;
   cursor: pointer;

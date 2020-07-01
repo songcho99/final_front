@@ -68,22 +68,10 @@ class ClassPage extends Component {
           </h3>
           <br></br>
           <h2>학습 페이지</h2>
-          <Link to="/ToastEditor">
-            <button>수업 자료</button>
-          </Link>{" "}
-          &nbsp;&nbsp;
           <Link to="/classdata">
             <button>수업 자료</button>
           </Link>{" "}
-          &nbsp;&nbsp;
-          <Link to="/mynote">
-            <button>내 일일노트</button>
-          </Link>{" "}
-          &nbsp;&nbsp;
-          <Link to="/schedule">
-            <button>스케쥴</button>
-          </Link>{" "}
-          &nbsp;&nbsp;
+          &nbsp;&nbsp; &nbsp;&nbsp;
         </div>
       </div>
     );

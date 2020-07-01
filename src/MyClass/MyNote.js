@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import "./MyNote.scss";
 
 class MyNote extends Component {
   state = {
@@ -29,14 +30,12 @@ class MyNote extends Component {
       </tr>
     ));
     return (
-      <div>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <table>{memoList}</table>
-        <br></br>
-        <h2>내 일일노트 페이지입니다</h2>
+      <div id="mynote">
+        <div id="mynoteback">
+          <div></div>
+          <table>{memoList}</table>
+          <div>내 일일노트 페이지입니다</div>
+        </div>
       </div>
     );
   }

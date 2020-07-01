@@ -44,6 +44,9 @@ class maininfo extends Component {
       part1PHPtag: "part1tagimg ",
       part1Reacttag: "part1tagimg ",
       part1Javatag: "part1tagimg ",
+
+      // 검은화면 닫기 버튼
+      black: "hid",
     };
   }
 
@@ -57,7 +60,7 @@ class maininfo extends Component {
       part1PHP: "hid",
       part1React: "hid",
       Part1Java: "hid",
-
+      black: "hid",
       // 버튼
       part1Alltag: "part1tagimg",
       part1PHPtag: "part1tagimg",
@@ -75,7 +78,7 @@ class maininfo extends Component {
       part1PHP: "hid",
       part1React: "hid",
       Part1Java: "hid",
-
+      black: "part1con4x",
       // 버튼
       part1Alltag: "part1tagimgafter",
       part1PHPtag: "part1tagimg",
@@ -93,7 +96,7 @@ class maininfo extends Component {
       part1PHP: "hid",
       part1React: "part1con3",
       Part1Java: "hid",
-
+      black: "part1con4x",
       // 버튼
       part1Alltag: "part1tagimg",
       part1PHPtag: "part1tagimg",
@@ -112,7 +115,7 @@ class maininfo extends Component {
       part1PHP: "part1con3",
       part1React: "hid",
       Part1Java: "hid",
-
+      black: "part1con4x",
       // 버튼
       part1Alltag: "part1tagimg",
       part1PHPtag: " part1tagimgafter",
@@ -131,7 +134,7 @@ class maininfo extends Component {
       part1PHP: "hid",
       part1React: "hid",
       Part1Java: "part1con3",
-
+      black: "part1con4x",
       // 버튼
       part1Alltag: "part1tagimg",
       part1PHPtag: "part1tagimg",
@@ -158,7 +161,7 @@ class maininfo extends Component {
         part1PHP: "hid", //PHP 슬라이드 변수
         part1React: "hid", //React 슬라이드 변수
         Part1Java: "hid", //Java 슬라이드 변수
-
+        black: "hid",
         //part1 에 버튼 색상 변경 변수
         part1Alltag: "part1tagimg ",
         part1PHPtag: "part1tagimg ",
@@ -210,7 +213,7 @@ class maininfo extends Component {
         part1PHP: "hid", //PHP 슬라이드 변수
         part1React: "hid", //React 슬라이드 변수
         Part1Java: "hid", //Java 슬라이드 변수
-
+        black: "hid",
         //part1 에 버튼 색상 변경 변수
         part1Alltag: "part1tagimg ",
         part1PHPtag: "part1tagimg ",
@@ -352,6 +355,7 @@ class maininfo extends Component {
             part1PHP={this.state.part1PHP}
             part1React={this.state.part1React}
             Part1Java={this.state.Part1Java}
+            black={this.state.black}
             // 버튼 변수
             part1Alltag={this.state.part1Alltag}
             part1PHPtag={this.state.part1PHPtag}
