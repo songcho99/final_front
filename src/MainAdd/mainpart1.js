@@ -4,6 +4,10 @@ import Image from "../image/worker.jpg";
 //비디오 삽입
 import MainVideo from "../Video/Circuit.mp4";
 
+// 마테리얼 아바타
+import { Avatar } from "@material-ui/core";
+import { Link } from "react-router-dom";
+
 class mainpart1 extends Component {
   render() {
     return (
@@ -29,6 +33,9 @@ class mainpart1 extends Component {
         </div>
 
         <div id="part1con2">
+          <div id={this.props.black} onClick={this.props.Con4X}>
+            <i className="far fa-times-circle"></i>
+          </div>
           <div className="part1tagbox" onClick={this.props.AllClick}>
             <div className={this.props.part1Alltag}>
               <i className="fas fa-globe"></i>
@@ -61,10 +68,37 @@ class mainpart1 extends Component {
             <i className="fas fa-angle-left"></i>
           </div>
           <ul id="part1slidul">
-            <li>1번 박스</li>
-            <li>2번 박스</li>
-            <li>3번 박스</li>
-            <li>4번 박스</li>
+            {/* 이안에서 로직 돌리면됨  */}
+            <li>
+              <div className="curricard3">
+                {/* 헤드 부분 */}
+                <div className="curricardhd3">
+                  <div className="curricarthdtit3">모집중</div>
+                  <div className="curricarthdsub3">인공지능</div>
+                </div>
+
+                {/* 몸통 부분 */}
+                <div className="curricardmain3">
+                  <div className="curricardmainimgbox3">
+                    <img alt="" className="curricardimg" />
+                  </div>
+
+                  <div className="curricardmainback3"></div>
+                  <Link className="curricardmaintext3">
+                    <div className="studylistcardAvatar3">
+                      <Avatar style={{ width: "40px", height: "40px" }} />
+                    </div>
+                    <div className="curricardmainnav">제목</div>
+                  </Link>
+                </div>
+
+                {/* 바닥 */}
+                <div className="currifooter3">
+                  <div>시작날짜 끝날짜</div>
+                </div>
+              </div>
+            </li>
+            {/* 여기서 끝나 */}
           </ul>
           <div id="part1slidarrow2">
             <i className="fas fa-angle-right"></i>
@@ -77,10 +111,37 @@ class mainpart1 extends Component {
             <i className="fas fa-angle-left"></i>
           </div>
           <ul id="part1slidul">
-            <li>1번 박스</li>
-            <li>2번 박스</li>
-            <li>3번 박스</li>
-            <li>4번 박스</li>
+            {/* 이안에서 로직 돌리면됨  */}
+            <li>
+              <div className="curricard3">
+                {/* 헤드 부분 */}
+                <div className="curricardhd3">
+                  <div className="curricarthdtit3">모집중</div>
+                  <div className="curricarthdsub3">인공지능</div>
+                </div>
+
+                {/* 몸통 부분 */}
+                <div className="curricardmain3">
+                  <div className="curricardmainimgbox3">
+                    <img alt="" className="curricardimg" />
+                  </div>
+
+                  <div className="curricardmainback3"></div>
+                  <Link className="curricardmaintext3">
+                    <div className="studylistcardAvatar3">
+                      <Avatar style={{ width: "40px", height: "40px" }} />
+                    </div>
+                    <div className="curricardmainnav">제목</div>
+                  </Link>
+                </div>
+
+                {/* 바닥 */}
+                <div className="currifooter3">
+                  <div>시작날짜 끝날짜</div>
+                </div>
+              </div>
+            </li>
+            {/* 여기서 끝나 */}
           </ul>
           <div id="part1slidarrow2">
             <i className="fas fa-angle-right"></i>
@@ -93,30 +154,37 @@ class mainpart1 extends Component {
             <i className="fas fa-angle-left"></i>
           </div>
           <ul id="part1slidul">
+            {/* 이안에서 로직 돌리면됨  */}
             <li>
-              <div className="part1imgbox">
-                <div>1번 박스</div>
+              <div className="curricard3">
+                {/* 헤드 부분 */}
+                <div className="curricardhd3">
+                  <div className="curricarthdtit3">모집중</div>
+                  <div className="curricarthdsub3">인공지능</div>
+                </div>
+
+                {/* 몸통 부분 */}
+                <div className="curricardmain3">
+                  <div className="curricardmainimgbox3">
+                    <img alt="" className="curricardimg" />
+                  </div>
+
+                  <div className="curricardmainback3"></div>
+                  <Link className="curricardmaintext3">
+                    <div className="studylistcardAvatar3">
+                      <Avatar style={{ width: "40px", height: "40px" }} />
+                    </div>
+                    <div className="curricardmainnav">제목</div>
+                  </Link>
+                </div>
+
+                {/* 바닥 */}
+                <div className="currifooter3">
+                  <div>시작날짜 끝날짜</div>
+                </div>
               </div>
             </li>
-            <li>
-              <div
-                className="part1imgbox"
-                style={{ backgroundImage: 'url(require("../image/sea.jpg"))' }}
-              >
-                <div>1번 박스</div>
-              </div>
-            </li>
-            <li>
-              <div
-                className="part1imgbox"
-                style={{
-                  backgroundImage: 'url(require("../image/worker.jpg"))',
-                }}
-              >
-                <div>1번 박스</div>
-              </div>
-            </li>
-            <li>4번 박스</li>
+            {/* 여기서 끝나 */}
           </ul>
           <div id="part1slidarrow2">
             <i className="fas fa-angle-right"></i>
@@ -129,10 +197,37 @@ class mainpart1 extends Component {
             <i className="fas fa-angle-left"></i>
           </div>
           <ul id="part1slidul">
-            <li>1번 박스</li>
-            <li>2번 박스</li>
-            <li>3번 박스</li>
-            <li>4번 박스</li>
+            {/* 이안에서 로직 돌리면됨  */}
+            <li>
+              <div className="curricard3">
+                {/* 헤드 부분 */}
+                <div className="curricardhd3">
+                  <div className="curricarthdtit3">모집중</div>
+                  <div className="curricarthdsub3">인공지능</div>
+                </div>
+
+                {/* 몸통 부분 */}
+                <div className="curricardmain3">
+                  <div className="curricardmainimgbox3">
+                    <img alt="" className="curricardimg" />
+                  </div>
+
+                  <div className="curricardmainback3"></div>
+                  <Link className="curricardmaintext3">
+                    <div className="studylistcardAvatar3">
+                      <Avatar style={{ width: "40px", height: "40px" }} />
+                    </div>
+                    <div className="curricardmainnav">제목</div>
+                  </Link>
+                </div>
+
+                {/* 바닥 */}
+                <div className="currifooter3">
+                  <div>시작날짜 끝날짜</div>
+                </div>
+              </div>
+            </li>
+            {/* 여기서 끝나 */}
           </ul>
           <div id="part1slidarrow2">
             <i className="fas fa-angle-right"></i>
@@ -140,11 +235,7 @@ class mainpart1 extends Component {
         </div>
 
         {/* 뒤에 깔리는 검은 배경  */}
-        <div id={this.props.part1back}>
-          <div id="part1con4x" onClick={this.props.Con4X}>
-            <i className="far fa-times-circle"></i>
-          </div>
-        </div>
+        <div id={this.props.part1back}></div>
       </div>
     );
   }

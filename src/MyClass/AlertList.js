@@ -45,6 +45,7 @@ export default class AlertList extends Component {
       <div>
         <br />
         <br />
+        <br />
         <NavLink
           exact
           to={"/AlertAdd/" + this.state.alertlist.memo_process_num}

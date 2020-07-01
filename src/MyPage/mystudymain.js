@@ -20,6 +20,8 @@ import Axios from "axios";
 import MyPageMenu from "./mypagemenu";
 import Swal from "sweetalert2";
 import studyimg from "../Study/study.jpg";
+import MypageMenu from "./mypagemenu";
+import "./mystudymain.scss";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -303,242 +305,238 @@ export default function MyStudyMain(props) {
     flexDirection: "column",
   };
   return (
-    <div style={{ textAlign: "center" }} aling="center">
-      <div style={{ paddingTop: "115px" }}></div>
-      <div style={backimage}>
-        <span style={{ fontSize: "70px", color: "white" }}>
-          IT Campus Study
-        </span>
-        <br />
-        <span style={{ fontSize: "18px", color: "white" }}>
-          IT Campus Study
-        </span>
-      </div>
-      <div style={{ paddingTop: "100px" }}></div>
-      <span style={{ fontSize: "40px" }}>마이 스터디</span>
-      <br />
-      <br />
-      <span style={{ fontSize: "18px" }}>
-        IT Campus의 소속된 스터디 모임을 확인 할 수 있습니다.
-      </span>
-      <div style={{ paddingTop: "100px" }}></div>
-      <div style={{ marginLeft: "350px" }}>
-        <ExpansionPanel
-          className={classes.root}
-          expanded={expanded1 === "panel1"}
-          onChange={handlePanelChange1("panel1")}
-        >
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-            style={{ backgroundColor: "#E1E1E1" }}
-          >
-            <Typography className={classes.heading}>개설한 스터디</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <TableContainer>
-              <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="left" style={{ fontWeight: "bold" }}>
-                      번호
-                    </TableCell>
-                    <TableCell align="center" style={{ fontWeight: "bold" }}>
-                      스터디명
-                    </TableCell>
-                    <TableCell
-                      align="right"
-                      style={{ fontWeight: "bold" }}
-                    ></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {founderlist.map((row, idx) => (
-                    <TableRow key={idx}>
-                      <TableCell align="left" scope="row">
-                        &nbsp;{idx + 1}
-                      </TableCell>
-                      <TableCell align="center" component="th" scope="row">
-                        {row.study_subject}
-                      </TableCell>
+    <div id="mystudymain">
+      <div id="mystudymainback">
+        {/* 헤더 박스  */}
+        <div id="mystudymainhd">
+          {/* 헤더이미지 박스 */}
+          <div id="mystudymainimgbox">
+            <img src={require("./mypage.jpg")} id="mystudymainimg"></img>
+          </div>
+          {/* 헤더 백  */}
+          <div id="mystudymainhdback"></div>
 
-                      <TableCell align="right">
-                        <Button
-                          variant="outlined"
-                          color="default"
-                          size="small"
-                          href={`/mystudyteam?studyfeed_studygroup_num=${row.study_num}`}
-                        >
-                          입장
-                        </Button>
-                        &nbsp;
-                        <Button
-                          variant="outlined"
-                          color="primary"
-                          size="small"
-                          onClick={() => {
-                            handleOpen();
-                            getApplyMember(row.study_num);
-                          }}
-                        >
-                          모집 현황
-                        </Button>
+          {/* 타이틀 */}
+          <div id="mypagelisttextbox">
+            <div id="mypgaelisttit">IT Campus Mypage</div>
+            <div id="mypgaelistsub">IT Campus Mypage</div>
+            <MyPageMenu />
+          </div>
+        </div>
+
+        {/* 타이틀 박스 */}
+        <div id="mystudymaintextbox">
+          <div id="signuptit">마이 스터디</div>
+          <div id="signuplabel">IT Campus 스터디 현황을 확인 할수있습니다.</div>
+        </div>
+
+        {/*  */}
+        <div style={{ width: "1200px" }}>
+          <ExpansionPanel className={classes.root}>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+              style={{ backgroundColor: "#E1E1E1" }}
+            >
+              <Typography className={classes.heading}>개설한 스터디</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <TableContainer>
+                <Table className={classes.table} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="left" style={{ fontWeight: "bold" }}>
+                        번호
                       </TableCell>
+                      <TableCell align="center" style={{ fontWeight: "bold" }}>
+                        스터디명
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        style={{ fontWeight: "bold" }}
+                      ></TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-        >
-          {modal}
-        </Modal>
-        <br />
-        <ExpansionPanel
-          className={classes.root}
-          expanded={expanded2 === "panel2"}
-          onChange={handlePanelChange2("panel2")}
-        >
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-            style={{ backgroundColor: "#E1E1E1" }}
+                  </TableHead>
+                  <TableBody>
+                    {founderlist.map((row, idx) => (
+                      <TableRow key={idx}>
+                        <TableCell align="left" scope="row">
+                          &nbsp;{idx + 1}
+                        </TableCell>
+                        <TableCell align="center" component="th" scope="row">
+                          {row.study_subject}
+                        </TableCell>
+
+                        <TableCell align="right">
+                          <Button
+                            variant="outlined"
+                            color="default"
+                            size="small"
+                            href={`/mystudyteam?studyfeed_studygroup_num=${row.study_num}`}
+                          >
+                            입장
+                          </Button>
+                          &nbsp;
+                          <Button
+                            variant="outlined"
+                            color="primary"
+                            size="small"
+                            onClick={() => {
+                              handleOpen();
+                              getApplyMember(row.study_num);
+                            }}
+                          >
+                            모집 현황
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
           >
-            <Typography className={classes.heading}>소속된 스터디</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <TableContainer>
-              <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="left" style={{ fontWeight: "bold" }}>
-                      번호
-                    </TableCell>
-                    <TableCell align="center" style={{ fontWeight: "bold" }}>
-                      스터디명
-                    </TableCell>
-                    <TableCell align="right" style={{ fontWeight: "bold" }}>
-                      개설자
-                    </TableCell>
-                    <TableCell></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {joinedlist.map((row, idx) => (
-                    <TableRow key={idx}>
-                      <TableCell align="left" scope="row">
-                        &nbsp;{idx + 1}
+            {modal}
+          </Modal>
+          <br />
+          <ExpansionPanel className={classes.root}>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+              style={{ backgroundColor: "#E1E1E1" }}
+            >
+              <Typography className={classes.heading}>소속된 스터디</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <TableContainer>
+                <Table className={classes.table} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="left" style={{ fontWeight: "bold" }}>
+                        번호
                       </TableCell>
-                      <TableCell align="center" component="th" scope="row">
-                        {row.study_subject}
+                      <TableCell align="center" style={{ fontWeight: "bold" }}>
+                        스터디명
                       </TableCell>
-                      <TableCell align="right">{row.study_writer}</TableCell>
-                      <TableCell align="right">
-                        <Button
-                          variant="outlined"
-                          color="default"
-                          size="small"
-                          href={`/mystudyteam?studyfeed_studygroup_num=${row.study_num}`}
-                        >
-                          입장
-                        </Button>
-                        &nbsp;
-                        <Button
-                          variant="outlined"
-                          color="secondary"
-                          size="small"
-                          onClick={() => {
-                            secession(row.study_num, localStorage.num);
-                          }}
-                        >
-                          탈퇴
-                        </Button>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        개설자
                       </TableCell>
+                      <TableCell></TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <br />
-        <ExpansionPanel
-          className={classes.root}
-          expanded={expanded3 === "panel3"}
-          onChange={handlePanelChange3("panel3")}
-        >
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-            style={{ backgroundColor: "#E1E1E1" }}
-          >
-            <Typography className={classes.heading}>신청한 스터디</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <TableContainer>
-              <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="left" style={{ fontWeight: "bold" }}>
-                      번호
-                    </TableCell>
-                    <TableCell align="center" style={{ fontWeight: "bold" }}>
-                      스터디명
-                    </TableCell>
-                    <TableCell align="right" style={{ fontWeight: "bold" }}>
-                      개설자
-                    </TableCell>
-                    <TableCell></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {myapplylist.map((row, idx) => (
-                    <TableRow key={idx}>
-                      <TableCell align="left" scope="row">
-                        &nbsp;{idx + 1}
+                  </TableHead>
+                  <TableBody>
+                    {joinedlist.map((row, idx) => (
+                      <TableRow key={idx}>
+                        <TableCell align="left" scope="row">
+                          &nbsp;{idx + 1}
+                        </TableCell>
+                        <TableCell align="center" component="th" scope="row">
+                          {row.study_subject}
+                        </TableCell>
+                        <TableCell align="right">{row.study_writer}</TableCell>
+                        <TableCell align="right">
+                          <Button
+                            variant="outlined"
+                            color="default"
+                            size="small"
+                            href={`/mystudyteam?studyfeed_studygroup_num=${row.study_num}`}
+                          >
+                            입장
+                          </Button>
+                          &nbsp;
+                          <Button
+                            variant="outlined"
+                            color="secondary"
+                            size="small"
+                            onClick={() => {
+                              secession(row.study_num, localStorage.num);
+                            }}
+                          >
+                            탈퇴
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+          <br />
+          <ExpansionPanel className={classes.root}>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+              style={{ backgroundColor: "#E1E1E1" }}
+            >
+              <Typography className={classes.heading}>신청한 스터디</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <TableContainer>
+                <Table className={classes.table} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="left" style={{ fontWeight: "bold" }}>
+                        번호
                       </TableCell>
-                      <TableCell align="center" component="th" scope="row">
-                        {row.study_subject}
+                      <TableCell align="center" style={{ fontWeight: "bold" }}>
+                        스터디명
                       </TableCell>
-                      <TableCell align="right">{row.study_writer}</TableCell>
-                      <TableCell align="right">
-                        <Button
-                          variant="outlined"
-                          color="default"
-                          size="small"
-                          href={`studydetail?study_num=${row.study_num}`}
-                        >
-                          과정보기
-                        </Button>
-                        &nbsp;
-                        <Button
-                          variant="outlined"
-                          color="secondary"
-                          size="small"
-                          onClick={() => {
-                            applycancle(row.study_num, localStorage.num);
-                          }}
-                        >
-                          취소
-                        </Button>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        개설자
                       </TableCell>
+                      <TableCell></TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <br />
+                  </TableHead>
+                  <TableBody>
+                    {myapplylist.map((row, idx) => (
+                      <TableRow key={idx}>
+                        <TableCell align="left" scope="row">
+                          &nbsp;{idx + 1}
+                        </TableCell>
+                        <TableCell align="center" component="th" scope="row">
+                          {row.study_subject}
+                        </TableCell>
+                        <TableCell align="right">{row.study_writer}</TableCell>
+                        <TableCell align="right">
+                          <Button
+                            variant="outlined"
+                            color="default"
+                            size="small"
+                            href={`studydetail?study_num=${row.study_num}`}
+                          >
+                            과정보기
+                          </Button>
+                          &nbsp;
+                          <Button
+                            variant="outlined"
+                            color="secondary"
+                            size="small"
+                            onClick={() => {
+                              applycancle(row.study_num, localStorage.num);
+                            }}
+                          >
+                            취소
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+          <br />
+        </div>
       </div>
       <div style={{ paddingTop: "100px" }}></div>
     </div>
