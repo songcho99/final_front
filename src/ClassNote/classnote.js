@@ -53,17 +53,10 @@ class classnote extends Component {
   classSave = (e) => {
     e.preventDefault();
 
-    let str = this.state.classcontent.replace(/</g, "&");
-    const str2 = str.replace(/>/g, "*");
-
+    let str = this.state.classcontent.replace(/</g, "*");
+    const str2 = str.replace(/>/g, "@");
     console.log("str2:" + str2);
-
-    this.setState({
-      classcontent: this.state.classcontent.replace(/</g, "&"),
-    });
-    this.setState({
-      classcontent: this.state.classcontent.replace(/>/g, "*"),
-    });
+    console.log("str2.typeof:" + typeof str2);
     console.log(this.state.classcontent);
     /* let bytes = [];
     for (let i = 0; i < this.state.classcontent.length; i++) {
@@ -79,7 +72,7 @@ class classnote extends Component {
         "&process_num=" +
         this.state.roomnum,
       "",
-      "width:200,height:200"
+      "width=500,height=500"
     );
 
     // const script = document.createElement("script");
@@ -185,16 +178,32 @@ class classnote extends Component {
         <br></br>
         <table>{filelist}</table>
         <br></br>
-        <Editor
-          previewStyle="tab"
-          height="700px"
-          initialEditType="wysiwyg"
-          onChange={this.updateContent.bind(this)}
-          initialValue={this.state.classcontent}
-          ref={this.editorRef}
-        />
-        <div id="viewer">{HtmlParser(this.state.classcontent)}</div>
-
+        {localStorage.type === "강사" && (
+          <div>
+            <Editor
+              previewStyle="tab"
+              height="700px"
+              initialEditType="wysiwyg"
+              onChange={this.updateContent.bind(this)}
+              initialValue={this.state.classcontent}
+              ref={this.editorRef}
+            />
+            <br />
+            <a
+              href={document.getElementsByClassName("tui-editor-contents")}
+              alt=""
+              download
+            >
+              SAVE CLASS
+            </a>
+            <button onClick={this.classSave.bind(this)}>SAVE CLASS</button>
+          </div>
+        )}
+        {localStorage.type === this.state.roomname && (
+          <div id="viewer" style={{ border: "1px solid black" }}>
+            {HtmlParser(this.state.classcontent)}
+          </div>
+        )}
         {/* <textarea
           rows="20"
           cols="30"
@@ -202,9 +211,6 @@ class classnote extends Component {
           onChange={this.updateContent.bind(this)}
           value={this.state.classcontent}
         ></textarea> */}
-        <br />
-        <button onClick={this.classSave.bind(this)}>SAVE CLASS</button>
-
         {/* <input type="text" readOnly value={this.state.classcontent} />
         <input
           type="text"

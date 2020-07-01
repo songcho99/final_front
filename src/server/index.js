@@ -33,7 +33,7 @@ io.sockets.on("connection", (socket) => {
   });
 
   socket.on("disconnecting", (socket) => {
-    console.log("disconnecting:" + socket.id);
+    console.log("disconnecting");
   });
 
   socket.on("update-msg", (type, msg) => {
