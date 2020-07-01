@@ -74,14 +74,17 @@ class CurriculumList extends Component {
     return (
       <div id={this.props.currilist}>
         <Modal></Modal>
-        <div id="currilistbtnbox">
-          <a href="/CurriculumAdd" id="currilistbtn">
-            <div id="currilisticon">
-              <i className="fas fa-plus"></i>
-            </div>
-            <div>추가</div>
-          </a>
-        </div>
+        {localStorage.type === "매니저" && (
+          <div id="currilistbtnbox">
+            <a href="/CurriculumAdd" id="currilistbtn">
+              <div id="currilisticon">
+                <i className="fas fa-plus"></i>
+              </div>
+              <div>추가</div>
+            </a>
+          </div>
+        )}
+
 
         {/* 카드  */}
         {/* 제목, 분류, 시작날짜 , 끝날짜, 인원수 , 담당 강사, 대표이미지,제공 교제  */}

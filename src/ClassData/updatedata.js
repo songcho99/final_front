@@ -109,7 +109,7 @@ class UpdateData extends Component {
         for (var f = 0; f < this.state.delfile.length; f++) {
             console.log(this.state.delfile.length);
             console.log(this.state.delfile[f]);
-            data.append(`classdata_delfile[${f}]`, this.state.delfile[f]);
+            data.append(`classdata_delfiles[${f}]`, this.state.delfile[f]);
         }
         data.append('classdata_subject', e.target.classdata_subject.value)
         data.append('classdata_content', e.target.classdata_content.value)

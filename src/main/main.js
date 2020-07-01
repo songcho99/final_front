@@ -84,7 +84,7 @@ class main extends Component {
           {/* 강의노트 */}
           <Route path="/classnote" component={ClassNote} />
           {/* 수업자료 */}
-          <Route path="/classdata" component={ClassData} />
+          <Route path="/classdata/:process_num" component={ClassData} />
           {/*스터디 */}
           <Route path="/studylist" component={StudyList} />
           {/* 스케줄 */}
@@ -92,8 +92,8 @@ class main extends Component {
           {/* 내 학습공간 */}
           <Route path="/myclass" component={MyClass} />
           {/* 수업자료 관련 기능 */}
-          <Route path="/writedata" component={WriteData} />
-          <Route path="/datadetail" component={DataDetail} />
+          <Route path="/writedata/:process_num" component={WriteData} />
+          <Route path="/datadetail/:process_num" component={DataDetail} />
           <Route path="/updatedata" component={UpdateData} />
 
           {/* 스터디 관련 기능 */}
