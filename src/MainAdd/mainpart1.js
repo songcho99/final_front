@@ -98,68 +98,59 @@ class mainpart1 extends Component {
 
         {/* 전체 가로 슬라이드 박스 */}
         <div id={this.props.part1slide}>
-          <div id="part1slidarrow1">
-            <i className="fas fa-angle-left"></i>
-          </div>
-          <ul id="part1slidul">
+          <div id="part1slidul">
             {/* 이안에서 로직 돌리면됨  */}
             {this.state.processall.map((item, index) => (
-              <li>
-                <div className="curricard3">
-                  {/* 헤드 부분 */}
-                  <div className="curricardhd3">
-                    <div className="curricarthdtit3">
-                      {item.process_status === "미수료" &&
-                        new Date() < item.process_startdate &&
-                        "모집중"}
-                    </div>
-                    <div className="curricarthdsub3">{item.process_type}</div>
+              // <div>
+              <div className="curricard3">
+                {/* 헤드 부분 */}
+                <div className="curricardhd3">
+                  <div className="curricarthdtit3">
+                    {item.process_status === "미수료" &&
+                      new Date() < item.process_startdate &&
+                      "모집중"}
+                  </div>
+                  <div className="curricarthdsub3">{item.process_type}</div>
+                </div>
+
+                {/* 몸통 부분 */}
+                <div className="curricardmain3">
+                  <div className="curricardmainimgbox3">
+                    <img alt="" className="curricardimg" />
                   </div>
 
-                  {/* 몸통 부분 */}
-                  <div className="curricardmain3">
-                    <div className="curricardmainimgbox3">
-                      <img alt="" className="curricardimg" />
+                  <div className="curricardmainback3"></div>
+                  <Link className="curricardmaintext3">
+                    <div className="studylistcardAvatar3">
+                      <Avatar
+                        src={
+                          "http://localhost:8000/project/uploadfile/" +
+                          item.member_profile
+                        }
+                        style={{ width: "40px", height: "40px" }}
+                      />
                     </div>
-
-                    <div className="curricardmainback3"></div>
-                    <Link className="curricardmaintext3">
-                      <div className="studylistcardAvatar3">
-                        <Avatar
-                          src={
-                            "http://localhost:8000/project/uploadfile/" +
-                            item.member_profile
-                          }
-                          style={{ width: "40px", height: "40px" }}
-                        />
-                      </div>
-                      <div className="curricardmainnav">
-                        {item.process_subject}
-                      </div>
-                    </Link>
-                  </div>
-
-                  {/* 바닥 */}
-                  <div className="currifooter3">
-                    <div>
-                      {item.process_startdate} - {item.process_enddate}
+                    <div className="curricardmainnav">
+                      {item.process_subject}
                     </div>
+                  </Link>
+                </div>
+
+                {/* 바닥 */}
+                <div className="currifooter3">
+                  <div>
+                    {item.process_startdate} - {item.process_enddate}
                   </div>
                 </div>
+                {/* </div> */}
                 {/* 여기서 끝나 */}
-              </li>
+              </div>
             ))}
-          </ul>
-          <div id="part1slidarrow2">
-            <i className="fas fa-angle-right"></i>
           </div>
         </div>
 
         {/* PHP 가로 슬라이드 박스 */}
         <div id={this.props.part1PHP}>
-          <div id="part1slidarrow1">
-            <i className="fas fa-angle-left"></i>
-          </div>
           <ul id="part1slidul">
             {/* 이안에서 로직 돌리면됨  */}
             {this.state.processbigdata.map((item, index) => (
@@ -209,16 +200,10 @@ class mainpart1 extends Component {
             ))}
             {/* 여기서 끝나 */}
           </ul>
-          <div id="part1slidarrow2">
-            <i className="fas fa-angle-right"></i>
-          </div>
         </div>
 
         {/* React 가로 슬라이드 박스 */}
         <div id={this.props.part1React}>
-          <div id="part1slidarrow1">
-            <i className="fas fa-angle-left"></i>
-          </div>
           <ul id="part1slidul">
             {/* 이안에서 로직 돌리면됨  */}
             {this.state.processcloud.map((item, index) => (
@@ -268,16 +253,10 @@ class mainpart1 extends Component {
             ))}
             {/* 여기서 끝나 */}
           </ul>
-          <div id="part1slidarrow2">
-            <i className="fas fa-angle-right"></i>
-          </div>
         </div>
 
         {/* Java 가로 슬라이드 박스 */}
         <div id={this.props.Part1Java}>
-          <div id="part1slidarrow1">
-            <i className="fas fa-angle-left"></i>
-          </div>
           <ul id="part1slidul">
             {/* 이안에서 로직 돌리면됨  */}
             {this.state.processai.map((item, index) => (
@@ -327,9 +306,6 @@ class mainpart1 extends Component {
             ))}
             {/* 여기서 끝나 */}
           </ul>
-          <div id="part1slidarrow2">
-            <i className="fas fa-angle-right"></i>
-          </div>
         </div>
 
         {/* 뒤에 깔리는 검은 배경  */}
