@@ -195,7 +195,7 @@ function CurriculumAdd() {
     if (process_subject === "" || process_subject === "과정명을 입력해주세요") {
       Swal.fire({
         icon: "error",
-        title: "실패..ㅜㅜ",
+        title: "실패!",
         text: "수강 과정명을 작성해주세요!",
       });
       return false;
@@ -203,7 +203,7 @@ function CurriculumAdd() {
     if (process_intr === "") {
       Swal.fire({
         icon: "error",
-        title: "실패..ㅜㅜ",
+        title: "실패!",
         text: "수강 과정 소개를 작성해주세요!",
       });
       return false;
@@ -211,7 +211,7 @@ function CurriculumAdd() {
     if (process_peoples === "") {
       Swal.fire({
         icon: "error",
-        title: "실패..ㅜㅜ",
+        title: "실패!",
         text: "수강 과정에 참여할 수강생 총 인원을 선택해주세요!",
       });
       return false;
@@ -219,7 +219,7 @@ function CurriculumAdd() {
     if (process_teacher === "" || process_teacher === "담당 강사님") {
       Swal.fire({
         icon: "error",
-        title: "실패..ㅜㅜ",
+        title: "실패!",
         text: "수강 과정 담당 강사님을 선택해주세요!",
       });
       return false;
@@ -234,7 +234,7 @@ function CurriculumAdd() {
     if (startdateStr >= enddateStr) {
       Swal.fire({
         icon: "error",
-        title: "실패..ㅜㅜ",
+        title: "실패!",
         text: "과정 끝날짜가 시작날짜보다 이전일 수 없습니다!",
       });
       return false;
@@ -270,7 +270,7 @@ function CurriculumAdd() {
           let url2 = "http://localhost:8000/project/books/insert";
           axios
             .post(url2, bookdata)
-            .then((res) => {})
+            .then((res) => { })
             .catch((err) => {
               console.log("제공 교재 등록 에러 : " + err);
             });
@@ -281,7 +281,7 @@ function CurriculumAdd() {
           text: "수강 과정 등록이 성공적으로 처리되었습니다!",
         }).then((result) => {
           if (result.value) {
-            window.location.href = "/curriculumschedule";
+            window.location.href = "/curriculumschedule/2";
           }
         });
 

@@ -125,23 +125,6 @@ class MyPageMenu extends Component {
             </div>
           </NavLink>
         )} */}
-
-        {localStorage.type === "강사" && (
-          <NavLink
-            to="/classmanage"
-            className="mypagemenu-link"
-            activeStyle={activeStyle}
-          >
-            <div style={divStyle}>
-              <i
-                className="fas fa-chalkboard-teacher"
-                style={{ fontSize: "80px" }}
-              />
-              <br />
-              수업관리
-            </div>
-          </NavLink>
-        )}
       </div>
     );
   }

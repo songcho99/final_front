@@ -229,22 +229,46 @@ export default function AddStudy(props) {
   };
   const handleStartDateChange = (date) => {
     if (new Date() > date) {
-      alert("현재 날짜보다 이전 날짜는 선택 불가능합니다");
+      Swal.fire({
+        position: 'top-start',
+        icon: 'warning',
+        title: '현재 날짜보다 이전 날짜는 선택 불가능합니다',
+        showConfirmButton: false,
+        timer: 1500
+      })
       return false;
     }
     if (study_enddate < date) {
-      alert("시작 날짜는 끝 날짜 이후를 선택 불가능합니다");
+      Swal.fire({
+        position: 'top-start',
+        icon: 'warning',
+        title: '시작 날짜는 끝 날짜 이후를 선택 불가능합니다',
+        showConfirmButton: false,
+        timer: 1500
+      })
       return false;
     }
     setStudyStartdate(getFormatDate(date));
   };
   const handleEndDateChange = (date) => {
     if (new Date() > date) {
-      alert("현재 날짜보다 이전 날짜는 선택 불가능합니다");
+      Swal.fire({
+        position: 'top-start',
+        icon: 'warning',
+        title: '현재 날짜보다 이전 날짜는 선택 불가능합니다',
+        showConfirmButton: false,
+        timer: 1500
+      })
       return false;
     }
     if (study_startdate > date) {
-      alert("시작 날짜보다 이전 날짜는 선택 불가능합니다");
+      Swal.fire({
+        position: 'top-start',
+        icon: 'warning',
+        title: '시작 날짜보다 이전 날짜는 선택 불가능합니다',
+        showConfirmButton: false,
+        timer: 1500
+      })
       return false;
     }
     setStudyEnddate(getFormatDate(date));
@@ -291,10 +315,10 @@ export default function AddStudy(props) {
     study_level === 0 || study_level === "하"
       ? setStudyLevel("하")
       : study_level === 50 || study_level === "중"
-      ? setStudyLevel("중")
-      : study_level === 100 || study_level === "상"
-      ? setStudyLevel("상")
-      : setStudyLevel("하");
+        ? setStudyLevel("중")
+        : study_level === 100 || study_level === "상"
+          ? setStudyLevel("상")
+          : setStudyLevel("하");
     console.log(`level:${study_level}`);
   }, [study_level]);
 
@@ -364,7 +388,16 @@ export default function AddStudy(props) {
         })
           .then((res) => {
             console.log(`데이터 추가:${res}`);
-            window.location.href = "/studylist";
+            Swal.fire({
+              icon: "success",
+              title: "성공!!",
+              text: "스터디 등록이 성공적으로 처리되었습니다!",
+            }).then((result) => {
+              if (result.value) {
+                window.location.href = "/studylist";
+              }
+            });
+
           })
           .catch((err) => {
             console.log(`데이터 추가 오류:${err}`);

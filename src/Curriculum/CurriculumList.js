@@ -180,7 +180,7 @@ class CurriculumList extends Component {
                   <div className="curricard" id={this.props.cardai}>
                     {/* 헤드 부분 */}
                     <div className="curricardhd">
-                      <div className="curricarthdtit">모집중(1/2)</div>
+                      <div className="curricarthdtit">모집중</div>
                       <div className="curricarthdsub">{row.process_type}</div>
                     </div>
 

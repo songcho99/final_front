@@ -153,11 +153,11 @@ export default function StudyDetail(props) {
             ? 0
             : res.data.studydata.study_level === "중" ||
               res.data.studydata.study_level === 50
-            ? 50
-            : res.data.studydata.study_level === "상" ||
-              res.data.studydata.study_level === 100
-            ? 100
-            : 0
+              ? 50
+              : res.data.studydata.study_level === "상" ||
+                res.data.studydata.study_level === 100
+                ? 100
+                : 0
         );
         if (res.data.study_writer_num == localStorage.num)
           document.getElementById("updatebutton").style.visibility = "block";
@@ -321,10 +321,10 @@ export default function StudyDetail(props) {
     studyapply_mylevel === 0 || studyapply_mylevel === "하"
       ? setStudyApplyMyLevel("하")
       : studyapply_mylevel === 50 || studyapply_mylevel === "중"
-      ? setStudyApplyMyLevel("중")
-      : studyapply_mylevel === 100 || studyapply_mylevel === "상"
-      ? setStudyApplyMyLevel("상")
-      : setStudyApplyMyLevel("하");
+        ? setStudyApplyMyLevel("중")
+        : studyapply_mylevel === 100 || studyapply_mylevel === "상"
+          ? setStudyApplyMyLevel("상")
+          : setStudyApplyMyLevel("하");
     console.log(`level:${studyapply_mylevel}`);
   }, [studyapply_mylevel]);
 
@@ -593,11 +593,12 @@ export default function StudyDetail(props) {
             </button>
           </Link>
           &nbsp;&nbsp;
-          {localStorage.num != studydata.study_member_num && (
-            <button type="button" style={buttonStyle1} onClick={handleOpen}>
-              신청하기
-            </button>
-          )}
+          {localStorage.num != studydata.study_member_num && localStorage.type != "매니저"
+            && localStorage.type != "강사" && (
+              <button type="button" style={buttonStyle1} onClick={handleOpen}>
+                신청하기
+              </button>
+            )}
           {localStorage.num == studydata.study_member_num && (
             <Link to={`/updatestudy?study_num=${study_num}`}>
               <button type="button" style={buttonStyle}>

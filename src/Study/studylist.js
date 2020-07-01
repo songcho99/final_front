@@ -341,23 +341,15 @@ export default function StudyList(props) {
       </div>
       <div style={{ paddingTop: "100px" }}></div>
       <div style={{ float: "right", marginRight: "10%" }}>
-        {localStorage.type === "수강생" && (
-          <Button variant="contained" color="primary" href="./addstudy">
-            스터디 만들기
-          </Button>
-        )}
-        {localStorage.type === "일반" && (
+
+        {localStorage.type !== "매니저" && localStorage.type !== "강사" && localStorage.num != null && (
           <Button variant="contained" color="primary" href="./addstudy">
             스터디 만들기
           </Button>
         )}
         &nbsp;
-        {localStorage.type === "일반" && (
-          <Button variant="outlined" color="primary" href="/mystudymain">
-            마이 스터디
-          </Button>
-        )}
-        {(localStorage.type !== "매니저" || localStorage.type !== "강사") && (
+
+        {(localStorage.type !== "매니저" && localStorage.type !== "강사") && localStorage.num != null && (
           <Button variant="outlined" color="primary" href="/mystudymain">
             마이 스터디
           </Button>

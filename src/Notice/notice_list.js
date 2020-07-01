@@ -19,6 +19,7 @@ class Notice_List extends Component {
       indexOfFirstPage: 0, //초기값
       search: "",
       field: "notice_type",
+      notice_member_num: 0
     };
   }
 
@@ -284,6 +285,7 @@ class Notice_List extends Component {
                         state: {
                           num: item.notice_num,
                           currentPage: this.state.currentPage,
+                          notice_member_num: item.notice_member_num,
                           pageNum: this.state.pageNum,
                         },
                       }}

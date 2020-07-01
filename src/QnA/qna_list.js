@@ -43,7 +43,7 @@ class qna_list extends Component {
           currentPosts: res.data.slice(0, 10),
         });
 
-        if (this.state.member_type !== "매니저") {
+        if (this.state.member_type !== "매니저" && localStorage.num != null) {
           this.setState({
             write: (
               <Link

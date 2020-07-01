@@ -199,19 +199,20 @@ class qna_detail extends Component {
   onDelete = (num) => {
 
     Swal.fire({
-      title: "해당 QnA를 삭제하시겠습니까?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
+      title: "삭제하시겠습니까?",
+      text: "해당 QnA의 내용이 모두 삭제됩니다",
+      icon: "error",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소"
     }).then((result) => {
       if (result.value) {
         let url = "http://localhost:8000/project/qna/qnadelete?qna_num=" + num;
         Axios.get(url)
           .then((res) => {
-            Swal.fire("Deleted!", "Your file has been deleted.", "success").then((result) => {
+            Swal.fire("삭제가 완료되었습니다", "목록 페이지로 이동합니다", "success").then((result) => {
               if (result.value) {
                 window.location.href = "/qnalist";
               }
