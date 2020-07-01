@@ -75,18 +75,31 @@ export default function MemberList_Form() {
   //멤버 삭제
 
   const onBoardDelete = (member_num) => {
-    let url =
-      "http://localhost:8000/project/member/memberdelete?member_num=" +
-      member_num;
-    axios
-      .delete(url)
-      .then((res) => {
-        list();
-      })
-      .catch((err) => {
-        console.log(member_num);
-        console.log("삭제 오류:" + err);
-      });
+    Swal.fire({
+      title: "삭제하시겠습니까?",
+      text: "회원과 관련된 정보가 모두 삭제됩니다",
+      icon: "error",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.value) {
+        let url =
+          "http://localhost:8000/project/member/memberdelete?member_num=" +
+          member_num;
+        axios
+          .delete(url)
+          .then((res) => {
+            list();
+          })
+          .catch((err) => {
+            console.log(member_num);
+            console.log("삭제 오류:" + err);
+          });
+      }
+    });
   };
   const trash = (item) => {
     if (item.member_name !== "매니저") {
@@ -243,11 +256,27 @@ export default function MemberList_Form() {
             {asd.map((item, idx) => (
               <tr style={trStyle}>
                 <td>
-                  <select name="typechange" onChange={changeTypeHandler}>
-                    <option>{item.member_type}</option>
-                    <option value="매니저">매니저</option>
-                    <option value="강사">강사</option>
-                  </select>
+                  {item.member_type === "일반" && (
+                    <select name="typechange" onChange={changeTypeHandler}>
+                      <option>{item.member_type}</option>
+                      <option value="매니저">매니저</option>
+                      <option value="강사">강사</option>
+                    </select>
+                  )}
+                  {item.member_type === "매니저" && (
+                    <select name="typechange" onChange={changeTypeHandler}>
+                      <option>{item.member_type}</option>
+                      <option value="매니저">매니저</option>
+                      <option value="강사">강사</option>
+                    </select>
+                  )}
+                  {item.member_type === "강사" && (
+                    <select name="typechange" onChange={changeTypeHandler}>
+                      <option>{item.member_type}</option>
+                      <option value="매니저">매니저</option>
+                      <option value="강사">강사</option>
+                    </select>
+                  )}
                 </td>
                 <td>{item.member_name}</td>
                 <td>{item.member_phone}</td>

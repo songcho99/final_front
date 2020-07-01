@@ -94,7 +94,7 @@ class main extends Component {
           {/* 수업자료 관련 기능 */}
           <Route path="/writedata/:process_num" component={WriteData} />
           <Route path="/datadetail/:process_num" component={DataDetail} />
-          <Route path="/updatedata" component={UpdateData} />
+          <Route path="/updatedata/:process_num" component={UpdateData} />
 
           {/* 스터디 관련 기능 */}
           <Route path="/addstudy" component={AddStudy} />
