@@ -6,12 +6,12 @@ class myclasssid extends Component {
     return (
       <div id="myclasssid">
         <div id="myclassnav">
-          {/* 강의 노트 */}
+          {/* 수업 노트 */}
           <div id="myclassnote">
-            <div id="myclassnotesub">강의노트</div>
+            <div id="myclassnotesub">수업노트</div>
             <a
               id="myclassnotemain"
-              onClick={this.props.openClassNote.bind(this)}
+              onClick={this.props.openClassNote2.bind(this)}
             >
               <i className="fas fa-book-open"></i>
             </a>
@@ -19,10 +19,10 @@ class myclasssid extends Component {
 
           {/* 강의 노트 */}
           <div id="myclassnote">
-            <div id="myclassnotesub">수업노트</div>
+            <div id="myclassnotesub">수업자료</div>
             <a
               id="myclassnotemain"
-              onClick={this.props.openClassNote2.bind(this)}
+              href={"/classdata/" + this.props.process_num}
             >
               <i className="fas fa-book-open"></i>
             </a>

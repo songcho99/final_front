@@ -58,22 +58,46 @@ class ClassPage extends Component {
     return (
       <div id="classpage">
         <MyclassSid
-          openClassNote={this.openClassNote.bind(this)}
+          process_num={this.state.process_num}
           openClassNote2={this.openClassNote2.bind(this)}
         ></MyclassSid>
         <div id="classpageback">
-          <h1>{this.state.subject}</h1>
-          <h2>강사님 : {this.state.subject}</h2>
-          <h2>매니져님 : {this.state.manager}</h2>
-          <h3>
-            과정 기간 : {this.state.startdate} ~ {this.state.enddate}
-          </h3>
-          <br></br>
-          <h2>학습 페이지</h2>
-          <Link to={"/classdata/" + this.state.process_num}>
-            <button>수업 자료</button>
-          </Link>{" "}
-          &nbsp;&nbsp; &nbsp;&nbsp;
+          <div id="classpagebox">
+            <div>{this.state.subject} 제목</div>
+            <div>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>
+                      <div>강사 : </div>
+                    </th>
+                    <td>
+                      <div>{this.state.subject}임제묵</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      <div>메니져 : </div>
+                    </th>
+                    <td>
+                      <div>{this.state.manager}김성현</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      <div>과정기간 : </div>
+                    </th>
+                    <td>
+                      <div>
+                        {this.state.startdate} 2020.10.20 ~ 2020.11.22
+                        {this.state.enddate}
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     );
