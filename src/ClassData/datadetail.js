@@ -7,10 +7,12 @@ import Swal from 'sweetalert2';
 class DataDetail extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             classdata: [],
             classdatafile: [],
             num: this.props.location.state.num,
+            process_num: props.match.params.process_num,
             member_type: localStorage.type
         }
     }
@@ -113,7 +115,7 @@ class DataDetail extends Component {
                 let url = "http://localhost:8000/project/classdata/classdatadelete?num=" + num;
                 axios.get(url)
                     .then((res) => {
-                        window.location.href = "/classdata";
+                        window.location.href = "/classdata/" + this.state.process_num;
                     })
                     .catch((err) => {
                         console.log("notice delete error=" + err);
@@ -182,7 +184,7 @@ class DataDetail extends Component {
                 {this.state.admin}&nbsp;&nbsp;
                 <Link
                     to={{
-                        pathname: "/classdata",
+                        pathname: "/classdata/" + this.state.process_num,
 
                     }}
                     style={{

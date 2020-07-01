@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 
 class classdata extends Component {
-  constructor() {
+  constructor({ match }) {
     super();
+
+    this.process_num = match.params.process_num;
     this.state = {
       classdatalist: [],
 
@@ -12,7 +14,8 @@ class classdata extends Component {
   }
 
   list = () => {
-    let url = "http://localhost:8000/project/classdata/classdatalist";
+    let url = "http://localhost:8000/project/classdata/classdatalist?process_num=" + this.process_num;
+    console.log(this.process_num);
     axios.get(url)
       .then((res) => {
         this.setState({
@@ -30,9 +33,9 @@ class classdata extends Component {
       <div>
         <br></br><br></br><br></br><br></br><br></br>
         <h2>수업자료입니다!</h2>
-        <Link to="/writedata">
+        <NavLink exact to={"/writedata/" + this.process_num}>
           <button>자료 작성</button>
-        </Link>
+        </NavLink>{" "}
         <br></br>
         <br></br>
         <div align="center">
@@ -51,7 +54,7 @@ class classdata extends Component {
                   <td style={{ textAlign: "center" }}>{idx + 1}</td>
                   <td style={{ textAlign: "center" }}>
                     <Link to={{
-                      pathname: '/datadetail',
+                      pathname: '/datadetail/' + this.process_num,
                       state: {
                         num: item.classdata_num
                       },

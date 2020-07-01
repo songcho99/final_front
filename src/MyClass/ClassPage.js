@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 import MyclassSid from "./myclasssid";
 import "./ClassPage.scss";
@@ -9,7 +9,7 @@ class ClassPage extends Component {
     super(props);
 
     this.state = {
-      process_num: "",
+      process_num: 0,
       subject: "",
       teachername: "",
       manager: "",
@@ -70,7 +70,7 @@ class ClassPage extends Component {
           </h3>
           <br></br>
           <h2>학습 페이지</h2>
-          <Link to="/classdata">
+          <Link to={"/classdata/" + this.state.process_num}>
             <button>수업 자료</button>
           </Link>{" "}
           &nbsp;&nbsp; &nbsp;&nbsp;
