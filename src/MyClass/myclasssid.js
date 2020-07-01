@@ -18,15 +18,12 @@ class myclasssid extends Component {
           </div>
 
           {/* 수업자료 */}
-          {/* <div id="myclassnote">
-            <div id="myclassnotesub">수업자료</div>
-            <a
-              id="myclassnotemain"
-              href={"/classdata/" + this.props.process_num}
-            >
-              <i className="fas fa-book-open"></i>
+          <div id="myclassnote">
+            <div id="myclassnotesub">알림</div>
+            <a id="myclassnotemain" href={"/AlertList/" + 1}>
+              <i className="far fa-bell"></i>
             </a>
-          </div> */}
+          </div>
 
           {/*  */}
         </div>

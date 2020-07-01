@@ -72,6 +72,19 @@ class MyPageMenu extends Component {
             </div>
           </NavLink>
         )}
+        {localStorage.type === "매니저" && (
+          <NavLink
+            to={"/AlertList/" + 1}
+            className="mypagemenu-link"
+            activeStyle={activeStyle}
+          >
+            <div style={divStyle}>
+              <i className="fas fa-user-friends" style={{ fontSize: "80px" }} />
+              <br />
+              알림
+            </div>
+          </NavLink>
+        )}
 
         {localStorage.type === "수강생" && (
           <NavLink
