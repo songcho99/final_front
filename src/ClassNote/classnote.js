@@ -8,6 +8,7 @@ import { Editor } from "@toast-ui/react-editor";
 import HtmlParser from "react-html-parser";
 
 import Axios from "axios";
+import "./classnote.scss";
 
 const socket = io.connect("http://localhost:5000");
 class classnote extends Component {
@@ -171,67 +172,69 @@ class classnote extends Component {
     ));
 
     return (
-      <div>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <table>{filelist}</table>
-        <br></br>
-        {localStorage.type === "강사" && (
-          <div>
-            <Editor
-              previewStyle="tab"
-              height="700px"
-              initialEditType="wysiwyg"
-              onChange={this.updateContent.bind(this)}
-              initialValue={this.state.classcontent}
-              ref={this.editorRef}
-            />
-            <br />
-            <a
-              href={document.getElementsByClassName("tui-editor-contents")}
-              alt=""
-              download
-            >
-              SAVE CLASS
-            </a>
-            <button onClick={this.classSave.bind(this)}>SAVE CLASS</button>
-          </div>
-        )}
-        {localStorage.type === this.state.roomname && (
-          <div id="viewer" style={{ border: "1px solid black" }}>
-            {HtmlParser(this.state.classcontent)}
-          </div>
-        )}
-        {/* <textarea
+      <div id="classnote">
+        <div id="classnoteback">
+          {/* 여기서 시작 */}
+          <table style={{ width: "100%" }}>{filelist}</table>
+          <br></br>
+          {localStorage.type === "강사" && (
+            <div>
+              <Editor
+                previewStyle="tab"
+                height="700px"
+                initialEditType="wysiwyg"
+                onChange={this.updateContent.bind(this)}
+                initialValue={this.state.classcontent}
+                ref={this.editorRef}
+              />
+              <br />
+              <a
+                href={document.getElementsByClassName("tui-editor-contents")}
+                alt=""
+                download
+              >
+                SAVE CLASS
+              </a>
+              <button onClick={this.classSave.bind(this)} id="classnotebtn">
+                SAVE CLASS
+              </button>
+            </div>
+          )}
+          {localStorage.type === this.state.roomname && (
+            <div id="viewer" style={{ border: "1px solid black" }}>
+              {HtmlParser(this.state.classcontent)}
+            </div>
+          )}
+          {/* <textarea
           rows="20"
           cols="30"
           name="classcontent"
           onChange={this.updateContent.bind(this)}
           value={this.state.classcontent}
         ></textarea> */}
-        {/* <input type="text" readOnly value={this.state.classcontent} />
+          {/* <input type="text" readOnly value={this.state.classcontent} />
         <input
           type="text"
           name="classcontent"
           onChange={this.updateContent.bind(this)}
         /> */}
 
-        <h3>메모</h3>
-        <form onSubmit={this.memoSave.bind(this)}>
-          <textarea
-            name="memocontent"
-            value={this.state.memocontent}
-            onChange={this.updateMemo.bind(this)}
-          ></textarea>
-          <br />
-          <button type="submit">메모 저장</button>
-        </form>
-        <hr />
-        <Link to="/">
-          <button>홈으로</button>
-        </Link>
+          <h3>메모</h3>
+          <form onSubmit={this.memoSave.bind(this)}>
+            <textarea
+              name="memocontent"
+              value={this.state.memocontent}
+              onChange={this.updateMemo.bind(this)}
+            ></textarea>
+            <br />
+            <button type="submit" id="classnotebtn">
+              메모 저장
+            </button>
+          </form>
+          <div style={{ width: "100%", height: "60px" }}></div>
+
+          {/* 여기가 끝 */}
+        </div>
       </div>
     );
   }

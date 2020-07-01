@@ -11,6 +11,7 @@ import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Swal from "sweetalert2";
 import Axios from "axios";
 import Mypagelist from "../MyPage/mypagelist";
+import "./signupmanage.scss";
 
 class signupmanage extends Component {
   state = {
@@ -213,50 +214,72 @@ class signupmanage extends Component {
             ))}
           </tbody>
         </table>
-        <Modal
-          style={{ width: "400px", height: "300px" }}
-          isOpen={this.state.modalOpen}
-        >
-          <div>
-            수강 과정 명 : {this.state.detailInfo.processapply_process_subject}
-            <br />
-            이름: {this.state.detailInfo.processapply_member_name}
-            <br />
-            PHONE : {this.state.detailInfo.processapply_member_phone}
-            <br />
-            EMAIL : {this.state.detailInfo.processapply_member_email}
-            <br />
-            주소 : {this.state.detailInfo.processapply_member_address}
-            <br />
-            상세주소 : {this.state.detailInfo.processapply_member_detailaddr}
-            <br />
-            <pre>{this.state.detailInfo.processapply_applyreason}</pre>
-            <br />
-            <br />
-            <button
-              onClick={this.processAccept.bind(this, this.state.detailInfo)}
-            >
-              과정 신청 승인
-            </button>
-            <button
-              onClick={() => {
-                this.setState({
-                  modalOpen: false,
-                });
-              }}
-            >
-              취소
-            </button>
+        <Modal isOpen={this.state.modalOpen} id="signupmanage">
+          <div id="signupmanageback">
+            {/* 텍스트 박스 */}
+            <div id="signupmanagewiht">
+              <div id="signupmanagenav">
+                <div id="signupmanageid">수강 과정명 :</div>
+                <div>{this.state.detailInfo.processapply_process_subject}</div>
+              </div>
+              <div id="signupmanagenav">
+                <div id="signupmanageid">이름:</div>
+                <div>{this.state.detailInfo.processapply_member_name}</div>
+              </div>
+              <div id="signupmanagenav">
+                <div id="signupmanageid">PHONE :</div>
+                <div>{this.state.detailInfo.processapply_member_phone}</div>
+              </div>
+              <div id="signupmanagenav">
+                <div id="signupmanageid">EMAIL :</div>
+                <div>{this.state.detailInfo.processapply_member_email}</div>
+              </div>
+              <div id="signupmanagenav">
+                <div id="signupmanageid">주소 :</div>
+                <div>{this.state.detailInfo.processapply_member_address}</div>
+              </div>
+              <div id="signupmanagenav">
+                <div id="signupmanageid">상세주소 :</div>
+                <div>
+                  {this.state.detailInfo.processapply_member_detailaddr}
+                </div>
+                <div>{this.state.detailInfo.processapply_applyreason}</div>
+              </div>
+            </div>
+
+            {/* 버튼 박스 */}
+            <div id="signupmanagenav2">
+              <div style={{ marginRight: "20px" }}>
+                <button
+                  onClick={this.processAccept.bind(this, this.state.detailInfo)}
+                  className="signupmanagebtn"
+                >
+                  승인
+                </button>
+              </div>
+              <div>
+                <button
+                  onClick={() => {
+                    this.setState({
+                      modalOpen: false,
+                    });
+                  }}
+                  className="signupmanagebtn"
+                >
+                  취소
+                </button>
+              </div>
+            </div>
           </div>
         </Modal>
-        <Modal
-          style={{ width: "400px", height: "300px" }}
-          isOpen={this.state.acceptModalOpen}
-        >
-          <div>
-            상담 내역
-            <br />
-            <form onSubmit={this.acceptSubmit.bind(this)}>
+        <Modal id="signupmanage2" isOpen={this.state.acceptModalOpen}>
+          <div id="signupmanage2back">
+            <div style={{ marginBottom: "20px" }}>상담 내역</div>
+
+            <form
+              onSubmit={this.acceptSubmit.bind(this)}
+              id="signupmanage2nav2"
+            >
               <TextareaAutosize
                 value={this.state.consulting}
                 name="consulting"
@@ -266,8 +289,10 @@ class signupmanage extends Component {
                 rowsMin={3}
                 placeholder="신청자와 상담하신 내역을 적어주세요."
               />
-              <br />
-              신청 승인 사유 <br />
+              <div style={{ marginTop: "20px", marginBottom: "20px" }}>
+                신청 승인사유
+              </div>
+
               <TextareaAutosize
                 value={this.state.acceptReason}
                 name="acceptReason"
@@ -277,19 +302,26 @@ class signupmanage extends Component {
                 rowsMin={3}
                 placeholder="수강 과정 신청 승인 사유를 적어주세요."
               />
-              <br />
-              <br />
-              <button type="submit">승인</button>
+              <div id="signupmanage2nav">
+                <button
+                  type="submit"
+                  className="signupmanagebtn"
+                  style={{ marginRight: "20px" }}
+                >
+                  승인
+                </button>
+                <button
+                  onClick={() => {
+                    this.setState({
+                      acceptModalOpen: false,
+                    });
+                  }}
+                  className="signupmanagebtn"
+                >
+                  취소
+                </button>
+              </div>
             </form>
-            <button
-              onClick={() => {
-                this.setState({
-                  acceptModalOpen: false,
-                });
-              }}
-            >
-              취소
-            </button>
           </div>
         </Modal>
         <div style={{ paddingBottom: "100px" }}></div>

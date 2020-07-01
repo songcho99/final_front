@@ -113,6 +113,21 @@ class WriteData extends Component {
           className="writeinsert"
           onSubmit={this.isUpload.bind(this)}
         >
+          <div id="classdatanav">
+            {/* 이미지 박스  */}
+            <div id="classdataimgbox">
+              <img src={require("./note.jpg")} id="classdataimg"></img>
+            </div>
+            {/* 검은 배경  */}
+            <div id="classdataimgback"></div>
+
+            {/* 텍스트 박스 */}
+            <div id="classdatatextbox">
+              <div id="classdatatit">Lecture Room</div>
+              <div id="classdatasub">Note for study</div>
+            </div>
+          </div>
+
           <h1>수업 자료</h1>
           <br></br>
           <TextField
@@ -168,7 +183,7 @@ class WriteData extends Component {
             <Button variant="contained" color="primary" href="/classdata/1">
               목록
             </Button>{" "}
-            &nbsp;&nbsp;
+            <div style={{ height: "60px", width: "100%" }}></div>
           </div>
         </form>
       </div>

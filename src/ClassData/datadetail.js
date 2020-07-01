@@ -143,6 +143,22 @@ class DataDetail extends Component {
       <div id="datadetail">
         <div id="datadetailback">
           {/* 여기서 부터 메인 */}
+          <div id="classdatanav">
+            {/* 이미지 박스  */}
+            <div id="classdataimgbox">
+              <img src={require("./note.jpg")} id="classdataimg"></img>
+            </div>
+            {/* 검은 배경  */}
+            <div id="classdataimgback"></div>
+
+            {/* 텍스트 박스 */}
+            <div id="classdatatextbox">
+              <div id="classdatatit">Lecture Room</div>
+              <div id="classdatasub">Note for study</div>
+            </div>
+          </div>
+
+          {/* 텍스트 박스 */}
           <div id="datadetailnav">
             <div>수업자료</div>
           </div>
