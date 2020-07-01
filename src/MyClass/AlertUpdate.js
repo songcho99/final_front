@@ -11,8 +11,10 @@ export default class AlertUpdate extends Component {
     this.state = {
       alertData: [],
       processData: [],
+      memo_num: "",
       memo_subject: "",
       memo_content: "",
+      memo_filename: "",
       memo_process_num: "",
       uploadFile: [],
       fileName: "",
@@ -34,12 +36,13 @@ export default class AlertUpdate extends Component {
     let url = "http://localhost:8000/project/memo/update";
 
     let formdata = new FormData();
+    formdata.append("memo_num", this.state.memo_num);
     formdata.append("memo_member_num", localStorage.num);
     formdata.append("memo_subject", this.state.memo_subject);
     formdata.append("memo_content", this.state.memo_content);
     formdata.append("memo_process_num", this.state.memo_process_num);
     formdata.append("memo_file", this.state.uploadFile[0]);
-
+    formdata.append("memo_filename", this.state.memo_filename);
     axios
       .post(url, formdata)
       .then((res) => {})
@@ -54,14 +57,17 @@ export default class AlertUpdate extends Component {
     });
   };
 
-  componentWillMount() {
+  list() {
     let dtoUrl =
       "http://localhost:8000/project/memo/updateform?memo_num=" + this.memo_num;
     axios
       .get(dtoUrl)
       .then((res) => {
         this.setState({
-          alertData: res.data,
+          memo_num: res.data.memo_num,
+          memo_subject: res.data.memo_subject,
+          memo_content: res.data.memo_content,
+          memo_filename: res.data.memo_filename,
         });
       })
       .catch((err) => {
@@ -77,12 +83,14 @@ export default class AlertUpdate extends Component {
         this.setState({
           processData: res.data,
         });
-
-        console.log(this.state.processData);
       })
       .catch((err) => {
         console.log("수강 과정명 불러오기 에러 :" + err);
       });
+  }
+
+  componentWillMount() {
+    this.list();
   }
 
   render() {
@@ -152,7 +160,7 @@ export default class AlertUpdate extends Component {
                     id="memo_subject"
                     style={{ width: "1000px", height: "40px", border: "0px" }}
                     onChange={this.onKeyChange.bind(this)}
-                    value={this.state.alertData.memo_subject}
+                    value={this.state.memo_subject}
                   />
                 </td>
               </tr>
@@ -162,7 +170,7 @@ export default class AlertUpdate extends Component {
                   <Select
                     onChange={this.onKeyChange.bind(this)}
                     name="memo_process_num"
-                    value={this.state.processData.process_type}
+                    value={this.state.process_type}
                   >
                     {options}
                   </Select>
@@ -181,14 +189,14 @@ export default class AlertUpdate extends Component {
                     name="memo_content"
                     ref="memo_contents"
                     onChange={this.onKeyChange.bind(this)}
-                    value={this.state.alertData.memo_content}
+                    value={this.state.memo_content}
                   />
                 </td>
               </tr>
               <tr style={trStyle}>
                 <td style={{ width: "100px" }}>파일</td>
                 <td align="left">
-                  {this.state.alertData.memo_filename}
+                  {this.state.memo_filename}
                   <input
                     type="file"
                     name="memo_file"

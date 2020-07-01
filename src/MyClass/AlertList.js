@@ -137,18 +137,48 @@ export default function AlertList({ match }) {
           >
             <Typography className={classes.heading}>
               {item.memo_subject}
-              {item.memo_writeday}
+              <span style={{ float: "right" }}>{item.memo_writeday}</span>
             </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <Typography>{item.memo_content}</Typography>
-            <a
-              alt=""
-              href={`http://localhost:8000/project/uploadfile/${item.memo_filename}`}
-              download
-            >
-              {item.memo_filename}
-            </a>
+            <Typography>
+              {item.memo_content}
+              <br />
+              <br />
+              <a
+                alt=""
+                href={`http://localhost:8000/project/uploadfile/${item.memo_filename}`}
+                download
+              >
+                {item.memo_filename}
+              </a>
+              <br />
+
+              <div>
+                <NavLink exact to={"/AlertUpdate/" + item.memo_num}>
+                  <span style={{ cursor: "pointer" }}>수정</span>
+                </NavLink>
+                <span
+                  onClick={() => {
+                    let url =
+                      "http://localhost:8000/project/memo/delete?memo_num=" +
+                      item.memo_num;
+                    axios
+                      .get(url)
+                      .then((res) => {
+                        alert("삭제 성공");
+                        list();
+                      })
+                      .catch((err) => {
+                        console.log("수강 과정 알림 삭제 에러:" + err);
+                      });
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  삭제
+                </span>
+              </div>
+            </Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       ))}

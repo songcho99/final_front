@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./mypagemenu.css";
 
 class MyPageMenu extends Component {
@@ -73,17 +73,17 @@ class MyPageMenu extends Component {
           </NavLink>
         )}
         {localStorage.type === "매니저" && (
-          <NavLink
-            to={"/AlertList/" + 1}
+          <Link
+            to="/MyProcessList"
             className="mypagemenu-link"
             activeStyle={activeStyle}
           >
             <div style={divStyle}>
               <i className="fas fa-user-friends" style={{ fontSize: "80px" }} />
               <br />
-              알림
+              담당 수강 과정
             </div>
-          </NavLink>
+          </Link>
         )}
 
         {localStorage.type === "수강생" && (
