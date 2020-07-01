@@ -472,7 +472,17 @@ export default function MyStudyTeam(props) {
                   </Button>
                   {filelist.map((ele, i) => (
                     <Typography variant="body1">
-                      {row.studyfeed_num === file_num ? ele : ""}
+                      {row.studyfeed_num === file_num ? (
+                        <a
+                          alt={ele}
+                          href={`http://localhost:8000/project/uploadfile/${ele}`}
+                          download
+                        >
+                          {ele}
+                        </a>
+                      ) : (
+                        ""
+                      )}
                     </Typography>
                   ))}
                 </Feed.Content>
