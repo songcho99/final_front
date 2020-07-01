@@ -83,7 +83,7 @@ class AddReview extends Component {
     data.append("review_content", this.state.review_content);
     data.append("review_member_num", localStorage.num);
     data.append("review_member_name", localStorage.name);
-    data.append("review_process", "교육과정");
+    data.append("review_process", localStorage.type);
     data.append("review_plans", this.state.plans_value);
     data.append("review_commu", this.state.commu_value);
     data.append("review_ready", this.state.ready_value);

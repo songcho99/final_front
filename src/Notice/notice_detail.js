@@ -14,6 +14,7 @@ class Notice_Detail extends Component {
       currentPage: 1,
       member_name: localStorage.name,
       detailpage: this.props.location.state.page,
+      notice_member_num: this.props.location.state.notice_member_num,
       page: 1,
     };
   }
@@ -30,9 +31,9 @@ class Notice_Detail extends Component {
         this.setState({
           noticedata: res.data,
         });
+        console.log(this.state.notice_member_num)
         if (
-          this.state.member_name === "관리자" ||
-          this.state.member_name === "매니저"
+          this.state.notice_member_num == localStorage.num
         ) {
           this.setState({
             admin: (
@@ -113,13 +114,14 @@ class Notice_Detail extends Component {
   };
   onDelete = (num) => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
+      title: "삭제하시겠습니까?",
+      text: "공지사항의 내용이 모두 삭제됩니다",
+      icon: "error",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소"
     }).then((result) => {
       if (result.value) {
         let url =

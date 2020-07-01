@@ -24,6 +24,7 @@ import Axios from "axios";
 import queryStirng from "query-string";
 import studyimg from "./study.jpg";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const { kakao } = window;
 
@@ -235,22 +236,46 @@ export default function UpdateStudy(props) {
   };
   const handleStartDateChange = (date) => {
     if (new Date() > date) {
-      alert("현재 날짜보다 이전 날짜는 선택 불가능합니다");
+      Swal.fire({
+        position: 'top-start',
+        icon: 'warning',
+        title: '현재 날짜보다 이전 날짜는 선택 불가능합니다',
+        showConfirmButton: false,
+        timer: 1500
+      })
       return false;
     }
     if (study_enddate < date) {
-      alert("시작 날짜는 끝 날짜 이후를 선택 불가능합니다");
+      Swal.fire({
+        position: 'top-start',
+        icon: 'warning',
+        title: '시작 날짜는 끝 날짜 이후를 선택 불가능합니다',
+        showConfirmButton: false,
+        timer: 1500
+      })
       return false;
     }
     setStudyStartdate(getFormatDate(date));
   };
   const handleEndDateChange = (date) => {
     if (new Date() > date) {
-      alert("현재 날짜보다 이전 날짜는 선택 불가능합니다");
+      Swal.fire({
+        position: 'top-start',
+        icon: 'warning',
+        title: '현재 날짜보다 이전 날짜는 선택 불가능합니다',
+        showConfirmButton: false,
+        timer: 1500
+      })
       return false;
     }
     if (study_startdate > date) {
-      alert("시작 날짜보다 이전 날짜는 선택 불가능합니다");
+      Swal.fire({
+        position: 'top-start',
+        icon: 'warning',
+        title: '시작 날짜보다 이전 날짜는 선택 불가능합니다',
+        showConfirmButton: false,
+        timer: 1500
+      })
       return false;
     }
     setStudyEnddate(getFormatDate(date));
@@ -344,15 +369,15 @@ export default function UpdateStudy(props) {
 
         setStudyPeoples(res.data.studydata.study_peoples);
         res.data.studydata.study_level === 0 ||
-        res.data.studydata.study_level === "하"
+          res.data.studydata.study_level === "하"
           ? setStudyLevel(0)
           : res.data.studydata.study_level === 50 ||
             res.data.studydata.study_level === "중"
-          ? setStudyLevel(50)
-          : res.data.studydata.study_level === 100 ||
-            res.data.studydata.study_level === "상"
-          ? setStudyLevel(100)
-          : setStudyLevel(0);
+            ? setStudyLevel(50)
+            : res.data.studydata.study_level === 100 ||
+              res.data.studydata.study_level === "상"
+              ? setStudyLevel(100)
+              : setStudyLevel(0);
         setStudyIntr(res.data.studydata.study_intr);
         setStudyGoal(res.data.studydata.study_goal);
         setStudyProgress(res.data.studydata.study_progress);
@@ -404,10 +429,10 @@ export default function UpdateStudy(props) {
     study_level === 0 || study_level === "하"
       ? setStudyLevel("하")
       : study_level === 50 || study_level === "중"
-      ? setStudyLevel("중")
-      : study_level === 100 || study_level === "상"
-      ? setStudyLevel("상")
-      : setStudyLevel("하");
+        ? setStudyLevel("중")
+        : study_level === 100 || study_level === "상"
+          ? setStudyLevel("상")
+          : setStudyLevel("하");
     console.log(`level:${study_level}`);
   }, [study_level]);
 
@@ -462,7 +487,15 @@ export default function UpdateStudy(props) {
     })
       .then((res) => {
         console.log(`데이터 수정:${res}`);
-        window.location.href = "/studylist";
+        Swal.fire({
+          icon: "success",
+          title: "성공!!",
+          text: "스터디 수정이 성공적으로 처리되었습니다!",
+        }).then((result) => {
+          if (result.value) {
+            window.location.href = "/studylist";
+          }
+        });
       })
       .catch((err) => {
         console.log(`데이터 수정 오류:${err}`);
@@ -853,8 +886,8 @@ export default function UpdateStudy(props) {
                     style={{ width: "400px" }}
                   ></img>
                 ) : (
-                  ""
-                )}
+                    ""
+                  )}
                 {previewimg != "" ? previewimg : ""}
               </td>
             </tr>

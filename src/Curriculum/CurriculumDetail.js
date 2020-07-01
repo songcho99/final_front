@@ -201,11 +201,23 @@ class CurriculumDetail extends Component {
     Axios.get(checkUrl)
       .then((res) => {
         if (res.data > 0) {
+          this.setState({
+            processapply_applyreason: "",
+            modalOpen: false,
+          });
           Swal.fire({
             icon: "error",
-            title: "신청 실패..ㅠㅠ",
+            title: "신청 실패!",
             text: "이미 신청하신 데이터가 있습니다!",
-          });
+          }).then((res) => {
+            if (res) {
+              this.setState({
+                processapply_applyreason: "",
+                modalOpen: true,
+              });
+            }
+
+          })
           return false;
         } else {
           formdata.append(

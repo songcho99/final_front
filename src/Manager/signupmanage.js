@@ -148,12 +148,24 @@ class signupmanage extends Component {
               console.log("승인사유 추가 에러 : " + err);
             });
         } else {
+          this.setState({
+            modalOpen: false,
+            acceptModalOpen: false,
+          });
           Swal.fire({
             icon: "error",
             title: "실패..ㅜㅜ",
             text: "해당 수강 과정에 이미 추가된 수강생입니다.",
-          });
-          return false;
+          }).then((res) => {
+            if (res) {
+              this.setState({
+                modalOpen: true,
+                acceptModalOpen: true,
+              });
+              return false;
+            }
+          })
+
         }
       })
       .catch((err) => {

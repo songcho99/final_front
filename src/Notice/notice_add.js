@@ -31,15 +31,15 @@ class Notice_Add extends Component {
     console.log(this.state.notice);
   }
   onCheckboxhandler = (e) => {
-    if (e.target.checked) {
-      this.setState({
-        check: e.target.checked,
-        notice: 0,
-      });
-    } else {
+    if (e.target.unchecked) {
       this.setState({
         check: e.target.unchecked,
         notice: 1,
+      });
+    } else {
+      this.setState({
+        check: e.target.checked,
+        notice: 0,
       });
     }
     console.log(this.state.notice);

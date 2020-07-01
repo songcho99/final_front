@@ -201,6 +201,7 @@ class Notice_Update extends Component {
                   style={{ width: "1000px", height: "40px", border: "0px" }}
                   onChange={this.onKeyChange.bind(this)}
                   value={this.state.notice_subject}
+                  required
                 />
               </tr>
               <tr style={trStyle}>
@@ -229,6 +230,7 @@ class Notice_Update extends Component {
                     ref="notice_contents"
                     onChange={this.onKeyChange.bind(this)}
                     value={this.state.notice_content}
+                    required
                   />
                 </td>
               </tr>
