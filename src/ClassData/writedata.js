@@ -1,16 +1,18 @@
-import React, { Component, Fragment, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Button, makeStyles, TextField } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles';
-import DescriptionIcon from '@material-ui/icons/Description';
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import React, { Component, Fragment, useState } from "react";
+import PropTypes from "prop-types";
+import { Button, makeStyles, TextField } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import DescriptionIcon from "@material-ui/icons/Description";
+import axios from "axios";
+import Swal from "sweetalert2";
 // import SaveIcon from "@material-ui/icons/Save"
+
+import "./writedata.scss";
 
 const styles = (theme) => ({
   input: {
-    display: 'none'
-  }
+    display: "none",
+  },
 });
 
 const uploadFiles = [];
@@ -20,87 +22,101 @@ class WriteData extends Component {
     super();
     this.process_num = match.params.process_num;
     this.state = {
-
-      classdata_subject: '',
-      classdata_content: '',
-      uploadlength: 0
-
-    }
+      classdata_subject: "",
+      classdata_content: "",
+      uploadlength: 0,
+    };
   }
 
   static propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
   };
 
   handleSubjectChange = (e) => {
     e.preventDefault();
     this.setState({
-      classdata_subject: e.target.value
-    })
-    console.log("제목: " + this.state.classdata_subject)
-  }
+      classdata_subject: e.target.value,
+    });
+    console.log("제목: " + this.state.classdata_subject);
+  };
 
   handleImageChange = (e) => {
     e.preventDefault();
     let length = 0;
-    for (let i = 0; i < document.getElementById('icon-button-photo').files.length; i++) {
-      uploadFiles.push(document.getElementById('icon-button-photo').files[i]);
+    for (
+      let i = 0;
+      i < document.getElementById("icon-button-photo").files.length;
+      i++
+    ) {
+      uploadFiles.push(document.getElementById("icon-button-photo").files[i]);
       length++;
     }
     this.setState({
-      uploadlength: length
-    })
+      uploadlength: length,
+    });
 
     console.log(uploadFiles);
-  }
+  };
 
   handleIntrChange = (e) => {
     e.preventDefault();
     this.setState({
-      classdata_content: e.target.value
-    })
-    console.log("자료 소개: " + this.state.classdata_content)
-
-  }
+      classdata_content: e.target.value,
+    });
+    console.log("자료 소개: " + this.state.classdata_content);
+  };
 
   isUpload = (e) => {
-
     e.preventDefault();
 
     const data = new FormData();
-    data.append('classdata_subject', this.state.classdata_subject)
-    data.append('classdata_content', this.state.classdata_content)
-    for (let i = 0; i < document.getElementById('icon-button-photo').files.length; i++) {
-      data.append('classdata_files', document.getElementById('icon-button-photo').files[i]);
+    data.append("classdata_subject", this.state.classdata_subject);
+    data.append("classdata_content", this.state.classdata_content);
+    for (
+      let i = 0;
+      i < document.getElementById("icon-button-photo").files.length;
+      i++
+    ) {
+      data.append(
+        "classdata_files",
+        document.getElementById("icon-button-photo").files[i]
+      );
     }
-    data.append('classdata_member_num', localStorage.num)
-    data.append('classdata_processclass_num', this.process_num)
-    data.append('classdata_writer', localStorage.name)
+    data.append("classdata_member_num", localStorage.num);
+    data.append("classdata_processclass_num", this.process_num);
+    data.append("classdata_writer", localStorage.name);
     let url = "http://localhost:8000/project/classdata/insertclassdata";
-    axios.post(url, data)
+    axios
+      .post(url, data)
       .then((res) => {
         console.log("Notice add");
         Swal.fire({
-          icon: 'success',
-          title: '작성 완료',
-          text: '수업자료 작성이 완료되었습니다',
+          icon: "success",
+          title: "작성 완료",
+          text: "수업자료 작성이 완료되었습니다",
         }).then((result) => {
           window.location.href = "/classdata/" + this.process_num;
-        })
-      }).catch(err => {
-        console.log("업로드 오류: " + err)
+        });
       })
-  }
-
-
+      .catch((err) => {
+        console.log("업로드 오류: " + err);
+      });
+  };
 
   render() {
     const { classes } = this.props;
 
     return (
-      <div style={{ width: 900 }}>
-        <form className="writeinsert" onSubmit={this.isUpload.bind(this)}>
-          <br></br><br></br><br></br><br></br>
+      <div id="writedata">
+        <form
+          id="writedataback"
+          className="writeinsert"
+          onSubmit={this.isUpload.bind(this)}
+        >
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
           <h1>수업 자료</h1>
           <br></br>
           <TextField
@@ -118,18 +134,22 @@ class WriteData extends Component {
               id="icon-button-photo"
               onChange={this.handleImageChange.bind(this)}
               type="file"
-
               multiple
             />
             <label htmlFor="icon-button-photo">
-              <Button color="primary" component="span" startIcon={<DescriptionIcon />}>
+              <Button
+                color="primary"
+                component="span"
+                startIcon={<DescriptionIcon />}
+              >
                 파일 선택1
-                    </Button>
+              </Button>
             </label>
           </Fragment>
-          <b style={{ color: "blue" }}>{this.state.uploadlength}개의 파일이 선택되었습니다</b>
+          <b style={{ color: "blue" }}>
+            {this.state.uploadlength}개의 파일이 선택되었습니다
+          </b>
           <hr />
-
 
           <TextField
             id="outlined-multiline-static"
@@ -141,21 +161,22 @@ class WriteData extends Component {
             style={{ width: "800px", zIndex: "0" }}
             onKeyUp={this.handleIntrChange.bind(this)}
           />
-          <br></br><br></br>
+          <br></br>
+          <br></br>
 
           <div style={{ marginLeft: "650px" }}>
             <Button variant="contained" color="primary" type="submit">
               등록
-          </Button> &nbsp;&nbsp;
-
-          <Button variant="contained" color="primary" href="/classdata">
+            </Button>{" "}
+            &nbsp;&nbsp;
+            <Button variant="contained" color="primary" href="/classdata">
               목록
-          </Button> &nbsp;&nbsp;
+            </Button>{" "}
+            &nbsp;&nbsp;
           </div>
         </form>
       </div>
-
-    )
+    );
   }
 }
 export default withStyles(styles)(WriteData);
