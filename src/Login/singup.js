@@ -204,24 +204,11 @@ class singup extends Component {
       return false;
     }
 
-    if (this.refs.member_phone.value === "") {
-      this.refs.member_phone.focus();
-      this.setState({
-        phonecheck: "폰 번호를 입력해주세요",
-      });
-      return false;
-    }
-    if (this.state.member_email === "") {
+    if (this.state.member_email === "" || this.state.email === "") {
+      console.log(this.refs.refsignupemail.value);
       this.setState({
         emailcheck: "이메일을 입력해주세요",
       });
-
-      if (this.state.email === "") {
-        this.setState({
-          emailcheck: "이메일 주소를 입력해주세요",
-        });
-      }
-
       this.refs.member_email.focus();
       return false;
     }
@@ -236,6 +223,14 @@ class singup extends Component {
         detailaddrcheck: "상세 주소를 입력해주세요",
       });
       this.refs.member_detailaddr.focus();
+      return false;
+    }
+
+    if (this.refs.member_phone.value === "") {
+      this.refs.member_phone.focus();
+      this.setState({
+        phonecheck: "폰 번호를 입력해주세요",
+      });
       return false;
     }
 
@@ -447,6 +442,7 @@ class singup extends Component {
                 <div>@</div>
                 <div className="signupboxmail">
                   <select
+                    ref="refsignupemail"
                     className="signupemail"
                     name="emailselect"
                     onChange={this.EmailChange.bind(this)}
@@ -458,6 +454,7 @@ class singup extends Component {
                     <option value="">직접입력</option>
                   </select>
                   <input
+                    ref="member_emailaddress"
                     type="text"
                     className="logininput"
                     id="emaininp"
