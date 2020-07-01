@@ -1,16 +1,16 @@
-import React, { Component, Fragment, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Button, makeStyles, TextField } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles';
-import DescriptionIcon from '@material-ui/icons/Description';
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import React, { Component, Fragment, useState } from "react";
+import PropTypes from "prop-types";
+import { Button, makeStyles, TextField } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import DescriptionIcon from "@material-ui/icons/Description";
+import axios from "axios";
+import Swal from "sweetalert2";
 // import SaveIcon from "@material-ui/icons/Save"
 
 const styles = (theme) => ({
     input: {
-        display: 'none'
-    }
+        display: "none",
+    },
 });
 
 const uploadFiles = [];
@@ -23,19 +23,18 @@ class UpdateData extends Component {
         uploadFile: [],
         filelist: [],
         fileName: [],
-        uploadlength: 0
-    }
+        uploadlength: 0,
+    };
     static propTypes = {
-        classes: PropTypes.object.isRequired
+        classes: PropTypes.object.isRequired,
     };
 
     handleSubjectChange = (e) => {
-
         this.setState({
-            [e.target.name]: e.target.value
-        })
-        console.log("제목: " + this.state.classdata_subject)
-    }
+            [e.target.name]: e.target.value,
+        });
+        console.log("제목: " + this.state.classdata_subject);
+    };
 
     handleImageChange = (e) => {
         let length = 0;
@@ -45,20 +44,18 @@ class UpdateData extends Component {
             length++;
         }
         this.setState({
-            uploadlength: length
-        })
+            uploadlength: length,
+        });
 
         console.log(this.state.uploadFile);
-    }
+    };
 
     handleIntrChange = (e) => {
-
         this.setState({
-            [e.target.name]: e.target.value
-        })
-        console.log("자료 소개: " + this.state.classdata_content)
-
-    }
+            [e.target.name]: e.target.value,
+        });
+        console.log("자료 소개: " + this.state.classdata_content);
+    };
 
     classdataFile = () => {
         this.setState({
@@ -67,7 +64,7 @@ class UpdateData extends Component {
                     <span id={idx} name="cdfiles" value={item}>
                         {item}
                     </span>
-                &nbsp;&nbsp;
+          &nbsp;&nbsp;
                     <span
                         onClick={this.filedelete.bind(this, idx, item)}
                         style={{ cursor: "pointer" }}
@@ -78,7 +75,7 @@ class UpdateData extends Component {
                 </span>
             )),
         });
-    }
+    };
 
     delfileplus = (item) => {
         let s = this.state.delfile;
@@ -98,7 +95,6 @@ class UpdateData extends Component {
     };
 
     isUpdate = (e) => {
-
         e.preventDefault();
 
         const data = new FormData();
@@ -109,31 +105,33 @@ class UpdateData extends Component {
         for (var f = 0; f < this.state.delfile.length; f++) {
             console.log(this.state.delfile.length);
             console.log(this.state.delfile[f]);
-            data.append(`classdata_delfiles[${f}]`, this.state.delfile[f]);
+            data.append(`classdata_delfile[${f}]`, this.state.delfile[f]);
         }
-        data.append('classdata_subject', e.target.classdata_subject.value)
-        data.append('classdata_content', e.target.classdata_content.value)
+        data.append("classdata_subject", e.target.classdata_subject.value);
+        data.append("classdata_content", e.target.classdata_content.value);
         data.append("classdata_filename", this.state.fileName);
-        data.append('classdata_member_num', localStorage.num)
-        data.append('classdata_writer', localStorage.name)
-        data.append('classdata_num', this.state.classdata.classdata_num)
+        data.append("classdata_member_num", localStorage.num);
+        data.append("classdata_writer", localStorage.name);
+        data.append("classdata_num", this.state.classdata.classdata_num);
         let url = "http://localhost:8000/project/classdata/classdataupdate";
-        axios.post(url, data, {
-            headers: { "Content-Type": "multipart/form-data" },
-        })
+        axios
+            .post(url, data, {
+                headers: { "Content-Type": "multipart/form-data" },
+            })
             .then((res) => {
                 console.log("classdata update");
                 Swal.fire({
-                    icon: 'success',
-                    title: '수정 완료',
-                    text: '수업자료 수정이 완료되었습니다',
+                    icon: "success",
+                    title: "수정 완료",
+                    text: "수업자료 수정이 완료되었습니다",
                 }).then((result) => {
                     window.location.href = "/classdata";
-                })
-            }).catch(err => {
-                console.log("업로드 오류: " + err)
+                });
             })
-    }
+            .catch((err) => {
+                console.log("업로드 오류: " + err);
+            });
+    };
 
     componentWillMount() {
         this.classdataFile();
@@ -143,11 +141,9 @@ class UpdateData extends Component {
     componentDidMount() {
         this.setState({
             classdata_subject: this.state.classdata.classdata_subject,
-            classdata_content: this.state.classdata.classdata_content
-        })
+            classdata_content: this.state.classdata.classdata_content,
+        });
     }
-
-
 
     render() {
         const { classes } = this.props;
@@ -155,7 +151,10 @@ class UpdateData extends Component {
         return (
             <div style={{ width: 900 }}>
                 <form className="writeinsert" onSubmit={this.isUpdate.bind(this)}>
-                    <br></br><br></br><br></br><br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
                     <h1>수업 자료</h1>
                     <br></br>
                     <TextField
@@ -177,18 +176,23 @@ class UpdateData extends Component {
                             type="file"
                             name="classdata_filename"
                             multiple
-
                         />
                         <label htmlFor="icon-button-photo">
-                            <Button color="primary" component="span" startIcon={<DescriptionIcon />}>
+                            <Button
+                                color="primary"
+                                component="span"
+                                startIcon={<DescriptionIcon />}
+                            >
                                 파일 선택
-                            </Button>
+              </Button>
                         </label>
                         {this.state.filelist}
                     </Fragment>
-                    <b style={{ color: "blue" }}>{this.state.filelist.length}개의 파일이 선택되었습니다</b>
+                    {this.state.filelist}
+                    <b style={{ color: "blue" }}>
+                        {this.state.filelist.length}개의 파일이 선택되었습니다
+          </b>
                     <hr />
-
 
                     <TextField
                         id="outlined-multiline-static"
@@ -202,21 +206,22 @@ class UpdateData extends Component {
                         onChange={this.handleIntrChange.bind(this)}
                         value={this.state.classdata_content}
                     />
-                    <br></br><br></br>
+                    <br></br>
+                    <br></br>
 
                     <div style={{ marginLeft: "650px" }}>
                         <Button variant="contained" color="primary" type="submit">
                             등록
-          </Button> &nbsp;&nbsp;
-
-          <Button variant="contained" color="primary" href="/classdata">
+            </Button>{" "}
+            &nbsp;&nbsp;
+            <Button variant="contained" color="primary" href="/classdata">
                             목록
-          </Button> &nbsp;&nbsp;
+            </Button>{" "}
+            &nbsp;&nbsp;
           </div>
                 </form>
             </div>
-
-        )
+        );
     }
 }
 export default withStyles(styles)(UpdateData);

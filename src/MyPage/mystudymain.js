@@ -19,6 +19,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Axios from "axios";
 import MyPageMenu from "./mypagemenu";
 import Swal from "sweetalert2";
+import studyimg from "../Study/study.jpg";
 import MypageMenu from "./mypagemenu";
 import "./mystudymain.scss";
 
@@ -71,6 +72,9 @@ export default function MyStudyMain(props) {
   const modalClasses = modalStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+  const [expanded1, setExpanded1] = React.useState("panel1");
+  const [expanded2, setExpanded2] = React.useState("panel2");
+  const [expanded3, setExpanded3] = React.useState("panel3");
 
   const modal = (
     <div style={modalStyle} className={modalClasses.paper}>
@@ -144,6 +148,15 @@ export default function MyStudyMain(props) {
       </TableContainer>
     </div>
   );
+  const handlePanelChange1 = (panel) => (event, newExpanded) => {
+    setExpanded1(newExpanded ? panel : false);
+  };
+  const handlePanelChange2 = (panel) => (event, newExpanded) => {
+    setExpanded2(newExpanded ? panel : false);
+  };
+  const handlePanelChange3 = (panel) => (event, newExpanded) => {
+    setExpanded3(newExpanded ? panel : false);
+  };
 
   const handleOpen = () => {
     setOpen(true);
@@ -280,7 +293,17 @@ export default function MyStudyMain(props) {
     getMyApplyList();
     getStudyFounder();
   }, []);
-
+  const backimage = {
+    width: "100%",
+    height: "500px",
+    backgroundImage: `url(${studyimg})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100% 500px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  };
   return (
     <div id="mystudymain">
       <div id="mystudymainback">
@@ -515,6 +538,7 @@ export default function MyStudyMain(props) {
           <br />
         </div>
       </div>
+      <div style={{ paddingTop: "100px" }}></div>
     </div>
   );
 }
