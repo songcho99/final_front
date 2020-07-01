@@ -236,15 +236,13 @@ class signupmanage extends Component {
               </div>
               <div id="signupmanagenav">
                 <div id="signupmanageid">주소 :</div>
-                <div>{this.state.detailInfo.processapply_member_address}</div>
-              </div>
-              <div id="signupmanagenav">
-                <div id="signupmanageid">상세주소 :</div>
                 <div>
-                  {this.state.detailInfo.processapply_member_detailaddr}
+                  {this.state.detailInfo.processapply_member_address}&nbsp;
+                  {this.state.detailInfo.processapply_member_detailaddr}&nbsp;
+                  {this.state.detailInfo.processapply_applyreason}
                 </div>
-                <div>{this.state.detailInfo.processapply_applyreason}</div>
               </div>
+              <div style={{ width: "100%", height: "20px" }}></div>
             </div>
 
             {/* 버튼 박스 */}
