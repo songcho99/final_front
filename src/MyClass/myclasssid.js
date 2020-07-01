@@ -17,8 +17,8 @@ class myclasssid extends Component {
             </a>
           </div>
 
-          {/* 강의 노트 */}
-          <div id="myclassnote">
+          {/* 수업자료 */}
+          {/* <div id="myclassnote">
             <div id="myclassnotesub">수업자료</div>
             <a
               id="myclassnotemain"
@@ -26,7 +26,7 @@ class myclasssid extends Component {
             >
               <i className="fas fa-book-open"></i>
             </a>
-          </div>
+          </div> */}
 
           {/*  */}
         </div>

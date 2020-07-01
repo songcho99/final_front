@@ -86,7 +86,7 @@ class MyPageMenu extends Component {
             </div>
           </NavLink>
         )}
-        {localStorage.type === "수강생" && (
+        {/* {localStorage.type === "수강생" && (
           <NavLink
             to="/myclass"
             className="mypagemenu-link"
@@ -111,7 +111,7 @@ class MyPageMenu extends Component {
               일일노트
             </div>
           </NavLink>
-        )}
+        )} */}
 
         {localStorage.type === "강사" && (
           <NavLink

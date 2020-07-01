@@ -5,6 +5,7 @@ import MyclassSid from "./myclasssid";
 import "./ClassPage.scss";
 
 class ClassPage extends Component {
+  // 삼가 성현이에 마지막 뜻에 따라 원형을 유지 합니다.
   constructor(props) {
     super(props);
 
@@ -56,6 +57,7 @@ class ClassPage extends Component {
 
   render() {
     return (
+      // 삼가 성현이에 마지막 뜻에 따라 원형을 유지 합니다.
       <div id="classpage">
         <MyclassSid
           process_num={this.state.process_num}
