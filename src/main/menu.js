@@ -233,7 +233,7 @@ class Menu extends Component {
           {this.state.loggedInfo && (
             <div id="hdbox2after">
               {localStorage.type !== "일반" && localStorage.type !== "매니저" && (
-                <Link to="/classdata/1">
+                <Link to="/classpage">
                   {/* 성현아 원래 형태는  href={"/classdata/" + this.props.process_num} 이거야 */}
                   <b id="hdspan">{localStorage.type}</b>
                 </Link>

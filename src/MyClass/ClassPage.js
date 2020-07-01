@@ -96,9 +96,9 @@ class ClassPage extends Component {
                       </div>
                       <NavLink
                         exact
-                        to={"/AlertList/" + this.state.process_num}
+                        to={"/classdata/" + this.state.process_num}
                       >
-                        <button>알림</button>
+                        <button>강의자료실</button>
                       </NavLink>
                     </td>
                   </tr>
