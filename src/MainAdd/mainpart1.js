@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./mainpart1.scss";
+import axios from "axios";
 import Image from "../image/worker.jpg";
 //비디오 삽입
 import MainVideo from "../Video/Circuit.mp4";
@@ -9,6 +10,39 @@ import { Avatar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 class mainpart1 extends Component {
+  state = {
+    processall: [],
+    processbigdata: [],
+    processcloud: [],
+    processai: [],
+    type: "",
+  };
+
+  processlist() {
+    let url = "http://localhost:8000/project/process/mainlist";
+    axios
+      .get(url)
+      .then((res) => {
+        this.setState({
+          processall: res.data.all,
+          processbigdata: res.data.bigdata,
+          processcloud: res.data.cloud,
+          processai: res.data.ai,
+        });
+        console.log(this.state.processall);
+        console.log(this.state.processbigdata);
+        console.log(this.state.processcloud);
+        console.log(this.state.processai);
+      })
+      .catch((err) => {
+        console.log("메인 페이지 목록 불러오기 에러:" + err);
+      });
+  }
+
+  componentWillMount() {
+    this.processlist();
+  }
+
   render() {
     return (
       <div id="part1back">
@@ -69,36 +103,52 @@ class mainpart1 extends Component {
           </div>
           <ul id="part1slidul">
             {/* 이안에서 로직 돌리면됨  */}
-            <li>
-              <div className="curricard3">
-                {/* 헤드 부분 */}
-                <div className="curricardhd3">
-                  <div className="curricarthdtit3">모집중</div>
-                  <div className="curricarthdsub3">인공지능</div>
-                </div>
-
-                {/* 몸통 부분 */}
-                <div className="curricardmain3">
-                  <div className="curricardmainimgbox3">
-                    <img alt="" className="curricardimg" />
+            {this.state.processall.map((item, index) => (
+              <li>
+                <div className="curricard3">
+                  {/* 헤드 부분 */}
+                  <div className="curricardhd3">
+                    <div className="curricarthdtit3">
+                      {item.process_status === "미수료" &&
+                        new Date() < item.process_startdate &&
+                        "모집중"}
+                    </div>
+                    <div className="curricarthdsub3">{item.process_type}</div>
                   </div>
 
-                  <div className="curricardmainback3"></div>
-                  <Link className="curricardmaintext3">
-                    <div className="studylistcardAvatar3">
-                      <Avatar style={{ width: "40px", height: "40px" }} />
+                  {/* 몸통 부분 */}
+                  <div className="curricardmain3">
+                    <div className="curricardmainimgbox3">
+                      <img alt="" className="curricardimg" />
                     </div>
-                    <div className="curricardmainnav">제목</div>
-                  </Link>
-                </div>
 
-                {/* 바닥 */}
-                <div className="currifooter3">
-                  <div>시작날짜 끝날짜</div>
+                    <div className="curricardmainback3"></div>
+                    <Link className="curricardmaintext3">
+                      <div className="studylistcardAvatar3">
+                        <Avatar
+                          src={
+                            "http://localhost:8000/project/uploadfile/" +
+                            item.member_profile
+                          }
+                          style={{ width: "40px", height: "40px" }}
+                        />
+                      </div>
+                      <div className="curricardmainnav">
+                        {item.process_subject}
+                      </div>
+                    </Link>
+                  </div>
+
+                  {/* 바닥 */}
+                  <div className="currifooter3">
+                    <div>
+                      {item.process_startdate} - {item.process_enddate}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </li>
-            {/* 여기서 끝나 */}
+                {/* 여기서 끝나 */}
+              </li>
+            ))}
           </ul>
           <div id="part1slidarrow2">
             <i className="fas fa-angle-right"></i>
@@ -112,35 +162,51 @@ class mainpart1 extends Component {
           </div>
           <ul id="part1slidul">
             {/* 이안에서 로직 돌리면됨  */}
-            <li>
-              <div className="curricard3">
-                {/* 헤드 부분 */}
-                <div className="curricardhd3">
-                  <div className="curricarthdtit3">모집중</div>
-                  <div className="curricarthdsub3">인공지능</div>
-                </div>
-
-                {/* 몸통 부분 */}
-                <div className="curricardmain3">
-                  <div className="curricardmainimgbox3">
-                    <img alt="" className="curricardimg" />
+            {this.state.processbigdata.map((item, index) => (
+              <li>
+                <div className="curricard3">
+                  {/* 헤드 부분 */}
+                  <div className="curricardhd3">
+                    <div className="curricarthdtit3">
+                      {item.process_status === "미수료" &&
+                        new Date() < item.process_startdate &&
+                        "모집중"}
+                    </div>
+                    <div className="curricarthdsub3">{item.process_type}</div>
                   </div>
 
-                  <div className="curricardmainback3"></div>
-                  <Link className="curricardmaintext3">
-                    <div className="studylistcardAvatar3">
-                      <Avatar style={{ width: "40px", height: "40px" }} />
+                  {/* 몸통 부분 */}
+                  <div className="curricardmain3">
+                    <div className="curricardmainimgbox3">
+                      <img alt="" className="curricardimg" />
                     </div>
-                    <div className="curricardmainnav">제목</div>
-                  </Link>
-                </div>
 
-                {/* 바닥 */}
-                <div className="currifooter3">
-                  <div>시작날짜 끝날짜</div>
+                    <div className="curricardmainback3"></div>
+                    <Link className="curricardmaintext3">
+                      <div className="studylistcardAvatar3">
+                        <Avatar
+                          src={
+                            "http://localhost:8000/project/uploadfile/" +
+                            item.member_profile
+                          }
+                          style={{ width: "40px", height: "40px" }}
+                        />
+                      </div>
+                      <div className="curricardmainnav">
+                        {item.process_subject}
+                      </div>
+                    </Link>
+                  </div>
+
+                  {/* 바닥 */}
+                  <div className="currifooter3">
+                    <div>
+                      {item.process_startdate} - {item.process_enddate}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </li>
+              </li>
+            ))}
             {/* 여기서 끝나 */}
           </ul>
           <div id="part1slidarrow2">
@@ -155,35 +221,51 @@ class mainpart1 extends Component {
           </div>
           <ul id="part1slidul">
             {/* 이안에서 로직 돌리면됨  */}
-            <li>
-              <div className="curricard3">
-                {/* 헤드 부분 */}
-                <div className="curricardhd3">
-                  <div className="curricarthdtit3">모집중</div>
-                  <div className="curricarthdsub3">인공지능</div>
-                </div>
-
-                {/* 몸통 부분 */}
-                <div className="curricardmain3">
-                  <div className="curricardmainimgbox3">
-                    <img alt="" className="curricardimg" />
+            {this.state.processcloud.map((item, index) => (
+              <li>
+                <div className="curricard3">
+                  {/* 헤드 부분 */}
+                  <div className="curricardhd3">
+                    <div className="curricarthdtit3">
+                      {item.process_status === "미수료" &&
+                        new Date() < item.process_startdate &&
+                        "모집중"}
+                    </div>
+                    <div className="curricarthdsub3">{item.process_type}</div>
                   </div>
 
-                  <div className="curricardmainback3"></div>
-                  <Link className="curricardmaintext3">
-                    <div className="studylistcardAvatar3">
-                      <Avatar style={{ width: "40px", height: "40px" }} />
+                  {/* 몸통 부분 */}
+                  <div className="curricardmain3">
+                    <div className="curricardmainimgbox3">
+                      <img alt="" className="curricardimg" />
                     </div>
-                    <div className="curricardmainnav">제목</div>
-                  </Link>
-                </div>
 
-                {/* 바닥 */}
-                <div className="currifooter3">
-                  <div>시작날짜 끝날짜</div>
+                    <div className="curricardmainback3"></div>
+                    <Link className="curricardmaintext3">
+                      <div className="studylistcardAvatar3">
+                        <Avatar
+                          src={
+                            "http://localhost:8000/project/uploadfile/" +
+                            item.member_profile
+                          }
+                          style={{ width: "40px", height: "40px" }}
+                        />
+                      </div>
+                      <div className="curricardmainnav">
+                        {item.process_subject}
+                      </div>
+                    </Link>
+                  </div>
+
+                  {/* 바닥 */}
+                  <div className="currifooter3">
+                    <div>
+                      {item.process_startdate} - {item.process_enddate}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </li>
+              </li>
+            ))}
             {/* 여기서 끝나 */}
           </ul>
           <div id="part1slidarrow2">
@@ -198,35 +280,51 @@ class mainpart1 extends Component {
           </div>
           <ul id="part1slidul">
             {/* 이안에서 로직 돌리면됨  */}
-            <li>
-              <div className="curricard3">
-                {/* 헤드 부분 */}
-                <div className="curricardhd3">
-                  <div className="curricarthdtit3">모집중</div>
-                  <div className="curricarthdsub3">인공지능</div>
-                </div>
-
-                {/* 몸통 부분 */}
-                <div className="curricardmain3">
-                  <div className="curricardmainimgbox3">
-                    <img alt="" className="curricardimg" />
+            {this.state.processai.map((item, index) => (
+              <li>
+                <div className="curricard3">
+                  {/* 헤드 부분 */}
+                  <div className="curricardhd3">
+                    <div className="curricarthdtit3">
+                      {item.process_status === "미수료" &&
+                        new Date() < item.process_startdate &&
+                        "모집중"}
+                    </div>
+                    <div className="curricarthdsub3">{item.process_type}</div>
                   </div>
 
-                  <div className="curricardmainback3"></div>
-                  <Link className="curricardmaintext3">
-                    <div className="studylistcardAvatar3">
-                      <Avatar style={{ width: "40px", height: "40px" }} />
+                  {/* 몸통 부분 */}
+                  <div className="curricardmain3">
+                    <div className="curricardmainimgbox3">
+                      <img alt="" className="curricardimg" />
                     </div>
-                    <div className="curricardmainnav">제목</div>
-                  </Link>
-                </div>
 
-                {/* 바닥 */}
-                <div className="currifooter3">
-                  <div>시작날짜 끝날짜</div>
+                    <div className="curricardmainback3"></div>
+                    <Link className="curricardmaintext3">
+                      <div className="studylistcardAvatar3">
+                        <Avatar
+                          src={
+                            "http://localhost:8000/project/uploadfile/" +
+                            item.member_profile
+                          }
+                          style={{ width: "40px", height: "40px" }}
+                        />
+                      </div>
+                      <div className="curricardmainnav">
+                        {item.process_subject}
+                      </div>
+                    </Link>
+                  </div>
+
+                  {/* 바닥 */}
+                  <div className="currifooter3">
+                    <div>
+                      {item.process_startdate} - {item.process_enddate}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </li>
+              </li>
+            ))}
             {/* 여기서 끝나 */}
           </ul>
           <div id="part1slidarrow2">

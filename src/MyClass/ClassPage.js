@@ -94,6 +94,12 @@ class ClassPage extends Component {
                         {this.state.startdate} 2020.10.20 ~ 2020.11.22
                         {this.state.enddate}
                       </div>
+                      <NavLink
+                        exact
+                        to={"/AlertList/" + this.state.process_num}
+                      >
+                        <button>알림</button>
+                      </NavLink>
                     </td>
                   </tr>
                 </tbody>

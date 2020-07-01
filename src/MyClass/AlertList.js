@@ -90,20 +90,21 @@ const useStyles = makeStyles((theme) => ({
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightBold,
   },
 }));
-export default function AlertList(match) {
-  const { process_num } = match.params.process_num;
+export default function AlertList({ match }) {
   const [alertlist, setAlertList] = React.useState([]);
   const list = () => {
     let url =
-      "http://localhost:8000/project/memo/list?process_num=" + process_num;
+      "http://localhost:8000/project/memo/list?process_num=" +
+      match.params.process_num;
 
     axios
       .get(url)
       .then((res) => {
         setAlertList(res.data);
+
+        console.log(res.data);
       })
       .catch((err) => {
         console.log("알림 목록 불러오기 에러 :" + err);
@@ -120,7 +121,9 @@ export default function AlertList(match) {
       <br />
       <br />
       <br />
-      <NavLink exact to={"/AlertAdd/" + this.state.alertlist.memo_process_num}>
+      <br />
+      <br />
+      <NavLink exact to={"/AlertAdd/" + match.params.process_num}>
         <button>추가</button>
       </NavLink>
 
@@ -138,13 +141,13 @@ export default function AlertList(match) {
             </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <Typography>{item.content}</Typography>
+            <Typography>{item.memo_content}</Typography>
             <a
               alt=""
-              href={`http://localhost:8000/project/uploadfile/${item.filename}`}
+              href={`http://localhost:8000/project/uploadfile/${item.memo_filename}`}
               download
             >
-              {item.filename}
+              {item.memo_filename}
             </a>
           </ExpansionPanelDetails>
         </ExpansionPanel>

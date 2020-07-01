@@ -9,6 +9,7 @@ export default class AlertUpdate extends Component {
     super();
     this.memo_num = match.params.memo_num;
     this.state = {
+      alertData: [],
       processData: [],
       memo_subject: "",
       memo_content: "",
@@ -25,7 +26,7 @@ export default class AlertUpdate extends Component {
     });
   };
 
-  onSave = (e) => {
+  onUpdate = (e) => {
     e.preventDefault();
 
     console.log(this.state.uploadFile);
@@ -60,7 +61,7 @@ export default class AlertUpdate extends Component {
       .get(dtoUrl)
       .then((res) => {
         this.setState({
-          processData: res.data,
+          alertData: res.data,
         });
       })
       .catch((err) => {
@@ -121,7 +122,7 @@ export default class AlertUpdate extends Component {
         <span style={{ fontSize: "40px" }}>알림</span>
         <br />
         <div style={{ paddingTop: "100px" }}></div>
-        <form onSubmit={this.onSave.bind(this)}>
+        <form onSubmit={this.onUpdate.bind(this)}>
           <input
             type="hidden"
             name="notice_member_num"
@@ -151,6 +152,7 @@ export default class AlertUpdate extends Component {
                     id="memo_subject"
                     style={{ width: "1000px", height: "40px", border: "0px" }}
                     onChange={this.onKeyChange.bind(this)}
+                    value={this.state.alertData.memo_subject}
                   />
                 </td>
               </tr>
@@ -160,6 +162,7 @@ export default class AlertUpdate extends Component {
                   <Select
                     onChange={this.onKeyChange.bind(this)}
                     name="memo_process_num"
+                    value={this.state.processData.process_type}
                   >
                     {options}
                   </Select>
@@ -178,12 +181,14 @@ export default class AlertUpdate extends Component {
                     name="memo_content"
                     ref="memo_contents"
                     onChange={this.onKeyChange.bind(this)}
+                    value={this.state.alertData.memo_content}
                   />
                 </td>
               </tr>
               <tr style={trStyle}>
                 <td style={{ width: "100px" }}>파일</td>
                 <td align="left">
+                  {this.state.alertData.memo_filename}
                   <input
                     type="file"
                     name="memo_file"
@@ -208,7 +213,7 @@ export default class AlertUpdate extends Component {
           </b>
           &nbsp;&nbsp;
           <button type="submit" style={buttonStyle}>
-            <i className="fas fa-plus"></i>&nbsp;&nbsp;추가
+            <i className="fas fa-plus"></i>&nbsp;&nbsp;수정
           </button>
         </form>
 
