@@ -17,9 +17,18 @@
 
 #classpageback {
   padding-top: 75px;
-  width: 80%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+#classpagebox {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
 }
