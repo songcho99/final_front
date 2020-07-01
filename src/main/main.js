@@ -60,6 +60,8 @@ import UpdateReview from "../Review/UpdateReview";
 import DeleteReview from "../Review/DeleteReview";
 import AlertList from "../MyClass/AlertList";
 import AlertAdd from "../MyClass/AlertAdd";
+import MyProcessList from "../Manager/MyProcessList";
+import AlertUpdate from "../MyClass/AlertUpdate";
 
 import mypagelist from "../MyPage/mypagelist";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
@@ -112,6 +114,7 @@ class main extends Component {
           <Route path="/memberlist" component={MemberList_Form} />
           <Route path="/graph" component={Graph} />
           <Route path="/classmanage" component={ClassManage} />
+          <Route path="/MyProcessList" component={MyProcessList} />
 
           {/* 공지사항 관련 기능 */}
           <Route path="/noticelist" component={Notice_List} />
@@ -134,6 +137,7 @@ class main extends Component {
 
           {/* 수강과정 관련 기능 */}
           <ThemeProvider theme={theme}>
+            <Route path="/AlertUpdate/:memo_num" component={AlertUpdate} />
             <Route path="/AlertAdd/:process_num" component={AlertAdd} />
             <Route path="/AlertList/:process_num" component={AlertList} />
             <Route path="/curriculumlist" component={CurriculumList} />

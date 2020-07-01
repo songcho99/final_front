@@ -64,7 +64,6 @@ export default class AlertAdd extends Component {
         this.setState({
           processData: res.data,
         });
-
         console.log(this.state.processData);
       })
       .catch((err) => {
@@ -147,6 +146,7 @@ export default class AlertAdd extends Component {
                 <td style={{ width: "100px" }}>과정명</td>
                 <td align="left">
                   <Select
+                    value={this.state.memo_process_num}
                     onChange={this.onKeyChange.bind(this)}
                     name="memo_process_num"
                   >

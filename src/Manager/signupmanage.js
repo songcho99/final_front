@@ -202,12 +202,14 @@ class signupmanage extends Component {
                 <td>{item.processapply_member_email}</td>
                 <td>{item.processapply_process_subject}</td>
                 <td>
-                  <span
-                    style={{ cursor: "pointer" }}
-                    onClick={this.detailInfo.bind(this, item)}
-                  >
-                    확인
-                  </span>
+                  {item.processapply_acceptreason === "" && (
+                    <span
+                      style={{ cursor: "pointer" }}
+                      onClick={this.detailInfo.bind(this, item)}
+                    >
+                      확인
+                    </span>
+                  )}
                 </td>
               </tr>
             ))}
