@@ -16,11 +16,18 @@ const styles = (theme) => ({
 const uploadFiles = [];
 
 class WriteData extends Component {
-  state = {
-    classdata_subject: '',
-    classdata_content: '',
-    uploadlength: 0
+  constructor({ match }) {
+    super();
+    this.process_num = match.params.process_num;
+    this.state = {
+
+      classdata_subject: '',
+      classdata_content: '',
+      uploadlength: 0
+
+    }
   }
+
   static propTypes = {
     classes: PropTypes.object.isRequired
   };
@@ -67,6 +74,7 @@ class WriteData extends Component {
       data.append('classdata_files', document.getElementById('icon-button-photo').files[i]);
     }
     data.append('classdata_member_num', localStorage.num)
+    data.append('classdata_processclass_num', this.process_num)
     data.append('classdata_writer', localStorage.name)
     let url = "http://localhost:8000/project/classdata/insertclassdata";
     axios.post(url, data)
@@ -77,7 +85,7 @@ class WriteData extends Component {
           title: '작성 완료',
           text: '수업자료 작성이 완료되었습니다',
         }).then((result) => {
-          window.location.href = "/classdata";
+          window.location.href = "/classdata/" + this.process_num;
         })
       }).catch(err => {
         console.log("업로드 오류: " + err)

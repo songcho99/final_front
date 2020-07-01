@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 
 class ClassPage extends Component {
@@ -7,6 +7,7 @@ class ClassPage extends Component {
     super(props);
 
     this.state = {
+      process_num: 0,
       subject: "",
       teachername: "",
       manager: "",
@@ -34,6 +35,7 @@ class ClassPage extends Component {
       .then((res) => {
         console.log(res.data);
         this.setState({
+          process_num: res.data.process_num,
           subject: res.data.process_subject,
           teachername: res.data.process_teachername,
           manager: res.data.process_writer,
@@ -72,9 +74,9 @@ class ClassPage extends Component {
           <button>수업 자료</button>
         </Link>{" "}
         &nbsp;&nbsp;
-        <Link to="/classdata">
+        <NavLink exact to={"/classdata/" + this.state.process_num}>
           <button>수업 자료</button>
-        </Link>{" "}
+        </NavLink>{" "}
         &nbsp;&nbsp;
         <Link to="/mynote">
           <button>내 일일노트</button>
