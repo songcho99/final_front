@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
@@ -43,6 +43,7 @@ export default class AlertUpdate extends Component {
     formdata.append("memo_process_num", this.state.memo_process_num);
     formdata.append("memo_file", this.state.uploadFile[0]);
     formdata.append("memo_filename", this.state.memo_filename);
+
     axios
       .post(url, formdata)
       .then((res) => {})
@@ -138,8 +139,9 @@ export default class AlertUpdate extends Component {
           />
           <table style={tableStyle} align="center">
             <caption style={{ textAlign: "right", marginBottom: "10px" }}>
-              <Link
-                to="/noticelist"
+              <NavLink
+                exact
+                to={"/AlertList/" + this.state.memo_process_num}
                 style={{
                   textDecoration: "none",
                 }}
@@ -147,7 +149,7 @@ export default class AlertUpdate extends Component {
                 <button type="button" style={buttonStyle}>
                   <i className="fas fa-bars"></i>&nbsp;&nbsp; 목록
                 </button>
-              </Link>
+              </NavLink>
             </caption>
             <tbody>
               <tr style={trStyle}>
