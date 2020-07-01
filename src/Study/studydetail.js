@@ -461,7 +461,7 @@ export default function StudyDetail(props) {
             <tbody>
               <tr style={trStyle}>
                 <td style={{ fontSize: "30px", paddingBottom: "20px" }}>
-                  [<b>{studydata.study_type}</b>]&nbsp;{studydata.study_subject}
+                  [{studydata.study_type}]&nbsp;{studydata.study_subject}
                 </td>
               </tr>
               <tr style={trStyle}>

@@ -357,7 +357,7 @@ export default function StudyList(props) {
             마이 스터디
           </Button>
         )}
-        {localStorage.type === "수강생" && (
+        {(localStorage.type !== "매니저" || localStorage.type !== "강사") && (
           <Button variant="outlined" color="primary" href="/mystudymain">
             마이 스터디
           </Button>

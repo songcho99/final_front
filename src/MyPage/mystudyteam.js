@@ -19,6 +19,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ClearIcon from "@material-ui/icons/Clear";
 import Swal from "sweetalert2";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import studyimg from "../Study/study.jpg";
 
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
@@ -106,6 +107,7 @@ export default function MyStudyTeam(props) {
   const [replylist, setReplyList] = React.useState([]);
   const [file_num, setFileNum] = React.useState(0);
   const [updatefilecount, setUpdateFileCount] = React.useState(0);
+  const [feedsubject, setFeedsubject] = React.useState("");
 
   const handleContentChange = (event) => {
     setStudyFeedContent(event.target.value);
@@ -130,6 +132,7 @@ export default function MyStudyTeam(props) {
       .then((res) => {
         setStudyMemberCount(res.data.membercount);
         setStudyMemberList(res.data.memberlist);
+        setFeedsubject(res.data.subject);
       })
       .catch((err) => {
         console.log(err);
@@ -360,331 +363,443 @@ export default function MyStudyTeam(props) {
   useEffect(() => {
     getStudyMember();
   }, []);
-
+  const backimage = {
+    width: "100%",
+    height: "500px",
+    backgroundImage: `url(${studyimg})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100% 500px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  };
+  const tableStyle = {
+    textAlign: "center",
+    fontSize: "15px",
+    width: "230px",
+    border: "0px",
+    borderCollapse: "collapse",
+    borderTop: "1px solid #D5D5D5",
+    marginTop: 20,
+  };
+  const tableStyle1 = {
+    textAlign: "center",
+    fontSize: "16px",
+    width: "750px",
+    border: "0px",
+    borderCollapse: "collapse",
+    borderTop: "0px solid #D5D5D5",
+    marginTop: 20,
+  };
+  const trStyle = {
+    //borderBottom: "1px solid #D5D5D5",
+    height: "40px",
+  };
+  const trStyle1 = {
+    borderBottom: "1px solid #D5D5D5",
+    height: "40px",
+  };
   if (!itemCount) return null;
   return (
-    <div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <div style={{ float: "left" }}>
+    <div
+      style={{ textAlign: "center", backgroundColor: "#F6F6F6" }}
+      aling="center"
+    >
+      <div style={{ paddingTop: "115px" }}></div>
+      <div style={backimage}>
+        <span style={{ fontSize: "70px", color: "white" }}>
+          IT Campus Study
+        </span>
         <br />
-        <div style={{ marginLeft: "400px", width: "750px" }}>
+        <span style={{ fontSize: "18px", color: "white" }}>
+          IT Campus Study
+        </span>
+      </div>
+      <div style={{ paddingTop: "100px" }}></div>
+      <span style={{ fontSize: "40px" }}>{feedsubject}</span>
+      <div style={{ paddingTop: "80px" }}></div>
+      <div style={{ display: "inline-block" }}>
+        {/* 피드 */}
+        <div
+          style={{
+            border: "0px solid gray",
+            width: 800,
+            height: "auto",
+            float: "left",
+            backgroundColor: "white",
+          }}
+        >
+          <div style={{ paddingTop: "30px" }}></div>
+          {/* 피드 작성 */}
           <form onSubmit={onSubmit}>
-            <TextField
-              id="outlined-multiline-static"
-              label="내용"
-              multiline
-              rows={5}
-              style={{ width: "650px" }}
-              variant="outlined"
-              onChange={handleContentChange}
-            />
-            <br />
-            <br />
-            <div>
-              <input
-                style={{ display: "none" }}
-                id="contained-button-file"
-                multiple
-                onChange={handleFileChange}
-                type="file"
-              />
-              <label htmlFor="contained-button-file">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  component="span"
-                  size="small"
-                >
-                  파일 선택
-                </Button>
-                &nbsp;
-                {filecount !== 0 ? filecount + " 개 첨부됨" : ""}
-              </label>
-            </div>
-            <Button
-              variant="text"
-              color="primary"
-              type="submit"
-              style={{ marginLeft: "570px", fontSize: "12pt" }}
-            >
-              작성
-            </Button>
-          </form>
-          <hr style={{ width: "650px", marginRight: "100px" }} />
-          <Typography variant="h6">{"피드 " + feedlist.length}</Typography>
-          {feedlist.map((row, idx) => (
-            <Feed style={{ overflowX: "hidden" }} id={"feedcontent" + idx}>
-              <Feed.Event id={"feed" + idx}>
-                <Avatar
-                  alt={row.member_name}
-                  style={{ float: "left" }}
-                  src={
-                    "http://localhost:8000/project/uploadfile/" +
-                    row.member_profile
-                  }
-                  className={avatarclasses.small}
-                />
-                <Feed.Content>
-                  <Feed.Summary>
-                    {row.member_name}
-                    <Feed.Date>
-                      {new Date(row.studyfeed_writeday).toLocaleDateString()}
-                    </Feed.Date>
-                    {localStorage.num == row.studyfeed_member_num ? (
-                      <span style={{ marginLeft: "450px" }}>
-                        <CreateIcon
-                          style={{ color: "gray", cursor: "pointer" }}
-                          onClick={(event) => {
-                            getUpdateForm(event, idx);
-                          }}
-                        />
-                        &nbsp;&nbsp;
-                        <DeleteOutlineIcon
-                          style={{ color: "gray", cursor: "pointer" }}
-                          onClick={(event) => {
-                            onDeleteFeed(event, idx, row.studyfeed_num);
-                          }}
-                        />
-                      </span>
-                    ) : (
-                      ""
-                    )}
-                  </Feed.Summary>
-                  <Feed.Extra text>{row.studyfeed_content}</Feed.Extra>
-                  &nbsp;&nbsp;
-                  <Button
-                    variant="text"
-                    color="primary"
-                    type="submit"
-                    size="small"
-                    style={{ marginLeft: "480px" }}
-                    onClick={() => {
-                      getFileList(row.studyfeed_num);
-                    }}
-                  >
-                    첨부파일
-                  </Button>
-                  {filelist.map((ele, i) => (
-                    <Typography variant="body1">
-                      {row.studyfeed_num === file_num ? ele : ""}
-                    </Typography>
-                  ))}
-                </Feed.Content>
-              </Feed.Event>
-              <form
-                onSubmit={(event) => {
-                  onUpdateSubmit(event, row.studyfeed_num);
-                }}
-                style={{ display: "none" }}
-                id={"update" + idx}
-              >
-                <ArrowBackIcon
-                  style={{ color: "gray", cursor: "pointer" }}
-                  onClick={(event) => {
-                    getFeedForm(event, idx);
-                  }}
-                />
-                <br />
-                <TextField
-                  id="outlined-multiline-static"
-                  label="내용"
-                  multiline
-                  rows={5}
-                  style={{ width: "650px" }}
-                  variant="outlined"
-                  onChange={handleContentChange}
-                  defaultValue={row.studyfeed_content}
-                />
-                <br />
-                <br />
-
-                <div>
-                  <input
-                    style={{ display: "none" }}
-                    id="contained-button-updatefile"
-                    multiple
-                    onChange={handleUpdateFileChange}
-                    type="file"
-                  />
-                  <label htmlFor="contained-button-updatefile">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      component="span"
-                      size="small"
-                    >
-                      파일 선택
-                    </Button>
-                    &nbsp;
-                    {updatefilecount !== 0
-                      ? updatefilecount + " 개 첨부됨"
-                      : ""}
-                    <br />
+            <table style={tableStyle1} align="center">
+              <tbody>
+                <tr>
+                  <td colSpan="2">
+                    <TextField
+                      id="outlined-multiline-static"
+                      label="내용을 입력하세요."
+                      multiline
+                      rows={5}
+                      style={{ width: "750px" }}
+                      variant="outlined"
+                      onChange={handleContentChange}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ textAlign: "left" }}>
+                    <label htmlFor="contained-button-file">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        component="span"
+                        size="small"
+                      >
+                        파일 선택
+                      </Button>
+                      &nbsp;
+                      {filecount !== 0 ? filecount + " 개 첨부됨" : ""}
+                    </label>
+                    <input
+                      style={{ display: "none" }}
+                      id="contained-button-file"
+                      multiple
+                      onChange={handleFileChange}
+                      type="file"
+                    />
+                  </td>
+                  <td style={{ textAlign: "right" }}>
                     <Button
                       variant="text"
                       color="primary"
-                      size="small"
-                      style={{ marginLeft: "480px" }}
-                      onClick={() => {
-                        getFileList(row.studyfeed_num);
-                      }}
+                      type="submit"
+                      style={{ fontSize: "18px" }}
                     >
-                      파일 내역
+                      <i className="fas fa-pencil-alt"></i>
                     </Button>
-                  </label>
-                  {filelist.map((ele, i) => (
-                    <Typography variant="body1">
-                      {row.studyfeed_num === file_num ? (
-                        <span id={"file" + i}>
-                          {ele}
-                          <ClearIcon
-                            style={{
-                              cursor: "pointer",
-                              paddingTop: "10px",
-                              color: "red",
-                            }}
+                  </td>
+                </tr>
+                <tr style={trStyle1}>
+                  <td
+                    colSpan="2"
+                    style={{
+                      textAlign: "left",
+                      paddingTop: "20px",
+                      paddingBottom: "10px",
+                    }}
+                  >
+                    {"피드 (" + feedlist.length + ")"}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+          <table style={tableStyle1} align="center">
+            <tbody>
+              {feedlist.map((row, idx) => (
+                <tr key={idx}>
+                  <td colSpan="2">
+                    <Feed
+                      style={{ overflowX: "hidden" }}
+                      id={"feedcontent" + idx}
+                    >
+                      <Feed.Event id={"feed" + idx}>
+                        <Avatar
+                          alt={row.member_name}
+                          src={
+                            "http://localhost:8000/project/uploadfile/" +
+                            row.member_profile
+                          }
+                          className={avatarclasses.small}
+                        />
+                        <Feed.Content>
+                          <Feed.Summary>
+                            {row.member_name}
+                            <Feed.Date>
+                              {new Date(
+                                row.studyfeed_writeday
+                              ).toLocaleDateString()}
+                            </Feed.Date>
+                            {localStorage.num == row.studyfeed_member_num ? (
+                              <span style={{ marginLeft: 550 }} align="right">
+                                <CreateIcon
+                                  style={{ color: "gray", cursor: "pointer" }}
+                                  onClick={(event) => {
+                                    getUpdateForm(event, idx);
+                                  }}
+                                />
+                                &nbsp;&nbsp;
+                                <DeleteOutlineIcon
+                                  style={{ color: "gray", cursor: "pointer" }}
+                                  onClick={(event) => {
+                                    onDeleteFeed(event, idx, row.studyfeed_num);
+                                  }}
+                                />
+                              </span>
+                            ) : (
+                              ""
+                            )}
+                          </Feed.Summary>
+                          <Feed.Extra text>{row.studyfeed_content}</Feed.Extra>
+                          &nbsp;&nbsp;
+                          <Button
+                            variant="text"
+                            color="primary"
+                            type="button"
+                            size="small"
+                            style={{ textAlign: "right" }}
+                            align="right"
                             onClick={() => {
-                              handleFileDelete(ele, i);
+                              getFileList(row.studyfeed_num);
                             }}
+                          >
+                            첨부파일
+                          </Button>
+                          {filelist.map((ele, i) => (
+                            <Typography variant="body1">
+                              {row.studyfeed_num === file_num ? ele : ""}
+                            </Typography>
+                          ))}
+                        </Feed.Content>
+                      </Feed.Event>
+                      <form
+                        onSubmit={(event) => {
+                          onUpdateSubmit(event, row.studyfeed_num);
+                        }}
+                        style={{ display: "none" }}
+                        id={"update" + idx}
+                      >
+                        <ArrowBackIcon
+                          style={{ color: "gray", cursor: "pointer" }}
+                          onClick={(event) => {
+                            getFeedForm(event, idx);
+                          }}
+                        />
+                        <br />
+                        <TextField
+                          id="outlined-multiline-static"
+                          label="내용"
+                          multiline
+                          rows={5}
+                          style={{ width: "650px" }}
+                          variant="outlined"
+                          onChange={handleContentChange}
+                          defaultValue={row.studyfeed_content}
+                        />
+                        <br />
+                        <br />
+                        <div>
+                          <input
+                            style={{ display: "none" }}
+                            id="contained-button-updatefile"
+                            multiple
+                            onChange={handleUpdateFileChange}
+                            type="file"
                           />
-                        </span>
-                      ) : (
-                        ""
-                      )}
-                    </Typography>
-                  ))}
-                </div>
-                <Button
-                  variant="text"
-                  color="primary"
-                  type="submit"
-                  style={{ marginLeft: "570px", fontSize: "12pt" }}
-                >
-                  수정
-                </Button>
-              </form>
-              <Header
-                as="h3"
-                dividing
-                style={{ width: "650px", cursor: "pointer" }}
-                onClick={(e) => {
-                  getReplyList(e.target);
-                }}
-              >
-                댓글
-              </Header>
-
-              <Comment.Group
-                id={"reply" + row.studyfeed_num}
-                key={idx}
-                style={{ display: "none" }}
-              >
-                {replylist.map((ele, i) =>
-                  ele.reply_studyfeed_num === row.studyfeed_num ? (
-                    <Comment id={"comment" + i}>
-                      <Avatar
-                        alt={ele.member_name}
-                        style={{ float: "left" }}
-                        src={
-                          "http://localhost:8000/project/uploadfile/" +
-                          ele.member_profile
-                        }
-                        className={avatarclasses.small}
-                      />
-                      <Comment.Content>
-                        <Comment.Author as="a">
-                          {ele.member_name}
-                        </Comment.Author>
-                        <Comment.Metadata>
-                          <div>
-                            {new Date(ele.reply_writeday).toLocaleDateString()}
-                          </div>
-                          {ele.reply_member_num == localStorage.num ? (
-                            <HighlightOffIcon
-                              style={{ marginLeft: "450px", cursor: "pointer" }}
+                          <label htmlFor="contained-button-updatefile">
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              component="span"
+                              size="small"
+                            >
+                              파일 선택
+                            </Button>
+                            &nbsp;
+                            {updatefilecount !== 0
+                              ? updatefilecount + " 개 첨부됨"
+                              : ""}
+                            <br />
+                            <Button
+                              variant="text"
+                              color="primary"
+                              size="small"
+                              style={{ marginLeft: "480px" }}
                               onClick={() => {
-                                onDeleteComment(ele.reply_num, i);
+                                getFileList(row.studyfeed_num);
                               }}
-                            />
+                            >
+                              파일 내역
+                            </Button>
+                          </label>
+                          {filelist.map((ele, i) => (
+                            <Typography variant="body1">
+                              {row.studyfeed_num === file_num ? (
+                                <span id={"file" + i}>
+                                  {ele}
+                                  <ClearIcon
+                                    style={{
+                                      cursor: "pointer",
+                                      paddingTop: "10px",
+                                      color: "red",
+                                      textAlign: "right",
+                                    }}
+                                    onClick={() => {
+                                      handleFileDelete(ele, i);
+                                    }}
+                                  />
+                                </span>
+                              ) : (
+                                ""
+                              )}
+                            </Typography>
+                          ))}
+                        </div>
+                        <Button
+                          variant="text"
+                          color="primary"
+                          type="submit"
+                          style={{ textAlign: "right", fontSize: "12pt" }}
+                        >
+                          수정
+                        </Button>
+                      </form>
+                      <Header
+                        as="h3"
+                        dividing
+                        style={{
+                          cursor: "pointer",
+                          textAlign: "left",
+                          fontSize: "12px",
+                        }}
+                        onClick={(e) => {
+                          getReplyList(e.target);
+                        }}
+                      >
+                        댓글
+                      </Header>
+
+                      <Comment.Group
+                        id={"reply" + row.studyfeed_num}
+                        key={idx}
+                        style={{ display: "none" }}
+                      >
+                        {replylist.map((ele, i) =>
+                          ele.reply_studyfeed_num === row.studyfeed_num ? (
+                            <Comment id={"comment" + i}>
+                              <Avatar
+                                alt={ele.member_name}
+                                style={{ float: "left" }}
+                                src={
+                                  "http://localhost:8000/project/uploadfile/" +
+                                  ele.member_profile
+                                }
+                                className={avatarclasses.small}
+                              />
+                              <Comment.Content>
+                                <Comment.Author as="a">
+                                  {ele.member_name}
+                                </Comment.Author>
+                                <Comment.Metadata>
+                                  <div>
+                                    {new Date(
+                                      ele.reply_writeday
+                                    ).toLocaleDateString()}
+                                  </div>
+                                  {ele.reply_member_num == localStorage.num ? (
+                                    <HighlightOffIcon
+                                      style={{
+                                        marginLeft: "450px",
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={() => {
+                                        onDeleteComment(ele.reply_num, i);
+                                      }}
+                                    />
+                                  ) : (
+                                    ""
+                                  )}
+                                </Comment.Metadata>
+                                <Comment.Text>{ele.reply_content}</Comment.Text>
+                              </Comment.Content>
+                            </Comment>
                           ) : (
                             ""
-                          )}
-                        </Comment.Metadata>
-                        <Comment.Text>{ele.reply_content}</Comment.Text>
-                      </Comment.Content>
-                    </Comment>
-                  ) : (
-                    ""
-                  )
+                          )
+                        )}
+                        <Form
+                          reply
+                          onSubmit={(event) => {
+                            onCommentSubmit(event, row.studyfeed_num);
+                          }}
+                        >
+                          <Form.TextArea
+                            style={{ height: "100px", width: "650px" }}
+                            onChange={handleReplyContentChange}
+                          />
+                          <SemanticButton
+                            content="댓글 작성"
+                            labelPosition="left"
+                            icon="edit"
+                            primary
+                            type="submit"
+                            style={{ marginLeft: "509.8px" }}
+                          />
+                        </Form>
+                      </Comment.Group>
+                    </Feed>
+                  </td>
+                </tr>
+              ))}
+              <br />
+              <div ref={setRef} className="Loading">
+                {isLoading && (
+                  <div style={{ marginLeft: "280px" }}>
+                    <BeatLoader color="#5AAEFF" />
+                  </div>
                 )}
-                <Form
-                  reply
-                  onSubmit={(event) => {
-                    onCommentSubmit(event, row.studyfeed_num);
-                  }}
-                >
-                  <Form.TextArea
-                    style={{ height: "100px", width: "650px" }}
-                    onChange={handleReplyContentChange}
-                  />
-                  <SemanticButton
-                    content="댓글 작성"
-                    labelPosition="left"
-                    icon="edit"
-                    primary
-                    type="submit"
-                    style={{ marginLeft: "509.8px" }}
-                  />
-                </Form>
-              </Comment.Group>
-            </Feed>
-          ))}
-          <br />
-          <div ref={setRef} className="Loading">
-            {isLoading && (
-              <div style={{ marginLeft: "280px" }}>
-                <BeatLoader color="#5AAEFF" />
               </div>
-            )}
-          </div>
-          <br />
-          <br />
+            </tbody>
+          </table>
+        </div>
+        <div
+          style={{ border: "1px solid #F6F6F6", width: 30, float: "left" }}
+        ></div>
+        {/* 참여중인 인원 */}
+        <div
+          style={{
+            border: "0px solid gray",
+            width: 250,
+            height: 400,
+            float: "left",
+            backgroundColor: "white",
+          }}
+        >
+          <table style={tableStyle} align="center">
+            <caption
+              style={{
+                textAlign: "left",
+                fontSize: "18px",
+                marginBottom: "10px",
+              }}
+            >
+              <b>참여중인 인원({studymembercount})</b>
+            </caption>
+            <tbody>
+              {studymemberlist.map((row, idx) => (
+                <tr key={idx} style={trStyle}>
+                  <Avatar
+                    alt={row.member_name}
+                    src={
+                      "http://localhost:8000/project/uploadfile/" +
+                      row.member_profile
+                    }
+                    style={{ float: "left" }}
+                    className={avatarclasses.large}
+                  >
+                    {row.member_name}
+                  </Avatar>
+                  <br />
+                  {row.member_name}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
-      <div className={paperClasses.root}>
-        <Paper>
-          <Typography style={{ fontWeight: "bold", fontSize: "14pt" }}>
-            참여 중인 인원({studymembercount})
-          </Typography>
-          {studymemberlist.map((row, idx) => (
-            <div key={idx}>
-              <Avatar
-                alt={row.member_name}
-                src={
-                  "http://localhost:8000/project/uploadfile/" +
-                  row.member_profile
-                }
-                style={{ float: "left" }}
-                className={avatarclasses.large}
-              >
-                {row.member_name}
-              </Avatar>
-              <br />
-              {row.member_name}
-              <br />
-              <br />
-              <br />
-            </div>
-          ))}
-          <br />
-        </Paper>
-      </div>
+      <div style={{ paddingTop: "100px" }}></div>
     </div>
   );
 }

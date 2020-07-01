@@ -19,6 +19,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Axios from "axios";
 import MyPageMenu from "./mypagemenu";
 import Swal from "sweetalert2";
+import studyimg from "../Study/study.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,6 +70,9 @@ export default function MyStudyMain(props) {
   const modalClasses = modalStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+  const [expanded1, setExpanded1] = React.useState("panel1");
+  const [expanded2, setExpanded2] = React.useState("panel2");
+  const [expanded3, setExpanded3] = React.useState("panel3");
 
   const modal = (
     <div style={modalStyle} className={modalClasses.paper}>
@@ -142,6 +146,15 @@ export default function MyStudyMain(props) {
       </TableContainer>
     </div>
   );
+  const handlePanelChange1 = (panel) => (event, newExpanded) => {
+    setExpanded1(newExpanded ? panel : false);
+  };
+  const handlePanelChange2 = (panel) => (event, newExpanded) => {
+    setExpanded2(newExpanded ? panel : false);
+  };
+  const handlePanelChange3 = (panel) => (event, newExpanded) => {
+    setExpanded3(newExpanded ? panel : false);
+  };
 
   const handleOpen = () => {
     setOpen(true);
@@ -278,19 +291,43 @@ export default function MyStudyMain(props) {
     getMyApplyList();
     getStudyFounder();
   }, []);
-
+  const backimage = {
+    width: "100%",
+    height: "500px",
+    backgroundImage: `url(${studyimg})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100% 500px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  };
   return (
-    <div>
+    <div style={{ textAlign: "center" }} aling="center">
+      <div style={{ paddingTop: "115px" }}></div>
+      <div style={backimage}>
+        <span style={{ fontSize: "70px", color: "white" }}>
+          IT Campus Study
+        </span>
+        <br />
+        <span style={{ fontSize: "18px", color: "white" }}>
+          IT Campus Study
+        </span>
+      </div>
+      <div style={{ paddingTop: "100px" }}></div>
+      <span style={{ fontSize: "40px" }}>마이 스터디</span>
       <br />
       <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      <span style={{ fontSize: "18px" }}>
+        IT Campus의 소속된 스터디 모임을 확인 할 수 있습니다.
+      </span>
+      <div style={{ paddingTop: "100px" }}></div>
       <div style={{ marginLeft: "350px" }}>
-        <ExpansionPanel className={classes.root}>
+        <ExpansionPanel
+          className={classes.root}
+          expanded={expanded1 === "panel1"}
+          onChange={handlePanelChange1("panel1")}
+        >
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -364,7 +401,11 @@ export default function MyStudyMain(props) {
           {modal}
         </Modal>
         <br />
-        <ExpansionPanel className={classes.root}>
+        <ExpansionPanel
+          className={classes.root}
+          expanded={expanded2 === "panel2"}
+          onChange={handlePanelChange2("panel2")}
+        >
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -429,7 +470,11 @@ export default function MyStudyMain(props) {
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <br />
-        <ExpansionPanel className={classes.root}>
+        <ExpansionPanel
+          className={classes.root}
+          expanded={expanded3 === "panel3"}
+          onChange={handlePanelChange3("panel3")}
+        >
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -495,6 +540,7 @@ export default function MyStudyMain(props) {
         </ExpansionPanel>
         <br />
       </div>
+      <div style={{ paddingTop: "100px" }}></div>
     </div>
   );
 }
