@@ -210,12 +210,15 @@ class Notice_Detail extends Component {
                 style={{ paddingTop: "10px", paddingBottom: "10px" }}
               >
                 {this.state.noticefile.map((item, idx) => (
-                  <span key={idx}>
-                    <span
-                      style={{ cursor: "pointer" }}
-                      onClick={this.downloadFile.bind(this, item)}
-                    >
-                      {item}
+                  <span>
+                    <span key={idx}>
+                      <a
+                        alt=""
+                        href={`http://localhost:8000/project/uploadfile/${item}`}
+                        download
+                      >
+                        {item}
+                      </a>
                     </span>
                     <br />
                   </span>

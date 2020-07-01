@@ -217,17 +217,6 @@ class classnote extends Component {
           name="classcontent"
           onChange={this.updateContent.bind(this)}
         /> */}
-
-        <h3>메모</h3>
-        <form onSubmit={this.memoSave.bind(this)}>
-          <textarea
-            name="memocontent"
-            value={this.state.memocontent}
-            onChange={this.updateMemo.bind(this)}
-          ></textarea>
-          <br />
-          <button type="submit">메모 저장</button>
-        </form>
         <hr />
         <Link to="/">
           <button>홈으로</button>

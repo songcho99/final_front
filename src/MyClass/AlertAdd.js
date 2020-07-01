@@ -118,7 +118,7 @@ export default class AlertAdd extends Component {
             <caption style={{ textAlign: "right", marginBottom: "10px" }}>
               <NavLink
                 exact
-                to={"/mynote/" + this.state.memo_process_num}
+                to={"/AlertList/" + this.state.memo_process_num}
                 style={{
                   textDecoration: "none",
                 }}
