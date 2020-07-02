@@ -54,6 +54,19 @@ class classnote extends Component {
   classSave = (e) => {
     e.preventDefault();
 
+    if (this.state.classcontent.indexOf("<img") > 0) {
+      Swal.fire({
+        icon: "error",
+        title: "강의 저장 실패!",
+        text: "사진을 같이 저장할 수 없습니다!, tomcat 헤드 에러",
+      }).then((res) => {
+        if (res) {
+          return false;
+        }
+      });
+      return false;
+    }
+
     let str = this.state.classcontent.replace(/</g, "*");
     const str2 = str.replace(/>/g, "@");
     console.log("str2:" + str2);
